@@ -1,0 +1,230 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "10.0.6")
+	(uuid "3d3ee743-797d-5481-a518-f87a3584d0e2")
+	(paper "A4")
+	(title_block
+		(title "IMU-to-TTL board")
+		(date "2026-09-16")
+		(rev "v1.0")
+		(company "IMU-to-TTL")
+		(comment 1 "Feetech TTL slave ID 200 + trunk power hub for MicroDuck HD-1910 build")
+	)
+	(sheet
+		(at 50 50)
+		(size 63.5 44.45)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "b90fe5c0-5dba-508d-a7d0-e14a681a083e")
+		(property "Sheetname" "Power & Protection"
+			(at 50.63 49.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "01_power.kicad_sch"
+			(at 50.63 95.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/b90fe5c0-5dba-508d-a7d0-e14a681a083e"
+					(page "1")
+				)
+			)
+		)
+	)
+
+	(sheet
+		(at 50 100)
+		(size 63.5 44.45)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "7412a008-0249-511c-8f71-076f57c08c19")
+		(property "Sheetname" "MCU & Debug"
+			(at 50.63 99.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "02_mcu.kicad_sch"
+			(at 50.63 145.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/7412a008-0249-511c-8f71-076f57c08c19"
+					(page "1")
+				)
+			)
+		)
+	)
+
+	(sheet
+		(at 50 150)
+		(size 63.5 44.45)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "8120c617-191d-5470-8628-8f3c55170c47")
+		(property "Sheetname" "IMU"
+			(at 50.63 149.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "03_imu.kicad_sch"
+			(at 50.63 195.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/8120c617-191d-5470-8628-8f3c55170c47"
+					(page "1")
+				)
+			)
+		)
+	)
+
+	(sheet
+		(at 50 200)
+		(size 63.5 44.45)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "fdb1a352-2feb-52d4-8282-cb48e1edb94e")
+		(property "Sheetname" "TTL Bus AUTO"
+			(at 50.63 199.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "04_bus.kicad_sch"
+			(at 50.63 245.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/fdb1a352-2feb-52d4-8282-cb48e1edb94e"
+					(page "1")
+				)
+			)
+		)
+	)
+
+	(sheet
+		(at 50 250)
+		(size 63.5 44.45)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "d10532dc-e93c-5500-9b16-6fc2a6d8f858")
+		(property "Sheetname" "Connectors & Test"
+			(at 50.63 249.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "05_connectors.kicad_sch"
+			(at 50.63 295.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/d10532dc-e93c-5500-9b16-6fc2a6d8f858"
+					(page "1")
+				)
+			)
+		)
+	)
+
+	(embedded_fonts no)
+)

@@ -1,0 +1,363 @@
+(kicad_symbol_lib
+	(version 20231124)
+	(generator "kicad_symbol_editor")
+(symbol "LSM6DSV16X"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "U"
+			(at -12.7 16.51 0)
+			(effects (font (size 1.27 1.27)) (justify left))
+		)
+		(property "Value" "LSM6DSV16XTR"
+			(at -12.7 13.97 0)
+			(effects (font (size 1.27 1.27)) (justify left bottom))
+		)
+		(property "Footprint" "imu_ttl:ST_LGA14_3x2.5_P0.5_LSM6DSV16X_TN0018"
+			(at 0 -17.78 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "https://www.st.com/resource/en/datasheet/lsm6dsv16x.pdf"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" "LSM6DSV16X 6-axis IMU with SFLP; exact Microduck body IMU interface requirement"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "MPN" "LSM6DSV16XTR"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(symbol "LSM6DSV16X_0_1"
+			(rectangle
+				(start -12.7 12.7)
+				(end 12.7 -12.7)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "LSM6DSV16X_1_1"
+			(pin bidirectional line
+				(at -15.24 7.62 0) (length 2.54)
+				(name "SDO/SA0" (effects (font (size 1.27 1.27))))
+				(number "1" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -15.24 5.08 0) (length 2.54)
+				(name "SDx/AH1/Qvar1" (effects (font (size 1.27 1.27))))
+				(number "2" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -15.24 2.54 0) (length 2.54)
+				(name "SCx/AH2/Qvar2" (effects (font (size 1.27 1.27))))
+				(number "3" (effects (font (size 1.27 1.27))))
+			)
+			(pin output line
+				(at 15.24 7.62 180) (length 2.54)
+				(name "INT1" (effects (font (size 1.27 1.27))))
+				(number "4" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_in line
+				(at 0 15.24 270) (length 2.54)
+				(name "VDD_IO" (effects (font (size 1.27 1.27))))
+				(number "5" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_in line
+				(at 0 -15.24 90) (length 2.54)
+				(name "GND" (effects (font (size 1.27 1.27))))
+				(number "6" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_in line
+				(at 0 -15.24 90) (length 2.54) (hide yes)
+				(name "GND" (effects (font (size 1.27 1.27))))
+				(number "7" (effects (font (size 1.27 1.27))))
+			)
+			(pin power_in line
+				(at 2.54 15.24 270) (length 2.54)
+				(name "VDD" (effects (font (size 1.27 1.27))))
+				(number "8" (effects (font (size 1.27 1.27))))
+			)
+			(pin output line
+				(at 15.24 5.08 180) (length 2.54)
+				(name "INT2" (effects (font (size 1.27 1.27))))
+				(number "9" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at 15.24 -5.08 180) (length 2.54)
+				(name "OCS_Aux" (effects (font (size 1.27 1.27))))
+				(number "10" (effects (font (size 1.27 1.27))))
+			)
+			(pin output line
+				(at 15.24 -2.54 180) (length 2.54)
+				(name "SDO_Aux" (effects (font (size 1.27 1.27))))
+				(number "11" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at -15.24 -7.62 0) (length 2.54)
+				(name "CS" (effects (font (size 1.27 1.27))))
+				(number "12" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at -15.24 -5.08 0) (length 2.54)
+				(name "SCL/SPC" (effects (font (size 1.27 1.27))))
+				(number "13" (effects (font (size 1.27 1.27))))
+			)
+			(pin bidirectional line
+				(at -15.24 -2.54 0) (length 2.54)
+				(name "SDA/SDI" (effects (font (size 1.27 1.27))))
+				(number "14" (effects (font (size 1.27 1.27))))
+			)
+		)
+		(embedded_fonts no)
+	)
+
+	(symbol "JST_PH_B3B_3P"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 3.81 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "B3B-PH-K-S"
+			(at 0 -3.81 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "https://www.jst-mfg.com/product/detail_e.php?series=199"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" "Feetech HD-1910 bus connector PH 2.0mm: 1=SIG 2=VCC 3=GND"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(symbol "JST_PH_B3B_3P_0_1"
+			(rectangle
+				(start -3.81 2.54)
+				(end 3.81 -2.54)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+			(polyline
+				(pts (xy -3.81 2.54) (xy -3.81 -2.54))
+				(stroke (width 0.254) (type default))
+				(fill (type none))
+			)
+		)
+		(symbol "JST_PH_B3B_3P_1_1"
+			(pin passive line
+				(at -7.62 1.27 0) (length 3.81)
+				(name "SIG" (effects (font (size 1.27 1.27))))
+				(number "1" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -7.62 0 0) (length 3.81)
+				(name "VCC" (effects (font (size 1.27 1.27))))
+				(number "2" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -7.62 -1.27 0) (length 3.81)
+				(name "GND" (effects (font (size 1.27 1.27))))
+				(number "3" (effects (font (size 1.27 1.27))))
+			)
+		)
+		(embedded_fonts no)
+	)
+
+	(symbol "SWD_Header_7P"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 3.81 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "SWD+UART+NRST 7P"
+			(at 0 -3.81 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x07_P2.54mm_Vertical"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" "Debug: 1=GND 2=SWCLK 3=SWDIO 4=UART_TX 5=UART_RX 6=+3V3 7=NRST"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(symbol "SWD_Header_7P_0_1"
+			(rectangle
+				(start -2.54 8.89)
+				(end 2.54 -8.89)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "SWD_Header_7P_1_1"
+			(pin passive line
+				(at -7.62 7.62 0) (length 5.08)
+				(name "GND" (effects (font (size 1.27 1.27))))
+				(number "1" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -7.62 5.08 0) (length 5.08)
+				(name "SWCLK" (effects (font (size 1.27 1.27))))
+				(number "2" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -7.62 2.54 0) (length 5.08)
+				(name "SWDIO" (effects (font (size 1.27 1.27))))
+				(number "3" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -7.62 0 0) (length 5.08)
+				(name "UART_TX" (effects (font (size 1.27 1.27))))
+				(number "4" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -7.62 -2.54 0) (length 5.08)
+				(name "UART_RX" (effects (font (size 1.27 1.27))))
+				(number "5" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -7.62 -5.08 0) (length 5.08)
+				(name "3V3" (effects (font (size 1.27 1.27))))
+				(number "6" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -7.62 -7.62 0) (length 5.08)
+				(name "NRST" (effects (font (size 1.27 1.27))))
+				(number "7" (effects (font (size 1.27 1.27))))
+			)
+		)
+		(embedded_fonts no)
+	)
+
+	(symbol "ScrewTerminal_2P"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 3.81 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Value" "TB 5.08 2P"
+			(at 0 -3.81 0)
+			(effects (font (size 1.27 1.27)))
+		)
+		(property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" "Battery input screw terminal 5.08mm 2P"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(symbol "ScrewTerminal_2P_0_1"
+			(rectangle
+				(start -2.54 3.81)
+				(end 2.54 -3.81)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "ScrewTerminal_2P_1_1"
+			(pin passive line
+				(at -7.62 1.27 0) (length 5.08)
+				(name "B+" (effects (font (size 1.27 1.27))))
+				(number "1" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -7.62 -1.27 0) (length 5.08)
+				(name "B-" (effects (font (size 1.27 1.27))))
+				(number "2" (effects (font (size 1.27 1.27))))
+			)
+		)
+		(embedded_fonts no)
+	)
+
+
+	(symbol "AO4407C"
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "Q"
+			(at -7.62 12.7 0)
+			(effects (font (size 1.27 1.27)) (justify left))
+		)
+		(property "Value" "AO4407C"
+			(at -7.62 10.16 0)
+			(effects (font (size 1.27 1.27)) (justify left))
+		)
+		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Datasheet" "https://www.aosmd.com/pdfs/datasheet/AO4407C.pdf"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(property "Description" "P-MOSFET 40V 12A 10mOhm SO-8; main bus reverse protection with slow gate (soft start)"
+			(at 0 0 0)
+			(effects (font (size 1.27 1.27)) (hide yes))
+		)
+		(symbol "AO4407C_0_1"
+			(rectangle
+				(start -5.08 7.62)
+				(end 5.08 -7.62)
+				(stroke (width 0.254) (type default))
+				(fill (type background))
+			)
+		)
+		(symbol "AO4407C_1_1"
+			(pin passive line
+				(at -10.16 5.08 0) (length 5.08)
+				(name "S" (effects (font (size 1.27 1.27))))
+				(number "1" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -10.16 2.54 0) (length 5.08)
+				(name "S" (effects (font (size 1.27 1.27))))
+				(number "2" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at -10.16 0 0) (length 5.08)
+				(name "S" (effects (font (size 1.27 1.27))))
+				(number "3" (effects (font (size 1.27 1.27))))
+			)
+			(pin input line
+				(at -10.16 -5.08 0) (length 5.08)
+				(name "G" (effects (font (size 1.27 1.27))))
+				(number "4" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 10.16 5.08 180) (length 5.08)
+				(name "D" (effects (font (size 1.27 1.27))))
+				(number "5" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 10.16 2.54 180) (length 5.08)
+				(name "D" (effects (font (size 1.27 1.27))))
+				(number "6" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 10.16 0 180) (length 5.08)
+				(name "D" (effects (font (size 1.27 1.27))))
+				(number "7" (effects (font (size 1.27 1.27))))
+			)
+			(pin passive line
+				(at 10.16 -2.54 180) (length 5.08)
+				(name "D" (effects (font (size 1.27 1.27))))
+				(number "8" (effects (font (size 1.27 1.27))))
+			)
+		)
+		(embedded_fonts no)
+	)
+
+)

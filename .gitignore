@@ -1,0 +1,10 @@
+build/
+__pycache__/
+*.pyc
+*.o
+*.elf
+*.bin
+*.zip
+analysis/
+.claude/
+*.log

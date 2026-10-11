@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0d1117">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Duck">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<title>🦆 Duck 中控</title>
+<style>
+:root{--bg:#0d1117;--panel:#161b22;--line:#30363d;--txt:#e6edf3;--dim:#8b949e;
+--ok:#3fb950;--bad:#f85149;--warn:#d29922;--accent:#58a6ff;--mono:ui-monospace,Consolas,monospace}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{background:var(--bg);color:var(--txt);
+font:15px/1.5 system-ui,-apple-system,"Microsoft YaHei",sans-serif;
+padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+header{position:sticky;top:0;z-index:5;display:flex;gap:6px 14px;flex-wrap:wrap;align-items:baseline;
+padding:10px 14px;background:linear-gradient(180deg,#1a2233ea,var(--bg));border-bottom:1px solid var(--line)}
+header h1{font-size:17px}
+header .item{color:var(--dim);font-size:12px}
+header .item b{color:var(--txt);font-family:var(--mono)}
+main{padding:12px;max-width:760px;margin:0 auto}
+.page{display:none}
+.page.on{display:block}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+.panel h2{font-size:13px;color:var(--accent);margin-bottom:10px;letter-spacing:.05em}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0}
+.chip{display:inline-block;padding:3px 12px;border-radius:99px;font-size:13px;border:1px solid var(--line)}
+.chip.ok{color:var(--ok);border-color:var(--ok)}.chip.bad{color:var(--bad);border-color:var(--bad)}
+.chip.warn{color:var(--warn);border-color:var(--warn)}
+.big{font-family:var(--mono);font-size:30px;font-weight:600}
+.mid{font-family:var(--mono);font-size:14px}
+.dim{color:var(--dim);font-size:12px}
+button{background:#21262d;color:var(--txt);border:1px solid var(--line);border-radius:8px;
+padding:9px 16px;cursor:pointer;font-size:14px;min-width:64px}
+button:active{transform:scale(.96)}
+button:disabled{opacity:.45}
+button.danger{border-color:var(--bad);color:var(--bad);font-weight:700}
+button.primary{border-color:var(--accent);color:var(--accent)}
+.trend{width:100%;height:100px;background:#0d1117;border:1px solid var(--line);border-radius:8px}
+.cube-wrap{display:flex;justify-content:center;perspective:520px;height:140px;margin:6px 0}
+.cube{position:relative;width:74px;height:74px;transform-style:preserve-3d;transition:transform .15s}
+.face{position:absolute;width:74px;height:74px;border:1px solid var(--accent);display:flex;
+align-items:center;justify-content:center;font-size:10px;color:var(--accent);background:rgba(88,166,255,.08)}
+.f1{transform:translateZ(37px)}.f2{transform:rotateY(180deg) translateZ(37px)}
+.f3{transform:rotateY(90deg) translateZ(37px)}.f4{transform:rotateY(-90deg) translateZ(37px)}
+.f5{transform:rotateX(90deg) translateZ(37px)}.f6{transform:rotateX(-90deg) translateZ(37px)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.svc{background:#10151d;border:1px solid var(--line);border-radius:10px;padding:10px}
+.svc .t{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.svc .nm{font-size:13px;color:var(--dim)}
+.svc .pos{font-family:var(--mono);font-size:20px}
+.svc .meta{font-family:var(--mono);font-size:11px;color:var(--dim);margin-bottom:6px}
+input[type=range]{width:100%;accent-color:var(--accent);height:32px}
+input[type=text],input[type=number]{background:#0d1117;border:1px solid var(--line);color:var(--txt);
+border-radius:6px;padding:8px;font-size:14px;width:100%}
+.pose-item{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px solid var(--line)}
+.pose-item:last-child{border-bottom:none}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:6;display:flex;
+padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:#10151df2;
+border-top:1px solid var(--line);backdrop-filter:blur(8px)}
+nav button{flex:1;border:none;background:none;border-radius:10px;padding:6px 0 4px;
+display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:var(--dim);min-width:0}
+nav button .ico{font-size:22px;line-height:1}
+nav button.on{color:var(--accent)}
+#fab{position:fixed;right:16px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:7;
+border-radius:99px;background:var(--bad);color:#fff;border:none;font-weight:700;padding:14px 22px;
+box-shadow:0 4px 18px #f8514955;display:none}
+pre{background:#0d1117;border:1px solid var(--line);border-radius:8px;padding:10px;font-size:12px;
+font-family:var(--mono);overflow:auto;max-height:220px;white-space:pre-wrap}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom));
+max-width:86%;background:#21262d;border:1px solid var(--line);border-radius:10px;padding:10px 16px;
+display:none;font-size:13px;z-index:9}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:13px}
+.kv span:nth-child(odd){color:var(--dim)}
+.kv span:nth-child(even){font-family:var(--mono);text-align:right}
+</style>
+</head>
+<body>
+<header>
+  <h1>🦆 Duck 中控</h1>
+  <span class="item">主机 <b id="host">-</b></span>
+  <span class="item"><b id="temp">-</b></span>
+  <span class="item">robotd <b id="robotd">-</b></span>
+  <span class="item">总线 <b id="bus">-</b></span>
+</header>
+<main>
+
+<section class="page on" id="pg-imu">
+  <div class="panel">
+    <h2>IMU 姿态 · ID 200 @ 1Mbps</h2>
+    <div class="row">
+      <span class="chip" id="chipOnline">…</span>
+      <span class="chip" id="chipWhoami">WHO_AM_I ?</span>
+      <span class="chip" id="chipSflp">SFLP ?</span>
+      <span class="chip" id="chipMod">|q| ?</span>
+    </div>
+    <div class="row" style="margin-bottom:8px">
+      <a href="http://192.168.31.96:8081/" target="_blank" rel="noopener" style="color:var(--acc,#09f)">📊 IMU 仪表台（WebGL 3D+瀑布图）→</a>
+      <span class="dim" style="font-size:12px">打开前把本页切后台，总线会自动让出</span>
+    </div>
+    <div class="cube-wrap"><div class="cube" id="cube">
+      <div class="face f1">X+</div><div class="face f2">X-</div><div class="face f3">Y+</div>
+      <div class="face f4">Y-</div><div class="face f5">Z+</div><div class="face f6">Z-</div>
+    </div></div>
+    <div class="grid2">
+      <div>
+        <div class="dim">横滚 / 俯仰 / 偏航 (°)</div>
+        <div class="big" id="euler">- - -</div>
+        <div class="dim" style="margin-top:8px">四元数 x y z w</div>
+        <div class="mid" id="quat">-</div>
+        <div class="dim" style="margin-top:8px">陀螺 dps</div>
+        <div class="mid" id="gyro">-</div>
+        <div class="dim" style="margin-top:8px">采样 <span class="mid" id="sample">-</span></div>
+      </div>
+      <div>
+        <div class="row" style="justify-content:space-between"><span class="dim">|q|（贴 1.00）</span><span class="dim">陀螺模长</span></div>
+        <canvas class="trend" id="trend" width="360" height="100"></canvas>
+        <div class="dim" id="imuErr" style="margin-top:4px"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="pg-servo">
+  <div class="panel">
+    <h2>总线扫描</h2>
+    <div class="row">
+      <button class="primary" id="btnScan">扫描总线</button>
+      <span class="dim" id="scanInfo">未扫描</span>
+    </div>
+  </div>
+  <div class="panel" id="posePanel">
+    <h2>姿态库</h2>
+    <div class="row">
+      <input type="text" id="poseName" placeholder="姿态名（如：站）">
+      <button id="btnPoseSave">存当前</button>
+    </div>
+    <div id="poseList"><span class="dim">无姿态</span></div>
+  </div>
+  <div class="panel">
+    <h2>舵机（0–4095，中位 2048）</h2>
+    <div class="row">
+      <button id="btnTqAllOn">全扭矩开</button>
+      <button id="btnTqAllOff">全扭矩关</button>
+      <span class="dim">速度</span>
+      <input type="number" id="spd" value="300" style="width:76px">
+    </div>
+    <div id="servoArea"><span class="dim">先扫描；无舵机时只有 IMU 也正常</span></div>
+  </div>
+</section>
+
+<section class="page" id="pg-bus">
+  <div class="panel">
+    <h2>总线诊断</h2>
+    <div class="kv" id="busKv"></div>
+    <div class="row"><button id="btnSelftest">IMU 自检</button><button id="btnScan2">重新扫描</button></div>
+    <pre id="selftestLog">—</pre>
+  </div>
+</section>
+
+<section class="page" id="pg-tools">
+  <div class="panel">
+    <h2>连接信息</h2>
+    <div class="kv" id="infoKv"></div>
+    <div class="dim" style="margin-top:8px">手机端：浏览器打开上面的地址 → 菜单里选「添加到主屏幕」，即可像 App 一样全屏使用。</div>
+  </div>
+  <div class="panel">
+    <h2>固件与系统</h2>
+    <div class="row">
+      <button id="btnFlash">烧录 IMU 固件（ST-Link）</button>
+      <button id="btnRobotd">重启 robotd</button>
+      <button class="danger" id="btnReboot">重启主机</button>
+    </div>
+    <pre id="toolLog">—</pre>
+  </div>
+</section>
+
+</main>
+<nav>
+  <button class="on" data-pg="imu"><span class="ico">🧭</span>姿态</button>
+  <button data-pg="servo"><span class="ico">🦿</span>舵机</button>
+  <button data-pg="bus"><span class="ico">📡</span>总线</button>
+  <button data-pg="tools"><span class="ico">🔧</span>工具</button>
+</nav>
+<button id="fab">急停</button>
+<div id="toast"></div>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+let servoIds=[],lastStates={},hist=[];
+const GROUPS={"右腿":[10,11,12,13,14],"左腿":[20,21,22,23,24],"头颈":[30,31,32,33,34]};
+
+function toast(m,e){const t=$("toast");t.textContent=m;t.style.display="block";
+t.style.borderColor=e?"var(--bad)":"var(--line)";clearTimeout(t._h);t._h=setTimeout(()=>t.style.display="none",3500)}
+async function post(u,b){const r=await fetch(u,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(b||{})});return r.json()}
+const fmtU=s=>{if(s==null)return"-";const d=~~(s/86400),h=~~(s%86400/3600),m=~~(s%3600/60);return(d?d+"d ":"")+h+"h"+m+"m"};
+function chip(el,ok,txt,bad){el.className="chip "+(ok?"ok":(bad?"bad":"warn"));el.textContent=txt}
+
+/* tabs */
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x===b));
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",p.id==="pg-"+b.dataset.pg));
+  $("fab").style.display=(b.dataset.pg==="servo"&&servoIds.length)?"block":"none";
+});
+
+/* status poll（页面可见时 1Hz） */
+async function poll(){
+  if(document.hidden)return;
+  try{
+    const j=await(await fetch("/api/status")).json(),s=j.system;
+    $("host").textContent=s.host;
+    $("temp").textContent=s.temp_c==null?"-":s.temp_c+"℃";
+    $("robotd").textContent=s.robotd==null?"?":(s.robotd?"运行":"停止");
+    const st=j.bus.stats;
+    $("bus").textContent=j.bus.open?`收${st.rx_ok}/错${st.timeout+st.bad_checksum+st.bad_id}`:"占用";
+    const i=j.imu;
+    if(i.ok){
+      chip($("chipOnline"),true,"在线");
+      chip($("chipWhoami"),i.whoami_ok,i.whoami_ok?"WHO_AM_I ✓":"WHO_AM_I ✗",!i.whoami_ok);
+      chip($("chipSflp"),i.sflp_live,i.sflp_live?"融合输出中":"融合待定",!i.sflp_live);
+      const ok=Math.abs(i.mod-1)<.05;chip($("chipMod"),ok,"|q| "+i.mod.toFixed(3),!ok);
+      const e=i.euler;$("euler").textContent=`${e[0]}° ${e[1]}° ${e[2]}°`;
+      $("quat").textContent=i.quat.map(v=>v.toFixed(3)).join(" ");
+      $("gyro").textContent=i.gyro_dps.map(v=>v.toFixed(0)).join(" / ");
+      $("sample").textContent=i.sample_count;$("imuErr").textContent="";
+      rotateCube(i.quat);
+      hist.push({m:i.mod,g:Math.hypot(...i.gyro_dps)});if(hist.length>150)hist.shift();draw();
+    }else{
+      chip($("chipOnline"),false,"无应答",true);chip($("chipWhoami"),false,"?",false);
+      chip($("chipSflp"),false,"?",false);chip($("chipMod"),false,"?",false);
+      $("imuErr").textContent=i.err||"";
+    }
+  }catch(e){}
+}
+function rotateCube(q){const[x,y,z,w]=q,m=[1-2*(y*y+z*z),2*(x*y-z*w),2*(x*z+y*w),
+2*(x*y+z*w),1-2*(x*x+z*z),2*(y*z-x*w),2*(x*z-y*w),2*(y*z+x*w),1-2*(x*x+y*y)];
+$("cube").style.transform=`matrix3d(${m[0]},${m[3]},${m[6]},0,${m[1]},${m[4]},${m[7]},0,${m[2]},${m[5]},${m[8]},0,0,0,0,1)`}
+function draw(){const c=$("trend"),x=c.getContext("2d");x.clearRect(0,0,c.width,c.height);
+if(hist.length<2)return;const st=c.width/149;
+x.strokeStyle="#3fb950";x.beginPath();hist.forEach((p,i)=>{const y=c.height-(p.m-.8)/.4*c.height;
+i?x.lineTo(i*st,Math.max(0,Math.min(c.height,y))):x.moveTo(0,y)});x.stroke();
+const mg=Math.max(20,...hist.map(p=>p.g));x.strokeStyle="#58a6ff";x.beginPath();
+hist.forEach((p,i)=>{const y=c.height-p.g/mg*c.height;i?x.lineTo(i*st,y):x.moveTo(0,y)});x.stroke()}
+
+/* scan + servo cards */
+$("btnScan").onclick=$("btnScan2").onclick=async()=>{
+  $("btnScan").disabled=true;$("scanInfo").textContent="扫描中…";
+  try{const j=await post("/api/scan",{from:1,to:40});
+    servoIds=j.servos||[];lastStates=j.states||{};
+    $("scanInfo").textContent=j.found.length?"发现: "+j.found.join(", "):"无设备";
+    renderServos();loadPoses();
+    toast(j.found.includes(200)?"IMU 在线 ✓":"扫描完成");
+  }catch(e){toast("扫描失败 "+e,1)}
+  $("btnScan").disabled=false;
+};
+function renderServos(){
+  const area=$("servoArea");area.innerHTML="";
+  if(!servoIds.length){area.innerHTML='<span class="dim">总线上没有舵机（只测 IMU 时正常）</span>';$("fab").style.display="none";return}
+  $("fab").style.display="block";
+  for(const[g,ids]of Object.entries(GROUPS)){
+    const have=ids.filter(i=>servoIds.includes(i));if(!have.length)continue;
+    const h=document.createElement("h2");h.textContent=g;area.appendChild(h);
+    const g2=document.createElement("div");g2.className="grid2";
+    for(const id of have)g2.appendChild(svcCard(id));
+    area.appendChild(g2);
+  }
+}
+function svcCard(id){
+  const s=lastStates[id],d=document.createElement("div");d.className="svc";
+  const nm=s&&s.joint?s.joint:("#"+id);
+  d.innerHTML=`<div class="t"><span class="nm">${nm} · ${id}</span><span class="pos">${s?s.pos:"-"}</span></div>
+  <div class="meta">${s?`${s.volt}V ${s.temp}℃ ${s.current_ma|0}mA`:"无应答"}</div>
+  <input type="range" min="0" max="4095" value="${s?s.goal:2048}">
+  <div class="row" style="justify-content:space-between">
+    <button class="primary" style="min-width:52px">走</button>
+    <button style="min-width:64px">扭矩关</button>
+  </div>`;
+  const btns=d.querySelectorAll("button");
+  btns[0].onclick=async()=>{const pos=+d.querySelector("input").value,spd=+$("spd").value||300;
+    await post("/api/servo",{op:"torque",ids:[id],value:true});
+    const j=await post("/api/servo",{op:"move",ids:[id],value:pos,speed:spd});
+    toast(`${nm}→${pos}: ${j.results[id]}`)};
+  btns[1].onclick=async()=>{await post("/api/servo",{op:"torque",ids:[id],value:false});toast(`${nm} 扭矩关`)};
+  return d;
+}
+setInterval(async()=>{if(!servoIds.length||document.hidden||!$("pg-servo").classList.contains("on"))return;
+  try{const j=await post("/api/servo",{op:"states",ids:servoIds});
+    const refresh=()=>{lastStates=j.results;renderServos()};
+    // 只更新数字，避免打断滑条：简单起见重渲染但保留焦点外的输入
+    lastStates=j.results;
+    document.querySelectorAll("#servoArea .svc").forEach((el,idx)=>{
+      const id=servoIds.filter(i=>Object.values(GROUPS).flat().includes(i))[idx];
+      const s=j.results[id];if(!s)return;
+      el.querySelector(".pos").textContent=s.pos;
+      el.querySelector(".meta").textContent=`${s.volt}V ${s.temp}℃ ${s.current_ma|0}mA`;
+    });
+  }catch(e){}
+},2000);
+
+$("fab").onclick=async()=>{if(!servoIds.length)return;
+  await post("/api/estop",{ids:servoIds});toast("已广播扭矩关闭")};
+$("btnTqAllOn").onclick=()=>post("/api/servo",{op:"torque",ids:servoIds,value:true}).then(()=>toast("全扭矩开"));
+$("btnTqAllOff").onclick=()=>post("/api/servo",{op:"torque",ids:servoIds,value:false}).then(()=>toast("全扭矩关"));
+
+/* poses */
+async function loadPoses(){
+  try{const j=await(await fetch("/api/poses")).json();
+    const box=$("poseList");box.innerHTML="";
+    if(!j.poses.length){box.innerHTML='<span class="dim">无姿态</span>';return}
+    for(const p of j.poses){
+      const d=document.createElement("div");d.className="pose-item";
+      d.innerHTML=`<div><b>${p.name}</b> <span class="dim">${p.count}关节 · ${p.time}</span></div>
+      <div class="row" style="margin:0"><button class="primary" style="min-width:52px">应用</button>
+      <button class="danger" style="min-width:52px">删</button></div>`;
+      const[ap,del]=d.querySelectorAll("button");
+      ap.onclick=async()=>{const j2=await post("/api/pose",{op:"apply",file:p.file,speed:+$("spd").value||300});
+        toast(j2.ok?`已下发 ${j2.moved} 关节`:"失败 "+j2.err)};
+      del.onclick=async()=>{if(!confirm(`删除姿态「${p.name}」？`))return;
+        await post("/api/pose",{op:"delete",file:p.file,confirm:true});loadPoses()};
+      box.appendChild(d);
+    }
+  }catch(e){}
+}
+$("btnPoseSave").onclick=async()=>{
+  if(!servoIds.length)return toast("先扫描",1);
+  const j=await post("/api/servo",{op:"states",ids:servoIds});
+  const positions={};for(const[id,s]of Object.entries(j.results))if(s)positions[id]=s.pos;
+  const name=$("poseName").value.trim()||"pose";
+  const r=await post("/api/pose",{op:"save",name,positions});
+  toast(r.ok?`已存「${name}」(${Object.keys(positions).length}关节)`:"失败");loadPoses();
+};
+
+/* bus diag + tools */
+async function infoKv(){
+  try{const j=await(await fetch("/api/status")).json(),s=j.system;
+    $("infoKv").innerHTML=`<span>地址</span><span>http://${s.ip||"??"}:${location.port}</span>
+    <span>运行</span><span>${fmtU(s.uptime_s)}</span><span>内存</span><span>${s.mem_avail_mb}/${s.mem_total_mb}MB</span>
+    <span>磁盘</span><span>${s.disk_free_mb}MB</span><span>负载</span><span>${s.load1}</span>`;
+    const st=j.bus.stats||{};
+    $("busKv").innerHTML=`<span>串口</span><span>${j.bus.port}</span>
+    <span>状态</span><span>${j.bus.open?"打开":"占用: "+(j.bus.error||"")}</span>
+    <span>发送帧</span><span>${st.tx||0}</span><span>成功收</span><span>${st.rx_ok||0}</span>
+    <span>超时</span><span>${st.timeout||0}</span><span>校验错</span><span>${st.bad_checksum||0}</span>
+    <span>错ID</span><span>${st.bad_id||0}</span>`;
+  }catch(e){}
+}
+$("btnSelftest").onclick=async()=>{$("selftestLog").textContent="自检中…";
+  const j=await post("/api/selftest",{});const i=j.identity,m=j.imu;
+  $("selftestLog").textContent=
+    `IMU 识别: ${i.ok?`固件 v${i.fw} · ID=${i.id} · 波特率码=${i.baud_code}`:"失败 — "+i.err}\n`+
+    `姿态块: ${m.ok?`WHO_AM_I ${m.whoami_ok?"✓":"✗"} · 融合 ${m.sflp_live?"✓":"✗"} · |q|=${m.mod} · 采样=${m.sample_count}`:"失败 — "+m.err}`};
+$("btnFlash").onclick=async()=>{if(!confirm("通过 ST-Link 烧录 imu_to_dxl.elf？"))return;
+  $("btnFlash").disabled=true;$("toolLog").textContent="烧录中…";
+  const j=await post("/api/flash",{confirm:true});
+  $("toolLog").textContent=(j.ok?"✓ 成功\n":"✗ 失败\n")+j.log;$("btnFlash").disabled=false};
+$("btnRobotd").onclick=async()=>{if(!confirm("重启 robotd？会占用串口，面板 IMU 读取将失败"))return;
+  const j=await post("/api/system",{op:"robotd_restart",confirm:true});toast(j.ok?"robotd 已重启":"失败 "+j.err,!j.ok)};
+$("btnReboot").onclick=async()=>{if(!confirm("重启主机？约 1 分钟"))return;
+  if(!confirm("再次确认重启？"))return;
+  await post("/api/system",{op:"reboot",confirm:true});toast("重启中…")};
+
+/* boot */
+if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js").catch(()=>{});
+poll();setInterval(poll,1000);infoKv();setInterval(infoKv,5000);loadPoses();
+</script>
+</body>
+</html>

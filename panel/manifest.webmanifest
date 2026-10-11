@@ -1,0 +1,14 @@
+{
+  "name": "Microduck 中控",
+  "short_name": "Duck",
+  "description": "Microduck 机器鸭控制台：IMU 姿态 / 舵机 / 总线 / 工具",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

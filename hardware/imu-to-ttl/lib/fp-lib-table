@@ -1,0 +1,10 @@
+(fp_lib_table
+	(version 7)
+	(lib
+		(name "imu_ttl")
+		(type "KiCad")
+		(uri "${KIPRJMOD}/lib/imu_ttl.pretty")
+		(options "")
+		(descr "IMU-to-TTL local footprints")
+	)
+)
