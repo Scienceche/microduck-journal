@@ -78,6 +78,8 @@ display:none;font-size:13px;z-index:9}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:13px}
 .kv span:nth-child(odd){color:var(--dim)}
 .kv span:nth-child(even){font-family:var(--mono);text-align:right}
+#scopeFrame{width:100%;height:calc(100vh - 190px);min-height:520px;border:1px solid var(--line);
+border-radius:12px;background:#0d1117}
 </style>
 </head>
 <body>
@@ -100,8 +102,7 @@ display:none;font-size:13px;z-index:9}
       <span class="chip" id="chipMod">|q| ?</span>
     </div>
     <div class="row" style="margin-bottom:8px">
-      <a href="http://192.168.31.96:8081/" target="_blank" rel="noopener" style="color:var(--acc,#09f)">📊 IMU 仪表台（WebGL 3D+瀑布图）→</a>
-      <span class="dim" style="font-size:12px">打开前把本页切后台，总线会自动让出</span>
+      <span class="dim">要看 3D 姿态 / 瀑布图 / 延迟统计，切到「仪表」页 —— 进页自动连总线，切走自动释放。</span>
     </div>
     <div class="cube-wrap"><div class="cube" id="cube">
       <div class="face f1">X+</div><div class="face f2">X-</div><div class="face f3">Y+</div>
@@ -124,6 +125,10 @@ display:none;font-size:13px;z-index:9}
       </div>
     </div>
   </div>
+</section>
+
+<section class="page" id="pg-scope">
+  <iframe id="scopeFrame" title="IMU 仪表台"></iframe>
 </section>
 
 <section class="page" id="pg-servo">
@@ -183,6 +188,7 @@ display:none;font-size:13px;z-index:9}
 </main>
 <nav>
   <button class="on" data-pg="imu"><span class="ico">🧭</span>姿态</button>
+  <button data-pg="scope"><span class="ico">📊</span>仪表</button>
   <button data-pg="servo"><span class="ico">🦿</span>舵机</button>
   <button data-pg="bus"><span class="ico">📡</span>总线</button>
   <button data-pg="tools"><span class="ico">🔧</span>工具</button>
@@ -202,11 +208,36 @@ async function post(u,b){const r=await fetch(u,{method:"POST",headers:{"Content-
 const fmtU=s=>{if(s==null)return"-";const d=~~(s/86400),h=~~(s%86400/3600),m=~~(s%3600/60);return(d?d+"d ":"")+h+"h"+m+"m"};
 function chip(el,ok,txt,bad){el.className="chip "+(ok?"ok":(bad?"bad":"warn"));el.textContent=txt}
 
+/* ---- 仪表台总线让位：进「仪表」页自动连，切走/退后台自动断 ---- */
+let scopeWs=null,scopeLoaded=false;
+function scopeWsEnsure(cb){
+  if(scopeWs&&scopeWs.readyState===1){cb&&cb();return}
+  if(scopeWs&&scopeWs.readyState===0){scopeWs.addEventListener("open",()=>cb&&cb(),{once:true});return}
+  try{scopeWs=new WebSocket((location.protocol==="https:"?"wss":"ws")+"://"+location.host+"/ws")}catch(e){return}
+  scopeWs.onopen=()=>{cb&&cb()};
+  scopeWs.onclose=()=>{scopeWs=null};
+  scopeWs.onerror=()=>{};
+}
+function scopeAutoConnect(){
+  fetch("/api/scope_defaults",{cache:"no-store"}).then(r=>r.json()).then(d=>{
+    scopeWsEnsure(()=>{try{scopeWs.send(JSON.stringify({op:"connect",port:d.port,baud:d.baud,
+      protocol:d.protocol,mode:d.mode,read_len:d.read_len,id:d.id,rate:d.rate}))}catch(e){}});
+  }).catch(()=>{});
+}
+function scopeRelease(){
+  if(scopeWs&&scopeWs.readyState===1){try{scopeWs.send(JSON.stringify({op:"disconnect"}))}catch(e){}}
+}
+document.addEventListener("visibilitychange",()=>{if(document.hidden)scopeRelease()});
+
 /* tabs */
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x===b));
   document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",p.id==="pg-"+b.dataset.pg));
   $("fab").style.display=(b.dataset.pg==="servo"&&servoIds.length)?"block":"none";
+  if(b.dataset.pg==="scope"){
+    if(!scopeLoaded){scopeLoaded=true;$("scopeFrame").src="/scope/"}
+    scopeAutoConnect();
+  }else scopeRelease();
 });
 
 /* status poll（页面可见时 1Hz） */
@@ -232,7 +263,8 @@ async function poll(){
       rotateCube(i.quat);
       hist.push({m:i.mod,g:Math.hypot(...i.gyro_dps)});if(hist.length>150)hist.shift();draw();
     }else{
-      chip($("chipOnline"),false,"无应答",true);chip($("chipWhoami"),false,"?",false);
+      chip($("chipOnline"),false,j.bus.scope_holds?"仪表占用":"无应答",!j.bus.scope_holds);
+      chip($("chipWhoami"),false,"?",false);
       chip($("chipSflp"),false,"?",false);chip($("chipMod"),false,"?",false);
       $("imuErr").textContent=i.err||"";
     }
@@ -291,8 +323,6 @@ function svcCard(id){
 }
 setInterval(async()=>{if(!servoIds.length||document.hidden||!$("pg-servo").classList.contains("on"))return;
   try{const j=await post("/api/servo",{op:"states",ids:servoIds});
-    const refresh=()=>{lastStates=j.results;renderServos()};
-    // 只更新数字，避免打断滑条：简单起见重渲染但保留焦点外的输入
     lastStates=j.results;
     document.querySelectorAll("#servoArea .svc").forEach((el,idx)=>{
       const id=servoIds.filter(i=>Object.values(GROUPS).flat().includes(i))[idx];
@@ -345,6 +375,7 @@ async function infoKv(){
     const st=j.bus.stats||{};
     $("busKv").innerHTML=`<span>串口</span><span>${j.bus.port}</span>
     <span>状态</span><span>${j.bus.open?"打开":"占用: "+(j.bus.error||"")}</span>
+    <span>仪表占用</span><span>${j.bus.scope_holds?"是":"否"}</span>
     <span>发送帧</span><span>${st.tx||0}</span><span>成功收</span><span>${st.rx_ok||0}</span>
     <span>超时</span><span>${st.timeout||0}</span><span>校验错</span><span>${st.bad_checksum||0}</span>
     <span>错ID</span><span>${st.bad_id||0}</span>`;
