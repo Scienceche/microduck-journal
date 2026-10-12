@@ -1,55 +1,36 @@
-"Reference","Value","Footprint","Quantity","MPN","LCSC"
-"C1","10uF 25V X7R","Capacitor_SMD:C_1206_3216Metric","","GRM31CR71E106KA12L","C77093"
-"C2","100nF 50V","Capacitor_SMD:C_0603_1608Metric","","CC0603KRX7R9BB104","C14663"
-"C3","10uF 25V X7R","Capacitor_SMD:C_0805_2012Metric","","GRM31CR71E106KA12L","C77093"
-"C4","100nF 50V","Capacitor_SMD:C_0603_1608Metric","","CC0603KRX7R9BB104","C14663"
-"C5","10uF 10V","Capacitor_SMD:C_0603_1608Metric","","CL10A106KP8NNNC","C19702"
-"C6","100nF 50V","Capacitor_SMD:C_0603_1608Metric","","CC0603KRX7R9BB104","C14663"
-"C7","100nF 50V","Capacitor_SMD:C_0603_1608Metric","","CC0603KRX7R9BB104","C14663"
-"C8","4.7uF 10V X7R","Capacitor_SMD:C_0603_1608Metric","","CL10A475KO8NNNC","C19666"
-"C9","100nF 50V","Capacitor_SMD:C_0603_1608Metric","","CC0603KRX7R9BB104","C14663"
-"C10","100nF 50V","Capacitor_SMD:C_0603_1608Metric","","CC0603KRX7R9BB104","C14663"
-"C11","100nF 50V","Capacitor_SMD:C_0603_1608Metric","","CC0603KRX7R9BB104","C14663"
-"C12","1uF 25V X7R","Capacitor_SMD:C_0603_1608Metric","","CL10B105KA8NNNC","C29936"
-"C13","100nF 50V","Capacitor_SMD:C_0603_1608Metric","","CC0603KRX7R9BB104","C14663"
-"C14","100nF 50V","Capacitor_SMD:C_0603_1608Metric","","CC0603KRX7R9BB104","C14663"
-"D1","SMBJ12A","Diode_SMD:D_SMB","","SMBJ12A/TR13","C111091"
-"D2","SMF12A","Diode_SMD:D_SOD-123F","","SMF12A","C2943870"
-"D3","BZT52C5V1","Diode_SMD:D_SOD-323","","BZT52C5V1-7-F","C151588"
-"F1","FUSE 5A 2512","Fuse:Fuse_1206_3216Metric","","0466005.NRHF","C57525"
-"F2","PPTC 200mA","Fuse:Fuse_1206_3216Metric","","MF-NSMF020X-2","C210358"
-"FB1","BLM18AG601SN1D","Inductor_SMD:L_0603_1608Metric","","BLM18AG601SN1D","C19330"
-"J1","BATT IN 2.54 2P","TerminalBlock:TerminalBlock_Xinya_XY308-2.54-2P_1x02_P2.54mm_Horizontal","","KF128-2.54-2P","C474920"
-"J2","SWD+UART+NRST","Connector_PinHeader_2.54mm:PinHeader_1x07_P2.54mm_Vertical","","PZ254V-11-07P","C492406"
-"J3","J_NECK","Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical","","B3B-PH-K-S(LF)(SN)","C131339"
-"J4","J_L","Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical","","B3B-PH-K-S(LF)(SN)","C131339"
-"J5","J_R","Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical","","B3B-PH-K-S(LF)(SN)","C131339"
-"LED1","LED 0603","LED_SMD:LED_0603_1608Metric","","KT-0603R","C2286"
-"Q1","AO4407C","Package_SO:SOIC-8_3.9x4.9mm_P1.27mm","","AO4407C","C469397"
-"R1","1k","Resistor_SMD:R_0603_1608Metric","","0603WAF1001T5E","C21190"
-"R2","10k","Resistor_SMD:R_0603_1608Metric","","0603WAF1002T5E","C25804"
-"R3","10k","Resistor_SMD:R_0603_1608Metric","","0603WAF1002T5E","C25804"
-"R4","0R","Resistor_SMD:R_0603_1608Metric","","0603WAF0000T5E","C21189"
-"R5","0R","Resistor_SMD:R_0603_1608Metric","","0603WAF0000T5E","C21189"
-"R6","0R","Resistor_SMD:R_0603_1608Metric","","0603WAF0000T5E","C21189"
-"R7","10k","Resistor_SMD:R_0603_1608Metric","","0603WAF1002T5E","C25804"
-"R8","2.2k FIT","Resistor_SMD:R_0603_1608Metric","","0603WAF2201T5E","C4190"
-"R9","100k","Resistor_SMD:R_0603_1608Metric","","0603WAF1003T5E","C25803"
-"R10","1M","Resistor_SMD:R_0603_1608Metric","","0603WAF1004T5E","C22935"
-"R11","4.7k ALT DNP","Resistor_SMD:R_0603_1608Metric","","0603WAF4701T5E","C23162"
-"R12","10k ALT DNP","Resistor_SMD:R_0603_1608Metric","","0603WAF1002T5E","C25804"
-"R13","150R","Resistor_SMD:R_0603_1608Metric","","0603WAF1500T5E","C22808"
-"TH1","PRG18BB101MB1RB","Resistor_SMD:R_0603_1608Metric","","PRG18BB101MB1RB","C913703"
-"TP1","VBAT","TestPoint:TestPoint_Pad_D1.0mm","","",""
-"TP2","GND","TestPoint:TestPoint_Pad_D1.0mm","","",""
-"TP3","+3V3","TestPoint:TestPoint_Pad_D1.0mm","","",""
-"TP4","BUS_DATA","TestPoint:TestPoint_Pad_D1.0mm","","",""
-"TP5","BUS_TX","TestPoint:TestPoint_Pad_D1.0mm","","",""
-"TP6","BUS_LOGIC","TestPoint:TestPoint_Pad_D1.0mm","","",""
-"TP7","NRST","TestPoint:TestPoint_Pad_D1.0mm","","",""
-"TP8","HAT_PWR+ DNP","TestPoint:TestPoint_Pad_D1.5mm","","",""
-"TP9","HAT_PWR- DNP","TestPoint:TestPoint_Pad_D1.5mm","","",""
-"U1","STM32G031F8P6","Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm","","STM32G031F8P6","C529334"
-"U2","LSM6DSV16XTR","imu_ttl:ST_LGA14_3x2.5_P0.5_LSM6DSV16X_TN0018","","LSM6DSV16XTR","C5267406"
-"U3","SN74LVC1G125DBVT","Package_TO_SOT_SMD:SOT-23-5","","SN74LVC1G125DBVR","C23654"
-"U4","HT7533-1","Package_TO_SOT_SMD:SOT-89-3","","HT7533-1","C14289"
+Value,Side,Qty
+0R,top,3
+100k,top,1
+100nF 50V,bottom,3
+100nF 50V,top,6
+10k,bottom,1
+10k,top,5
+10k ALT DNP,bottom,1
+10uF 10V,bottom,1
+10uF 25V X7R,bottom,1
+10uF 25V X7R,top,1
+150R,bottom,1
+1M,top,1
+1k,bottom,1
+1uF 25V X7R,top,1
+2.2k FIT,top,1
+4.7k ALT DNP,bottom,1
+4.7uF 10V X7R,bottom,1
+AO4407C,top,1
+BATT IN 2.54 2P,top,1
+BLM18AG601SN1D,top,1
+BZT52C5V1,top,1
+FUSE 5A 2512,top,1
+HT7533-1,bottom,1
+J_L,top,1
+J_NECK,top,1
+J_R,top,1
+LED 0603,bottom,1
+LSM6DSV16XTR,top,1
+PPTC 200mA,bottom,1
+PRG18BB101MB1RB,bottom,1
+SMBJ12A,top,1
+SMF12A,bottom,1
+SN74LVC2G241DCUR,top,1
+STM32G031F8P6,top,1
+SWD+UART+NRST,top,1

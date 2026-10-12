@@ -31,8 +31,9 @@ MIN_THICKNESS = 0.25
 # connectors sit in (J1 -> J3/J4 on top, then down the right edge to J5)
 # one L-shaped polygon: battery column -> top band -> right column down to J5
 VBAT_POLY = [
-    (0.4, 0.4), (44.6, 0.4), (44.6, 18.0), (36.0, 18.0),
-    (36.0, 7.0), (12.0, 7.0), (12.0, 13.5), (0.4, 13.5),
+    # v3: 顶带 + 右柱(盖住J4/J5焊盘 x35.7) + 底带(盖住J3焊盘 y25.5)
+    (0.4, 0.4), (44.6, 0.4), (44.6, 29.1), (13.0, 29.1),
+    (13.0, 24.5), (34.2, 24.5), (34.2, 7.0), (0.4, 7.0),
 ]
 
 # The battery-input path (J1 -> F1) carries *everything* the board distributes,
@@ -50,7 +51,7 @@ VBAT_RAW_POLYS = [
     [(0.9, 0.9), (33.4, 0.9), (33.4, 3.4), (0.9, 3.4)],
     # P2: the left-edge column up to J1, wide enough at the top to touch J1's
     # battery pad - a pour that only meets tracks is reported as isolated copper
-    [(0.9, 3.0), (2.6, 3.0), (2.6, 14.0), (6.2, 14.0), (6.2, 16.2), (0.9, 16.2)],
+    [(0.9, 3.0), (2.6, 3.0), (2.6, 25.4), (6.2, 25.4), (6.2, 29.1), (0.9, 29.1)],  # v3: 左列延到新J1(4.6,26.5)
     # P3: the block around the run's right end, Q1 and F1 - the fill keeps its
     # 0.25 mm distance from Q1's drain pads, which is where a bridge would
     # bypass the fuse

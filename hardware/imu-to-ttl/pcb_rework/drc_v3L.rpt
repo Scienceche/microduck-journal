@@ -1,0 +1,457 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-12T19:31:16 **
+** Report includes: Errors, Warnings **
+
+** Found 109 DRC violations **
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0537 mm)
+    Local override; error
+    @(30.8362 mm, 19.3532 mm): Track [+3V3] on B.Cu, length 1.2828 mm
+    @(30.8000 mm, 20.1000 mm): Via [SWCLK] on F.Cu - B.Cu
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(18.8100 mm, 25.5000 mm): Track [VBAT] on B.Cu, length 7.1142 mm
+    @(10.3000 mm, 20.1000 mm): Track [SWCLK] on B.Cu, length 20.5000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(15.8637 mm, 20.1660 mm): Track [SDx] on B.Cu, length 2.1674 mm
+    @(10.3000 mm, 20.1000 mm): Track [SWCLK] on B.Cu, length 20.5000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(27.3250 mm, 27.3000 mm): Track [LED_A] on B.Cu, length 1.3000 mm
+    @(28.8306 mm, 27.2202 mm): Track [VBAT_LOGIC] on B.Cu, length 3.2110 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_LOGIC 和 GND)
+    Local override; error
+    @(24.5983 mm, 26.1989 mm): Track [VBAT_LOGIC] on B.Cu, length 7.6374 mm
+    @(24.7875 mm, 25.5000 mm): Pad 2 [GND] of LED1 on B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 LED_A 和 VBAT_LOGIC)
+    Local override; error
+    @(23.2125 mm, 27.3000 mm): Track [LED_A] on B.Cu, length 4.1125 mm
+    @(28.8306 mm, 27.2202 mm): Track [VBAT_LOGIC] on B.Cu, length 3.2110 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_LOGIC 和 LED_A)
+    Local override; error
+    @(25.6196 mm, 27.2202 mm): Track [VBAT_LOGIC] on B.Cu, length 1.4443 mm
+    @(23.2125 mm, 27.3000 mm): Track [LED_A] on B.Cu, length 4.1125 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1491 mm)
+    Local override; error
+    @(23.2125 mm, 25.5000 mm): Track [LED_A] on B.Cu, length 1.8000 mm
+    @(23.6116 mm, 27.2634 mm): Track [BUS_LOGIC] on B.Cu, length 0.3416 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(10.3000 mm, 19.0500 mm): Track [SWCLK] on B.Cu, length 1.0500 mm
+    @(9.8756 mm, 20.3883 mm): Track [GND] on B.Cu, length 1.1683 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1017 mm)
+    Local override; error
+    @(9.5000 mm, 19.0500 mm): Track [SWCLK] on B.Cu, length 0.8000 mm
+    @(10.7017 mm, 19.5622 mm): Track [GND] on B.Cu, length 0.7401 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 SWCLK 和 SDx)
+    Local override; error
+    @(10.3000 mm, 20.1000 mm): Track [SWCLK] on B.Cu, length 20.5000 mm
+    @(12.3533 mm, 19.8451 mm): Via [SDx] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 SWCLK 和 SPI_CS)
+    Local override; error
+    @(30.8000 mm, 20.1000 mm): Track [SWCLK] on F.Cu, length 6.3750 mm
+    @(31.4625 mm, 18.9250 mm): Pad 11 [SPI_CS] of U1 on F.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 UART1_TX 和 +3V3)
+    Local override; error
+    @(10.5000 mm, 14.5000 mm): Track [UART1_TX] on B.Cu, length 20.2000 mm
+    @(30.8362 mm, 11.8388 mm): Track [+3V3] on B.Cu, length 7.5144 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0430 mm)
+    Local override; error
+    @(31.4625 mm, 15.0250 mm): Pad 17 [UART1_RX] of U1 on F.Cu
+    @(30.7000 mm, 14.5000 mm): Via [UART1_TX] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 UART1_RX 和 UART1_TX)
+    Local override; error
+    @(31.4625 mm, 15.0250 mm): Pad 17 [UART1_RX] of U1 on F.Cu
+    @(30.7000 mm, 14.5000 mm): Track [UART1_TX] on F.Cu, length 1.1750 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 UART1_TX 和 +3V3)
+    Local override; error
+    @(30.7000 mm, 14.5000 mm): Via [UART1_TX] on F.Cu - B.Cu
+    @(30.8362 mm, 11.8388 mm): Track [+3V3] on B.Cu, length 7.5144 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 NRST 和 IMU_INT2)
+    Local override; error
+    @(25.7375 mm, 16.3250 mm): Pad 6 [NRST] of U1 on F.Cu
+    @(24.8000 mm, 16.3250 mm): Track [IMU_INT2] on F.Cu, length 6.6625 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1000 mm)
+    Local override; error
+    @(24.8000 mm, 15.2500 mm): Track [IMU_INT2] on F.Cu, length 1.0750 mm
+    @(25.7375 mm, 15.6750 mm): Pad 5 [GND] of U1 on F.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 SPI_MOSI 和 VBAT_FUSED)
+    Local override; error
+    @(29.1699 mm, 11.3048 mm): Track [SPI_MOSI] on F.Cu, length 1.7310 mm
+    @(29.7000 mm, 11.5000 mm): Pad 2 [VBAT_FUSED] of F1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1250 mm)
+    Local override; error
+    @(25.7375 mm, 15.0250 mm): Pad 4 [+3V3] of U1 on F.Cu
+    @(21.6625 mm, 15.2500 mm): Track [IMU_INT2] on F.Cu, length 3.1375 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(30.1212 mm, 16.2513 mm): Track [SPI_MOSI] on F.Cu, length 1.0235 mm
+    @(24.8000 mm, 16.3250 mm): Track [IMU_INT2] on F.Cu, length 6.6625 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0352 mm)
+    Local override; error
+    @(26.9000 mm, 11.5000 mm): Pad 1 [VBAT_RAW] of F1 on F.Cu
+    @(23.2274 mm, 10.4898 mm): Track [SPI_MOSI] on F.Cu, length 5.1275 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(16.4198 mm, 18.6596 mm): Track [SPI_MISO] on B.Cu, length 3.6563 mm
+    @(10.3000 mm, 20.1000 mm): Track [SWCLK] on B.Cu, length 20.5000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_RAW 和 SPI_SCK)
+    Local override; error
+    @(26.9000 mm, 11.5000 mm): Pad 1 [VBAT_RAW] of F1 on F.Cu
+    @(23.4632 mm, 10.8416 mm): Track [SPI_SCK] on F.Cu, length 4.6978 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(29.4701 mm, 14.0646 mm): Track [SPI_SCK] on F.Cu, length 2.8166 mm
+    @(24.8000 mm, 16.3250 mm): Track [IMU_INT2] on F.Cu, length 6.6625 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 SPI_CS 和 IMU_INT2)
+    Local override; error
+    @(22.9921 mm, 15.2801 mm): Via [SPI_CS] on F.Cu - B.Cu
+    @(21.6625 mm, 15.2500 mm): Track [IMU_INT2] on F.Cu, length 3.1375 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 SPI_CS 和 SWCLK)
+    Local override; error
+    @(23.5799 mm, 19.8600 mm): Via [SPI_CS] on F.Cu - B.Cu
+    @(10.3000 mm, 20.1000 mm): Track [SWCLK] on B.Cu, length 20.5000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(22.9921 mm, 14.4721 mm): Track [SPI_CS] on F.Cu, length 0.8080 mm
+    @(21.6625 mm, 15.2500 mm): Track [IMU_INT2] on F.Cu, length 3.1375 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(31.4625 mm, 18.9250 mm): Track [SPI_CS] on F.Cu, length 1.9409 mm
+    @(30.8000 mm, 20.1000 mm): Track [SWCLK] on F.Cu, length 6.3750 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(25.7375 mm, 16.3250 mm): Track [NRST] on F.Cu, length 1.9100 mm
+    @(24.8000 mm, 16.3250 mm): Track [IMU_INT2] on F.Cu, length 6.6625 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0846 mm)
+    Local override; error
+    @(27.5348 mm, 0.8500 mm): Via [BUS_DATA] on F.Cu - B.Cu
+    @(28.5361 mm, 0.5340 mm): Track [UART1_RX] on F.Cu, length 1.1078 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(21.5778 mm, 14.7598 mm): Track [OCS_AUX] on B.Cu, length 4.3606 mm
+    @(10.5000 mm, 14.5000 mm): Track [UART1_TX] on B.Cu, length 20.2000 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0902 mm)
+    Local override; error
+    @(22.4258 mm, 14.7598 mm): Via [OCS_AUX] on F.Cu - B.Cu
+    @(21.6625 mm, 15.2500 mm): Track [IMU_INT2] on F.Cu, length 3.1375 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 OCS_AUX 和 UART1_TX)
+    Local override; error
+    @(22.4258 mm, 14.7598 mm): Via [OCS_AUX] on F.Cu - B.Cu
+    @(10.5000 mm, 14.5000 mm): Track [UART1_TX] on B.Cu, length 20.2000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(12.3533 mm, 19.8451 mm): Track [SDx] on B.Cu, length 1.4818 mm
+    @(10.3000 mm, 20.1000 mm): Track [SWCLK] on B.Cu, length 20.5000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 SDx 和 SWCLK)
+    Local override; error
+    @(15.8637 mm, 20.1660 mm): Via [SDx] on F.Cu - B.Cu
+    @(10.3000 mm, 20.1000 mm): Track [SWCLK] on B.Cu, length 20.5000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_RAW 和 SWCLK)
+    Local override; error
+    @(20.2567 mm, 20.2947 mm): Track [VBAT_RAW] on B.Cu, length 1.8283 mm
+    @(10.3000 mm, 20.1000 mm): Track [SWCLK] on B.Cu, length 20.5000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(22.0850 mm, 20.2947 mm): Track [VBAT_RAW] on B.Cu, length 3.4074 mm
+    @(10.3000 mm, 20.1000 mm): Track [SWCLK] on B.Cu, length 20.5000 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1017 mm)
+    Local override; error
+    @(10.7017 mm, 19.5622 mm): Track [GND] on B.Cu, length 0.7401 mm
+    @(10.3000 mm, 19.0500 mm): Track [SWCLK] on B.Cu, length 1.0500 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(30.1734 mm, 18.6256 mm): Track [GND] on B.Cu, length 2.0735 mm
+    @(10.3000 mm, 20.1000 mm): Track [SWCLK] on B.Cu, length 20.5000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(17.0050 mm, 22.9182 mm): Track [BUS_TX] on B.Cu, length 3.6726 mm
+    @(10.3000 mm, 20.1000 mm): Track [SWCLK] on B.Cu, length 20.5000 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0873 mm)
+    Local override; error
+    @(25.9717 mm, 19.6127 mm): Via [BUS_TX] on F.Cu - B.Cu
+    @(10.3000 mm, 20.1000 mm): Track [SWCLK] on B.Cu, length 20.5000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 +3V3 和 GND)
+    Local override; error
+    @(25.3000 mm, 25.6250 mm): Track [+3V3] on B.Cu, length 0.5303 mm
+    @(24.7875 mm, 25.5000 mm): Pad 2 [GND] of LED1 on B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 +3V3 和 GND)
+    Local override; error
+    @(25.3000 mm, 20.2107 mm): Track [+3V3] on B.Cu, length 5.4143 mm
+    @(24.7875 mm, 25.5000 mm): Pad 2 [GND] of LED1 on B.Cu
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(26.9800 mm, 13.7045 mm): Track [+3V3] on B.Cu, length 0.9814 mm
+    @(10.5000 mm, 14.5000 mm): Track [UART1_TX] on B.Cu, length 20.2000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 +3V3 和 UART1_TX)
+    Local override; error
+    @(25.7478 mm, 15.9181 mm): Track [+3V3] on B.Cu, length 1.7426 mm
+    @(10.5000 mm, 14.5000 mm): Track [UART1_TX] on B.Cu, length 20.2000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 SPI_MOSI 和 VBAT_FUSED)
+    Local override; error
+    @(28.3549 mm, 10.4898 mm): Track [SPI_MOSI] on F.Cu, length 1.1526 mm
+    @(29.7000 mm, 11.5000 mm): Pad 2 [VBAT_FUSED] of F1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0500 mm)
+    Local override; error
+    @(25.6750 mm, 26.0000 mm): Pad 1 [+3V3] of R1 on B.Cu
+    @(24.7875 mm, 25.5000 mm): Pad 2 [GND] of LED1 on B.Cu
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.1930 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(31.4625 mm, 15.0250 mm): Pad 17 [UART1_RX] of U1 on F.Cu
+    @(30.7000 mm, 14.5000 mm): Via [UART1_TX] on F.Cu - B.Cu
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(31.4625 mm, 14.3750 mm): Pad 18 [SWDIO] of U1 on F.Cu
+    @(30.7000 mm, 14.5000 mm): Via [UART1_TX] on F.Cu - B.Cu
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(26.5000 mm, 26.0000 mm): Footprint R1
+    @(24.0000 mm, 25.5000 mm): Footprint LED1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(9.9000 mm, 2.1500 mm): Footprint B1
+    @(9.5000 mm, 21.5900 mm): Footprint J2
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(35.7000 mm, 18.5000 mm): Footprint J4
+    @(35.7000 mm, 10.5000 mm): Footprint J5
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(4.6000 mm, 26.5000 mm): Footprint J1
+    @(9.5000 mm, 21.5900 mm): Footprint J2
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(30.8000 mm, 20.1000 mm): Track [SWCLK] on F.Cu, length 6.3750 mm
+    @(31.4625 mm, 18.9250 mm): Pad 11 [SPI_CS] of U1 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(30.8000 mm, 20.1000 mm): Track [SWCLK] on F.Cu, length 6.3750 mm
+    @(31.4625 mm, 18.2750 mm): Pad 12 [SPI_SCK] of U1 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(30.8000 mm, 20.1000 mm): Track [SWCLK] on F.Cu, length 6.3750 mm
+    @(31.4625 mm, 17.6250 mm): Pad 13 [SPI_MISO] of U1 on F.Cu
+[solder_mask_bridge]: 底层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(25.3000 mm, 20.2107 mm): Track [+3V3] on B.Cu, length 5.4143 mm
+    @(24.7875 mm, 25.5000 mm): Pad 2 [GND] of LED1 on B.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(30.8000 mm, 20.1000 mm): Track [SWCLK] on F.Cu, length 6.3750 mm
+    @(31.4625 mm, 16.9750 mm): Pad 14 [SPI_MOSI] of U1 on F.Cu
+[solder_mask_bridge]: 底层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(25.3000 mm, 25.6250 mm): Track [+3V3] on B.Cu, length 0.5303 mm
+    @(24.7875 mm, 25.5000 mm): Pad 2 [GND] of LED1 on B.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(30.8000 mm, 20.1000 mm): Track [SWCLK] on F.Cu, length 6.3750 mm
+    @(31.4625 mm, 16.3250 mm): Pad 15 [IMU_INT2] of U1 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(30.8000 mm, 20.1000 mm): Track [SWCLK] on F.Cu, length 6.3750 mm
+    @(31.4625 mm, 15.6750 mm): Pad 16 [UART1_TX] of U1 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(30.8000 mm, 20.1000 mm): Track [SWCLK] on F.Cu, length 6.3750 mm
+    @(31.4625 mm, 15.0250 mm): Pad 17 [UART1_RX] of U1 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(30.8000 mm, 20.1000 mm): Track [SWCLK] on F.Cu, length 6.3750 mm
+    @(31.4625 mm, 14.3750 mm): Pad 18 [SWDIO] of U1 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(28.3549 mm, 10.4898 mm): Track [SPI_MOSI] on F.Cu, length 1.1526 mm
+    @(29.7000 mm, 11.5000 mm): Pad 2 [VBAT_FUSED] of F1 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(23.4632 mm, 10.8416 mm): Track [SPI_SCK] on F.Cu, length 4.6978 mm
+    @(26.9000 mm, 11.5000 mm): Pad 1 [VBAT_RAW] of F1 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(29.1699 mm, 11.3048 mm): Track [SPI_MOSI] on F.Cu, length 1.7310 mm
+    @(29.7000 mm, 11.5000 mm): Pad 2 [VBAT_FUSED] of F1 on F.Cu
+[solder_mask_bridge]: 底层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(24.5983 mm, 26.1989 mm): Track [VBAT_LOGIC] on B.Cu, length 7.6374 mm
+    @(24.7875 mm, 25.5000 mm): Pad 2 [GND] of LED1 on B.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(24.8000 mm, 16.3250 mm): Track [IMU_INT2] on F.Cu, length 6.6625 mm
+    @(25.7375 mm, 16.3250 mm): Pad 6 [NRST] of U1 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(30.7000 mm, 14.5000 mm): Track [UART1_TX] on F.Cu, length 1.1750 mm
+    @(31.4625 mm, 15.0250 mm): Pad 17 [UART1_RX] of U1 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(30.7000 mm, 14.5000 mm): Track [UART1_TX] on F.Cu, length 1.1750 mm
+    @(31.4625 mm, 14.3750 mm): Pad 18 [SWDIO] of U1 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(30.7000 mm, 14.5000 mm): Via [UART1_TX] on F.Cu - B.Cu
+    @(31.4625 mm, 14.3750 mm): Pad 18 [SWDIO] of U1 on F.Cu
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(24.1206 mm, 13.2935 mm): Track [VBAT_RAW] on F.Cu, length 1.8293 mm
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 20.6100 mm): Segment of J4 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 23.1500 mm): Segment of J4 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(45.8500 mm, 21.4700 mm): Segment of J4 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(45.8500 mm, 24.0100 mm): Segment of J4 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 18.0700 mm): Rectangle of J4 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-0.6500 mm, 5.9200 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-0.6500 mm, 8.4600 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-0.6500 mm, 11.0000 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-0.6500 mm, 13.5400 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-0.6500 mm, 16.0800 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-0.6500 mm, 18.6200 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 6.7800 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 9.3200 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 11.8600 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 14.4000 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 16.9400 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 19.4800 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 22.0200 mm): Rectangle of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 12.6100 mm): Segment of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 15.1500 mm): Segment of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(45.8500 mm, 13.4700 mm): Segment of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(45.8500 mm, 16.0100 mm): Segment of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 10.0700 mm): Rectangle of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(15.8400 mm, 35.6500 mm): Segment of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(16.7000 mm, 29.6500 mm): Segment of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(18.3800 mm, 35.6500 mm): Segment of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(19.2400 mm, 29.6500 mm): Segment of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(21.7800 mm, 29.6500 mm): Rectangle of J3 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(8.1100 mm, 22.9700 mm): Rectangle of J2 on F.Silkscreen
+    @(6.2400 mm, 22.9800 mm): Segment of J1 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(4.9000 mm, 22.9800 mm): Segment of J1 on F.Silkscreen
+    @(8.1100 mm, 22.9700 mm): Rectangle of J2 on F.Silkscreen
+
+** Found 2 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(21.6371 mm, 23.8060 mm): Track [GND] on B.Cu, length 0.4564 mm
+    @(24.7875 mm, 25.5000 mm): Pad 2 [GND] of LED1 on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(24.1206 mm, 13.2935 mm): Track [VBAT_RAW] on F.Cu, length 1.8293 mm
+    @(26.9000 mm, 11.5000 mm): Pad 1 [VBAT_RAW] of F1 on F.Cu
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

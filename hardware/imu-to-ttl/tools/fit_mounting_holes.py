@@ -33,7 +33,10 @@ PCB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PROJ, "imu_to_ttl.kicad
 
 HOLES = [("B1", 9.90, 2.15), ("B2", 31.10, 2.15),
          ("B3", 31.10, 27.85), ("B4", 9.90, 27.85)]
-MOUNT_LIB = "/usr/share/kicad/footprints/MountingHole.pretty"
+import os as _o
+MOUNT_LIB = _o.path.join(next(_p for _p in [_o.environ.get("KICAD_FOOTPRINTS", ""),
+    "C:/Users/c1349/AppData/Local/Programs/KiCad/10.0.7/share/kicad/footprints", "/usr/share/kicad/footprints"]
+    if _p and _o.path.isdir(_p)), "MountingHole.pretty")
 MOUNT_FP = "MountingHole_2.2mm_M2"
 
 # parts that sit in a hole courtyard (J4 is clear and stays put) and how far to

@@ -1,0 +1,17 @@
+Designator,Value,X,Y,Rotation,Layer
+C3,10uF 25V X7R,38.50,3.50,0,bottom
+C4,100nF 50V,25.50,19.00,0,bottom
+C5,10uF 10V,11.50,26.00,0,bottom
+C6,100nF 50V,25.50,24.00,0,bottom
+C8,4.7uF 10V X7R,29.00,24.00,0,bottom
+C9,100nF 50V,21.50,24.00,0,bottom
+D2,SMF12A,21.50,19.00,0,bottom
+F2,PPTC 200mA,16.00,19.00,0,bottom
+LED1,LED 0603,24.00,4.50,0,bottom
+R1,1k,26.50,4.00,0,bottom
+R11,4.7k ALT DNP,29.00,19.00,0,bottom
+R12,10k ALT DNP,32.50,19.00,0,bottom
+R13,150R,23.50,1.80,0,bottom
+R2,10k,20.50,26.20,0,bottom
+TH1,PRG18BB101MB1RB,13.00,4.50,0,bottom
+U4,HT7533-1,16.50,24.50,0,bottom

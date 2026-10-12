@@ -48,7 +48,10 @@ HOLES = [
 # the drawing reserves the top 3 mm for the chassis rib: no components there
 TOP_KEEPOUT = 3.0
 
-MOUNT_LIB = "/usr/share/kicad/footprints/MountingHole.pretty"
+import os as _o
+MOUNT_LIB = _o.path.join(next(_p for _p in [_o.environ.get("KICAD_FOOTPRINTS", ""),
+    "C:/Users/c1349/AppData/Local/Programs/KiCad/10.0.7/share/kicad/footprints", "/usr/share/kicad/footprints"]
+    if _p and _o.path.isdir(_p)), "MountingHole.pretty")
 MOUNT_FP = "MountingHole_2.2mm_M2"
 
 HERE = os.path.dirname(os.path.abspath(__file__))

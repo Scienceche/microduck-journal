@@ -28,28 +28,24 @@ PCB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PROJ, "imu_to_ttl.kicad
 
 # ref, x, y, rotation (deg) -- every one of these parts is locked in place
 FLOORPLAN = [
-    # Only true mechanical anchors live here; everything else is packed around
-    # them by pack_loose.py using its real courtyard boxes.
-    ("J1", 4.6, 15.0, 180),      # battery input, left edge, wires exit left
-    ("J3", 13.5, 8.7, 180),      # servo bus: neck - high enough that the B1
-                                 # hole courtyard (y <= 4.65) clears its own
-    ("J4", 22.5, 8.7, 180),      # servo bus: left leg, same row as J3
-    ("J5", 38.2, 15.0, 270),     # servo bus: right leg, right edge
-    # Power front-end is anchored too: the VBAT / VBAT_RAW pours are fixed
-    # polygons, so these parts have to sit where the pour reaches them. Left to
-    # the packer they drift, and the battery net comes out unconnected.
+    # v3 (2026-10-12): 板子装在电池和躯干之间, 接插件全部改卧式弯排针并贴
+    # 板边(针尖探出板外, 插头从板外水平插, 线贴边引出, 在板高度约2.5mm).
+    # J1 电池端子暂保持 XY308 卧式封装(KF128 8.8mm 是全板最高点, 待定).
+    ("J1", 4.6, 26.5, 180),      # battery input, bottom-left, wires exit left
+    ("J2", 9.5, 21.59, 180),      # debug 1x7 lying: pad column x=9.5, pins out LEFT
+    ("J3", 21.35, 25.5, 270),     # neck servo 1x3 lying: pads y=25.5, pins out BOTTOM
+    ("J5", 35.7, 10.5, 0),       # leg servo, right edge upper, pins out RIGHT
+    ("J4", 35.7, 18.5, 0),       # leg servo, right edge lower, pins out RIGHT
+    # Power front-end: the VBAT / VBAT_RAW pours are fixed polygons, so these
+    # stay where the pour reaches them.
     ("Q1", 28.84, 7.9, 0),       # reverse-polarity FET, clear of B2's courtyard
-    ("F1", 33.67, 10.78, 0),     # 5 A fuse, inside the VBAT_RAW pour
-    # D1 (SMBJ12A) used to sit at its schematic-com position, which my J3
-    # move put it on top of. Anchor it clear of U3 and J3; it only carries
-    # VBAT/GND (both pour-connected), so the spot is routing-free.
-    ("D1", 10.5, 14.5, 0),
+    ("F1", 28.3, 11.5, 0),     # 5 A fuse, inside the VBAT_RAW pour
     ("R10", 9.62, 24.4, 0),      # gate divider, clear of B4's courtyard
     ("U2", 20.5, 15.0, 0),       # IMU: at the mounting-hole centre
-    ("U1", 28.6, 15.5, 0),       # MCU beside it - the pair moved together so
-                                 # the routing channel between them stays clear
-    ("J2", 16.0, 23.0, 90),      # debug header, one row up: the bottom row
-                                 # now belongs to the B3/B4 mounting holes
+    ("U1", 28.6, 16.0, 0),       # MCU beside it - the routing channel between
+                                 # them stays clear
+    # D1 no longer anchored: its old spot belongs to J2's pin field now; the
+    # packer places it (VBAT/GND are both pour-connected, spot is free).
 ]
 
 # test points stay on the bottom side (probed during bring-up, out of the robot);
@@ -60,6 +56,7 @@ BACK_ONLY = [
     # not fit on the front side next to the servo-bus copper
     "TP1", "TP2", "TP3", "TP4", "TP5",
     "F2", "D2", "U4", "C3", "C4", "C5", "C8", "R1", "LED1", "R11", "R12",
+    "C6", "C9", "R13", "R2", "TH1", "C14",   # v3: 边缘接插件占正面, 挪底面
 ]
 BACK_POS = {
     # Bottom side. Spacing follows the parts: the LDO is 5.2 mm wide and the
@@ -68,9 +65,10 @@ BACK_POS = {
     "TP4": (12.0, 18.8), "TP5": (12.0, 21.4),
     "F2": (16.0, 11.0), "D2": (21.5, 11.0), "C4": (25.5, 11.0),
     "R11": (29.0, 11.0), "R12": (32.5, 11.0),
-    "C3": (36.0, 25.5), "C6": (25.5, 6.0), "C8": (29.0, 6.0), "C5": (32.5, 6.0),
-    "U4": (37.0, 9.5),
-    "R1": (36.5, 21.0), "LED1": (33.0, 21.0),
+    "C3": (38.5, 26.5), "C6": (25.5, 6.0), "C8": (29.0, 6.0), "C5": (11.5, 4.0),
+    "U4": (16.5, 5.5), "C9": (21.5, 6.0), "R13": (23.5, 28.2),
+    "R2": (20.5, 3.8), "TH1": (13.0, 25.5), "C14": (8.5, 21.0),
+    "R1": (26.5, 26.0), "LED1": (24.0, 25.5),
 }
 
 

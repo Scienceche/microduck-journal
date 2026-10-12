@@ -32,20 +32,20 @@ PCB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PROJ, "imu_to_ttl.kicad
 PACKED = {
     # power front-end, anchored on J1's VBAT pin and the LDO
     "F1":  (4.0, 19.5),     # 5 A fuse
-    "C1":  (8.0, 19.5),     # 10 uF bulk on VBAT
-    "D1":  (11.5, 22.0),    # SMBJ12A bulk TVS
-    "Q1":  (6.0, 22.5),     # reverse-polarity PMOS
-    "C2":  (8.5, 25.0),     # 100 nF on VBAT
+    "C1":  (26.0, 11.5),     # 10 uF bulk on VBAT
+    "D1":  (24.5, 13.5),    # SMBJ12A bulk TVS     # reverse-polarity PMOS
+    "C2":  (25.0, 11.0),     # 100 nF on VBAT
     # bus buffer + clamp network: top right, next to J3/J4/J5
-    "TH1": (30.0, 5.4), "D3": (33.2, 5.4), "R13": (36.4, 5.4), "R8": (39.2, 5.4),
-    "R7":  (30.0, 8.6), "U3": (33.4, 8.6),
+    "D3": (33.2, 5.4), "R8": (33.5, 15.5),
+    "R7":  (29.5, 18.5), "U3": (31.5, 21.5),
     # IMU rail + straps (outside the escape frame)
     "FB1": (15.0, 13.2), "C10": (15.0, 15.8), "C11": (15.0, 18.4),
-    "C12": (34.2, 12.6), "R3": (34.2, 19.0), "R4": (15.0, 22.4),
+    "C12": (33.0, 13.0), "R3": (33.0, 17.0), "R4": (15.0, 22.4),
     "R5": (18.0, 22.8), "R6": (21.0, 22.8),
+    "R14": (28.0, 24.0), "R15": (30.0, 24.0), "R16": (32.0, 24.0),  # v3 strap
     # MCU decoupling + NRST
-    "C6": (31.5, 9.6), "C7": (31.5, 22.0), "C13": (34.5, 22.0),
-    "C9": (28.0, 24.5), "R2": (31.0, 24.5),
+    "C7": (26.5, 22.5), "C13": (26.0, 18.5),
+   
     # FET gate network
     "R9": (9.5, 22.5), "R10": (9.5, 25.0), "C14": (12.0, 25.0),
 }
@@ -65,8 +65,8 @@ KEEP_OUT = [
     (22.2, 10.5, 24.4, 19.5),   # east: channel to the MCU
     (18.8, 10.5, 22.2, 12.0),   # north
     (18.8, 18.0, 22.2, 19.5),   # south
-    # J2's through-hole pad row along the bottom edge
-    (6.6, 26.2, 25.4, 29.4),
+    # J3's through-hole pad row along the bottom edge (v3)
+    (13.0, 24.0, 23.0, 29.4),
 ]
 GAP = 0.3            # routing channel reserved between courtyards
 GRID = 0.5
@@ -158,7 +158,7 @@ def main():
 
     # --- first fit: biggest parts first, scanning the whole board for the
     # first free cell (a shelf cursor gets stuck behind the big connectors)
-    parts = sorted(PACKED, key=lambda r: -size_of(box_of(fps[r]))[0] * size_of(box_of(fps[r]))[1])
+    parts = sorted((r for r in PACKED if r not in skeleton), key=lambda r: -size_of(box_of(fps[r]))[0] * size_of(box_of(fps[r]))[1])  # v3: 骨架件不重排
     placed, unplaced = [], []
 
     def scan(ref, w, h, step, gap=GAP):

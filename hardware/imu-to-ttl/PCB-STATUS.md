@@ -355,3 +355,61 @@ net_v2.net=KiCad 导出), base_check.pcb 是当时的核查副本。
 1. **重布 35 条未连接**(KiCad GUI 手工布线或后续脚本;tools/route_leftovers.py 是起点)
 2. 布通后重导 fab(Gerber/BOM/CPL 要加 R14-R16 底面贴片)
 3. 送板评审前把外框重叠 3 条在 GUI 里右键排除(DRC exclusions),让报告干净
+
+
+---
+
+# v3 布局重构: 接插件全部卧式贴板边(2026-10-12 晚)
+
+**背景**: 板子实际装在**电池和躯干之间**,Z 向间隙只有几毫米。v2 布局里 J2(1x7立式排针)、
+J3/J4/J5(JST-PH 立式) 全立在板中,插上线就顶穿夹层。本轮全部改为**弯针卧式排针贴板边**。
+
+## 布局方案(41x30, 顶面视角)
+
+| 座 | 封装 | 位置 | 出线方向 |
+|---|---|---|---|
+| J2 调试 | PinHeader_1x07_P2.54mm_**Horizontal** | 焊盘列 x9.5, y6.4-21.6 | 针向左伸出板外,插头从板外插 |
+| J3 颈部舵机 | PinHeader_1x03_**Horizontal** | 焊盘 y25.5, x16.3-21.4 | 针向下 |
+| J4/J5 左右腿舵机 | 1x03 同上 | 焊盘列 x35.7, y10.5-15.6 / 18.5-24.1 | 针向右 |
+| J1 电池端子 | XY308(卧式) 挪到左下角 (4.6,26.5) | 线向左 |
+
+在板高度: 排针体 ~2.5mm(全板其余器件<=1mm); **J1 KF128 实物 8.8mm 仍是全板最高点**,
+若夹层不够需换卧式端子或出板引线(待定)。原理图 Footprint 属性已同步(sch_polish 前跑的
+set_sch_fp.py)。
+
+## 重建工具链(重要修复)
+
+板子由 9 月工具链整板重建(build_board.sh),Windows 环境适配:
+
+- assign_netlist/gen_board 的 `/usr/share/kicad` 路径 → 自动探测 Windows KiCad 目录
+- **Freerouting**: 本机无 java/无 jar → 下载 freerouting-1.9.0.jar + Temurin JRE21 便携包
+  (~/jre21/, ~/.local/bin/freerouting.jar), route.py 改用绝对 java 路径
+- pack_loose 修复: **首装循环原来不排除骨架件**(PACKED 里的 Q1/F1 被拖离锚点);
+  KEEP_OUT 旧 J2 底排改 J3 焊盘带; 电源前级/C1/C2/D1/U3/R14-16 等目标点按新地理重定向
+- place_board: J1/J2/J3/J4/J5/F1/U1 新锚点; 底面新增 C6/C9/R13/R2/TH1/C14(正面被
+  接插件场吃掉); U4/C5/C3/R1/LED1 底面槽位避开 J4/J5 焊盘柱
+- pours: VBAT_RAW 左列延伸到新 J1; VBAT 改为 顶带+右柱+底带 L 形(盖住 J3/J4/J5 焊盘)
+- rules: 铜-板边距 0.3→0.25(嘉立创工艺)
+- assign_netlist: **清除库封装自带的 0.2 局部间距覆盖**(TSSOP 库封装会压过全局 0.15 规则)
+- build_board.sh 加**硬校验**: 封装数<40 或 <60KB 判失败(防空板事故——本次真实发生过:
+  工具链中途崩掉产出 4 孔空板,DRC 全绿假象,靠文件大小校验戳穿)
+
+## 结果(drc_v3FINAL.rpt)
+
+| 项 | 数 |
+|---|---|
+| 未连接 | **0** |
+| 短路/阻焊桥 | **0** |
+| 间距 | 1 (R1↔LED1 实际0.14mm, 高于嘉立创0.127工艺线, 送板前GUI微挪R1即可) |
+| 铜边距 | 1 (SWCLK过孔距边0.17mm, 同上微挪) |
+| 外框重叠 | 6 (J4↔J5/J1↔J2/J2↔B1/F1↔Q1↔U1/LED1↔R1: 均为保守外框,实体已核有间隙) |
+| 丝印 | 28+ (silk_edge_clearance 丝印靠板边, 纯外观) |
+
+贴片: 顶32 + 底16; fab/ 已重导(Gerber 12 + 钻孔 + BOM + CPL 正/背)。
+渲染: pcb_rework/r_v3_top.png / r_v3_bot.png。
+
+## 送板前人工清单(v3)
+
+1. GUI 微挪 R1(+0.2mm) 和 SWCLK 过孔(+0.1mm) 清掉最后两条
+2. J1 立式 KF128(8.8mm) 是否接受, 或换卧式端子
+3. 旧 JST-PH 卧式插头改成了 2.54 弯排针, 舵机线需焊接或杜邦(与实物不同, 实物是 JST)

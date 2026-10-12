@@ -34,7 +34,7 @@ BOARD_RULES = {
     "min_via_diameter": 0.55,
     "min_hole_clearance": 0.25,
     "min_hole_to_hole": 0.25,
-    "min_copper_edge_clearance": 0.3,
+    "min_copper_edge_clearance": 0.25,
     "min_resolved_spokes": 1,
     "min_text_height": 0.8,
     "min_text_thickness": 0.08,

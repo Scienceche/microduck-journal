@@ -21,6 +21,9 @@ SES = os.path.join(PROJ, "analysis", "imu_to_ttl.ses")
 if "--continue" in sys.argv:
     SES = os.path.join(PROJ, "analysis", "imu_to_ttl_finish.ses")
 JAR = os.path.expanduser("~/.local/bin/freerouting.jar")
+JAVA = os.path.expanduser("~/jre21/jdk-21.0.12.1+1-jre/bin/java.exe")
+if not os.path.isfile(JAVA):
+    JAVA = "java"
 PASSES = "20"
 
 argv = sys.argv[1:]
@@ -60,7 +63,7 @@ print("  %s (%.1f kB)" % (DSN, os.path.getsize(DSN) / 1024.0))
 
 print("running Freerouting (max %s passes) ..." % PASSES)
 proc = subprocess.run(
-    ["java", "-jar", JAR, "-de", DSN, "-do", SES, "-mp", PASSES],
+    [JAVA, "-jar", JAR, "-de", DSN, "-do", SES, "-mp", str(PASSES), "-dr", "0"],
     capture_output=True, text=True, timeout=1800)
 tail = [l for l in proc.stdout.splitlines() if l.strip()][-6:]
 for line in tail:

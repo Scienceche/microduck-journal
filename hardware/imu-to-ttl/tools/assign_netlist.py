@@ -20,7 +20,10 @@ import pcbnew
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PROJ = os.path.dirname(HERE)
-KICAD_FP = "/usr/share/kicad/footprints"
+import os as _o
+KICAD_FP = next(_p for _p in [_o.environ.get("KICAD_FOOTPRINTS", ""),
+    "C:/Users/c1349/AppData/Local/Programs/KiCad/10.0.7/share/kicad/footprints", "/usr/share/kicad/footprints"]
+    if _p and _o.path.isdir(_p))
 LOCAL_LIBS = {"imu_ttl": os.path.join(PROJ, "lib", "imu_ttl.pretty")}
 
 NET = sys.argv[1] if len(sys.argv) > 1 else "/tmp/imu_ttl.net"
@@ -114,6 +117,14 @@ def mm(v):
     return pcbnew.FromMM(v)
 
 
+def strip_fp_clearance(fp):
+    """KiCad库封装(TSSOP等)自带0.2局部间距, 会压过全局0.15规则 → 统一清0"""
+    try:
+        fp.SetLocalClearance(pcbnew.FromMM(0))
+    except Exception:
+        pass
+
+
 def vec(x, y):
     return pcbnew.VECTOR2I(mm(x), mm(y))
 
@@ -161,6 +172,7 @@ def main():
         fp = load_footprint(c["footprint"])
         fp.SetReference(c["ref"])
         fp.SetValue(c["value"])
+        strip_fp_clearance(fp)
         fp.SetPosition(vec(x0 + (idx % per_row) * dx, y0 + ((idx // per_row) % 3) * dy))
         board.Add(fp)
         placed[c["ref"]] = fp

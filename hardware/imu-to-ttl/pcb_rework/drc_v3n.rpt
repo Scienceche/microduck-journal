@@ -1,0 +1,170 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-12T19:34:58 **
+** Report includes: Errors, Warnings **
+
+** Found 38 DRC violations **
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0500 mm)
+    Local override; error
+    @(25.6750 mm, 26.0000 mm): Pad 1 [+3V3] of R1 on B.Cu
+    @(24.7875 mm, 25.5000 mm): Pad 2 [GND] of LED1 on B.Cu
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(4.6000 mm, 26.5000 mm): Footprint J1
+    @(9.5000 mm, 21.5900 mm): Footprint J2
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(24.0000 mm, 25.5000 mm): Footprint LED1
+    @(26.5000 mm, 26.0000 mm): Footprint R1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(35.7000 mm, 10.5000 mm): Footprint J5
+    @(35.7000 mm, 18.5000 mm): Footprint J4
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(9.5000 mm, 21.5900 mm): Footprint J2
+    @(9.9000 mm, 2.1500 mm): Footprint B1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1741 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(23.8693 mm, 29.5259 mm): Via [SWCLK] on F.Cu - B.Cu
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(15.8400 mm, 35.6500 mm): Segment of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(16.7000 mm, 29.6500 mm): Segment of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(18.3800 mm, 35.6500 mm): Segment of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(19.2400 mm, 29.6500 mm): Segment of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(21.7800 mm, 29.6500 mm): Rectangle of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 12.6100 mm): Segment of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 15.1500 mm): Segment of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(45.8500 mm, 13.4700 mm): Segment of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(45.8500 mm, 16.0100 mm): Segment of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 10.0700 mm): Rectangle of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-0.6500 mm, 5.9200 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-0.6500 mm, 8.4600 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-0.6500 mm, 11.0000 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-0.6500 mm, 13.5400 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-0.6500 mm, 16.0800 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-0.6500 mm, 18.6200 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 6.7800 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 9.3200 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 11.8600 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 14.4000 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 16.9400 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 19.4800 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(5.3500 mm, 22.0200 mm): Rectangle of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 20.6100 mm): Segment of J4 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 23.1500 mm): Segment of J4 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(45.8500 mm, 21.4700 mm): Segment of J4 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(45.8500 mm, 24.0100 mm): Segment of J4 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 18.0700 mm): Rectangle of J4 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(4.9000 mm, 22.9800 mm): Segment of J1 on F.Silkscreen
+    @(8.1100 mm, 22.9700 mm): Rectangle of J2 on F.Silkscreen
+[silk_overlap]: Silkscreen clearance
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(8.1100 mm, 22.9700 mm): Rectangle of J2 on F.Silkscreen
+    @(6.2400 mm, 22.9800 mm): Segment of J1 on F.Silkscreen
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **
