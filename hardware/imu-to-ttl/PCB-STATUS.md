@@ -285,12 +285,19 @@ kicad-cli pcb export step --output fab/imu_to_ttl.step --subst-models --no-dnp -
 SN74LVC2G241 双缓冲(TX_EN_N/RX_EN 方向控制)+ 复位脚 10k 下拉电阻(详见 docs/调试记录)。
 本轮把 KiCad 工程升级到与实物一致的拓扑。
 
-## 原理图(pcb_rework/rework_bus_v2.py)
+## 原理图(pcb_rework/rework_bus_v2.py + relayout_bus.py)
 
 - 01 总线页:U3 换 SN74LVC2G241DCUR(TI 真实引脚 4=GND/6=TX/3=RX),
   TX_EN_N(2OE)、RX_EN(1OE#)方向控制,新增 R14/R15(上拉 10k)+ R16(下拉 10k,启动 strap)
 - 02 MCU 页:U1.8→TX_EN_N、U1.1→RX_EN、U1.10 改标 MCU_RX(原 BUS_LOGIC)
 - 已与实物板网表逐网核对一致 ✓
+- **04_bus 整页重排(2026-10-12 下午)**:v2 手术后该页全是隔空标签、无一根导线,可读性差。
+  `pcb_rework/relayout_bus.py` 按"人画图"重排:MCU 标签(左)→R14/R7 上拉列→U3→
+  RX_EN 分压柱(R15↑/R16↓+strap 说明文字)→BUS_LOGIC 主干(真实导线)→
+  R8/R11/R12 三选一上拉堆叠(左共 +3V3 竖轨、右共降线)→R13→D3 钳位→TH1 端子;
+  C13 挪到 U3.8 旁实线连 GND;4 条注释竖排页底。
+  **验证:重排前后 netlist 逐网逐脚完全一致(pcb_rework/net_diff.py)✓,ERC 仅剩 1 条
+  原有的内嵌库符号警告。** 顺带清掉了 02_mcu 上 U1.1/U1.8 两个失效的 no_connect 标记。
 
 ## PCB(pcb_rework/rework_pcb_v2/v3/v4 + refill_zones.py)
 

@@ -1,0 +1,33 @@
+ERC report (2026-10-12T15:42:34, Encoding UTF8)
+Report includes: Errors, Warnings
+
+***** Sheet /
+[lib_symbol_issues]: 在符号库中 'SN74LVC2G241' 找不到符号 '74xGxx'
+    ; warning
+    @(120.65 mm, 110.49 mm): Symbol U3 [SN74LVC2G241]
+
+***** Sheet /Power & Protection/
+
+***** Sheet /MCU & Debug/
+[no_connect_connected]: A pin with a "no connection" flag is connected
+    ; warning
+    @(74.93 mm, 107.95 mm): Symbol U1 Pin 1 [PB7/PB8, Bidirectional, Line]
+    @(74.93 mm, 107.95 mm): No Connect
+[no_connect_connected]: A pin with a "no connection" flag is connected
+    ; warning
+    @(125.73 mm, 97.79 mm): Symbol U1 Pin 8 [PA1, Bidirectional, Line]
+    @(125.73 mm, 97.79 mm): No Connect
+
+***** Sheet /IMU/
+
+***** Sheet /TTL Bus AUTO/
+
+***** Sheet /Connectors & Test/
+
+ ** ERC messages: 3  Errors 0  Warnings 3
+
+ ** Ignored checks:
+    - Global label only appears once in the schematic
+    - Four connection points are joined together
+    - SPICE model issue
+    - Assigned footprint doesn't match footprint filters

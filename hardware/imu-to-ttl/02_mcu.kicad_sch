@@ -1540,10 +1540,8 @@
 	)
 		(uuid "aed88215-3a70-5dcb-9583-5cb5fb030729")
 	)
-	(no_connect (at 74.93 107.95) (uuid "4c67f0b0-c5cb-529b-b633-cb9ed96340c6"))
 	(no_connect (at 74.93 110.49) (uuid "6c88ea0a-bed5-5da7-868f-cc808bfe788a"))
 	(no_connect (at 74.93 100.33) (uuid "4a34824b-0625-568b-9a3f-017e36c79bc0"))
-	(no_connect (at 125.73 97.79) (uuid "f3c3b0c6-7252-5a56-ae40-100ca8c20455"))
 	(no_connect (at 74.93 105.41) (uuid "7a3157e2-779b-5de3-aadf-7b9717cce940"))
 	(text "MCU - STM32G031F8P6 (TSSOP-20)"
 		(exclude_from_sim no) (at 25 25 0)
