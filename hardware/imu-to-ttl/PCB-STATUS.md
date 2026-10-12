@@ -298,6 +298,10 @@ SN74LVC2G241 双缓冲(TX_EN_N/RX_EN 方向控制)+ 复位脚 10k 下拉电阻(�
   C13 挪到 U3.8 旁实线连 GND;4 条注释竖排页底。
   **验证:重排前后 netlist 逐网逐脚完全一致(pcb_rework/net_diff.py)✓,ERC 仅剩 1 条
   原有的内嵌库符号警告。** 顺带清掉了 02_mcu 上 U1.1/U1.8 两个失效的 no_connect 标记。
+- **其余四页自检+修复(pcb_rework/sch_polish.py)**:全项目各页均为"零导线纯标签"风格。
+  02_mcu 检查合格未动;01_power 位号/值文字与标签压字 29 处 → 全部位号上移/值下移归零;
+  05_connectors J3/J4/J5 引脚 1.27mm 间距三行标签压字 → 引出短线扇开至 ±2.54mm;
+  03_imu U2 重复 GND 标签删除、双 V3V3_IMU 标签之一引线分开。netlist 仍逐脚一致 ✓。
 
 ## PCB(pcb_rework/rework_pcb_v2/v3/v4 + refill_zones.py)
 

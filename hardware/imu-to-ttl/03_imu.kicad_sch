@@ -772,21 +772,9 @@
 	)
 		(uuid "52868a9f-649c-5973-9c3b-1c2cbf011e55")
 	)
-	(global_label "GND"
-		(shape bidirectional)
-		(at 100.33 125.73 0)
-		(fields_autoplaced yes)
-		(effects
-		(font
-			(size 1.27 1.27)
-		)
-			(justify left)
-	)
-		(uuid "e21e0f4c-f7ba-5bde-a2c7-15d8c8db3c89")
-	)
 	(global_label "V3V3_IMU"
 		(shape bidirectional)
-		(at 102.87 95.25 0)
+		(at 102.87 92.71 90)
 		(fields_autoplaced yes)
 		(effects
 		(font
@@ -1946,5 +1934,14 @@
 			)
 		)
 	)
-	(embedded_fonts no)
+	
+	(wire
+		(pts (xy 102.87 95.25) (xy 102.87 92.71))
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "48ce105f-a0d5-4435-933b-2f55f275cef4")
+	)
+(embedded_fonts no)
 )

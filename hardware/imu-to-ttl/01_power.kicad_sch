@@ -2132,7 +2132,7 @@
 		(dnp no)
 		(uuid "a0fb8c1a-e3d8-5a1a-a720-eda8f947e837")
 		(property "Reference" "J1"
-		(at 44.37 105.99 0)
+		(at 39.37 100.33 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2140,7 +2140,7 @@
 	)
 	)
 		(property "Value" "BATT IN 2.54 2P"
-		(at 44.37 114.99 0)
+		(at 39.37 120.65 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2217,7 +2217,7 @@
 		(dnp no)
 		(uuid "2cbb216a-ef67-5076-a90f-7ec590530b5d")
 		(property "Reference" "F1"
-		(at 85.01 105.99 0)
+		(at 80.01 102.87 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2225,7 +2225,7 @@
 	)
 	)
 		(property "Value" "FUSE 5A 2512"
-		(at 85.01 114.99 0)
+		(at 80.01 118.11 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2302,7 +2302,7 @@
 		(dnp no)
 		(uuid "24d3f8f8-7bc4-5c24-9e69-9b2ca3d7a893")
 		(property "Reference" "Q1"
-		(at 124.38 105.99 0)
+		(at 119.38 100.33 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2310,7 +2310,7 @@
 	)
 	)
 		(property "Value" "AO4407C"
-		(at 124.38 114.99 0)
+		(at 119.38 120.65 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2405,7 +2405,7 @@
 		(dnp no)
 		(uuid "19af134d-9bd6-586c-8cbd-9c7d85d93712")
 		(property "Reference" "R9"
-		(at 154.86 140.28 0)
+		(at 149.86 137.16 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2413,7 +2413,7 @@
 	)
 	)
 		(property "Value" "100k"
-		(at 154.86 149.28 0)
+		(at 149.86 152.40 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2490,7 +2490,7 @@
 		(dnp no)
 		(uuid "e614b9cb-1d62-5a8d-bffa-368fcf89be51")
 		(property "Reference" "R10"
-		(at 154.86 160.6 0)
+		(at 149.86 157.48 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2498,7 +2498,7 @@
 	)
 	)
 		(property "Value" "1M"
-		(at 154.86 169.6 0)
+		(at 149.86 172.72 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2575,7 +2575,7 @@
 		(dnp no)
 		(uuid "8c7a7e3e-cfaa-5019-8580-b2699cfc1f35")
 		(property "Reference" "C14"
-		(at 154.86 119.96 0)
+		(at 149.86 116.84 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2583,7 +2583,7 @@
 	)
 	)
 		(property "Value" "100nF 50V"
-		(at 154.86 128.96 0)
+		(at 149.86 132.08 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2660,7 +2660,7 @@
 		(dnp no)
 		(uuid "0c62a35f-41a9-5eee-948a-d49ed84e9043")
 		(property "Reference" "D1"
-		(at 124.38 70.43 0)
+		(at 119.38 67.31 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2668,7 +2668,7 @@
 	)
 	)
 		(property "Value" "SMBJ12A"
-		(at 124.38 79.43 0)
+		(at 119.38 82.55 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2745,7 +2745,7 @@
 		(dnp no)
 		(uuid "402bcab3-6d9c-5eb1-a790-dd43d2dc9584")
 		(property "Reference" "C1"
-		(at 159.94 70.43 0)
+		(at 154.94 67.31 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2753,7 +2753,7 @@
 	)
 	)
 		(property "Value" "10uF 25V X7R"
-		(at 159.94 79.43 0)
+		(at 154.94 82.55 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2830,7 +2830,7 @@
 		(dnp no)
 		(uuid "288ff322-6d0a-589b-95fa-f0a522de7670")
 		(property "Reference" "C2"
-		(at 159.94 50.11 0)
+		(at 154.94 46.99 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2838,7 +2838,7 @@
 	)
 	)
 		(property "Value" "100nF 50V"
-		(at 159.94 59.11 0)
+		(at 154.94 62.23 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2915,7 +2915,7 @@
 		(dnp no)
 		(uuid "83cd5068-0840-5f21-a7c0-fdeb10ff080b")
 		(property "Reference" "F2"
-		(at 195.5 105.99 0)
+		(at 190.50 102.87 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -2923,7 +2923,7 @@
 	)
 	)
 		(property "Value" "PPTC 200mA"
-		(at 195.5 114.99 0)
+		(at 190.50 118.11 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3000,7 +3000,7 @@
 		(dnp no)
 		(uuid "a77ad413-1b45-52f9-9ec0-1a0ec349d76b")
 		(property "Reference" "D2"
-		(at 195.5 70.43 0)
+		(at 190.50 67.31 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3008,7 +3008,7 @@
 	)
 	)
 		(property "Value" "SMF12A"
-		(at 195.5 79.43 0)
+		(at 190.50 82.55 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3085,7 +3085,7 @@
 		(dnp no)
 		(uuid "723cba26-9e1b-5da6-af51-213ab70bcbcc")
 		(property "Reference" "C3"
-		(at 229.79 70.43 0)
+		(at 224.79 67.31 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3093,7 +3093,7 @@
 	)
 	)
 		(property "Value" "10uF 25V X7R"
-		(at 229.79 79.43 0)
+		(at 224.79 82.55 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3170,7 +3170,7 @@
 		(dnp no)
 		(uuid "07d0204c-f68b-57c2-bb90-2e7033658cdf")
 		(property "Reference" "C4"
-		(at 229.79 50.11 0)
+		(at 224.79 46.99 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3178,7 +3178,7 @@
 	)
 	)
 		(property "Value" "100nF 50V"
-		(at 229.79 59.11 0)
+		(at 224.79 62.23 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3255,7 +3255,7 @@
 		(dnp no)
 		(uuid "cddfa2f9-f076-52c4-bf1d-b09e4ce98d75")
 		(property "Reference" "U4"
-		(at 265.35 105.99 0)
+		(at 260.35 100.33 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3263,7 +3263,7 @@
 	)
 	)
 		(property "Value" "HT7533-1"
-		(at 265.35 114.99 0)
+		(at 260.35 120.65 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3343,7 +3343,7 @@
 		(dnp no)
 		(uuid "7bfa33bb-7ea1-57a8-b658-4ef04f1d7067")
 		(property "Reference" "C5"
-		(at 299.64 70.43 0)
+		(at 294.64 67.31 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3351,7 +3351,7 @@
 	)
 	)
 		(property "Value" "10uF 10V"
-		(at 299.64 79.43 0)
+		(at 294.64 82.55 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3428,7 +3428,7 @@
 		(dnp no)
 		(uuid "0d83f05d-291c-5dd1-a96d-2e0e3b514e5b")
 		(property "Reference" "C6"
-		(at 299.64 50.11 0)
+		(at 294.64 46.99 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3436,7 +3436,7 @@
 	)
 	)
 		(property "Value" "100nF 50V"
-		(at 299.64 59.11 0)
+		(at 294.64 62.23 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3513,7 +3513,7 @@
 		(dnp no)
 		(uuid "2d69b759-80a0-576b-99c0-3e6592b363a2")
 		(property "Reference" "R1"
-		(at 299.64 105.99 0)
+		(at 294.64 102.87 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3521,7 +3521,7 @@
 	)
 	)
 		(property "Value" "1k"
-		(at 299.64 114.99 0)
+		(at 294.64 118.11 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3598,7 +3598,7 @@
 		(dnp no)
 		(uuid "e8e778e7-cd5b-5c21-b0bf-d72ef8a5c4b1")
 		(property "Reference" "LED1"
-		(at 335.2 105.99 0)
+		(at 330.20 102.87 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3606,7 +3606,7 @@
 	)
 	)
 		(property "Value" "LED 0603"
-		(at 335.2 114.99 0)
+		(at 330.20 118.11 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3683,7 +3683,7 @@
 		(dnp no)
 		(uuid "aa03efdf-bada-5865-a95b-9ce099ee9be1")
 		(property "Reference" "TP8"
-		(at 85.01 155.52 0)
+		(at 80.01 152.40 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3691,7 +3691,7 @@
 	)
 	)
 		(property "Value" "HAT_PWR+ DNP"
-		(at 85.01 164.52 0)
+		(at 80.01 167.64 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3747,7 +3747,7 @@
 		(dnp no)
 		(uuid "fe9d1d16-47c3-56ae-ba9d-7aafbcedebae")
 		(property "Reference" "TP9"
-		(at 85.01 175.84 0)
+		(at 80.01 172.72 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3755,7 +3755,7 @@
 	)
 	)
 		(property "Value" "HAT_PWR- DNP"
-		(at 85.01 184.84 0)
+		(at 80.01 187.96 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3811,7 +3811,7 @@
 		(dnp no)
 		(uuid "a4d3c687-4ee0-5cac-b7a7-988aefa98fbd")
 		(property "Reference" "#FLG21"
-		(at 185.34 15.82 0)
+		(at 180.34 12.70 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3819,7 +3819,7 @@
 	)
 	)
 		(property "Value" "PWR_FLAG"
-		(at 185.34 24.82 0)
+		(at 180.34 27.94 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3875,7 +3875,7 @@
 		(dnp no)
 		(uuid "1e22245f-1ac2-51a5-8084-19ded4b4b5d6")
 		(property "Reference" "#FLG22"
-		(at 210.74 15.82 0)
+		(at 205.74 12.70 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3883,7 +3883,7 @@
 	)
 	)
 		(property "Value" "PWR_FLAG"
-		(at 210.74 24.82 0)
+		(at 205.74 27.94 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3939,7 +3939,7 @@
 		(dnp no)
 		(uuid "a7351609-9bc3-5e9d-a4a6-b17e01c39e22")
 		(property "Reference" "#FLG23"
-		(at 236.14 15.82 0)
+		(at 231.14 12.70 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -3947,7 +3947,7 @@
 	)
 	)
 		(property "Value" "PWR_FLAG"
-		(at 236.14 24.82 0)
+		(at 231.14 27.94 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -4003,7 +4003,7 @@
 		(dnp no)
 		(uuid "9b9fac46-5366-535c-af89-53e724b15c98")
 		(property "Reference" "#FLG24"
-		(at 185.34 28.52 0)
+		(at 180.34 25.40 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -4011,7 +4011,7 @@
 	)
 	)
 		(property "Value" "PWR_FLAG"
-		(at 185.34 37.52 0)
+		(at 180.34 40.64 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -4067,7 +4067,7 @@
 		(dnp no)
 		(uuid "d049fab8-88d1-502b-8b53-8ea05e509d51")
 		(property "Reference" "#FLG25"
-		(at 210.74 28.52 0)
+		(at 205.74 25.40 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -4075,7 +4075,7 @@
 	)
 	)
 		(property "Value" "PWR_FLAG"
-		(at 210.74 37.52 0)
+		(at 205.74 40.64 0)
 		(effects
 		(font
 			(size 1.27 1.27)
