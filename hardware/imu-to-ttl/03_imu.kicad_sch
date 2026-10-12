@@ -1200,7 +1200,7 @@
 		(dnp no)
 		(uuid "24818b5b-2575-5fd7-a237-9dedee693e30")
 		(property "Reference" "FB1"
-		(at 165.02 55.19 0)
+		(at 151.13 57.15 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -1208,7 +1208,7 @@
 	)
 	)
 		(property "Value" "BLM18AG601SN1D"
-		(at 165.02 64.19 0)
+		(at 151.13 62.23 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -1285,7 +1285,7 @@
 		(dnp no)
 		(uuid "0b6032ce-f581-5345-bc93-4456ad6bdc60")
 		(property "Reference" "C10"
-		(at 165.02 75.51 0)
+		(at 151.13 77.47 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -1293,7 +1293,7 @@
 	)
 	)
 		(property "Value" "100nF 50V"
-		(at 165.02 84.51 0)
+		(at 151.13 82.55 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -1370,7 +1370,7 @@
 		(dnp no)
 		(uuid "a7018f4e-a8e9-57b1-8ad2-8b34e3a381aa")
 		(property "Reference" "C11"
-		(at 165.02 90.75 0)
+		(at 151.13 92.71 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -1378,7 +1378,7 @@
 	)
 	)
 		(property "Value" "100nF 50V"
-		(at 165.02 99.75 0)
+		(at 151.13 97.79 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -1455,7 +1455,7 @@
 		(dnp no)
 		(uuid "48fdf0a0-2c5a-580c-86ec-1e5fdb1c182a")
 		(property "Reference" "C12"
-		(at 165.02 105.99 0)
+		(at 151.13 107.95 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -1463,7 +1463,7 @@
 	)
 	)
 		(property "Value" "1uF 25V X7R"
-		(at 165.02 114.99 0)
+		(at 151.13 113.03 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -1548,7 +1548,7 @@
 	)
 	)
 		(property "Value" "10k"
-		(at 59.61 84.51 0)
+		(at 46.99 83.82 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -1795,7 +1795,7 @@
 		(dnp no)
 		(uuid "96d57f78-07cb-5a91-8a80-1fabcbfb28a6")
 		(property "Reference" "R6"
-		(at 165.02 130.12 0)
+		(at 151.13 132.08 0)
 		(effects
 		(font
 			(size 1.27 1.27)
@@ -1803,7 +1803,7 @@
 	)
 	)
 		(property "Value" "0R"
-		(at 165.02 139.12 0)
+		(at 151.13 137.16 0)
 		(effects
 		(font
 			(size 1.27 1.27)
