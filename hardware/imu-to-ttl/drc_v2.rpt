@@ -1,0 +1,413 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-12T13:34:38 **
+** Report includes: Errors, Warnings **
+
+** Found 87 DRC violations **
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_DATA 和 +3V3)
+    Local override; error
+    @(34.4182 mm, 9.9990 mm): Track [BUS_DATA] on F.Cu, length 0.6872 mm
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_DATA 和 +3V3)
+    Local override; error
+    @(33.9323 mm, 9.5131 mm): Via [BUS_DATA] on F.Cu - B.Cu
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_DATA 和 +3V3)
+    Local override; error
+    @(37.1770 mm, 9.9990 mm): Track [BUS_DATA] on F.Cu, length 2.7588 mm
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[shorting_items]: 短路了两个不同网络的项目 (网络 +3V3 和 RX_EN)
+    Local override; error
+    @(35.0500 mm, 6.7750 mm): Track [+3V3] on F.Cu, length 1.3375 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[clearance]: 间距违规 (封装 U3 间距 0.2000 mm; 实际 0.0147 mm)
+    Local override; error
+    @(33.9303 mm, 7.4347 mm): Via [BUS_DATA] on F.Cu - B.Cu
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[clearance]: 间距违规 (封装 U3 间距 0.2000 mm; 实际 0.1647 mm)
+    Local override; error
+    @(33.9303 mm, 7.4347 mm): Track [BUS_DATA] on F.Cu, length 0.8968 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[shorting_items]: 短路了两个不同网络的项目 (网络 MCU_RX 和 BUS_LOGIC)
+    Local override; error
+    @(25.7375 mm, 18.4250 mm): Pad 10 [MCU_RX] of U1 on F.Cu
+    @(25.7375 mm, 18.4250 mm): Track [BUS_LOGIC] on F.Cu, length 2.0208 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_LOGIC 和 TX_EN_N)
+    Local override; error
+    @(35.4500 mm, 8.7750 mm): Track [BUS_LOGIC] on F.Cu, length 1.6375 mm
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_TX 和 GND)
+    Local override; error
+    @(29.3500 mm, 7.7952 mm): Track [BUS_TX] on F.Cu, length 0.7931 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_TX 和 MCU_RX)
+    Local override; error
+    @(29.5510 mm, 7.5942 mm): Track [BUS_TX] on F.Cu, length 1.0573 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[clearance]: 间距违规 (封装 U3 间距 0.2000 mm; 实际 0.0242 mm)
+    Local override; error
+    @(29.3500 mm, 8.5883 mm): Track [BUS_TX] on F.Cu, length 1.6867 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[clearance]: 间距违规 (封装 U3 间距 0.2000 mm; 实际 0.0242 mm)
+    Local override; error
+    @(29.3500 mm, 8.5883 mm): Track [BUS_TX] on F.Cu, length 1.8861 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[clearance]: 间距违规 (封装 U3 间距 0.2000 mm; 实际 0.0793 mm)
+    Local override; error
+    @(29.5510 mm, 7.5942 mm): Track [BUS_TX] on F.Cu, length 0.2843 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[shorting_items]: 短路了两个不同网络的项目 (网络 GND 和 V3V3_IMU)
+    Local override; error
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+    @(34.7500 mm, 12.2329 mm): Via [V3V3_IMU] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 V3V3_IMU 和 +3V3)
+    Local override; error
+    @(34.7500 mm, 12.2329 mm): Track [V3V3_IMU] on F.Cu, length 0.9579 mm
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+[shorting_items]: 短路了两个不同网络的项目 (网络 RX_EN 和 +3V3)
+    Local override; error
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+    @(35.0500 mm, 6.7750 mm): Via [+3V3] on F.Cu - B.Cu
+[clearance]: 间距违规 (封装 U3 间距 0.2000 mm; 实际 0.0550 mm)
+    Local override; error
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+    @(35.0500 mm, 6.7750 mm): Track [+3V3] on F.Cu, length 2.9000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 +3V3 和 V3V3_IMU)
+    Local override; error
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(34.7500 mm, 11.2750 mm): Pad 1 [V3V3_IMU] of C12 on F.Cu
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+    @(33.9323 mm, 9.5131 mm): Via [BUS_DATA] on F.Cu - B.Cu
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+    @(34.7500 mm, 12.2329 mm): Via [V3V3_IMU] on F.Cu - B.Cu
+[clearance]: 间距违规 (填充区 间距 0.2500 mm; 实际 0.0000 mm)
+    Local override; error
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[shorting_items]: 短路了两个不同网络的项目 (网络 RX_EN 和 +3V3)
+    Local override; error
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+[clearance]: 间距违规 (填充区 间距 0.2500 mm; 实际 0.0000 mm)
+    Local override; error
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[shorting_items]: 短路了两个不同网络的项目 (网络 RX_EN 和 V3V3_IMU)
+    Local override; error
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+    @(34.7500 mm, 11.2750 mm): Pad 1 [V3V3_IMU] of C12 on F.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 RX_EN 和 +3V3)
+    Local override; error
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(33.9323 mm, 9.5131 mm): Via [BUS_DATA] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 RX_EN 和 +3V3)
+    Local override; error
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[clearance]: 间距违规 (填充区 间距 0.2500 mm; 实际 0.0000 mm)
+    Local override; error
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[clearance]: 间距违规 (封装 U3 间距 0.2000 mm; 实际 0.1450 mm)
+    Local override; error
+    @(28.8500 mm, 6.0250 mm): Pad 2 [BUS_DATA] of TH1 on F.Cu
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[clearance]: 间距违规 (封装 U3 间距 0.2000 mm; 实际 0.1872 mm)
+    Local override; error
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_LOGIC 和 TX_EN_N)
+    Local override; error
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[hole_clearance]: 孔间距违规 (电路板最小孔 间距 0.2500 mm; 实际 0.0000 mm)
+    Local override; error
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+    @(33.9303 mm, 7.4347 mm): Via [BUS_DATA] on F.Cu - B.Cu
+[clearance]: 间距违规 (填充区 间距 0.2500 mm; 实际 0.0927 mm)
+    Local override; error
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[clearance]: 间距违规 (封装 U3 间距 0.2000 mm; 实际 0.1300 mm)
+    Local override; error
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[hole_clearance]: 孔间距违规 (电路板最小孔 间距 0.2500 mm; 实际 0.1647 mm)
+    Local override; error
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+    @(33.9303 mm, 7.4347 mm): Via [BUS_DATA] on F.Cu - B.Cu
+[hole_clearance]: 孔间距违规 (电路板最小孔 间距 0.2500 mm; 实际 0.0800 mm)
+    Local override; error
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+    @(35.0500 mm, 6.7750 mm): Via [+3V3] on F.Cu - B.Cu
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+    @(38.2000 mm, 15.0000 mm): Footprint J5
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+    @(35.5250 mm, 11.2750 mm): Footprint C12
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(36.2750 mm, 8.7750 mm): Footprint R13
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(32.0950 mm, 7.2450 mm): Footprint U3
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(35.5250 mm, 11.2750 mm): Footprint C12
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.0250 mm, 6.0250 mm): Footprint TH1
+    @(32.0950 mm, 7.2450 mm): Footprint U3
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(36.2750 mm, 8.7750 mm): Footprint R13
+    @(32.0950 mm, 7.2450 mm): Footprint U3
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(36.2750 mm, 8.7750 mm): Footprint R13
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(32.0950 mm, 7.2450 mm): Footprint U3
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(35.5250 mm, 11.2750 mm): Footprint C12
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(35.4500 mm, 8.7750 mm): Track [BUS_LOGIC] on F.Cu, length 1.6375 mm
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(35.0500 mm, 6.7750 mm): Track [+3V3] on F.Cu, length 1.3375 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(25.7375 mm, 18.4250 mm): Track [BUS_LOGIC] on F.Cu, length 2.0208 mm
+    @(25.7375 mm, 18.4250 mm): Pad 10 [MCU_RX] of U1 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(29.3500 mm, 7.7952 mm): Track [BUS_TX] on F.Cu, length 0.7931 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(29.3500 mm, 7.7952 mm): Track [BUS_TX] on F.Cu, length 0.7931 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(35.0500 mm, 6.7750 mm): Via [+3V3] on F.Cu - B.Cu
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(29.5510 mm, 7.5942 mm): Track [BUS_TX] on F.Cu, length 1.0573 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(29.5510 mm, 7.5942 mm): Track [BUS_TX] on F.Cu, length 0.2843 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(34.7500 mm, 12.2329 mm): Track [V3V3_IMU] on F.Cu, length 0.9579 mm
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(34.4182 mm, 9.9990 mm): Track [BUS_DATA] on F.Cu, length 0.6872 mm
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(34.7500 mm, 12.2329 mm): Track [V3V3_IMU] on F.Cu, length 0.9579 mm
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(34.4182 mm, 9.9990 mm): Track [BUS_DATA] on F.Cu, length 0.6872 mm
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(33.9303 mm, 7.4347 mm): Track [BUS_DATA] on F.Cu, length 0.8968 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(37.1770 mm, 9.9990 mm): Track [BUS_DATA] on F.Cu, length 2.7588 mm
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(37.1770 mm, 9.9990 mm): Track [BUS_DATA] on F.Cu, length 2.7588 mm
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(34.7500 mm, 12.2329 mm): Via [V3V3_IMU] on F.Cu - B.Cu
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(33.9323 mm, 9.5131 mm): Via [BUS_DATA] on F.Cu - B.Cu
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(33.9323 mm, 9.5131 mm): Via [BUS_DATA] on F.Cu - B.Cu
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(33.9303 mm, 7.4347 mm): Via [BUS_DATA] on F.Cu - B.Cu
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(34.7500 mm, 11.2750 mm): Pad 1 [V3V3_IMU] of C12 on F.Cu
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(34.7500 mm, 11.2750 mm): Pad 1 [V3V3_IMU] of C12 on F.Cu
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(29.5510 mm, 7.5942 mm): Track [BUS_TX] on F.Cu, length 1.0573 mm
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(32.1293 mm, 9.7240 mm): Track [BUS_LOGIC] on F.Cu, length 1.0978 mm
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[silk_overlap]: Silkscreen clearance
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+    @(38.7710 mm, 4.4950 mm): Reference field of D3
+[silk_overlap]: Silkscreen clearance
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(38.7710 mm, 4.4950 mm): Reference field of D3
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+    @(37.1950 mm, 4.4950 mm): Pad 2 [GND] of D3 on F.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+    @(37.9500 mm, 6.7750 mm): Pad 1 [+3V3] of R8 on F.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(33.5369 mm, 13.3822 mm): Reference field of R7
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+
+** Found 13 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(35.0500 mm, 6.7750 mm): Track [+3V3] on F.Cu, length 1.3375 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(32.8500 mm, 10.7750 mm): Pad 2 [+3V3] of R6 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+    @(25.7375 mm, 17.1250 mm): Pad 8 [TX_EN_N] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(34.3000 mm, 9.2000 mm): Footprint text of R14 (R14)
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(29.5510 mm, 7.5942 mm): Track [BUS_TX] on F.Cu, length 0.2843 mm
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(25.7375 mm, 18.4250 mm): Pad 10 [MCU_RX] of U1 on F.Cu
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(35.4500 mm, 8.7750 mm): Track [BUS_LOGIC] on F.Cu, length 1.6375 mm
+    @(32.5073 mm, 10.1823 mm): Track [BUS_LOGIC] on B.Cu, length 1.4758 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+    @(35.4500 mm, 8.7750 mm): Track [BUS_LOGIC] on F.Cu, length 1.6375 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(25.7375 mm, 12.5750 mm): Pad 1 [RX_EN] of U1 on F.Cu
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+    @(32.0950 mm, 7.2450 mm): Footprint text of U3 (U3)
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(34.3000 mm, 11.6000 mm): Footprint text of R16 (R16)
+    @(34.3000 mm, 10.4000 mm): Footprint text of R15 (R15)
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

@@ -275,3 +275,59 @@ kicad-cli pcb export step --output fab/imu_to_ttl.step --subst-models --no-dnp -
    躯干那侧的净空只能用你的 CAD 量(本机的复刻 STL 是粗网格,量不准)。
 3. **可选**:原理图里有 TP6(BUS_LOGIC)、TP7(NRST)两个测试点,但**没有被放到板上**
    (网表有、PCB 无)。1.0 mm 焊盘,加进去要改板并重导 fab 文件 —— 要的话说一声。
+
+
+---
+
+# v2 总线拓扑升级(2026-10-12)
+
+**背景**:9-16 版是按原立创工程复刻的 1G125(AUTO 单缓冲)拓扑。实物调试证明真板用的是
+SN74LVC2G241 双缓冲(TX_EN_N/RX_EN 方向控制)+ 复位脚 10k 下拉电阻(详见 docs/调试记录)。
+本轮把 KiCad 工程升级到与实物一致的拓扑。
+
+## 原理图(rework_bus_v2.py)
+
+- 01 总线页:U3 换 SN74LVC2G241DCUR(TI 真实引脚 4=GND/6=TX/3=RX),
+  TX_EN_N(2OE)、RX_EN(1OE#)方向控制,新增 R14/R15(上拉 10k)+ R16(下拉 10k,启动 strap)
+- 02 MCU 页:U1.8→TX_EN_N、U1.1→RX_EN、U1.10 改标 MCU_RX(原 BUS_LOGIC)
+- 已与实物板网表逐网核对一致 ✓
+
+## PCB(rework_pcb_v2/v3/v4 + refill_zones.py)
+
+| 改动 | 内容 |
+|---|---|
+| U3 | 换 TSSOP-8 2G241,最终位于 **(32.2, 6.9) rot0**(TH1/R13 铜距 0.25/0.275) |
+| U1 焊盘 | pad1→RX_EN、pad8→TX_EN_N、pad10→MCU_RX(改网络) |
+| 旧走线 | 删 67 条(U3 新区域 + U1 三焊盘周边),待重布 |
+| R14/R15/R16 | 0603 横放**底面**:R14(33.70,3.10) R15(31.90,8.00) R16(28.50,3.10);R15 避开底面 C5 |
+| 铺铜 | pcbnew ZONE_FILLER 重灌(kicad-cli 无 fill 子命令,用 KiCad 自带 python) |
+| 文字 | 三颗电阻丝印归位+背面 mirror;R15 参考号放下方避 C5 |
+
+## 当前 DRC(v4d 报告)
+
+| 类别 | 数 | 说明 |
+|---|---|---|
+| 硬错误(短路/间距/阻焊桥) | **0** | ✓ |
+| 未连接 | 35 | **布线债**:2G241 新网络(TX_EN_N/RX_EN/MCU_RX/BUS_LOGIC 段)+ 删线区域重连 |
+| 悬空走线/过孔 | 26+2 | v3 删线的断头,重布时一并处理 |
+| 外框重叠 | 3 | U3↔TH1/R13/D3:5.9mm 外框挤不进 5.3mm 间隙,实体间距 >1.2mm,**已接受**(手焊) |
+| 孤岛铜 | 3 | VBAT_RAW 铺铜冗余块,9-16 版就有,非本轮引入 |
+
+## 复现链
+
+从 9-16 干净版(本仓库 hardware/imu_to_ttl/ 下同步的板文件)出发,依次:
+
+    python rework_pcb_v2.py     # U3换TSSOP-8 2G241 + 新增R14/R15/R16 + U1三焊盘改网络
+    python rework_pcb_v3.py     # 清U3/U1焊盘区旧走线67条 + 电阻预定位
+    python rework_pcb_v4.py     # U3定稿(32.2,6.9) + 三颗电阻横放底面定稿位 + 丝印mirror
+    "C:/Users/c1349/AppData/Local/Programs/KiCad/10.0.7/bin/python.exe" refill_zones.py  # 重灌铺铜
+
+注意: v3 之后、v4 之前有中间态备份 imu_to_ttl.pre_v4.bak;每步后括号平衡应为 0。
+
+渲染:r_top_v4.png / r_bot_v4.png。底面三颗电阻位置已按 DRC 验证(无短路、无间距违规)。
+
+## 下一步
+
+1. **重布 35 条未连接**(KiCad GUI 手工布线或后续脚本;tools/route_leftovers.py 是起点)
+2. 布通后重导 fab(Gerber/BOM/CPL 要加 R14-R16 底面贴片)
+3. 送板评审前把外框重叠 3 条在 GUI 里右键排除(DRC exclusions),让报告干净
