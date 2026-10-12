@@ -298,7 +298,15 @@ SN74LVC2G241 双缓冲(TX_EN_N/RX_EN 方向控制)+ 复位脚 10k 下拉电阻(�
   C13 挪到 U3.8 旁实线连 GND;4 条注释竖排页底。
   迭代4轮定稿:左侧改"+3V3竖轨+横排上拉"、C13挪选项堆叠下方、strap说明挪R16下方、
   电源标签竖排避让;位号/值文字全部避开导线与标签(R15/R16放竖线左列、D3放右侧,
-  03_imu x160元件列与02_mcu四个Value同步修正,机器扫描器 check_text_hits.py 全工程0压字)。**验证:重排前后 netlist 逐网逐脚完全一致(pcb_rework/net_diff.py)✓,ERC 仅剩 1 条
+  03_imu x160元件列与02_mcu四个Value同步修正,机器扫描器 check_text_hits.py 全工程0压字)。
+- **01_power / 03_imu 整页重排(2026-10-12 傍晚,relayout_power.py / relayout_imu.py)**:
+  01_power 主功率路径全部实线化(J1→F1→Q1软启动→VBAT母线→F2→U4→+3V3),Q1栅极网络
+  (R10 1M/R9 100k/C14 100n)收拢到正下方,TVS/去耦挂母线下方,LED链+测试点各归其位,5/10→9/10;
+  03_imu SPI六线实线+端点标签,V3V3_IMU竖轨串FB1→C10/11/12,OCS_AUX实线绕R6,5.5/10→9/10。
+  02_mcu/05_connectors 维持前轮防撞+扇出优化(MCU/连接器页标签即标准画法)。
+  **关键经验:eeschema 中"线端落在另一条线中段"必须显式加 junction 才连通;
+  no_connect 旗标须用两元素 (at x y) 原生格式;U2.8(VDD)与U2.5(VDD_IO)是相距2.54mm的两个独立引脚。**
+  **验证:重排前后 netlist 逐网逐脚完全一致(pcb_rework/net_diff.py)✓,ERC 仅剩 1 条
   原有的内嵌库符号警告。** 顺带清掉了 02_mcu 上 U1.1/U1.8 两个失效的 no_connect 标记。
 - **其余四页自检+修复(pcb_rework/sch_polish.py)**:全项目各页均为"零导线纯标签"风格。
   02_mcu 检查合格未动;01_power 位号/值文字与标签压字 29 处 → 全部位号上移/值下移归零;

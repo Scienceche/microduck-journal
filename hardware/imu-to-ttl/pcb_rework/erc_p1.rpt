@@ -1,0 +1,31 @@
+ERC report (2026-10-12T17:05:54, Encoding UTF8)
+Report includes: Errors, Warnings
+
+***** Sheet /
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(273.05 mm, 131.19 mm): Symbol LED1 Pin 1 [K, Passive, Line]
+[endpoint_off_grid]: Symbol pin or wire end off connection grid
+    ; warning
+    @(273.05 mm, 124.46 mm): Vertical Wire, length 6.73 mm
+[lib_symbol_issues]: 在符号库中 'SN74LVC2G241' 找不到符号 '74xGxx'
+    ; warning
+    @(120.65 mm, 110.49 mm): Symbol U3 [SN74LVC2G241]
+
+***** Sheet /Power & Protection/
+
+***** Sheet /MCU & Debug/
+
+***** Sheet /IMU/
+
+***** Sheet /TTL Bus AUTO/
+
+***** Sheet /Connectors & Test/
+
+ ** ERC messages: 3  Errors 0  Warnings 3
+
+ ** Ignored checks:
+    - Global label only appears once in the schematic
+    - Four connection points are joined together
+    - SPICE model issue
+    - Assigned footprint doesn't match footprint filters
