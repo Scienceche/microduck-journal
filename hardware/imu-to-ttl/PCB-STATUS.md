@@ -285,14 +285,14 @@ kicad-cli pcb export step --output fab/imu_to_ttl.step --subst-models --no-dnp -
 SN74LVC2G241 双缓冲(TX_EN_N/RX_EN 方向控制)+ 复位脚 10k 下拉电阻(详见 docs/调试记录)。
 本轮把 KiCad 工程升级到与实物一致的拓扑。
 
-## 原理图(rework_bus_v2.py)
+## 原理图(pcb_rework/rework_bus_v2.py)
 
 - 01 总线页:U3 换 SN74LVC2G241DCUR(TI 真实引脚 4=GND/6=TX/3=RX),
   TX_EN_N(2OE)、RX_EN(1OE#)方向控制,新增 R14/R15(上拉 10k)+ R16(下拉 10k,启动 strap)
 - 02 MCU 页:U1.8→TX_EN_N、U1.1→RX_EN、U1.10 改标 MCU_RX(原 BUS_LOGIC)
 - 已与实物板网表逐网核对一致 ✓
 
-## PCB(rework_pcb_v2/v3/v4 + refill_zones.py)
+## PCB(pcb_rework/rework_pcb_v2/v3/v4 + refill_zones.py)
 
 | 改动 | 内容 |
 |---|---|
@@ -315,16 +315,19 @@ SN74LVC2G241 双缓冲(TX_EN_N/RX_EN 方向控制)+ 复位脚 10k 下拉电阻(�
 
 ## 复现链
 
-从 9-16 干净版(本仓库 hardware/imu_to_ttl/ 下同步的板文件)出发,依次:
+从 9-16 干净版(本仓库 hardware/imu_to_ttl/ 下同步的板文件)出发,在 hardware/ 目录下依次执行
+(手术脚本、DRC 报告、渲染图、netlist 核对证据都收在 **pcb_rework/** 子目录):
 
-    python rework_pcb_v2.py     # U3换TSSOP-8 2G241 + 新增R14/R15/R16 + U1三焊盘改网络
-    python rework_pcb_v3.py     # 清U3/U1焊盘区旧走线67条 + 电阻预定位
-    python rework_pcb_v4.py     # U3定稿(32.2,6.9) + 三颗电阻横放底面定稿位 + 丝印mirror
-    "C:/Users/c1349/AppData/Local/Programs/KiCad/10.0.7/bin/python.exe" refill_zones.py  # 重灌铺铜
+    python pcb_rework/rework_pcb_v2.py     # U3换TSSOP-8 2G241 + 新增R14/R15/R16 + U1三焊盘改网络
+    python pcb_rework/rework_pcb_v3.py     # 清U3/U1焊盘区旧走线67条 + 电阻预定位
+    python pcb_rework/rework_pcb_v4.py     # U3定稿(32.2,6.9) + 三颗电阻横放底面定稿位 + 丝印mirror
+    "C:/Users/c1349/AppData/Local/Programs/KiCad/10.0.7/bin/python.exe" pcb_rework/refill_zones.py  # 重灌铺铜
 
-注意: v3 之后、v4 之前有中间态备份 imu_to_ttl.pre_v4.bak;每步后括号平衡应为 0。
+注意: v3 之后、v4 之前的中间态备份在 pcb_rework/imu_to_ttl.pre_v4.bak;每步后括号平衡应为 0。
+pcb_rework/netlist_check/ 存放原理图与实物网表逐网核对时导出的中间 netlist(_t.net=重构网表,
+net_v2.net=KiCad 导出), base_check.pcb 是当时的核查副本。
 
-渲染:r_top_v4.png / r_bot_v4.png。底面三颗电阻位置已按 DRC 验证(无短路、无间距违规)。
+渲染:pcb_rework/r_top_v4.png / r_bot_v4.png。底面三颗电阻位置已按 DRC 验证(无短路、无间距违规)。
 
 ## 下一步
 
