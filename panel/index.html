@@ -80,6 +80,11 @@ display:none;font-size:13px;z-index:9}
 .kv span:nth-child(even){font-family:var(--mono);text-align:right}
 #scopeFrame{width:100%;height:calc(100vh - 190px);min-height:520px;border:1px solid var(--line);
 border-radius:12px;background:#0d1117}
+#dbgFrame{width:100%;height:calc(100dvh - 64px);border:none;background:#0d1117}
+/* 仪表/调试两个内嵌工具全屏化：藏掉页头、放开 760px 版心，iframe 铺满到底部导航 */
+body.fullbleed header{display:none}
+body.fullbleed main{max-width:none;padding:0;margin:0}
+body.fullbleed #scopeFrame{height:calc(100dvh - 58px);min-height:0;border:none;border-radius:0}
 </style>
 </head>
 <body>
@@ -129,6 +134,10 @@ border-radius:12px;background:#0d1117}
 
 <section class="page" id="pg-scope">
   <iframe id="scopeFrame" title="IMU 仪表台"></iframe>
+</section>
+
+<section class="page" id="pg-dbg">
+  <iframe id="dbgFrame" title="舵机调试台"></iframe>
 </section>
 
 <section class="page" id="pg-servo">
@@ -190,6 +199,7 @@ border-radius:12px;background:#0d1117}
   <button class="on" data-pg="imu"><span class="ico">🧭</span>姿态</button>
   <button data-pg="scope"><span class="ico">📊</span>仪表</button>
   <button data-pg="servo"><span class="ico">🦿</span>舵机</button>
+  <button data-pg="dbg"><span class="ico">🛠</span>调试</button>
   <button data-pg="bus"><span class="ico">📡</span>总线</button>
   <button data-pg="tools"><span class="ico">🔧</span>工具</button>
 </nav>
@@ -229,20 +239,29 @@ function scopeRelease(){
 }
 document.addEventListener("visibilitychange",()=>{if(document.hidden)scopeRelease()});
 
-/* tabs */
+/* tabs —— 仪表/调试页全屏化 + 各自的总线接入/让位 */
+const FULLBLEED={scope:1,dbg:1};
+let dbgLoaded=false;
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x===b));
   document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",p.id==="pg-"+b.dataset.pg));
   $("fab").style.display=(b.dataset.pg==="servo"&&servoIds.length)?"block":"none";
+  document.body.classList.toggle("fullbleed",!!FULLBLEED[b.dataset.pg]);
   if(b.dataset.pg==="scope"){
     if(!scopeLoaded){scopeLoaded=true;$("scopeFrame").src="/scope/"}
     scopeAutoConnect();
   }else scopeRelease();
+  if(b.dataset.pg==="dbg"&&!dbgLoaded){
+    dbgLoaded=true;$("dbgFrame").src="http://"+location.hostname+":8082/";
+  }
 });
 
 /* status poll（页面可见时 1Hz） */
 async function poll(){
   if(document.hidden)return;
+  // 仪表/调试页占用总线期间不轮询，避免和内嵌工具抢串口
+  const cur=document.querySelector("nav button.on");
+  if(cur&&FULLBLEED[cur.dataset.pg])return;
   try{
     const j=await(await fetch("/api/status")).json(),s=j.system;
     $("host").textContent=s.host;
