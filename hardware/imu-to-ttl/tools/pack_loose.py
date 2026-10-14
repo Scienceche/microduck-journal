@@ -66,7 +66,7 @@ KEEP_OUT = [
     (18.8, 10.5, 22.2, 12.0),   # north
     (18.8, 18.0, 22.2, 19.5),   # south
     # J3's through-hole pad row along the bottom edge (v3)
-    (13.0, 24.0, 23.0, 29.4),
+    (12.0, 24.0, 21.5, 29.4),
 ]
 GAP = 0.3            # routing channel reserved between courtyards
 GRID = 0.5

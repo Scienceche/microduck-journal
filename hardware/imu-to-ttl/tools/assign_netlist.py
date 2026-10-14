@@ -24,7 +24,8 @@ import os as _o
 KICAD_FP = next(_p for _p in [_o.environ.get("KICAD_FOOTPRINTS", ""),
     "C:/Users/c1349/AppData/Local/Programs/KiCad/10.0.7/share/kicad/footprints", "/usr/share/kicad/footprints"]
     if _p and _o.path.isdir(_p))
-LOCAL_LIBS = {"imu_ttl": os.path.join(PROJ, "lib", "imu_ttl.pretty")}
+LOCAL_LIBS = {"imu_ttl": os.path.join(PROJ, "lib", "imu_ttl.pretty"),
+              "imu_to_ttl": os.path.join(PROJ, "imu_to_ttl.pretty")}
 
 NET = sys.argv[1] if len(sys.argv) > 1 else "/tmp/imu_ttl.net"
 PCB = sys.argv[2] if len(sys.argv) > 2 else os.path.join(PROJ, "imu_to_ttl.kicad_pcb")

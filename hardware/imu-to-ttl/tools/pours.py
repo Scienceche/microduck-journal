@@ -31,9 +31,11 @@ MIN_THICKNESS = 0.25
 # connectors sit in (J1 -> J3/J4 on top, then down the right edge to J5)
 # one L-shaped polygon: battery column -> top band -> right column down to J5
 VBAT_POLY = [
-    # v3: 顶带 + 右柱(盖住J4/J5焊盘 x35.7) + 底带(盖住J3焊盘 y25.5)
-    (0.4, 0.4), (44.6, 0.4), (44.6, 29.1), (13.0, 29.1),
-    (13.0, 24.5), (34.2, 24.5), (34.2, 7.0), (0.4, 7.0),
+    # v3.2: 顶带 + 右柱(盖住J4/J5焊盘 x35.7) + 底带(盖住J3焊盘 y25.5)
+    # 底带西墙 x13.0 -> 11.4, 地板 24.5 -> 24.3: 盖住 C1/R10 的 VBAT
+    # 馈电线端点(11.56,24.4), B3 孔(NPTH Ø2.1@9.9,27.85)净距 0.25 恰好满足
+    (0.4, 0.4), (44.6, 0.4), (44.6, 29.1), (11.4, 29.1),
+    (11.4, 24.3), (34.2, 24.3), (34.2, 7.0), (0.4, 7.0),
 ]
 
 # The battery-input path (J1 -> F1) carries *everything* the board distributes,

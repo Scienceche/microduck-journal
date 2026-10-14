@@ -11,7 +11,7 @@ kicad-cli sch export netlist --format kicadsexpr --output "$NETLIST" imu_to_ttl.
 "$KIPY" tools/place_board.py       2>/dev/null
 "$KIPY" tools/pack_loose.py        2>/dev/null
 "$KIPY" tools/rules.py             2>/dev/null
-"$KIPY" tools/route.py --passes 150 2>/dev/null
+"$KIPY" tools/route.py --passes 250 2>/dev/null
 "$KIPY" tools/pours.py             2>/dev/null
 rm -f "$NETLIST"
 # v3 硬校验: 防止链条中途崩掉产出空板(2026-10-12 空板事故)

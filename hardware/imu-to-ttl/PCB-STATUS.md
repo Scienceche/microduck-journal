@@ -450,3 +450,23 @@ set_sch_fp.py)。
 - 原理图 01_power J1 Footprint 字段已同步；fab 已重导（fab_new/ 26 件 + fab/imu_to_ttl-gerber-v3p1.zip）
 - 回滚：pcb_rework/imu_to_ttl.v3_xy308J1.bak
 - 接线说明更新：J1=电池线**直接焊接**（红+ 右 / 黑− 左），不再需要买端子
+
+# v3.3 WIP · J1 移左边缘 + J3 左移（2026-10-15 凌晨，进行中）
+
+用户提出：J1 像 J3/J4 一样贴边 —— 已执行：
+- **J1 → 左边缘竖排**：焊盘 (1.9,20.4)GND/(1.9,24.0)VBAT_RAW，线从左边出，
+  腾空整个左下角；旧位补了 GND 缝合过孔、新馈线已接
+- **VBAT 主链已路由**：链头(8.26,22.56)→x7.9 立柱→贴底 y29.225（B4 孔缘与板边
+  净距都恰好合规）→东穿→frag0；frag0↔frag1(J3.2) B 面跳线已铺
+- Q1_GATE/SWCLK 等被误伤网络全部由 --continue 复原
+- **当前 DRC：0 短路 / 3 未连接 / 4 间距**
+- SWIG 大坑：PCB_VIA.SetNet(对象) 会静默失败串网 —— **必须用 SetNetCode(int)**
+
+## 剩余 3 项与收尾方案（下一步）
+1. VBAT 铺铜碎片 frag6(J4.2)↔frag7(J5.2)、frag11(C2)↔frag12(Q1.1) 未合
+   → **正解：pours.py 加 B 面 VBAT 辅助铺铜**（低优先级，填 GND 底铜之外的
+   空隙，把所有 VBAT 的 B 面锚点自然连成一片），不再手工穿走廊
+2. GND_TOP↔GND_BOTTOM 缺层间桥 → B 面 VBAT 铺铜落地后重扫缝合点
+3. 完成后：fab 重导 + 渲染 + 接线文档更新 + journal
+
+回滚链：v31_clean.bak(J1裸焊盘版0/0) → v32_attempt.bak(整板重排版) → v33_wip.bak(当前)

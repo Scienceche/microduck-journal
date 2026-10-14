@@ -1,0 +1,22 @@
+R7    ( 22.02, 20.77) d=6.0 R_0603_1608Metric
+R9    ( 14.93, 17.07) d=5.9 R_0603_1608Metric
+C10   ( 14.53, 15.28) d=6.0 C_0603_1608Metric
+U2    ( 20.50, 15.00) d=0.0 ST_LGA14_3x2.5_P0.5_LSM6DSV16X_TN0018
+D2    ( 21.50, 11.00) d=4.1 D_SOD-123F
+VIA (18.16,18.79) d=4.5 net=SDx
+VIA (25.45,12.31) d=5.6 net=GND
+VIA (21.00,16.86) d=1.9 net=GND
+VIA (16.38,13.07) d=4.6 net=GND
+VIA (18.55,11.75) d=3.8 net=VBAT
+VIA (22.22,20.00) d=5.3 net=BUS_TX
+VIA (20.00,17.23) d=2.3 net=V3V3_IMU
+VIA (23.69,16.41) d=3.5 net=VBAT_RAW
+VIA (23.02,17.85) d=3.8 net=NRST
+VIA (17.76,13.45) d=3.2 net=OCS_AUX
+VIA (20.09,14.84) d=0.4 net=OCS_AUX
+VIA (23.98,13.97) d=3.6 net=SPI_CS
+VIA (21.82,13.23) d=2.2 net=SPI_SCK
+VIA (22.60,13.25) d=2.7 net=SPI_MOSI
+VIA (22.41,14.74) d=1.9 net=IMU_INT2
+VIA (17.59,18.23) d=4.4 net=SCx
+via_count=16
