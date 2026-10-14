@@ -16,7 +16,9 @@ import uuid
 from dataclasses import dataclass, field
 from pathlib import Path
 
-SYSTEM_SYMBOLS = Path("/usr/share/kicad/symbols")
+SYSTEM_SYMBOLS = Path(os.environ.get(
+    "KICAD_SYMBOLS",
+    "C:/Users/c1349/AppData/Local/Programs/KiCad/10.0.7/share/kicad/symbols"))
 PROJECT = Path(__file__).resolve().parent.parent
 LIB_SYMBOLS = PROJECT / "lib" / "imu_ttl.kicad_sym"
 OUT = PROJECT
@@ -498,7 +500,7 @@ SYSTEM_LIBS = {
     "power": "PWR_FLAG",
 }
 LOCAL_LIBS = {
-    "imu_ttl": ["LSM6DSV16X", "JST_PH_B3B_3P", "SWD_Header_7P", "ScrewTerminal_2P", "DMP4015SK3"],
+    "imu_ttl": ["LSM6DSV16X", "JST_PH_B3B_3P", "SWD_Header_7P", "ScrewTerminal_2P", "AO4407C"],
 }
 
 
@@ -609,7 +611,7 @@ def sheet_power(root: str) -> str:
                   40, 110, {"1": "VBAT_RAW", "2": "GND"}, "Battery input; wire side uses keyed XT30"),
         Component("Device:Fuse", "F1", "FUSE 5A 2512", "Fuse:Fuse_2512_6332Metric",
                   80, 110, {"1": "VBAT_RAW", "2": "VBAT_FUSED"}, "Main fast fuse 5A"),
-        Component("imu_ttl:DMP4015SK3", "Q1", "DMP4015SK3", "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+        Component("imu_ttl:AO4407C", "Q1", "AO4407C", "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
                   120, 110, {"1": "VBAT", "2": "VBAT", "3": "VBAT", "4": "Q1_GATE",
                              "5": "VBAT_FUSED", "6": "VBAT_FUSED", "7": "VBAT_FUSED", "8": "VBAT_FUSED"},
                   "Main bus reverse protection + soft start"),
@@ -619,7 +621,9 @@ def sheet_power(root: str) -> str:
         Component("Device:D_TVS", "D1", "SMBJ12A", "Diode_SMD:D_SMB", 120, 75, {"1": "VBAT", "2": "GND"},
                   "bus TVS 12V standoff"),
         Component("Device:C", "C1", "10uF 25V X7R", "Capacitor_SMD:C_1206_3216Metric", 155, 75, {"1": "VBAT", "2": "GND"}),
-        Component("Device:C", "C2", "100nF 50V", C, 155, 55, {"1": "VBAT", "2": "GND"}),
+        Component("Device:C", "C2", "100nF 50V", C, 155, 55, {"1": "VBAT_C2", "2": "GND"}),
+        Component("Device:R", "R17", "0R (jumper)", R, 175, 55, {"1": "VBAT", "2": "VBAT_C2"},
+                 "0R jumper: merges the two VBAT copper islands across the NRST/C6 fence (2-layer density limit)"),
         Component("Device:Polyfuse", "F2", "PPTC 200mA", "Fuse:Fuse_1206_3216Metric", 190, 110, {"1": "VBAT", "2": "VBAT_LOGIC"},
                   "board self-power fuse; board faults never drag the bus"),
         Component("Device:D_TVS", "D2", "SMF12A", "Diode_SMD:D_SOD-123F", 190, 75, {"1": "VBAT_LOGIC", "2": "GND"}),
@@ -648,12 +652,12 @@ def sheet_power(root: str) -> str:
         ("Per-branch current budget: PH 2.0 contact = 2A. J_NECK also feeds the head HAT.", 25, 70, "budget"),
     ]
     return emit_sheet("Power & Protection", uuid_, root,
-                      [("Device", "Fuse"), ("imu_ttl", "DMP4015SK3"), ("Device", "R"), ("Device", "C"),
+                      [("Device", "Fuse"), ("imu_ttl", "AO4407C"), ("Device", "R"), ("Device", "C"),
                        ("Device", "D_TVS"), ("Device", "Polyfuse"), ("Regulator_Linear", "HT75xx-1-SOT89"),
                        ("Device", "LED"), ("Connector", "TestPoint"), ("imu_ttl", "ScrewTerminal_2P"),
                        ("power", "PWR_FLAG")],
                       comps, labels, notes,
-                      flags=["VBAT_RAW", "VBAT_FUSED", "VBAT", "VBAT_LOGIC", "GND"],
+                      flags=["VBAT_RAW", "VBAT_FUSED", "VBAT", "VBAT_C2", "VBAT_LOGIC", "GND"],
                       page="2")
 
 

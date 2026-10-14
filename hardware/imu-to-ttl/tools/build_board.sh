@@ -10,6 +10,7 @@ kicad-cli sch export netlist --format kicadsexpr --output "$NETLIST" imu_to_ttl.
 "$KIPY" tools/assign_netlist.py "$NETLIST" 2>/dev/null
 "$KIPY" tools/place_board.py       2>/dev/null
 "$KIPY" tools/pack_loose.py        2>/dev/null
+"$KIPY" tools/fix_overlaps.py     2>/dev/null
 "$KIPY" tools/rules.py             2>/dev/null
 "$KIPY" tools/route.py --passes 250 2>/dev/null
 "$KIPY" tools/pours.py             2>/dev/null

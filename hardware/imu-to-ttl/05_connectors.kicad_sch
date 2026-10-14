@@ -309,7 +309,7 @@
 	)
 	(global_label "BUS_DATA"
 		(shape bidirectional)
-		(at 41.91 107.95 180)
+		(at 46.99 109.22 180)
 		(fields_autoplaced yes)
 		(effects
 		(font
@@ -333,7 +333,7 @@
 	)
 	(global_label "GND"
 		(shape bidirectional)
-		(at 41.91 113.03 180)
+		(at 46.99 111.76 180)
 		(fields_autoplaced yes)
 		(effects
 		(font
@@ -345,7 +345,7 @@
 	)
 	(global_label "BUS_DATA"
 		(shape bidirectional)
-		(at 41.91 142.24 180)
+		(at 46.99 143.51 180)
 		(fields_autoplaced yes)
 		(effects
 		(font
@@ -369,7 +369,7 @@
 	)
 	(global_label "GND"
 		(shape bidirectional)
-		(at 41.91 147.32 180)
+		(at 46.99 146.05 180)
 		(fields_autoplaced yes)
 		(effects
 		(font
@@ -381,7 +381,7 @@
 	)
 	(global_label "BUS_DATA"
 		(shape bidirectional)
-		(at 41.91 177.80 180)
+		(at 46.99 179.07 180)
 		(fields_autoplaced yes)
 		(effects
 		(font
@@ -405,7 +405,7 @@
 	)
 	(global_label "GND"
 		(shape bidirectional)
-		(at 41.91 182.88 180)
+		(at 46.99 181.61 180)
 		(fields_autoplaced yes)
 		(effects
 		(font
@@ -544,7 +544,7 @@
 		)
 	)
 	)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Horizontal"
+		(property "Footprint" "Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical"
 		(at 54.61 110.49 0)
 		(effects
 		(font
@@ -632,7 +632,7 @@
 		)
 	)
 	)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Horizontal"
+		(property "Footprint" "Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical"
 		(at 54.61 144.78 0)
 		(effects
 		(font
@@ -720,7 +720,7 @@
 		)
 	)
 	)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Horizontal"
+		(property "Footprint" "Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical"
 		(at 54.61 180.34 0)
 		(effects
 		(font
@@ -1231,102 +1231,5 @@
 			)
 		)
 	)
-	
-	(wire
-		(pts (xy 46.99 109.22) (xy 41.91 109.22))
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7ad4640a-7dc8-4435-b9bf-17e6e95b88ce")
-	)
-	(wire
-		(pts (xy 41.91 109.22) (xy 41.91 107.95))
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cdda309e-e72b-4adc-8ace-1fa73b7380cd")
-	)
-	(wire
-		(pts (xy 46.99 111.76) (xy 41.91 111.76))
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dbe578a2-85a5-42bb-8721-dd3bb2b6d93d")
-	)
-	(wire
-		(pts (xy 41.91 111.76) (xy 41.91 113.03))
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9dfed616-4c1e-4c5a-9a85-f302de2caf23")
-	)
-	(wire
-		(pts (xy 46.99 143.51) (xy 41.91 143.51))
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "be5da019-ba96-4151-a703-d6838bdd1943")
-	)
-	(wire
-		(pts (xy 41.91 143.51) (xy 41.91 142.24))
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "963c1551-4c78-4516-902b-368716a9a2b0")
-	)
-	(wire
-		(pts (xy 46.99 146.05) (xy 41.91 146.05))
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2ef86831-d677-4fa1-94a9-5bfcea573523")
-	)
-	(wire
-		(pts (xy 41.91 146.05) (xy 41.91 147.32))
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f42415f5-5276-4a0c-8d06-3f766d7c9a78")
-	)
-	(wire
-		(pts (xy 46.99 179.07) (xy 41.91 179.07))
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fdd758d9-e527-4485-a229-d86830c1f376")
-	)
-	(wire
-		(pts (xy 41.91 179.07) (xy 41.91 177.80))
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3675a5a3-9740-4ca1-8aef-93476fd3d683")
-	)
-	(wire
-		(pts (xy 46.99 181.61) (xy 41.91 181.61))
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "49c38ef4-6b89-4883-85d4-50fc0636aa40")
-	)
-	(wire
-		(pts (xy 41.91 181.61) (xy 41.91 182.88))
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9a74326c-18df-4dbb-8e18-ffbf445d049e")
-	)
-(embedded_fonts no)
+	(embedded_fonts no)
 )
