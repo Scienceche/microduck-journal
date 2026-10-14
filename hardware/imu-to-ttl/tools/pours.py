@@ -206,6 +206,22 @@ def main():
     if need("VBAT_TOP"):
         add_zone(board, pcbnew.F_Cu, vbat, 9, VBAT_POLY, "VBAT_TOP")
 
+    # v3.3: B 面 VBAT 辅助走廊 —— GND 底铜(优先级0)占满整个 B 面, VBAT 的
+    # 碎片(J4.2/J5.2 右缘对, C2.1/Q1.1 顶带对)无法在正面合龙。两条走廊以
+    # 优先级 5 压过 GND, 填充器自动绕开 B 面信号线把锚点连成一片。
+    if need("VBAT_Bottom"):
+        add_zone(board, pcbnew.B_Cu, vbat, 5,
+                 [(34.2, 13.2), (36.8, 13.2), (36.8, 21.5), (34.2, 21.5)],
+                 "VBAT_Bottom")  # 走廊A: 右缘 J5.2 -> J4.2
+        zb = None
+        for z in board.Zones():
+            if z.GetZoneName() == "VBAT_Bottom":
+                zb = z
+        ol = zb.Outline()
+        ol.NewOutline()  # 走廊B: 顶带 C2.1 -> Q1.1
+        for x, y in [(16.2, 3.6), (34.4, 3.6), (34.4, 7.2), (16.2, 7.2)]:
+            ol.Append(mm(x), mm(y))
+
     # battery-input copper: priority above VBAT so the strip along the top edge
     # (free of parts, see the mechanical keep-out) becomes battery-side copper
     vbat_raw = nets.GetNetItem("VBAT_RAW")
