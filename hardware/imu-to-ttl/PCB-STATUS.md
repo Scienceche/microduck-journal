@@ -438,3 +438,15 @@ set_sch_fp.py)。
 3. J1 决策参考: 原版**没有电池端子**, 电池线焊 H3 裸盘。我们的 XY308/KF128 8.8mm 若最终
    放不下, 学原版改裸焊盘(0mm高)是最稳方案, 其次卧式端子, 最后才是现在的立式。
    渲染对照: pcb_rework/orig_imu_top.png / orig_imu_bot.png vs r_v3_top.png / r_v3_bot.png
+
+# v3.1 · J1 换裸焊盘（2026-10-14 晚，用户拍板）
+
+- XY308 螺丝端子 → **imu_to_ttl:BattPad_1x02_P3.60mm_Drill1.2mm**（项目本地封装库首件）
+  - pin1=VBAT_RAW 在右 @(6.2,26.5)、pin2=GND 在左 @(2.6,26.5)，Ø2.2 孔 1.2mm（18AWG 直穿）
+  - 焊盘落位即旧端子焊盘位：VBAT 直接压在原粗铜 stub 上、GND 压在两条 GND stub 起点，零新增布线
+- 顺手拉直了绕着旧端子本体的两条旧走线：Q1_GATE 顶绕行 y27.8→27.95 + 西对角线下移(0.79,25.6)，
+  NRST 顶走线 y27.76→28.35（端子本体没了，绕行让位给焊盘）
+- DRC：**0 短路 0 未连接** ✓；渲染复核左下角两裸盘 +/− 丝印、全板完好（r_v31_j1_top.png）
+- 原理图 01_power J1 Footprint 字段已同步；fab 已重导（fab_new/ 26 件 + fab/imu_to_ttl-gerber-v3p1.zip）
+- 回滚：pcb_rework/imu_to_ttl.v3_xy308J1.bak
+- 接线说明更新：J1=电池线**直接焊接**（红+ 右 / 黑− 左），不再需要买端子
