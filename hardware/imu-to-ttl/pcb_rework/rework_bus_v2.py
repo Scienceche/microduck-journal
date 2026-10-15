@@ -198,7 +198,7 @@ inst = '''	(symbol
 		)
 	)
 	)
-		(property "Footprint" "Package_SO:TSSOP-8_3x3mm_P0.65mm"
+		(property "Footprint" "Package_SO:VSSOP-8_2.3x2mm_P0.5mm"
 		(at 100.33 110.49 0)
 		(effects
 		(font
@@ -234,6 +234,15 @@ inst = '''	(symbol
 			(hide yes)
 	)
 	)
+		(property "LCSC" "C10430"
+			(at 100.33 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 ''' % u()
 for p in range(1, 9):
     inst += '''		(pin "%d"

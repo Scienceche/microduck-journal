@@ -2096,7 +2096,7 @@
 			(hide yes)
 	)
 	)
-		(property "MPN" "PZ254V-11-07P"
+		(property "MPN" "PZ254R-11-07P"
 		(at 219.71 110.49 0)
 		(effects
 		(font
@@ -2105,7 +2105,7 @@
 			(hide yes)
 	)
 	)
-		(property "LCSC" "C492406"
+		(property "LCSC" "C492415"
 		(at 219.71 110.49 0)
 		(effects
 		(font

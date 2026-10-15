@@ -1387,8 +1387,17 @@
 			(size 1.27 1.27)
 		)
 	)
-	)
-		(property "Footprint" "Package_SO:TSSOP-8_3x3mm_P0.65mm"
+	)		(property "LCSC" "C10430"
+			(at 100.33 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+
+		(property "Footprint" "Package_SO:VSSOP-8_2.3x2mm_P0.5mm"
 		(at 100.33 110.49 0)
 		(effects
 		(font
@@ -1481,7 +1490,25 @@
 			(size 1.27 1.27)
 		)
 	)
-	)
+	)		(property "MPN" "0603WAF1002T5E"
+			(at 74.93 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 74.93 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 		(at 74.93 90.17 0)
 		(effects
@@ -1548,7 +1575,25 @@
 			(size 1.27 1.27)
 		)
 	)
-	)
+	)		(property "MPN" "0603WAF1002T5E"
+			(at 74.93 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 74.93 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 		(at 74.93 110.49 0)
 		(effects
@@ -1615,7 +1660,25 @@
 			(size 1.27 1.27)
 		)
 	)
-	)
+	)		(property "MPN" "0603WAF1002T5E"
+			(at 74.93 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25804"
+			(at 74.93 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 		(at 74.93 130.81 0)
 		(effects

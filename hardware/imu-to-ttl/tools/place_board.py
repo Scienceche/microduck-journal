@@ -45,6 +45,10 @@ FLOORPLAN = [
     ("U2", 20.5, 15.0, 0),       # IMU: at the mounting-hole centre
     ("U1", 28.6, 16.0, 0),       # MCU beside it - the routing channel between
                                  # them stays clear
+    # v3.5: U3 (VSSOP-8) rotated so pin8/+3V3 faces the +3V3 spine (R3/C13)
+    # and the U1-facing signals (BUS_TX/MCU_RX) face east toward U1. With
+    # pin8 east the pad is walled in by VBAT_LOGIC/J4 copper on both layers.
+    ("U3", 31.07, 21.55, 180),
     # D1 no longer anchored: its old spot belongs to J2's pin field now; the
     # packer places it (VBAT/GND are both pour-connected, spot is free).
 ]

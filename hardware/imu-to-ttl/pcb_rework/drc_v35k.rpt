@@ -1,0 +1,74 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-15T14:48:15 **
+** Report includes: Errors **
+
+** Found 7 DRC violations **
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1026 mm)
+    Local override; error
+    @(38.5655 mm, 29.4608 mm): Track [V3V3_IMU] on B.Cu, length 2.9409 mm
+    @(39.9639 mm, 27.5638 mm): Track [BUS_LOGIC] on B.Cu, length 0.5102 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0703 mm)
+    Local override; error
+    @(39.9639 mm, 27.5638 mm): Track [BUS_LOGIC] on B.Cu, length 0.5102 mm
+    @(40.6450 mm, 27.3813 mm): Track [V3V3_IMU] on B.Cu, length 21.0709 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1026 mm)
+    Local override; error
+    @(40.3247 mm, 27.2030 mm): Track [BUS_LOGIC] on B.Cu, length 20.4517 mm
+    @(38.5655 mm, 29.4608 mm): Track [V3V3_IMU] on B.Cu, length 2.9409 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0703 mm)
+    Local override; error
+    @(40.6450 mm, 27.3813 mm): Track [V3V3_IMU] on B.Cu, length 21.0709 mm
+    @(40.3247 mm, 6.7513 mm): Track [BUS_LOGIC] on B.Cu, length 0.7364 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1382 mm)
+    Local override; error
+    @(40.6450 mm, 6.3104 mm): Track [V3V3_IMU] on B.Cu, length 0.8932 mm
+    @(39.8040 mm, 6.2306 mm): Via [BUS_LOGIC] on F.Cu - B.Cu
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+
+** Found 7 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(26.4865 mm, 23.0073 mm): Track [+3V3] on B.Cu, length 1.0592 mm
+    @(32.4750 mm, 20.7950 mm): Pad 8 [+3V3] of U3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(19.3375 mm, 14.2500 mm): Pad 1 [SPI_MISO] of U2 on F.Cu
+    @(30.8000 mm, 17.6250 mm): Via [SPI_MISO] on F.Cu - B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(21.0000 mm, 14.0875 mm): Pad 12 [SPI_CS] of U2 on F.Cu
+    @(28.5393 mm, 22.5806 mm): Track [SPI_CS] on B.Cu, length 1.3919 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(20.5000 mm, 14.0875 mm): Pad 13 [SPI_SCK] of U2 on F.Cu
+    @(30.2000 mm, 18.2750 mm): Via [SPI_SCK] on F.Cu - B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(30.2000 mm, 18.2750 mm): Via [SPI_SCK] on F.Cu - B.Cu
+    @(31.4625 mm, 18.2750 mm): Pad 12 [SPI_SCK] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(20.0000 mm, 14.0875 mm): Pad 14 [SPI_MOSI] of U2 on F.Cu
+    @(30.2000 mm, 16.9750 mm): Via [SPI_MOSI] on F.Cu - B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(30.2000 mm, 16.9750 mm): Via [SPI_MOSI] on F.Cu - B.Cu
+    @(31.4625 mm, 16.9750 mm): Pad 14 [SPI_MOSI] of U1 on F.Cu
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

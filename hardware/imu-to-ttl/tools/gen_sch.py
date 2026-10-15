@@ -449,11 +449,11 @@ PARTS_BY_REF = {
     "TH1": ("PRG18BB101MB1RB", "C913703"),        # 100R PTC 0603
     "FB1": ("BLM18AG601SN1D", "C19330"),          # ferrite bead 0603
     "LED1": ("KT-0603R", "C2286"),                # red LED 0603
-    "J1": ("KF128-2.54-2P", "C474920"),          # 2.54mm screw terminal, 8A/130V (footprint pitch)
-    "J2": ("PZ254V-11-07P", "C492406"),           # 1x7 pin header 2.54
-    "J3": ("B3B-PH-K-S(LF)(SN)", "C131339"),      # JST PH 3P vertical
-    "J4": ("B3B-PH-K-S(LF)(SN)", "C131339"),
-    "J5": ("B3B-PH-K-S(LF)(SN)", "C131339"),
+    "J1": ("", ""),                              # v3.1+: bare solder pads on the PCB, nothing to buy
+    "J2": ("PZ254R-11-07P", "C492415"),           # v3.5: 1x7 RIGHT-ANGLE 2.54 (board has the lying footprint)
+    "J3": ("PZ254R-11-03P", "C492411"),           # v3.5: 1x3 RIGHT-ANGLE 2.54 (servo leads need adapter/solder)
+    "J4": ("PZ254R-11-03P", "C492411"),
+    "J5": ("PZ254R-11-03P", "C492411"),
 }
 
 PARTS_BY_VALUE = {

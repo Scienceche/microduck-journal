@@ -1,0 +1,118 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-15T14:54:10 **
+** Report includes: Errors **
+
+** Found 23 DRC violations **
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(33.6918 mm, 7.8737 mm): Track [SWCLK] on B.Cu, length 9.0637 mm
+    @(32.8000 mm, 6.8000 mm): Track [BUS_CLAMP] on B.Cu, length 22.7000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(21.5412 mm, 28.9929 mm): Track [BUS_DATA] on B.Cu, length 5.4909 mm
+    @(26.5000 mm, 29.5000 mm): Track [BUS_CLAMP] on B.Cu, length 1.3000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_LOGIC 和 +3V3)
+    Local override; error
+    @(34.0570 mm, 23.2663 mm): Track [VBAT_LOGIC] on F.Cu, length 0.4308 mm
+    @(34.2000 mm, 23.1000 mm): Via [+3V3] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_LOGIC 和 +3V3)
+    Local override; error
+    @(33.7524 mm, 23.5709 mm): Via [VBAT_LOGIC] on F.Cu - B.Cu
+    @(34.2000 mm, 23.1000 mm): Via [+3V3] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_LOGIC 和 +3V3)
+    Local override; error
+    @(36.7351 mm, 23.2663 mm): Track [VBAT_LOGIC] on F.Cu, length 2.6781 mm
+    @(34.2000 mm, 23.1000 mm): Via [+3V3] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_LOGIC 和 +3V3)
+    Local override; error
+    @(33.7524 mm, 23.5709 mm): Via [VBAT_LOGIC] on F.Cu - B.Cu
+    @(34.2000 mm, 23.1000 mm): Via [+3V3] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0163 mm)
+    Local override; error
+    @(32.1371 mm, 23.7371 mm): Track [BUS_DATA] on B.Cu, length 0.3708 mm
+    @(34.2000 mm, 23.1000 mm): Track [+3V3] on B.Cu, length 8.5200 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_LOGIC 和 BUS_CLAMP)
+    Local override; error
+    @(33.5694 mm, 21.3765 mm): Track [BUS_LOGIC] on B.Cu, length 0.9487 mm
+    @(32.8000 mm, 6.8000 mm): Track [BUS_CLAMP] on B.Cu, length 22.7000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(32.5994 mm, 23.3663 mm): Track [BUS_DATA] on F.Cu, length 3.9804 mm
+    @(34.2000 mm, 20.7950 mm): Track [+3V3] on F.Cu, length 2.3050 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0818 mm)
+    Local override; error
+    @(32.8000 mm, 6.8000 mm): Via [BUS_CLAMP] on F.Cu - B.Cu
+    @(34.4596 mm, 7.7782 mm): Track [V3V3_IMU] on B.Cu, length 8.6434 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(32.5423 mm, 10.2173 mm): Track [BUS_LOGIC] on B.Cu, length 1.1069 mm
+    @(32.8000 mm, 6.8000 mm): Track [BUS_CLAMP] on B.Cu, length 22.7000 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0077 mm)
+    Local override; error
+    @(30.6077 mm, 10.2173 mm): Track [BUS_LOGIC] on B.Cu, length 1.9346 mm
+    @(32.8000 mm, 6.8000 mm): Track [BUS_CLAMP] on B.Cu, length 22.7000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_LOGIC 和 BUS_CLAMP)
+    Local override; error
+    @(32.8986 mm, 22.0473 mm): Track [BUS_LOGIC] on B.Cu, length 2.1072 mm
+    @(32.8000 mm, 6.8000 mm): Track [BUS_CLAMP] on B.Cu, length 22.7000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_LOGIC 和 BUS_CLAMP)
+    Local override; error
+    @(32.8986 mm, 24.1545 mm): Track [BUS_LOGIC] on B.Cu, length 4.7778 mm
+    @(32.8000 mm, 6.8000 mm): Track [BUS_CLAMP] on B.Cu, length 22.7000 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1271 mm)
+    Local override; error
+    @(32.8000 mm, 6.8000 mm): Track [BUS_CLAMP] on B.Cu, length 22.7000 mm
+    @(28.7235 mm, 27.8539 mm): Track [BUS_LOGIC] on B.Cu, length 5.2317 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(31.5496 mm, 19.8575 mm): Track [SWDIO] on B.Cu, length 3.6563 mm
+    @(34.2000 mm, 23.1000 mm): Track [+3V3] on B.Cu, length 8.5200 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(26.9315 mm, 17.9519 mm): Track [TX_EN_N] on B.Cu, length 5.8342 mm
+    @(34.2000 mm, 23.1000 mm): Track [+3V3] on B.Cu, length 8.5200 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 GND 和 +3V3)
+    Local override; error
+    @(34.4481 mm, 23.2281 mm): Track [GND] on B.Cu, length 6.3962 mm
+    @(34.2000 mm, 23.1000 mm): Via [+3V3] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 GND 和 +3V3)
+    Local override; error
+    @(35.7000 mm, 24.4800 mm): Track [GND] on B.Cu, length 1.7705 mm
+    @(34.2000 mm, 23.1000 mm): Via [+3V3] on F.Cu - B.Cu
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(29.7750 mm, 6.1169 mm): Track [GND] on B.Cu, length 6.4845 mm
+    @(32.8000 mm, 6.8000 mm): Track [BUS_CLAMP] on B.Cu, length 22.7000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 +3V3 和 GND)
+    Local override; error
+    @(34.2000 mm, 23.1000 mm): Track [+3V3] on B.Cu, length 8.5200 mm
+    @(35.7000 mm, 24.4800 mm): Track [GND] on B.Cu, length 1.7705 mm
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+
+** Found 2 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(33.5950 mm, 6.2450 mm): Track [BUS_CLAMP] on F.Cu, length 0.7950 mm
+    @(32.8000 mm, 6.8000 mm): Track [BUS_CLAMP] on B.Cu, length 22.7000 mm
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

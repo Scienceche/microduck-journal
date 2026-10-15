@@ -1,0 +1,74 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-15T15:37:49 **
+** Report includes: Errors **
+
+** Found 11 DRC violations **
+[clearance]: 间距违规 (填充区 间距 0.2500 mm; 实际 0.0000 mm)
+    Local override; error
+    @(1.0949 mm, 15.2190 mm): Via [VBAT_RAW] on F.Cu - B.Cu
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[clearance]: 间距违规 (填充区 间距 0.2500 mm; 实际 0.0000 mm)
+    Local override; error
+    @(1.2582 mm, 20.4907 mm): Via [VBAT_RAW] on F.Cu - B.Cu
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[clearance]: 间距违规 (填充区 间距 0.2500 mm; 实际 0.0000 mm)
+    Local override; error
+    @(1.0949 mm, 15.2190 mm): Track [VBAT_RAW] on F.Cu, length 5.1084 mm
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[clearance]: 间距违规 (填充区 间距 0.2500 mm; 实际 0.0000 mm)
+    Local override; error
+    @(1.0949 mm, 20.3274 mm): Track [VBAT_RAW] on F.Cu, length 0.2309 mm
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(1.2582 mm, 20.4907 mm): Via [VBAT_RAW] on F.Cu - B.Cu
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[clearance]: 间距违规 (填充区 间距 0.2500 mm; 实际 0.0000 mm)
+    Local override; error
+    @(1.4265 mm, 4.0177 mm): Via [VBAT_RAW] on F.Cu - B.Cu
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[clearance]: 间距违规 (填充区 间距 0.2500 mm; 实际 0.0000 mm)
+    Local override; error
+    @(1.4265 mm, 2.2354 mm): Track [VBAT_RAW] on F.Cu, length 1.7823 mm
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(1.0949 mm, 15.2190 mm): Via [VBAT_RAW] on F.Cu - B.Cu
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(1.4265 mm, 4.0177 mm): Via [VBAT_RAW] on F.Cu - B.Cu
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+
+** Found 3 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(32.4750 mm, 20.7950 mm): Pad 8 [+3V3] of U3 on F.Cu
+    @(25.9500 mm, 22.1816 mm): Track [+3V3] on F.Cu, length 0.5934 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(26.1750 mm, 28.2000 mm): Track [BUS_CLAMP] on B.Cu, length 1.8500 mm
+    @(33.5950 mm, 6.2450 mm): Pad 1 [BUS_CLAMP] of D3 on F.Cu
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

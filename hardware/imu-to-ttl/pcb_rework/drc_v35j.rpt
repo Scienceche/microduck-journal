@@ -1,0 +1,294 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-15T14:47:15 **
+** Report includes: Errors **
+
+** Found 68 DRC violations **
+[shorting_items]: 短路了两个不同网络的项目 (网络 GND 和 SPI_MOSI)
+    Local override; error
+    @(18.0968 mm, 17.8269 mm): Track [GND] on B.Cu, length 3.8670 mm
+    @(20.0000 mm, 15.4000 mm): Via [SPI_MOSI] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 GND 和 SPI_CS)
+    Local override; error
+    @(20.8312 mm, 15.0925 mm): Via [GND] on F.Cu - B.Cu
+    @(21.0000 mm, 14.0875 mm): Track [SPI_CS] on F.Cu, length 5.4125 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 V3V3_IMU 和 SPI_CS)
+    Local override; error
+    @(20.8683 mm, 17.3907 mm): Track [V3V3_IMU] on F.Cu, length 1.5774 mm
+    @(21.0000 mm, 14.0875 mm): Track [SPI_CS] on F.Cu, length 5.4125 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(19.3375 mm, 16.0566 mm): Track [IMU_INT1] on F.Cu, length 0.3066 mm
+    @(19.3375 mm, 14.2500 mm): Track [SPI_MISO] on F.Cu, length 3.3750 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(21.1687 mm, 28.8894 mm): Track [IMU_INT2] on B.Cu, length 5.9617 mm
+    @(21.0000 mm, 24.8000 mm): Track [SPI_CS] on B.Cu, length 5.6000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 SPI_CS 和 V3V3_IMU)
+    Local override; error
+    @(21.0000 mm, 14.0875 mm): Track [SPI_CS] on F.Cu, length 5.4125 mm
+    @(20.8683 mm, 17.3907 mm): Via [V3V3_IMU] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 IMU_INT1 和 SPI_CS)
+    Local override; error
+    @(21.2908 mm, 17.0330 mm): Track [IMU_INT1] on F.Cu, length 0.2744 mm
+    @(21.0000 mm, 14.0875 mm): Track [SPI_CS] on F.Cu, length 5.4125 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 SPI_CS 和 VBAT)
+    Local override; error
+    @(26.6000 mm, 24.8000 mm): Track [SPI_CS] on F.Cu, length 1.3000 mm
+    @(26.4886 mm, 25.2154 mm): Track [VBAT] on F.Cu, length 1.1439 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(24.5683 mm, 26.7558 mm): Track [LED_A] on B.Cu, length 3.0488 mm
+    @(21.0000 mm, 24.8000 mm): Track [SPI_CS] on B.Cu, length 5.6000 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0703 mm)
+    Local override; error
+    @(39.9639 mm, 27.5638 mm): Track [BUS_LOGIC] on B.Cu, length 0.5102 mm
+    @(40.6450 mm, 27.3813 mm): Track [V3V3_IMU] on B.Cu, length 21.0709 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1026 mm)
+    Local override; error
+    @(40.3247 mm, 27.2030 mm): Track [BUS_LOGIC] on B.Cu, length 20.4517 mm
+    @(38.5655 mm, 29.4608 mm): Track [V3V3_IMU] on B.Cu, length 2.9409 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_TX 和 SPI_SCK)
+    Local override; error
+    @(23.6154 mm, 18.4247 mm): Track [BUS_TX] on B.Cu, length 0.1052 mm
+    @(20.5000 mm, 18.2750 mm): Track [SPI_SCK] on B.Cu, length 9.7000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_TX 和 SPI_SCK)
+    Local override; error
+    @(23.6154 mm, 20.6736 mm): Track [BUS_TX] on B.Cu, length 2.2489 mm
+    @(20.5000 mm, 18.2750 mm): Track [SPI_SCK] on B.Cu, length 9.7000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_TX 和 SPI_SCK)
+    Local override; error
+    @(23.6898 mm, 18.3503 mm): Via [BUS_TX] on F.Cu - B.Cu
+    @(20.5000 mm, 18.2750 mm): Track [SPI_SCK] on B.Cu, length 9.7000 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1125 mm)
+    Local override; error
+    @(20.0000 mm, 15.4000 mm): Via [SPI_MOSI] on F.Cu - B.Cu
+    @(20.0000 mm, 15.9125 mm): Track [V3V3_IMU] on F.Cu, length 0.2937 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(21.0000 mm, 24.8000 mm): Track [SPI_CS] on B.Cu, length 5.6000 mm
+    @(21.7204 mm, 22.5352 mm): Track [V3V3_IMU] on B.Cu, length 5.8257 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0312 mm)
+    Local override; error
+    @(20.5000 mm, 14.0875 mm): Track [SPI_SCK] on F.Cu, length 4.1875 mm
+    @(20.8312 mm, 15.7437 mm): Track [GND] on F.Cu, length 0.6512 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1000 mm)
+    Local override; error
+    @(20.5000 mm, 18.2750 mm): Via [SPI_SCK] on F.Cu - B.Cu
+    @(21.0000 mm, 14.0875 mm): Track [SPI_CS] on F.Cu, length 5.4125 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(21.0000 mm, 19.5000 mm): Track [SPI_CS] on B.Cu, length 5.3000 mm
+    @(21.7417 mm, 20.6736 mm): Track [BUS_TX] on B.Cu, length 1.6613 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1250 mm)
+    Local override; error
+    @(20.0000 mm, 14.0875 mm): Track [SPI_MOSI] on F.Cu, length 1.3125 mm
+    @(20.0000 mm, 15.9125 mm): Pad 5 [V3V3_IMU] of U2 on F.Cu
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0500 mm)
+    Local override; error
+    @(27.3500 mm, 24.7750 mm): Pad 2 [TX_EN_N] of R14 on F.Cu
+    @(26.6000 mm, 24.8000 mm): Via [SPI_CS] on F.Cu - B.Cu
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(22.9086 mm, 16.2088 mm): Track [IMU_INT2] on B.Cu, length 5.1475 mm
+    @(20.5000 mm, 18.2750 mm): Track [SPI_SCK] on B.Cu, length 9.7000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(21.0968 mm, 16.8390 mm): Track [IMU_INT1] on F.Cu, length 0.9769 mm
+    @(21.0000 mm, 14.0875 mm): Track [SPI_CS] on F.Cu, length 5.4125 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0908 mm)
+    Local override; error
+    @(25.6795 mm, 17.0330 mm): Track [IMU_INT1] on F.Cu, length 4.3887 mm
+    @(21.0000 mm, 14.0875 mm): Track [SPI_CS] on F.Cu, length 5.4125 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 SPI_MISO 和 V3V3_IMU)
+    Local override; error
+    @(19.3375 mm, 17.6250 mm): Track [SPI_MISO] on B.Cu, length 11.4625 mm
+    @(20.8683 mm, 17.3907 mm): Via [V3V3_IMU] on F.Cu - B.Cu
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(19.3375 mm, 14.2500 mm): Track [SPI_MISO] on F.Cu, length 3.3750 mm
+    @(20.8683 mm, 17.3907 mm): Track [V3V3_IMU] on F.Cu, length 1.5774 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 SPI_MISO 和 V3V3_IMU)
+    Local override; error
+    @(19.3375 mm, 17.6250 mm): Via [SPI_MISO] on F.Cu - B.Cu
+    @(20.8683 mm, 17.3907 mm): Track [V3V3_IMU] on F.Cu, length 1.5774 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_RAW 和 SPI_SCK)
+    Local override; error
+    @(20.0833 mm, 16.8519 mm): Track [VBAT_RAW] on B.Cu, length 1.7214 mm
+    @(20.5000 mm, 18.2750 mm): Via [SPI_SCK] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0125 mm)
+    Local override; error
+    @(20.0833 mm, 18.5733 mm): Track [VBAT_RAW] on B.Cu, length 5.3370 mm
+    @(20.5000 mm, 18.2750 mm): Via [SPI_SCK] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_RAW 和 SPI_MOSI)
+    Local override; error
+    @(23.5289 mm, 13.4063 mm): Track [VBAT_RAW] on B.Cu, length 4.8728 mm
+    @(20.0000 mm, 16.9750 mm): Track [SPI_MOSI] on B.Cu, length 10.2000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(21.5108 mm, 16.4727 mm): Track [V3V3_IMU] on B.Cu, length 0.8962 mm
+    @(20.0000 mm, 16.9750 mm): Track [SPI_MOSI] on B.Cu, length 10.2000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(20.8771 mm, 17.3907 mm): Track [V3V3_IMU] on B.Cu, length 2.0116 mm
+    @(19.3375 mm, 17.6250 mm): Track [SPI_MISO] on B.Cu, length 11.4625 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1026 mm)
+    Local override; error
+    @(38.5655 mm, 29.4608 mm): Track [V3V3_IMU] on B.Cu, length 2.9409 mm
+    @(39.9639 mm, 27.5638 mm): Track [BUS_LOGIC] on B.Cu, length 0.5102 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1382 mm)
+    Local override; error
+    @(40.6450 mm, 6.3104 mm): Track [V3V3_IMU] on B.Cu, length 0.8932 mm
+    @(39.8040 mm, 6.2306 mm): Via [BUS_LOGIC] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0703 mm)
+    Local override; error
+    @(40.6450 mm, 27.3813 mm): Track [V3V3_IMU] on B.Cu, length 21.0709 mm
+    @(40.3247 mm, 6.7513 mm): Track [BUS_LOGIC] on B.Cu, length 0.7364 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0343 mm)
+    Local override; error
+    @(20.8771 mm, 17.1064 mm): Track [V3V3_IMU] on B.Cu, length 0.2843 mm
+    @(19.3375 mm, 17.6250 mm): Track [SPI_MISO] on B.Cu, length 11.4625 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1108 mm)
+    Local override; error
+    @(21.5108 mm, 16.4727 mm): Via [V3V3_IMU] on F.Cu - B.Cu
+    @(21.0000 mm, 14.0875 mm): Track [SPI_CS] on F.Cu, length 5.4125 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0157 mm)
+    Local override; error
+    @(20.8683 mm, 17.3907 mm): Via [V3V3_IMU] on F.Cu - B.Cu
+    @(20.0000 mm, 16.9750 mm): Track [SPI_MOSI] on B.Cu, length 10.2000 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1023 mm)
+    Local override; error
+    @(21.5108 mm, 16.4727 mm): Via [V3V3_IMU] on F.Cu - B.Cu
+    @(20.0000 mm, 16.9750 mm): Track [SPI_MOSI] on B.Cu, length 10.2000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 V3V3_IMU 和 SPI_MISO)
+    Local override; error
+    @(19.2909 mm, 17.3907 mm): Track [V3V3_IMU] on F.Cu, length 3.3142 mm
+    @(19.3375 mm, 17.6250 mm): Via [SPI_MISO] on F.Cu - B.Cu
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(24.3717 mm, 25.5872 mm): Track [VBAT] on B.Cu, length 2.1435 mm
+    @(21.0000 mm, 24.8000 mm): Track [SPI_CS] on B.Cu, length 5.6000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(20.2665 mm, 16.4727 mm): Track [V3V3_IMU] on F.Cu, length 1.2443 mm
+    @(21.0000 mm, 14.0875 mm): Track [SPI_CS] on F.Cu, length 5.4125 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1323 mm)
+    Local override; error
+    @(26.4886 mm, 24.0715 mm): Via [VBAT] on F.Cu - B.Cu
+    @(26.6000 mm, 23.5000 mm): Track [SPI_CS] on F.Cu, length 0.7000 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0870 mm)
+    Local override; error
+    @(26.4886 mm, 24.0715 mm): Via [VBAT] on F.Cu - B.Cu
+    @(26.6000 mm, 24.8000 mm): Via [SPI_CS] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1301 mm)
+    Local override; error
+    @(26.8852 mm, 25.6120 mm): Track [VBAT] on F.Cu, length 0.5609 mm
+    @(26.6000 mm, 24.8000 mm): Track [SPI_CS] on F.Cu, length 1.3000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT 和 SPI_CS)
+    Local override; error
+    @(26.4886 mm, 25.2154 mm): Track [VBAT] on F.Cu, length 1.1439 mm
+    @(26.6000 mm, 24.8000 mm): Via [SPI_CS] on F.Cu - B.Cu
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(27.9711 mm, 24.5277 mm): Track [TX_EN_N] on B.Cu, length 3.6042 mm
+    @(33.7500 mm, 23.5000 mm): Track [+3V3] on B.Cu, length 6.7500 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 +3V3 和 SPI_CS)
+    Local override; error
+    @(27.2355 mm, 24.4395 mm): Track [+3V3] on B.Cu, length 2.2069 mm
+    @(21.0000 mm, 24.8000 mm): Track [SPI_CS] on B.Cu, length 5.6000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(26.4865 mm, 23.0073 mm): Track [+3V3] on B.Cu, length 7.4091 mm
+    @(19.3375 mm, 17.6250 mm): Track [SPI_MISO] on B.Cu, length 11.4625 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(33.7500 mm, 23.5000 mm): Track [+3V3] on B.Cu, length 6.7500 mm
+    @(35.1640 mm, 21.9400 mm): Track [VBAT] on B.Cu, length 3.0526 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 +3V3 和 RX_EN)
+    Local override; error
+    @(33.7500 mm, 23.5000 mm): Via [+3V3] on F.Cu - B.Cu
+    @(33.3540 mm, 21.5684 mm): Track [RX_EN] on F.Cu, length 2.5670 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 +3V3 和 VBAT)
+    Local override; error
+    @(33.7500 mm, 23.5000 mm): Via [+3V3] on F.Cu - B.Cu
+    @(35.1640 mm, 21.9400 mm): Track [VBAT] on B.Cu, length 3.0526 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(24.3429 mm, 24.2446 mm): Track [GND] on B.Cu, length 8.5696 mm
+    @(20.5000 mm, 18.2750 mm): Track [SPI_SCK] on B.Cu, length 9.7000 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(21.0000 mm, 15.9125 mm): Track [GND] on F.Cu, length 0.2387 mm
+    @(21.0000 mm, 14.0875 mm): Track [SPI_CS] on F.Cu, length 5.4125 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 GND 和 SPI_CS)
+    Local override; error
+    @(20.8312 mm, 15.7437 mm): Track [GND] on F.Cu, length 0.6512 mm
+    @(21.0000 mm, 14.0875 mm): Track [SPI_CS] on F.Cu, length 5.4125 mm
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.2273 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(19.3375 mm, 15.2500 mm): Pad 3 [SCx] of U2 on F.Cu
+    @(20.0000 mm, 15.4000 mm): Via [SPI_MOSI] on F.Cu - B.Cu
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.2000 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(27.3500 mm, 24.7750 mm): Pad 2 [TX_EN_N] of R14 on F.Cu
+    @(26.6000 mm, 24.8000 mm): Via [SPI_CS] on F.Cu - B.Cu
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.0750 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(20.0000 mm, 15.9125 mm): Pad 5 [V3V3_IMU] of U2 on F.Cu
+    @(20.0000 mm, 15.4000 mm): Via [SPI_MOSI] on F.Cu - B.Cu
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(21.0000 mm, 14.0875 mm): Track [SPI_CS] on F.Cu, length 5.4125 mm
+    @(21.0000 mm, 15.9125 mm): Pad 7 [GND] of U2 on F.Cu
+[solder_mask_bridge]: 底层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(21.0000 mm, 24.8000 mm): Track [SPI_CS] on B.Cu, length 5.6000 mm
+    @(22.4125 mm, 24.6000 mm): Pad 1 [LED_A] of LED1 on B.Cu
+[solder_mask_bridge]: 底层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(21.0000 mm, 24.8000 mm): Track [SPI_CS] on B.Cu, length 5.6000 mm
+    @(23.9875 mm, 24.6000 mm): Pad 2 [GND] of LED1 on B.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(19.3375 mm, 14.2500 mm): Track [SPI_MISO] on F.Cu, length 3.3750 mm
+    @(19.3375 mm, 14.7500 mm): Pad 2 [SDx] of U2 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(19.3375 mm, 14.2500 mm): Track [SPI_MISO] on F.Cu, length 3.3750 mm
+    @(19.3375 mm, 15.2500 mm): Pad 3 [SCx] of U2 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(19.3375 mm, 14.2500 mm): Track [SPI_MISO] on F.Cu, length 3.3750 mm
+    @(19.3375 mm, 15.7500 mm): Pad 4 [IMU_INT1] of U2 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(20.5000 mm, 14.0875 mm): Track [SPI_SCK] on F.Cu, length 4.1875 mm
+    @(20.5000 mm, 15.9125 mm): Pad 6 [GND] of U2 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(20.0000 mm, 15.4000 mm): Via [SPI_MOSI] on F.Cu - B.Cu
+    @(20.0000 mm, 15.9125 mm): Pad 5 [V3V3_IMU] of U2 on F.Cu
+
+** Found 1 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

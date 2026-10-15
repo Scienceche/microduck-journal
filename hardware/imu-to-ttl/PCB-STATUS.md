@@ -566,3 +566,21 @@ U1: pad1=RX_EN pad8=TX_EN_N pad10=MCU_RX ✓ 与实物板一致(epro2 网表实�
     kicad-cli pcb export gerbers/drill/pos + sch export bom → fab_v35/ → zip
 
 回滚: pcb_rework/imu_to_ttl.v34_pre_v35.bak(v3.4 交付态)
+
+# v3.5.1（2026-10-15 下午·采购核对触发）—— U3 封装修正 + 料号全部核对
+
+采购 BOM 核对时发现 **v2 画的 U3 封装是 TSSOP-8 (0.65mm)，但 TI 官网确认 SN74LVC2G241
+根本无 TSSOP 版本**（只有 DSBGA/VSSOP-DCU/SSOP-DCT，均 0.5mm 脚距）——按原封装买料装不上。
+已改用与实物板同款的 **DCU/VSSOP-8**（C10430，LCSC 核对现货 962）：
+
+- 原理图 U3 Footprint → `Package_SO:VSSOP-8_2.3x2mm_P0.5mm`（rework_bus_v2.py 同步）
+- **U3 入 place_board FLOORPLAN (31.07,21.55,rot180)**：pin8(+3V3) 转向西面对 +3V3 主干
+  （朝东时被 VBAT_LOGIC/J4 铜墙围死，路由器两轮收不掉——这是 v35 系列 DRC 反复的主因）
+- J2/J3/J4/J5 料号过期修正：立式 PZ254V/JST-PH → **弯针 PZ254R-11-07P/C492415、
+  PZ254R-11-03P/C492411**；R14~R17 补 MPN/LCSC；gen_sch.py 同步全部字段
+- 工具新增 `pcb_rework/autoroute2.py`：参数化寻径 + 1mm 空间网格数值碰撞检查
+  （SMD 焊盘按长轴线段建模而非外接圆，细长 VSSOP 焊盘不再误判）；KiCad10 SWIG 坑：
+  Remove() 之后 GetTracks() 迭代器失效，必须重载板
+- 最终 DRC：**0 短路/0 间距/0 未连接(仅 2 条 GND 角落死铜记账)/0 板边/0 孔**，
+  2 条 v3 已接受电源外框（Q1↔F1/F1↔U1）
+- fab 已重导（30 文件含双钻孔）；采购清单见 `docs/采购清单-v3.5.md`

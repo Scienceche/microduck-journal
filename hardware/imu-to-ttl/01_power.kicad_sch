@@ -2965,7 +2965,25 @@
 			(size 1.27 1.27)
 		)
 	)
-	)
+	)		(property "MPN" "0603WAF0000T5E"
+			(at 180.26 50.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C21189"
+			(at 180.26 50.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 		(at 175.26 54.61 0)
 		(effects

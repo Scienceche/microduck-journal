@@ -55,5 +55,5 @@
 "TP9","HAT_PWR- DNP","TestPoint:TestPoint_Pad_D1.5mm","1",""
 "U1","STM32G031F8P6","Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm","1",""
 "U2","LSM6DSV16XTR","imu_ttl:ST_LGA14_3x2.5_P0.5_LSM6DSV16X_TN0018","1",""
-"U3","SN74LVC2G241DCUR","Package_SO:TSSOP-8_3x3mm_P0.65mm","1",""
+"U3","SN74LVC2G241DCUR","Package_SO:VSSOP-8_2.3x2mm_P0.5mm","1",""
 "U4","HT7533-1","Package_TO_SOT_SMD:SOT-89-3","1",""

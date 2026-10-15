@@ -571,7 +571,7 @@
 			(hide yes)
 	)
 	)
-		(property "MPN" "B3B-PH-K-S(LF)(SN)"
+		(property "MPN" "PZ254R-11-03P"
 		(at 54.61 110.49 0)
 		(effects
 		(font
@@ -580,7 +580,7 @@
 			(hide yes)
 	)
 	)
-		(property "LCSC" "C131339"
+		(property "LCSC" "C492411"
 		(at 54.61 110.49 0)
 		(effects
 		(font
@@ -659,7 +659,7 @@
 			(hide yes)
 	)
 	)
-		(property "MPN" "B3B-PH-K-S(LF)(SN)"
+		(property "MPN" "PZ254R-11-03P"
 		(at 54.61 144.78 0)
 		(effects
 		(font
@@ -668,7 +668,7 @@
 			(hide yes)
 	)
 	)
-		(property "LCSC" "C131339"
+		(property "LCSC" "C492411"
 		(at 54.61 144.78 0)
 		(effects
 		(font
@@ -747,7 +747,7 @@
 			(hide yes)
 	)
 	)
-		(property "MPN" "B3B-PH-K-S(LF)(SN)"
+		(property "MPN" "PZ254R-11-03P"
 		(at 54.61 180.34 0)
 		(effects
 		(font
@@ -756,7 +756,7 @@
 			(hide yes)
 	)
 	)
-		(property "LCSC" "C131339"
+		(property "LCSC" "C492411"
 		(at 54.61 180.34 0)
 		(effects
 		(font
