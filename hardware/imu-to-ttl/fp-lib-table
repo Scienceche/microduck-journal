@@ -7,4 +7,11 @@
 		(options "")
 		(descr "IMU-to-TTL local footprints")
 	)
+	(lib
+		(name "imu_to_ttl")
+		(type "KiCad")
+		(uri "${KIPRJMOD}/imu_to_ttl.pretty")
+		(options "")
+		(descr "v3.5: edge connectors + battery pads pinned against KiCad lib drift")
+	)
 )

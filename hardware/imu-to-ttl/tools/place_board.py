@@ -30,12 +30,13 @@ PCB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PROJ, "imu_to_ttl.kicad
 FLOORPLAN = [
     # v3 (2026-10-12): 板子装在电池和躯干之间, 接插件全部改卧式弯排针并贴
     # 板边(针尖探出板外, 插头从板外水平插, 线贴边引出, 在板高度约2.5mm).
-    # J1 电池裸焊盘(用户拍板 v3.1): pad2=GND@(1.95,26.5) pad1=VBAT@(5.55,26.5)
-    ("J1", 3.75, 26.5, 0),       # battery wires solder direct, bottom-left
-    ("J2", 9.5, 21.59, 180),      # debug 1x7 lying: pad column x=9.5, pins out LEFT
+    # v3.5: J2 贴左边缘(pad 列 x4.6, 针仍向左出板), J1 裸焊盘竖排左缘下半
+    # (VBAT_RAW (1.9,23.1) / GND (1.9,26.7)), 两者 courtyard 留 0.5mm。
+    ("J1", 1.9, 25.3, 90),       # battery wires solder direct, left edge lower
+    ("J2", 4.6, 19.9, 180),      # debug 1x7: pad column x=4.6, y4.7-19.9, pins out LEFT
     ("J3", 19.2, 25.5, 270),      # 左腿 servo 1x3 lying: pins out BOTTOM (J1左移腾位)
     ("J5", 35.7, 10.5, 0),       # leg servo, right edge upper, pins out RIGHT
-    ("J4", 35.7, 18.5, 0),       # leg servo, right edge lower, pins out RIGHT
+    ("J4", 35.7, 19.4, 0),       # leg servo, right edge lower (v3.5: +0.9 clears J5's courtyard)
     # Power front-end: the VBAT / VBAT_RAW pours are fixed polygons, so these
     # stay where the pour reaches them.
     ("Q1", 28.84, 7.9, 0),       # reverse-polarity FET, clear of B2's courtyard
@@ -67,8 +68,8 @@ BACK_POS = {
     "R11": (29.0, 11.0), "R12": (32.5, 11.0),
     "C3": (38.5, 26.5), "C6": (25.5, 6.0), "C8": (29.0, 6.0), "C5": (11.5, 4.0),
     "U4": (16.5, 5.5), "C9": (21.5, 6.0), "R13": (23.5, 28.2),
-    "R2": (20.5, 3.8), "TH1": (26.3, 28.2), "C14": (8.5, 21.0),
-    "R1": (26.5, 26.0), "LED1": (24.0, 25.5),
+    "R2": (20.5, 3.8), "TH1": (27.0, 28.2), "C14": (8.5, 21.0),
+    "R1": (26.5, 26.0), "LED1": (23.2, 24.6),   # v3.5: LED1 挪开 R1 的外框和间距
 }
 
 

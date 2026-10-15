@@ -475,7 +475,7 @@ PARTS_BY_VALUE = {
 }
 
 PARTS_BY_REF_FOOTPRINT = {
-    "J1": "TerminalBlock:TerminalBlock_Xinya_XY308-2.54-2P_1x02_P2.54mm_Horizontal",  # must match the PCB pads (2.54mm pitch)
+    "J1": "imu_to_ttl:BattPad_1x02_P3.60mm_Drill1.2mm",  # must match the PCB pads (2.54mm pitch)
     "F1": "Fuse:Fuse_1206_3216Metric",
 }
 
@@ -607,7 +607,7 @@ def sheet_power(root: str) -> str:
     uuid_ = stable_uuid("imu_to_ttl:sheet:power")
     comps = [
         Component("imu_ttl:ScrewTerminal_2P", "J1", "BATT IN 2.54 2P",
-                  "TerminalBlock:TerminalBlock_Xinya_XY308-2.54-2P_1x02_P2.54mm_Horizontal",
+                  "imu_to_ttl:BattPad_1x02_P3.60mm_Drill1.2mm",
                   40, 110, {"1": "VBAT_RAW", "2": "GND"}, "Battery input; wire side uses keyed XT30"),
         Component("Device:Fuse", "F1", "FUSE 5A 2512", "Fuse:Fuse_2512_6332Metric",
                   80, 110, {"1": "VBAT_RAW", "2": "VBAT_FUSED"}, "Main fast fuse 5A"),
@@ -678,7 +678,7 @@ def sheet_mcu(root: str) -> str:
         Component("Device:C", "C8", "4.7uF 10V X7R", C, 80, 150, {"1": "+3V3", "2": "GND"}, "U1 VDD bulk (ST Fig.13)"),
         Component("Device:R", "R2", "10k", R, 55, 60, {"1": "+3V3", "2": "NRST"}),
         Component("Device:C", "C9", "100nF 50V", C, 80, 60, {"1": "NRST", "2": "GND"}),
-        Component("imu_ttl:SWD_Header_7P", "J2", "SWD+UART+NRST", "Connector_PinHeader_2.54mm:PinHeader_1x07_P2.54mm_Vertical",
+        Component("imu_ttl:SWD_Header_7P", "J2", "SWD+UART+NRST", "imu_to_ttl:PinHeader_1x07_P2.54mm_Horizontal",
                   220, 110,
                   {"1": "GND", "2": "SWCLK", "3": "SWDIO", "4": "UART1_TX", "5": "UART1_RX", "6": "+3V3", "7": "NRST"},
                   "debugger must NOT power the board; 3V3 is sense-only"),
@@ -792,11 +792,11 @@ def sheet_bus(root: str) -> str:
 def sheet_conn(root: str) -> str:
     uuid_ = stable_uuid("imu_to_ttl:sheet:conn")
     comps = [
-        Component("imu_ttl:JST_PH_B3B_3P", "J3", "J_NECK", "Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical",
+        Component("imu_ttl:JST_PH_B3B_3P", "J3", "J_NECK", "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal",
                   55, 110, {"1": "BUS_DATA", "2": "VBAT", "3": "GND"}, "neck chain 30->31->32->33 -> HAT (head)"),
-        Component("imu_ttl:JST_PH_B3B_3P", "J4", "J_L", "Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical",
+        Component("imu_ttl:JST_PH_B3B_3P", "J4", "J_L", "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal",
                   55, 145, {"1": "BUS_DATA", "2": "VBAT", "3": "GND"}, "left leg 20-24"),
-        Component("imu_ttl:JST_PH_B3B_3P", "J5", "J_R", "Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical",
+        Component("imu_ttl:JST_PH_B3B_3P", "J5", "J_R", "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal",
                   55, 180, {"1": "BUS_DATA", "2": "VBAT", "3": "GND"}, "right leg 10-14"),
         Component("Connector:TestPoint", "TP1", "VBAT", "TestPoint:TestPoint_Pad_D1.0mm", 160, 60, {"1": "VBAT"}),
         Component("Connector:TestPoint", "TP2", "GND", "TestPoint:TestPoint_Pad_D1.0mm", 160, 80, {"1": "GND"}),

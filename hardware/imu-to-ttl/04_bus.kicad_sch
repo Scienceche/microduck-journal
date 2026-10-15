@@ -12,6 +12,226 @@
 		(comment 1 "Feetech TTL slave ID 200 + trunk power hub")
 	)
 	(lib_symbols
+	(symbol "74xGxx:SN74LVC2G241"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+		(property "Reference" "U"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SN74LVC2G241"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Dual buffer 3-state: TX ch 1OE# active-low, RX ch 2OE active-high. DCU-8: 1=1OE# 2=1A 3=2Y 4=GND 5=2A 6=1Y 7=2OE 8=VCC"
+			(at 0 0 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(symbol "SN74LVC2G241_0_1"
+			(rectangle
+				(start -7.62 5.08)
+				(end 7.62 -5.08)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+		)
+		(symbol "SN74LVC2G241_1_1"
+			(pin input line
+				(at -10.16 3.81 0)
+				(length 2.54)
+				(name "~{1OE}"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at -10.16 1.27 0)
+				(length 2.54)
+				(name "1A"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin tri_state line
+				(at -10.16 -1.27 0)
+				(length 2.54)
+				(name "2Y"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at -10.16 -3.81 0)
+				(length 2.54)
+				(name "GND"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 10.16 -3.81 180)
+				(length 2.54)
+				(name "2A"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin tri_state line
+				(at 10.16 -1.27 180)
+				(length 2.54)
+				(name "1Y"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
+				(at 10.16 1.27 180)
+				(length 2.54)
+				(name "2OE"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "7"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 10.16 3.81 180)
+				(length 2.54)
+				(name "VCC"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "8"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+		)
+			(embedded_fonts no)
+	)
 	(symbol "74xGxx:74LVC1G125"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -931,66 +1151,6 @@
 			(embedded_fonts no)
 		)
 	)
-	(global_label "BUS_TX"
-		(shape bidirectional)
-		(at 100.33 100.33 0)
-		(fields_autoplaced yes)
-		(effects
-		(font
-			(size 1.27 1.27)
-		)
-			(justify left)
-	)
-		(uuid "b007da01-58f7-5698-a3f5-9352f816462d")
-	)
-	(global_label "BUS_TX"
-		(shape bidirectional)
-		(at 85.09 110.49 180)
-		(fields_autoplaced yes)
-		(effects
-		(font
-			(size 1.27 1.27)
-		)
-			(justify right)
-	)
-		(uuid "847e4067-efeb-5a78-b184-dd4832ae677f")
-	)
-	(global_label "GND"
-		(shape bidirectional)
-		(at 95.25 120.65 180)
-		(fields_autoplaced yes)
-		(effects
-		(font
-			(size 1.27 1.27)
-		)
-			(justify right)
-	)
-		(uuid "6946ae89-5e28-5e35-bd93-7fedf5f603fe")
-	)
-	(global_label "BUS_LOGIC"
-		(shape bidirectional)
-		(at 113.03 110.49 0)
-		(fields_autoplaced yes)
-		(effects
-		(font
-			(size 1.27 1.27)
-		)
-			(justify left)
-	)
-		(uuid "1eca7f13-ab2c-5f45-a505-9a94f8c6fbb3")
-	)
-	(global_label "+3V3"
-		(shape bidirectional)
-		(at 95.25 100.33 180)
-		(fields_autoplaced yes)
-		(effects
-		(font
-			(size 1.27 1.27)
-		)
-			(justify right)
-	)
-		(uuid "27650e62-ef86-5d56-a603-d070e885dc43")
-	)
 	(global_label "+3V3"
 		(shape bidirectional)
 		(at 54.61 86.36 0)
@@ -1183,7 +1343,7 @@
 	)
 		(uuid "8274d545-d77a-5341-9817-9d68e476825a")
 	)
-	(text "TTL BUS - AUTO direction, no DE, no RX_EN"
+	(text "TTL BUS v2 - 2G241: PA1=TX_EN_N(1OE#) + PB7=RX_EN(2OE) + R16 boot strap (matches real board)"
 		(exclude_from_sim no) (at 25 25 0)
 		(effects (font (size 1.2 1.2) (bold yes)) (justify left bottom))
 		(uuid "8079db6b-5c39-5445-9106-505ce6dc96dc")
@@ -1204,14 +1364,14 @@
 		(uuid "5384ca84-9721-59ae-98bc-bc9e3e30aad0")
 	)
 	(symbol
-		(lib_id "74xGxx:74LVC1G125")
+		(lib_id "74xGxx:SN74LVC2G241")
 		(at 100.33 110.49 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "de379f4c-5da4-5922-a10d-e8ae6b007dd2")
+		(uuid "32a99143-3eec-4c7c-b667-ac578a809649")
 		(property "Reference" "U3"
 		(at 105.33 105.99 0)
 		(effects
@@ -1220,15 +1380,15 @@
 		)
 	)
 	)
-		(property "Value" "SN74LVC1G125DBVT"
-		(at 105.33 114.99 0)
+		(property "Value" "SN74LVC2G241DCUR"
+		(at 105.33 116.84 0)
 		(effects
 		(font
 			(size 1.27 1.27)
 		)
 	)
 	)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-5"
+		(property "Footprint" "Package_SO:TSSOP-8_3x3mm_P0.65mm"
 		(at 100.33 110.49 0)
 		(effects
 		(font
@@ -1246,7 +1406,7 @@
 			(hide yes)
 	)
 	)
-		(property "Description" "AUTO: TX drives A and /OE; TX=0 pulls bus low, TX=1/idle releases"
+		(property "Description" "Half-duplex PHY v2: PA1=TX_EN_N drives 1OE# (low=TX on), PB7=RX_EN drives 2OE. Matches real board (epro2 netlist), field-proven 2026-10-11"
 		(at 100.33 110.49 0)
 		(effects
 		(font
@@ -1255,16 +1415,7 @@
 			(hide yes)
 	)
 	)
-		(property "MPN" "SN74LVC1G125DBVR"
-		(at 100.33 110.49 0)
-		(effects
-		(font
-			(size 1.27 1.27)
-		)
-			(hide yes)
-	)
-	)
-		(property "LCSC" "C23654"
+		(property "MPN" "SN74LVC2G241DCUR"
 		(at 100.33 110.49 0)
 		(effects
 		(font
@@ -1274,19 +1425,28 @@
 	)
 	)
 		(pin "1"
-			(uuid "300f1629-1473-5a77-812b-9db11ce4ee4b")
+			(uuid "a601ad11-ef3d-4952-bb4b-454255cdc7aa")
 		)
 		(pin "2"
-			(uuid "870a12b0-2572-51db-9250-658cbb0a33c9")
+			(uuid "6814d4c1-6995-4760-8375-bbdd92ca25cf")
 		)
 		(pin "3"
-			(uuid "b14b9dd6-38e7-58e9-85af-aba903868f71")
+			(uuid "da533092-ccee-4485-a633-87e51c4e500b")
 		)
 		(pin "4"
-			(uuid "4234f5da-e8c9-588e-bbc0-431a09110fe2")
+			(uuid "600ed5e1-ba57-4d16-a960-e3c3ffc6a200")
 		)
 		(pin "5"
-			(uuid "66460b2c-cad3-5f5b-8d94-f8bc69509fcf")
+			(uuid "ee7d0d5b-c119-47e1-9035-afdc5b014e6c")
+		)
+		(pin "6"
+			(uuid "86cdf582-e34b-4f84-96da-e9cb2c8b4a6c")
+		)
+		(pin "7"
+			(uuid "3accc440-8f23-4e54-b9a9-7d68bdf258a0")
+		)
+		(pin "8"
+			(uuid "ca91865a-90eb-4189-844e-5ca889879cd3")
 		)
 		(instances
 			(project "imu_to_ttl"
@@ -1294,6 +1454,501 @@
 					(reference "U3")
 					(unit 1)
 				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 74.93 90.17 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4d5be851-b44b-48a2-a4e3-fc61bf7b88a1")
+		(property "Reference" "R14"
+		(at 74.93 90.17 90)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "10k"
+		(at 74.93 90.17 90)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(at 74.93 90.17 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 74.93 90.17 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" "TX_EN_N pull-up: TX disabled at idle (real board R6)"
+		(at 74.93 90.17 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "7a895b0a-d6d2-4902-b388-63a6245cd911")
+		)
+		(pin "2"
+			(uuid "c8884e9e-8e1d-4fed-a44e-c3c1fb940121")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/fdb1a352-2feb-52d4-8282-cb48e1edb94e/de379f4c-5da4-5922-a10d-e8ae6b007dd2"
+					(reference "R14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 74.93 110.49 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f333d0d6-4f65-4f7b-9b03-be6f80f9693e")
+		(property "Reference" "R15"
+		(at 74.93 110.49 90)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "10k"
+		(at 74.93 110.49 90)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(at 74.93 110.49 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 74.93 110.49 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" "RX_EN pull-up: RX enabled at idle (real board R5)"
+		(at 74.93 110.49 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "a2bdb7eb-ca0b-4d07-88ba-0a5d74cac7ee")
+		)
+		(pin "2"
+			(uuid "ebd3f19e-7b32-4b5d-b2fe-02601afb9bec")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/fdb1a352-2feb-52d4-8282-cb48e1edb94e/de379f4c-5da4-5922-a10d-e8ae6b007dd2"
+					(reference "R15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 74.93 130.81 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ee3d949c-0943-45f2-9a0a-77b376029d6c")
+		(property "Reference" "R16"
+		(at 74.93 130.81 90)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "10k"
+		(at 74.93 130.81 90)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+		(at 74.93 130.81 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 74.93 130.81 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" "BOOT STRAP (field-proven): RX_EN-GND divider latches clone MCU boot mode; DNP if genuine MCU fitted"
+		(at 74.93 130.81 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "7433dce4-32e0-46f2-a959-73f58faefe00")
+		)
+		(pin "2"
+			(uuid "9acb2373-6bd5-41d7-b82c-541226626058")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/fdb1a352-2feb-52d4-8282-cb48e1edb94e/de379f4c-5da4-5922-a10d-e8ae6b007dd2"
+					(reference "R16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(global_label "TX_EN_N"
+		(shape bidirectional)
+		(at 90.17 106.68 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "2689342b-23b3-4d88-b8f3-841b79a6909b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 90.17 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "BUS_TX"
+		(shape bidirectional)
+		(at 90.17 109.22 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "daa5855c-170d-4daf-9992-696baf5b1fd0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 90.17 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "MCU_RX"
+		(shape bidirectional)
+		(at 90.17 111.76 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e0406b23-fff3-484c-872e-6c6bbcafa607")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 90.17 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape bidirectional)
+		(at 90.17 114.3 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f20bbd49-2b65-48f1-a114-4cd410ee1883")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 90.17 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "BUS_LOGIC"
+		(shape bidirectional)
+		(at 110.49 114.3 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "b0ab5325-cdd8-49a9-8f28-9b92967ee8bd")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 110.49 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "BUS_LOGIC"
+		(shape bidirectional)
+		(at 110.49 111.76 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1b394b80-521b-48ec-85cd-cb7e838d8b7c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 110.49 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "RX_EN"
+		(shape bidirectional)
+		(at 110.49 109.22 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "c18f6c11-4ec1-4a6e-bf78-1b16fce94b50")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 110.49 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "+3V3"
+		(shape bidirectional)
+		(at 110.49 106.68 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3da4b7db-67c0-4808-858c-22c0fc379fa8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 110.49 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "+3V3"
+		(shape bidirectional)
+		(at 74.93 86.36 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "6191c45e-5573-41bf-8dd0-553a3585556d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 74.93 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "TX_EN_N"
+		(shape bidirectional)
+		(at 74.93 93.98 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "6aae8240-86df-4602-b09d-ddd571ed8317")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 74.93 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "+3V3"
+		(shape bidirectional)
+		(at 74.93 106.68 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "65974c3d-c99b-46c5-821b-e1de13053cac")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 74.93 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "RX_EN"
+		(shape bidirectional)
+		(at 74.93 114.3 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2fc623a4-0be0-4f02-85d2-bf5c7158a6a1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 74.93 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "RX_EN"
+		(shape bidirectional)
+		(at 74.93 127.0 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f9e29ad0-bc55-49eb-b597-9659ffdc205c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 74.93 127.0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape bidirectional)
+		(at 74.93 134.62 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "dfdd557e-f354-4797-833a-765a2cd93310")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 74.93 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
 			)
 		)
 	)

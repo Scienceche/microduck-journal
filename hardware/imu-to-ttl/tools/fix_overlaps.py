@@ -11,6 +11,7 @@ Usage:  python3 tools/fix_overlaps.py [board.kicad_pcb]
 """
 
 import os
+import re
 import sys
 
 import pcbnew
@@ -19,7 +20,19 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PROJ = os.path.dirname(HERE)
 PCB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PROJ, "imu_to_ttl.kicad_pcb")
 
-SKELETON = {"J1", "J3", "J4", "J5", "U1", "U2", "J2", "MH1", "MH2"}
+
+def fixed_refs():
+    """Everything place_board.py pins: FLOORPLAN anchors, the back-side park
+    list (BACK_POS dict keys) and the four mounting holes. A previous version
+    had a hardcoded {J1..J5,U1,U2} set, so Q1/F1/R10 and every BACK_POS part
+    could be shoved off their anchors (U1 once landed on mounting hole B2)."""
+    text = open(os.path.join(HERE, "place_board.py")).read()
+    refs = set(re.findall(r'\("([A-Z]+\d+)",\s*[\d.]+,\s*[\d.]+,\s*\d+\)', text))
+    refs |= set(re.findall(r'"([A-Z]+\d+)":\s*\(', text))
+    return refs | {"B1", "B2", "B3", "B4"}
+
+
+SKELETON = fixed_refs()
 MARGIN = 0.6
 PUSH = 0.25      # extra separation beyond the touching point
 
@@ -86,10 +99,11 @@ def main():
             fa, fb = fps[a], fps[b]
             a_fixed, b_fixed = a in SKELETON, b in SKELETON
             if a_fixed and b_fixed:
-                print("  both %s and %s are skeleton parts - left alone" % (a, b))
+                print("  both %s and %s are fixed parts - left alone" % (a, b))
                 continue
-            victim = a if a_fixed else (b if b_fixed else a)
-            other = b if victim == a else a
+            # always push the loose side; the old `a if a_fixed else ...`
+            # selected the FIXED part whenever it came first in the pair
+            victim, other = (b, a) if a_fixed else (a, b)
             dx, dy = mtv(box_of(fps[victim]), box_of(fps[other]))
             sgn = 1.0
             move_by(fps[victim], dx * sgn + (PUSH if dx else 0) * (1 if dx > 0 else -1 if dx < 0 else 0),
@@ -100,10 +114,10 @@ def main():
                 move_by(fps[victim], MARGIN - bx[0], 0)
             if bx[1] < MARGIN:
                 move_by(fps[victim], 0, MARGIN - bx[1])
-            if bx[2] > 45.0 - MARGIN:
-                move_by(fps[victim], 45.0 - MARGIN - bx[2], 0)
-            if bx[3] > 22.0 - MARGIN:
-                move_by(fps[victim], 0, 22.0 - MARGIN - bx[3])
+            if bx[2] > 41.0 - MARGIN:
+                move_by(fps[victim], 41.0 - MARGIN - bx[2], 0)
+            if bx[3] > 30.0 - MARGIN:
+                move_by(fps[victim], 0, 30.0 - MARGIN - bx[3])
             progress = True
             break   # re-scan after every single move
         if not progress:

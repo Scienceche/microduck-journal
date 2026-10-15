@@ -1,0 +1,58 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-15T11:47:00 **
+** Report includes: Errors **
+
+** Found 10 DRC violations **
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0500 mm)
+    Local override; error
+    @(25.6750 mm, 26.0000 mm): Pad 1 [+3V3] of R1 on B.Cu
+    @(24.7875 mm, 25.5000 mm): Pad 2 [GND] of LED1 on B.Cu
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(23.5000 mm, 28.2000 mm): Footprint R13
+    @(26.3000 mm, 28.2000 mm): Footprint TH1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(4.6000 mm, 19.9000 mm): Footprint J2
+    @(1.9000 mm, 25.3000 mm): Footprint J1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(26.5000 mm, 26.0000 mm): Footprint R1
+    @(24.0000 mm, 25.5000 mm): Footprint LED1
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.2483 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(37.3999 mm, 26.8649 mm): Track [BUS_DATA] on F.Cu, length 4.5280 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.2483 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(40.6017 mm, 23.6631 mm): Track [BUS_DATA] on F.Cu, length 5.8492 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.2483 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(40.6017 mm, 17.8139 mm): Track [BUS_DATA] on F.Cu, length 0.7080 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(19.2000 mm, 29.5000 mm): PTH pad 3 [GND] of J3
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

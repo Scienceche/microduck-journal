@@ -1,0 +1,70 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-15T11:54:22 **
+** Report includes: Errors **
+
+** Found 13 DRC violations **
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(35.7000 mm, 18.5000 mm): Footprint J4
+    @(35.7000 mm, 10.5000 mm): Footprint J5
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1641 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(21.0946 mm, 29.7359 mm): Track [V3V3_IMU] on B.Cu, length 0.4569 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1641 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(20.8946 mm, 29.5359 mm): Track [V3V3_IMU] on B.Cu, length 0.2828 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1641 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(21.5515 mm, 29.7359 mm): Track [V3V3_IMU] on B.Cu, length 0.3100 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1641 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(13.2627 mm, 29.4817 mm): Track [IMU_INT2] on F.Cu, length 0.3595 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1641 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(32.4821 mm, 29.7359 mm): Track [IMU_INT2] on F.Cu, length 1.1338 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1641 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(13.5169 mm, 29.7359 mm): Track [IMU_INT2] on F.Cu, length 18.9652 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.2183 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(13.2627 mm, 29.4817 mm): Via [IMU_INT2] on F.Cu - B.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1934 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(1.0000 mm, 0.0000 mm): Segment on Edge.Cuts
+    @(21.1876 mm, 0.3934 mm): Track [VBAT_LOGIC] on B.Cu, length 11.7680 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1934 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(1.0000 mm, 0.0000 mm): Segment on Edge.Cuts
+    @(32.9556 mm, 0.3934 mm): Track [VBAT_LOGIC] on B.Cu, length 10.2272 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1934 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(1.0000 mm, 0.0000 mm): Segment on Edge.Cuts
+    @(18.4088 mm, 3.1722 mm): Track [VBAT_LOGIC] on B.Cu, length 3.9298 mm
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

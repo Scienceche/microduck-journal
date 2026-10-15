@@ -1,0 +1,23 @@
+### Footprint positions - created on 2026-10-15T12:16:09 ###
+### Printed by KiCad version 10.0.7
+## Unit = inches, Angle = deg.
+## Side : bottom
+# Ref     Val              Package                    PosX       PosY       Rot  Side
+C3        10uF_25V_X7R     C_0805_2012Metric        1.5157    -1.0433    0.0000  bottom
+C4        100nF_50V        C_0603_1608Metric        1.0039    -0.4331    0.0000  bottom
+C5        10uF_10V         C_0603_1608Metric        0.4528    -0.1575    0.0000  bottom
+C6        100nF_50V        C_0603_1608Metric        1.0039    -0.2362    0.0000  bottom
+C8        4.7uF_10V_X7R    C_0603_1608Metric        1.1417    -0.2362    0.0000  bottom
+C9        100nF_50V        C_0603_1608Metric        0.8465    -0.2362    0.0000  bottom
+C14       100nF_50V        C_0603_1608Metric        0.3346    -0.8268    0.0000  bottom
+D2        SMF12A           D_SOD-123F               0.8465    -0.4331    0.0000  bottom
+F2        PPTC_200mA       Fuse_1206_3216Metric     0.6299    -0.4331    0.0000  bottom
+LED1      LED_0603         LED_0603_1608Metric      0.9134    -0.9685    0.0000  bottom
+R1        1k               R_0603_1608Metric        1.0433    -1.0236    0.0000  bottom
+R2        10k              R_0603_1608Metric        0.8071    -0.1496    0.0000  bottom
+R11       4.7k_ALT_DNP     R_0603_1608Metric        1.1417    -0.4331    0.0000  bottom
+R12       10k_ALT_DNP      R_0603_1608Metric        1.2795    -0.4331    0.0000  bottom
+R13       150R             R_0603_1608Metric        0.9252    -1.1102    0.0000  bottom
+TH1       PRG18BB101MB1RB  R_0603_1608Metric        1.0630    -1.1102    0.0000  bottom
+U4        HT7533-1         SOT-89-3                 0.6496    -0.2165    0.0000  bottom
+## End

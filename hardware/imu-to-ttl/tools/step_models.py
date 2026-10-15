@@ -22,8 +22,8 @@ PCB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PROJ, "imu_to_ttl.kicad
 
 # reference -> model file (relative to the project), plus the reason it is local
 LOCAL_MODELS = {
-    "J1": ("lib/3d/terminal_xy308_2p.step",
-           "no KiCad 3D model exists for 2.54 mm screw terminals"),
+    # v3.5: J1 is a pair of bare solder pads now (height 0) - no envelope needed;
+    # the old 8.8 mm terminal block envelope would lie about the tallest part.
     "U2": ("lib/3d/lsm6dsv16x.step",
            "the IMU footprint is project-local and carries no 3D model"),
 }

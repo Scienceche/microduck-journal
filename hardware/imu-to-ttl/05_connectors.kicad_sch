@@ -24,7 +24,7 @@
 				(at 0 -3.81 0)
 				(effects (font (size 1.27 1.27)))
 			)
-			(property "Footprint" "Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical"
+			(property "Footprint" "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal"
 				(at 0 0 0)
 				(effects (font (size 1.27 1.27)) (hide yes))
 			)
@@ -544,7 +544,7 @@
 		)
 	)
 	)
-		(property "Footprint" "Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical"
+		(property "Footprint" "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal"
 		(at 54.61 110.49 0)
 		(effects
 		(font
@@ -632,7 +632,7 @@
 		)
 	)
 	)
-		(property "Footprint" "Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical"
+		(property "Footprint" "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal"
 		(at 54.61 144.78 0)
 		(effects
 		(font
@@ -720,7 +720,7 @@
 		)
 	)
 	)
-		(property "Footprint" "Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical"
+		(property "Footprint" "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal"
 		(at 54.61 180.34 0)
 		(effects
 		(font

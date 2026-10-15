@@ -514,3 +514,55 @@ set_sch_fp.py)。
 
 **fab**: `fab/imu_to_ttl-gerber-v3.4.zip` (26 文件) + fab_v34/ 原始文件
 回滚: v34_final.bak(当前) / v34_wip2 / v33_wip / v31_clean
+
+# v3.5 交付（2026-10-15 下午）—— J2 贴左边缘 + 全管线重排 + 三处工具链/工程真 bug 修复
+
+**DRC: 0 短路 / 0 间距 / 0 未连接 / 0 板边 / 0 孔间距;仅剩 2 条 v3 即接受的电源外框(Q1↔F1/F1↔U1,保守框)+ 38 条警告级(28 丝印出板边[贴边连接器固有]、7 孤岛铜、3 丝印压铜)**
+
+## 布局改动(用户要求: J2 移到边上)
+
+- **J2 焊盘列 x9.5 → x4.6**(锚 (4.6,19.9,180), pads y4.66-19.9,本体/针尾仍向左出板) —— 与 J3/J4/J5 同款"贴边弯针"风格,左板内区让出 5mm 走线走廊
+- **J1 裸焊盘下移**: (1.9,22.2)→(1.9,25.3) 中心(pads y23.5/27.1),让开 J2 外框 0.4mm
+- **J4 下移 0.9**(18.5→19.4),清掉 J4↔J5 外框重叠
+- **LED1→(23.2,24.6) / TH1→(27.0,28.2)**,清掉 R1↔LED1 的 0.05mm 间距+外框、R13↔TH1 外框
+
+## 本轮修掉的真 bug(重建链条从此可信)
+
+1. **fix_overlaps.py victim 选择写反**:`victim = a if a_fixed else ...` 在骨架件排
+   配对首位时恰恰选中骨架件 —— U1 被推到 (32.7,4.1) 压 B2。已改为永远推非固定侧,
+   且骨架集改为从 place_board.py 动态解析(旧硬编码缺 Q1/F1/R10/全部背面件),
+   板宽常量 45×22 → 41×30
+2. **gen_sch.py 重生成回退了 v2 总线拓扑 + v3 封装字段**(v3.4 会话踩的坑,本轮全部还原并加固):
+   - U3 回到 1G125 → 重跑 rework_bus_v2.py 恢复 **SN74LVC2G241DCUR(TSSOP-8)** +
+     TX_EN_N/RX_EN 方向控制 + **R14/R15/R16 肩带**(它们不是幽灵,是 v2 设计的一部分!)
+   - J1 封装字段回退成 XY308 端子 → 改回 BattPad;J2 回退成立式、J3/J4/J5 回退成 JST-PH 立式
+   - **加固**:J2/J3/J4/J5 封装从 v3.4 板提取进 `imu_to_ttl.pretty` 本地库
+     (KiCad 10 库封装图形会漂移,外框/朝向已两次对不上),原理图字段全部指向本地库,
+     fp-lib-table 补登 imu_to_ttl
+3. **v3.4 交付包三大硬伤全部消除**:钻孔文件入包(NPTH+PTH)、BOM 与板/原理图一致
+   (U3=2G241、R14-R17 齐、无幽灵件)、CPL 同批导出
+
+## 交付物(fab/)
+
+| 文件 | 内容 |
+|---|---|
+| `imu_to_ttl-gerber-v3.5.zip` | **30 文件:26 层 Gerber + NPTH.drl + PTH.drl + BOM + CPL 正/背** —— 可直接上 JLC |
+| `fab_v35/` | 上述原始文件 + `imu_to_ttl.step`(机械核对,J1 已无 8.8mm 端子包络,最高件=排针 ~2.5mm) |
+
+贴片:顶 31 + 背 17(J1 裸焊盘与 J2-J5 TH 件不在 CPL,TH 手焊)。
+渲染:pcb_rework/renders/r_v35final_top.png / _bot.png。
+
+## v2 拓扑还原记录(网表验证)
+
+U3: 1=TX_EN_N(1OE#) 2=BUS_TX(1A) 3=MCU_RX(2Y) 4=GND 5/6=BUS_LOGIC(2A/1Y) 7=RX_EN(2OE) 8=+3V3
+U1: pad1=RX_EN pad8=TX_EN_N pad10=MCU_RX ✓ 与实物板一致(epro2 网表实证,2026-10-11 实测)
+
+## 复现链(hardware/ 下)
+
+    python pcb_rework/rework_bus_v2.py    # 仅当 gen_sch.py 重生成过原理图后需要(拓扑还原)
+    sh tools/build_board.sh               # 板框→网表→锚定→排布→规则→Freerouting→铺铜
+    "KiCad-python" pcb_rework/nudge_edges.py   # 板边铜微调(0.25 规则)
+    "KiCad-python" tools/silk_refs.py     # 丝印整理
+    kicad-cli pcb export gerbers/drill/pos + sch export bom → fab_v35/ → zip
+
+回滚: pcb_rework/imu_to_ttl.v34_pre_v35.bak(v3.4 交付态)

@@ -1,0 +1,34 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-15T12:06:31 **
+** Report includes: Errors **
+
+** Found 4 DRC violations **
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1200 mm)
+    Local override; error
+    @(32.9293 mm, 0.8050 mm): Track [SWDIO] on B.Cu, length 4.2034 mm
+    @(33.0112 mm, 1.4808 mm): Track [VBAT_LOGIC] on B.Cu, length 1.4507 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 SWDIO 和 VBAT_LOGIC)
+    Local override; error
+    @(32.9293 mm, 0.8050 mm): Via [SWDIO] on F.Cu - B.Cu
+    @(33.0112 mm, 1.4808 mm): Track [VBAT_LOGIC] on B.Cu, length 1.4507 mm
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

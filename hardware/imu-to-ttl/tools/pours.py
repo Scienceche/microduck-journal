@@ -51,9 +51,10 @@ VBAT_RAW_POLYS = [
     # P1: the 3 mm strip along the top edge - free of parts (mechanical
     # keep-out), so it is the one place with room for real battery copper
     [(0.9, 0.9), (33.4, 0.9), (33.4, 3.4), (0.9, 3.4)],
-    # P2: the left-edge column up to J1, wide enough at the top to touch J1's
-    # battery pad - a pour that only meets tracks is reported as isolated copper
-    [(0.9, 3.0), (2.6, 3.0), (2.6, 25.4), (6.2, 25.4), (6.2, 29.1), (0.9, 29.1)],  # v3: 左列延到新J1(4.6,26.5)
+    # P2: the left-edge column down to J1's VBAT_RAW pad - v3.5: J1 sits at
+    # (1.9,23.1), so the column ends at 25.2 (pad edge 24.2 + 0.25 clearance to
+    # the GND pad below); a pour that only meets tracks is isolated copper
+    [(0.9, 3.0), (2.6, 3.0), (2.6, 25.2), (0.9, 25.2)],
     # P3: the block around the run's right end, Q1 and F1 - the fill keeps its
     # 0.25 mm distance from Q1's drain pads, which is where a bridge would
     # bypass the fuse

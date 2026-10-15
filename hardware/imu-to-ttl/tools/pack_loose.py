@@ -38,11 +38,13 @@ PACKED = {
     "C1":  (26.0, 11.5),     # 10 uF bulk on VBAT
     "D1":  (24.5, 13.5),      # SMBJ12A bulk TVS
     "C2":  (25.0, 11.0),      # 100 nF on VBAT
+    "R17": (25.0, 9.3),       # v3.5: 0R bridge VBAT <-> VBAT_C2 (schematic netlist part)
     "D3": (33.2, 5.4), "R8": (33.5, 15.5),
     "R7":  (29.5, 18.5), "U3": (31.5, 21.5),
     "FB1": (15.0, 13.2), "C10": (15.0, 15.8), "C11": (15.0, 18.4),
     "C12": (33.0, 13.0), "R3": (33.0, 17.0),
     "R5": (18.0, 20.0), "R6": (21.0, 20.0),   # moved off J3's new pad row
+    # v2 bus straps (2G241 direction control) - real parts, restored 2026-10-15
     "R14": (28.0, 24.0), "R15": (30.0, 24.0), "R16": (32.0, 24.0),
     "C7": (26.5, 22.5), "C13": (26.0, 18.5),
     "R4": (12.5, 18.5), "R9": (13.0, 21.0),
@@ -65,6 +67,9 @@ KEEP_OUT = [
     (18.8, 18.0, 22.2, 19.5),   # south
     # J3's through-hole pad row along the bottom edge (v3)
     (12.0, 24.0, 21.5, 29.4),
+    # J2's on-board body strip (v3.5: pad column x4.6, body sits x0.45-3.21,
+    # pin tails continue off-board) - nothing may live under the connector
+    (0.4, 3.2, 3.4, 21.5),
 ]
 GAP = 0.3            # routing channel reserved between courtyards
 GRID = 0.5
