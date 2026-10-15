@@ -30,24 +30,22 @@ PCB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PROJ, "imu_to_ttl.kicad
 
 # ref -> (anchor x, anchor y): the spot the part wants to be, electrically
 PACKED = {
-    # power front-end, anchored on J1's VBAT pin and the LDO
-    "F1":  (4.0, 19.5),     # 5 A fuse
+    # v3.4: J1 -> left edge (1.9,20.4/24.0) and J3 -> (19.2,25.5).
+    # The old table's J1-relative spots (F1/R9/R10/C14 at x4-12) are now
+    # stale - those parts were re-anchored in place_board.py or left loose
+    # for first-fit, which reads the real courtyard boxes. Only parts whose
+    # spot still matches the NEW floorplan stay pinned.
     "C1":  (26.0, 11.5),     # 10 uF bulk on VBAT
-    "D1":  (24.5, 13.5),    # SMBJ12A bulk TVS     # reverse-polarity PMOS
-    "C2":  (25.0, 11.0),     # 100 nF on VBAT
-    # bus buffer + clamp network: top right, next to J3/J4/J5
+    "D1":  (24.5, 13.5),      # SMBJ12A bulk TVS
+    "C2":  (25.0, 11.0),      # 100 nF on VBAT
     "D3": (33.2, 5.4), "R8": (33.5, 15.5),
     "R7":  (29.5, 18.5), "U3": (31.5, 21.5),
-    # IMU rail + straps (outside the escape frame)
     "FB1": (15.0, 13.2), "C10": (15.0, 15.8), "C11": (15.0, 18.4),
-    "C12": (33.0, 13.0), "R3": (33.0, 17.0), "R4": (15.0, 22.4),
-    "R5": (18.0, 22.8), "R6": (21.0, 22.8),
-    "R14": (28.0, 24.0), "R15": (30.0, 24.0), "R16": (32.0, 24.0),  # v3 strap
-    # MCU decoupling + NRST
+    "C12": (33.0, 13.0), "R3": (33.0, 17.0),
+    "R5": (18.0, 20.0), "R6": (21.0, 20.0),   # moved off J3's new pad row
+    "R14": (28.0, 24.0), "R15": (30.0, 24.0), "R16": (32.0, 24.0),
     "C7": (26.5, 22.5), "C13": (26.0, 18.5),
-   
-    # FET gate network
-    "R9": (9.5, 22.5), "R10": (9.5, 25.0), "C14": (12.0, 25.0),
+    "R4": (12.5, 18.5), "R9": (13.0, 21.0),
 }
 
 BOARD_W, BOARD_H = 41.0, 30.0
