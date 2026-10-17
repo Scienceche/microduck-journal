@@ -12,7 +12,11 @@ kicad-cli sch export netlist --format kicadsexpr --output "$NETLIST" imu_to_ttl.
 "$KIPY" tools/pack_loose.py        2>/dev/null
 "$KIPY" tools/fix_overlaps.py     2>/dev/null
 "$KIPY" tools/rules.py             2>/dev/null
-"$KIPY" tools/route.py --passes 250 2>/dev/null
+# v3.6: the U2->U1 SPI escape pair strands on many router rolls (aux nets
+# fence the south row first) - pre-route it deterministically, then let
+# Freerouting finish the remaining ratsnest on top (--continue)
+"$KIPY" pcb_rework/pre_route_spi.py 2>/dev/null
+"$KIPY" tools/route.py --continue --passes 120 2>/dev/null
 "$KIPY" tools/pours.py             2>/dev/null
 rm -f "$NETLIST"
 # v3 硬校验: 防止链条中途崩掉产出空板(2026-10-12 空板事故)

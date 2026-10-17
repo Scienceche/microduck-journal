@@ -1,0 +1,72 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-16T01:27:52 **
+** Report includes: Errors, Warnings **
+
+** Found 13 DRC violations **
+[shorting_items]: 短路了两个不同网络的项目 (网络 GND 和 V3V3_IMU)
+    Local override; error
+    @(21.0000 mm, 16.3500 mm): Via [GND] on F.Cu - B.Cu
+    @(21.2172 mm, 16.4732 mm): Track [V3V3_IMU] on F.Cu, length 1.0588 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 +3V3 和 GND)
+    Local override; error
+    @(24.1786 mm, 19.5784 mm): Track [+3V3] on B.Cu, length 7.7956 mm
+    @(21.0000 mm, 16.3500 mm): Via [GND] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 V3V3_IMU 和 GND)
+    Local override; error
+    @(21.6625 mm, 16.0279 mm): Track [V3V3_IMU] on F.Cu, length 0.6297 mm
+    @(21.0000 mm, 16.3500 mm): Via [GND] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 SPI_CS 和 V3V3_IMU)
+    Local override; error
+    @(20.7179 mm, 15.1193 mm): Via [SPI_CS] on F.Cu - B.Cu
+    @(21.6600 mm, 15.4500 mm): Track [V3V3_IMU] on F.Cu, length 1.6600 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 1.500e-05 mm)
+    Local override; error
+    @(21.6625 mm, 15.2500 mm): Track [IMU_INT2] on F.Cu, length 0.5984 mm
+    @(21.6600 mm, 15.7500 mm): Track [V3V3_IMU] on F.Cu, length 0.3000 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 V3V3_IMU 和 IMU_INT2)
+    Local override; error
+    @(21.6600 mm, 15.7500 mm): Track [V3V3_IMU] on F.Cu, length 0.3000 mm
+    @(21.6625 mm, 15.2500 mm): Pad 9 [IMU_INT2] of U2 on F.Cu
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1160 mm)
+    Local override; error
+    @(20.7179 mm, 15.3735 mm): Track [SPI_CS] on B.Cu, length 4.6607 mm
+    @(21.0000 mm, 16.3500 mm): Via [GND] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0750 mm)
+    Local override; error
+    @(21.0000 mm, 15.9125 mm): Pad 7 [GND] of U2 on F.Cu
+    @(21.6600 mm, 15.4500 mm): Track [V3V3_IMU] on F.Cu, length 1.6600 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 GND 和 V3V3_IMU)
+    Local override; error
+    @(21.0000 mm, 16.1000 mm): Track [GND] on F.Cu, length 0.2500 mm
+    @(21.2172 mm, 16.4732 mm): Track [V3V3_IMU] on F.Cu, length 1.0588 mm
+[drill_out_of_range]: 孔径超出范围 (电路板配置约束 最小孔径 0.3000 mm; 实际 0.2500 mm)
+    Rule: 网络类 'Power'; error
+    @(31.3000 mm, 20.1500 mm): Via [GND] on F.Cu - B.Cu
+[drill_out_of_range]: 孔径超出范围 (电路板配置约束 最小孔径 0.3000 mm; 实际 0.2500 mm)
+    Rule: 网络类 'Power'; error
+    @(21.0000 mm, 16.3500 mm): Via [GND] on F.Cu - B.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(21.6600 mm, 15.7500 mm): Track [V3V3_IMU] on F.Cu, length 0.3000 mm
+    @(21.6625 mm, 15.2500 mm): Pad 9 [IMU_INT2] of U2 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(21.6600 mm, 15.4500 mm): Track [V3V3_IMU] on F.Cu, length 1.6600 mm
+    @(21.6625 mm, 15.2500 mm): Pad 9 [IMU_INT2] of U2 on F.Cu
+
+** Found 1 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(40.7000 mm, 27.9000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(40.7000 mm, 27.9000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

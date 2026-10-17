@@ -41,7 +41,8 @@ FLOORPLAN = [
     # stay where the pour reaches them.
     ("Q1", 28.84, 7.9, 0),       # reverse-polarity FET, clear of B2's courtyard
     ("F1", 28.3, 11.5, 0),     # 5 A fuse, inside the VBAT_RAW pour
-    ("R10", 9.62, 24.4, 0),      # gate divider, clear of B4's courtyard
+    # v3.6 审查修正: 栅极泄放 R10 挪到 Q1 旁(原在左下角, 距 Q1 25mm)
+    ("R10", 23.3, 10.0, 0),
     ("U2", 20.5, 15.0, 0),       # IMU: at the mounting-hole centre
     ("U1", 28.6, 16.0, 0),       # MCU beside it - the routing channel between
                                  # them stays clear
@@ -49,6 +50,11 @@ FLOORPLAN = [
     # and the U1-facing signals (BUS_TX/MCU_RX) face east toward U1. With
     # pin8 east the pad is walled in by VBAT_LOGIC/J4 copper on both layers.
     ("U3", 31.07, 21.55, 180),
+    # v3.6 审查修正: 去耦电容锁定在所服务 IC 身旁(courtyard 已核算)
+    ("C10", 15.9, 14.6, 0),       # U2 IMU 100nF, 逃逸框西墙外
+    ("C11", 15.9, 16.6, 0),       # U2 IMU 100nF 第二颗
+    ("C13", 23.9, 15.6, 90),      # U1 MCU 100nF, 竖放贴 U1 西侧(pad 东西向让开焊盘列)
+    ("C7", 17.3, 6.6, 0),         # U4 LDO OUT 100nF, 贴 LDO 出脚
     # D1 no longer anchored: its old spot belongs to J2's pin field now; the
     # packer places it (VBAT/GND are both pour-connected, spot is free).
 ]
@@ -72,7 +78,7 @@ BACK_POS = {
     "R11": (29.0, 11.0), "R12": (32.5, 11.0),
     "C3": (38.5, 26.5), "C6": (25.5, 6.0), "C8": (29.0, 6.0), "C5": (11.5, 4.0),
     "U4": (16.5, 5.5), "C9": (21.5, 6.0), "R13": (23.5, 28.2),
-    "R2": (20.5, 3.8), "TH1": (27.0, 28.2), "C14": (8.5, 21.0),
+    "R2": (20.5, 3.8), "TH1": (27.0, 28.2), "C14": (23.9, 12.9),   # v3.6: C14 栅极电容随 R9/R10 迁至 Q1 区
     "R1": (26.5, 26.0), "LED1": (23.2, 24.6),   # v3.5: LED1 挪开 R1 的外框和间距
 }
 

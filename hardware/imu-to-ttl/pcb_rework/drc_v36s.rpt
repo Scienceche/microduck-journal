@@ -1,0 +1,58 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-17T17:31:12 **
+** Report includes: Errors **
+
+** Found 5 DRC violations **
+[shorting_items]: 短路了两个不同网络的项目 (网络 SPI_SCK 和 GND)
+    Local override; error
+    @(21.0500 mm, 14.9500 mm): Track [SPI_SCK] on F.Cu, length 3.0500 mm
+    @(21.0000 mm, 15.9125 mm): Pad 7 [GND] of U2 on F.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 SPI_MISO 和 SPI_SCK)
+    Local override; error
+    @(18.3500 mm, 17.6250 mm): Track [SPI_MISO] on B.Cu, length 12.4500 mm
+    @(21.0500 mm, 18.0000 mm): Via [SPI_SCK] on F.Cu - B.Cu
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(21.0500 mm, 14.9500 mm): Track [SPI_SCK] on F.Cu, length 3.0500 mm
+    @(21.0000 mm, 15.9125 mm): Pad 7 [GND] of U2 on F.Cu
+
+** Found 5 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_BOTTOM' [GND] on B.Cu, priority 0
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(21.0000 mm, 15.9125 mm): Pad 7 [GND] of U2 on F.Cu
+    @(20.5000 mm, 15.9125 mm): Pad 6 [GND] of U2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_BOTTOM' [GND] on B.Cu, priority 0
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(29.6700 mm, 22.3000 mm): Pad 8 [+3V3] of U3 on F.Cu
+    @(25.9500 mm, 22.7750 mm): Track [+3V3] on F.Cu, length 1.7500 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(11.7000 mm, 18.2750 mm): Pad 1 [SDx] of R4 on F.Cu
+    @(19.3375 mm, 14.7500 mm): Pad 2 [SDx] of U2 on F.Cu
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

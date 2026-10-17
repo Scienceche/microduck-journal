@@ -58,6 +58,10 @@ align-items:center;justify-content:center;font-size:10px;color:var(--accent);bac
 input[type=range]{width:100%;accent-color:var(--accent);height:32px}
 input[type=text],input[type=number]{background:#0d1117;border:1px solid var(--line);color:var(--txt);
 border-radius:6px;padding:8px;font-size:14px;width:100%}
+select{background:#0d1117;border:1px solid var(--line);color:var(--txt);
+border-radius:6px;padding:8px;font-size:14px}
+#camImg{display:block;width:100%;border-radius:8px;background:#0d1117;min-height:120px;
+border:1px solid var(--line);object-fit:contain}
 .pose-item{display:flex;justify-content:space-between;align-items:center;padding:9px 4px;border-bottom:1px solid var(--line)}
 .pose-item:last-child{border-bottom:none}
 nav{position:fixed;bottom:0;left:0;right:0;z-index:6;display:flex;
@@ -81,6 +85,14 @@ display:none;font-size:13px;z-index:9}
 #scopeFrame{width:100%;height:calc(100vh - 190px);min-height:520px;border:1px solid var(--line);
 border-radius:12px;background:#0d1117}
 #dbgFrame{width:100%;height:calc(100dvh - 64px);border:none;background:#0d1117}
+/* TOF 页 */
+#tofGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}
+.tofcell{aspect-ratio:1;border-radius:10px;display:flex;flex-direction:column;
+align-items:center;justify-content:center;font-family:var(--mono);border:1px solid var(--line);
+transition:background .3s}
+.tofcell .cm{font-size:20px;font-weight:600}
+.tofcell .zn{font-size:10px;color:var(--dim)}
+.tofcell.alert{outline:2px solid var(--bad);outline-offset:-2px}
 /* 仪表/调试两个内嵌工具全屏化：藏掉页头、放开 760px 版心，iframe 铺满到底部导航 */
 body.fullbleed header{display:none}
 body.fullbleed main{max-width:none;padding:0;margin:0}
@@ -138,6 +150,75 @@ body.fullbleed #scopeFrame{height:calc(100dvh - 58px);min-height:0;border:none;b
 
 <section class="page" id="pg-dbg">
   <iframe id="dbgFrame" title="舵机调试台"></iframe>
+</section>
+
+<section class="page" id="pg-tof">
+  <div class="panel">
+    <h2>TOF 测距 · VL53L5CX 4×4 @ HAT J5</h2>
+    <div class="row">
+      <button class="primary" id="btnTofStart">启动测距</button>
+      <button id="btnTofStop">停止</button>
+      <span class="dim">报警阈值 cm</span>
+      <input type="number" id="tofTh" value="20" style="width:64px">
+      <span class="chip" id="tofState">idle</span>
+      <span class="chip" id="tofAlert" style="display:none">⚠ 障碍物!</span>
+    </div>
+    <div style="font-size:13px" class="dim" id="tofInfo">固件加载约10~20秒（位绑 I2C）；TOF 走 I2C，不占舵机总线</div>
+  </div>
+  <div class="panel">
+    <div class="row" style="justify-content:space-between">
+      <span class="dim">最近距离</span>
+      <span class="big" id="tofMin" style="font-size:22px">—</span>
+    </div>
+    <div id="tofGrid"></div>
+    <div class="dim">单位 cm · 灰格=无效 · 红框=越阈</div>
+  </div>
+</section>
+
+<section class="page" id="pg-cam">
+  <div class="panel">
+    <h2>摄像头 · IMX219 8MP @ CSI</h2>
+    <div class="row">
+      <button class="primary" id="btnCamSnap">📸 拍照</button>
+      <button id="btnCamPrev">▶ 预览</button>
+      <button id="btnCamAe">☀ 自动曝光+白平衡</button>
+      <span class="chip" id="camState">…</span>
+      <span class="chip" id="camBright">亮度 ?</span>
+    </div>
+    <div class="dim" style="margin:4px 0">灯亮着画面还黑 = 系统没跑自动曝光(3A)，出厂默认值偏低。
+      点「自动曝光+白平衡」即可，效果保持到重启。偏绿可对准白/灰色物体点「校白」。</div>
+    <div class="row"><span class="dim" style="width:2.6em">曝光</span>
+      <input type="range" id="camExp" min="0" max="4095" value="1575" style="flex:1">
+      <span class="mid" id="camExpV" style="width:4em;text-align:right">1575</span></div>
+    <div class="row"><span class="dim" style="width:2.6em">增益</span>
+      <input type="range" id="camGain" min="256" max="8192" value="256" style="flex:1">
+      <span class="mid" id="camGainV" style="width:4em;text-align:right">256</span></div>
+    <div class="row">
+      <span class="dim">旋转</span>
+      <select id="camRot">
+        <option value="0">不转</option>
+        <option value="90">90° 顺时针</option>
+        <option value="180">180°</option>
+        <option value="270">90° 逆时针</option>
+      </select>
+      <span class="dim">拍照分辨率</span>
+      <select id="camRes">
+        <option value="640x480">640×480</option>
+        <option value="1280x720">1280×720</option>
+        <option value="1920x1080" selected>1920×1080</option>
+        <option value="3280x2464">3280×2464 (8MP)</option>
+      </select>
+    </div>
+    <div class="row">
+      <button id="btnCamWb">🎯 校白</button>
+      <span class="chip" id="camWb">WB 1.00/1.00</span>
+      <button id="btnCamWbReset">重置校白</button>
+    </div>
+  </div>
+  <div class="panel">
+    <a id="camImgLink" href="/cam/last.jpg" target="_blank"><img id="camImg" alt="等待拍摄"></a>
+    <div class="dim" id="camInfo">进页自动拍一张预览</div>
+  </div>
 </section>
 
 <section class="page" id="pg-servo">
@@ -200,6 +281,8 @@ body.fullbleed #scopeFrame{height:calc(100dvh - 58px);min-height:0;border:none;b
   <button data-pg="scope"><span class="ico">📊</span>仪表</button>
   <button data-pg="servo"><span class="ico">🦿</span>舵机</button>
   <button data-pg="dbg"><span class="ico">🛠</span>调试</button>
+  <button data-pg="tof"><span class="ico">📏</span>TOF</button>
+  <button data-pg="cam"><span class="ico">📷</span>相机</button>
   <button data-pg="bus"><span class="ico">📡</span>总线</button>
   <button data-pg="tools"><span class="ico">🔧</span>工具</button>
 </nav>
@@ -254,6 +337,23 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
   if(b.dataset.pg==="dbg"&&!dbgLoaded){
     dbgLoaded=true;$("dbgFrame").src="http://"+location.hostname+":8082/";
   }
+  if(b.dataset.pg==="tof"&&!tofStarted){
+    tofStarted=true;
+    fetch("/api/tof",{cache:"no-store"}).then(r=>r.json())
+      .then(d=>{if(d.state==="idle")post("/api/tof",{op:"start",thresh:Math.round((+$("tofTh").value||20)*10)})})
+      .catch(()=>{});
+  }
+  if(b.dataset.pg==="cam"&&!camLoaded){
+    camLoaded=true;
+    fetch("/api/cam",{cache:"no-store"}).then(r=>r.json()).then(d=>{
+      if(d.exposure!=null){$("camExp").value=d.exposure;$("camExpV").textContent=d.exposure}
+      if(d.gain!=null){$("camGain").value=d.gain;$("camGainV").textContent=d.gain}
+      if(d.rot!=null)$("camRot").value=d.rot;
+      camWbShow(d.wb_r,d.wb_b);
+    }).catch(()=>{});
+    camSnap(true);
+  }
+  if(b.dataset.pg!=="cam"&&camPrevOn)camPrevToggle();
 });
 
 /* status poll（页面可见时 1Hz） */
@@ -414,6 +514,137 @@ $("btnRobotd").onclick=async()=>{if(!confirm("重启 robotd？会占用串口，
 $("btnReboot").onclick=async()=>{if(!confirm("重启主机？约 1 分钟"))return;
   if(!confirm("再次确认重启？"))return;
   await post("/api/system",{op:"reboot",confirm:true});toast("重启中…")};
+
+/* ---- TOF 测距（VL53L5CX 4×4，I2C 总线10，不占舵机总线） ---- */
+let tofStarted=false,tofCells=[];
+(function(){const g=$("tofGrid");
+  for(let i=0;i<16;i++){const c=document.createElement("div");c.className="tofcell";
+    c.innerHTML=`<div class="cm">—</div><div class="zn">${i+1}</div>`;
+    g.appendChild(c);tofCells.push(c)}})();
+function tofColor(cm,th){
+  if(cm<=th)return"#f85149";
+  if(cm<40)return"#d29922";
+  if(cm<80)return"#bb8009";
+  return"#238636";
+}
+async function tofPoll(){
+  if(document.hidden||!$("pg-tof").classList.contains("on"))return;
+  try{
+    const j=await(await fetch("/api/tof",{cache:"no-store"})).json();
+    const st=$("tofState");
+    st.textContent=j.state;
+    st.className="chip "+(j.state==="running"?"ok":(j.state==="loading"?"warn":""));
+    const th=+$("tofTh").value||20,f=j.frame;
+    if(f&&f.z){
+      let minCm=null,alert=false;
+      f.z.forEach((mm,i)=>{
+        const c=tofCells[i],el=c.querySelector(".cm");
+        if(mm<0){el.textContent="—";c.style.background="#21262d";c.classList.remove("alert")}
+        else{const cm=Math.round(mm/10);el.textContent=cm;
+          minCm=minCm==null?cm:Math.min(minCm,cm);
+          c.classList.toggle("alert",cm<=th);
+          c.style.background=tofColor(cm,th);
+          if(cm<=th)alert=true}
+      });
+      $("tofMin").textContent=minCm==null?"—":minCm+" cm";
+      $("tofInfo").textContent=`帧 #${f.n} · t=${(+f.t).toFixed(1)}s · 阈值 ${th}cm（红色）`;
+      const al=$("tofAlert");
+      al.className="chip bad";
+      al.style.display=alert?"inline-block":"none";
+    }else if(j.state==="loading"){
+      $("tofInfo").textContent="固件加载中… 约10~20秒（位绑 I2C）";
+    }
+    if(j.err)$("tofInfo").textContent="错误: "+j.err;
+  }catch(e){}
+}
+setInterval(tofPoll,600);
+$("btnTofStart").onclick=async()=>{
+  const th=+$("tofTh").value||20;
+  try{const j=await post("/api/tof",{op:"start",thresh:Math.round(th*10)});
+    toast(j.ok?"TOF 启动，固件加载约10~20秒":"启动失败 "+(j.err||""),!j.ok)}
+  catch(e){toast("启动失败 "+e,1)}
+};
+$("btnTofStop").onclick=async()=>{
+  try{await post("/api/tof",{op:"stop"})}catch(e){}
+  tofCells.forEach(c=>{c.querySelector(".cm").textContent="—";c.style.background="";c.classList.remove("alert")});
+  $("tofMin").textContent="—";$("tofAlert").style.display="none";
+  toast("TOF 已停止");
+};
+
+/* ---- 摄像头页（IMX219，v4l2-ctl 抓 NV12 → JPEG，无 3A 故带手动/自动曝光） ---- */
+let camLoaded=false,camPrevOn=false,camPrevTimer=null,camBusy=false;
+async function camSnap(preview){
+  if(camBusy)return;camBusy=true;
+  const st=$("camState");st.textContent="采集中…";st.className="chip warn";
+  try{
+    let w=640,h=480;
+    if(!preview){const r=$("camRes").value.split("x");w=+r[0];h=+r[1];}
+    const j=await post("/api/cam",{op:"snap",w,h});
+    if(!j.ok)throw j.err||"失败";
+    const t=Date.now();
+    $("camImg").src="/cam/last.jpg?t="+t;
+    $("camImgLink").href="/cam/last.jpg?t="+t;
+    const my=j.mean_y==null?"?":Math.round(j.mean_y);
+    $("camBright").textContent="亮度 "+my;
+    $("camInfo").textContent=`${j.w}×${j.h} · ${new Date(j.ts*1000).toLocaleTimeString()} · 平均亮度 ${my}/255`+
+      (preview?" · 低分辨率预览":" · 点击图片看原图");
+    st.textContent="就绪";st.className="chip ok";
+  }catch(e){st.textContent="失败";st.className="chip bad";$("camInfo").textContent=""+e}
+  camBusy=false;
+}
+function camPrevToggle(){
+  camPrevOn=!camPrevOn;
+  $("btnCamPrev").textContent=camPrevOn?"⏸ 停预览":"▶ 预览";
+  clearInterval(camPrevTimer);
+  if(camPrevOn){
+    camSnap(true);
+    camPrevTimer=setInterval(()=>{
+      if(!document.hidden&&$("pg-cam").classList.contains("on"))camSnap(true);
+    },1300);
+  }
+}
+$("btnCamSnap").onclick=()=>camSnap(false);
+$("btnCamPrev").onclick=camPrevToggle;
+$("btnCamAe").onclick=async()=>{
+  if(camBusy)return;camBusy=true;
+  const st=$("camState");st.textContent="曝光+白平衡中…";st.className="chip warn";
+  try{
+    const j=await post("/api/cam",{op:"autoex"});
+    if(j.ok){
+      $("camExp").value=j.exposure;$("camExpV").textContent=j.exposure;
+      $("camGain").value=j.gain;$("camGainV").textContent=j.gain;
+      if(j.wb_r!=null)camWbShow(j.wb_r,j.wb_b);
+      toast(`曝光 ${j.exposure} · 增益 ${j.gain} · 亮度 ${Math.round(j.mean_y||0)}`+
+        (j.wb_r!=null?` · WB ${j.wb_r}/${j.wb_b}`:""));
+    }else toast("失败 "+(j.err||""),1);
+  }catch(e){toast("失败 "+e,1)}
+  camBusy=false;
+  camSnap(true);
+};
+function camWbShow(r,b){$("camWb").textContent="WB "+(+r).toFixed(2)+"/"+(+b).toFixed(2)}
+$("btnCamWb").onclick=async()=>{
+  if(camBusy)return;camBusy=true;
+  const st=$("camState");st.textContent="校白中…（对准白色物体）";st.className="chip warn";
+  try{
+    const j=await post("/api/cam",{op:"awb"});
+    if(j.ok){camWbShow(j.wb_r,j.wb_b);
+      toast(`白平衡已校准 R×${j.wb_r} B×${j.wb_b}`)}
+    else toast("失败 "+(j.err||""),1);
+  }catch(e){toast("失败 "+e,1)}
+  camBusy=false;camSnap(true);
+};
+$("btnCamWbReset").onclick=async()=>{
+  await post("/api/cam",{op:"set",wb_reset:1}).catch(()=>{});
+  camWbShow(1,1);toast("白平衡已重置");camSnap(true);
+};
+$("camRot").onchange=async()=>{
+  await post("/api/cam",{op:"set",rot:+$("camRot").value}).catch(()=>{});
+  camSnap(true);
+};
+$("camExp").oninput=e=>$("camExpV").textContent=e.target.value;
+$("camGain").oninput=e=>$("camGainV").textContent=e.target.value;
+$("camExp").onchange=()=>post("/api/cam",{op:"set",exposure:+$("camExp").value}).catch(()=>{});
+$("camGain").onchange=()=>post("/api/cam",{op:"set",gain:+$("camGain").value}).catch(()=>{});
 
 /* boot */
 if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js").catch(()=>{});

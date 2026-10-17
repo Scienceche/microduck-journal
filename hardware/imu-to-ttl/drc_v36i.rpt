@@ -1,0 +1,32 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-16T01:21:30 **
+** Report includes: Errors, Warnings **
+
+** Found 2 DRC violations **
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(11.5373 mm, 24.3000 mm): Zone 'VBAT_TOP' [VBAT] on F.Cu, priority 9
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(11.5373 mm, 24.3000 mm): Zone 'VBAT_TOP' [VBAT] on F.Cu, priority 9
+
+** Found 2 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(40.7000 mm, 27.9000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(40.7000 mm, 27.9000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(40.7000 mm, 27.9000 mm): Zone 'GND_BOTTOM' [GND] on B.Cu, priority 0
+    @(40.7000 mm, 27.9000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

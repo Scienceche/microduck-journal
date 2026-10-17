@@ -1,0 +1,62 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-17T15:56:02 **
+** Report includes: Errors **
+
+** Found 7 DRC violations **
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT 和 Q1_GATE)
+    Local override; error
+    @(24.1250 mm, 10.0000 mm): Pad 2 [VBAT] of R10 on F.Cu
+    @(22.4750 mm, 10.0000 mm): Track [Q1_GATE] on F.Cu, length 2.0647 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1202 mm)
+    Local override; error
+    @(22.0548 mm, 11.8298 mm): Track [Q1_GATE] on B.Cu, length 2.8210 mm
+    @(23.1311 mm, 11.2311 mm): Track [GND] on B.Cu, length 1.3950 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1202 mm)
+    Local override; error
+    @(22.4750 mm, 10.0000 mm): Track [GND] on B.Cu, length 3.8029 mm
+    @(22.0548 mm, 11.8298 mm): Track [Q1_GATE] on B.Cu, length 2.8210 mm
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(18.9450 mm, 7.2950 mm): Footprint D1
+    @(23.3000 mm, 10.0000 mm): Footprint R10
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(22.4750 mm, 10.0000 mm): Track [Q1_GATE] on F.Cu, length 2.0647 mm
+    @(24.1250 mm, 10.0000 mm): Pad 2 [VBAT] of R10 on F.Cu
+
+** Found 4 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(27.7825 mm, 19.4793 mm): Track [+3V3] on B.Cu, length 4.4132 mm
+    @(29.6700 mm, 22.3000 mm): Pad 8 [+3V3] of U3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(24.1250 mm, 10.0000 mm): Pad 2 [VBAT] of R10 on F.Cu
+    @(26.3650 mm, 8.5350 mm): Track [VBAT] on F.Cu, length 1.2700 mm
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

@@ -1,0 +1,378 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-16T01:45:13 **
+** Report includes: Errors, Warnings **
+
+** Found 0 DRC violations **
+
+** Found 1 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(40.7000 mm, 27.9000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(40.7000 mm, 27.9000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+
+** Found 120 Footprint errors **
+[footprint_symbol_mismatch]: C_1206_3216Metric 与符号 (Capacitor_SMD:C_1206_3216Metric) 指定的封装不匹配
+    Local override; warning
+    @(19.0950 mm, 21.1950 mm): Footprint C1
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(19.0950 mm, 21.1950 mm): Footprint C1
+[footprint_symbol_mismatch]: C_0603_1608Metric 与符号 (Capacitor_SMD:C_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(19.5250 mm, 4.2750 mm): Footprint C2
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(19.5250 mm, 4.2750 mm): Footprint C2
+[footprint_symbol_mismatch]: C_0805_2012Metric 与符号 (Capacitor_SMD:C_0805_2012Metric) 指定的封装不匹配
+    Local override; warning
+    @(38.5000 mm, 26.5000 mm): Footprint C3
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(38.5000 mm, 26.5000 mm): Footprint C3
+[footprint_symbol_mismatch]: C_0603_1608Metric 与符号 (Capacitor_SMD:C_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(25.5000 mm, 11.0000 mm): Footprint C4
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(25.5000 mm, 11.0000 mm): Footprint C4
+[footprint_symbol_mismatch]: C_0603_1608Metric 与符号 (Capacitor_SMD:C_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(11.5000 mm, 4.0000 mm): Footprint C5
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(11.5000 mm, 4.0000 mm): Footprint C5
+[footprint_symbol_mismatch]: C_0603_1608Metric 与符号 (Capacitor_SMD:C_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(25.5000 mm, 6.0000 mm): Footprint C6
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(25.5000 mm, 6.0000 mm): Footprint C6
+[footprint_symbol_mismatch]: C_0603_1608Metric 与符号 (Capacitor_SMD:C_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(8.5000 mm, 21.0000 mm): Footprint C14
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(8.5000 mm, 21.0000 mm): Footprint C14
+[footprint_symbol_mismatch]: D_SMB 与符号 (Diode_SMD:D_SMB) 指定的封装不匹配
+    Local override; warning
+    @(20.9450 mm, 7.7950 mm): Footprint D1
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(20.9450 mm, 7.7950 mm): Footprint D1
+[footprint_symbol_mismatch]: D_SOD-123F 与符号 (Diode_SMD:D_SOD-123F) 指定的封装不匹配
+    Local override; warning
+    @(21.5000 mm, 11.0000 mm): Footprint D2
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(21.5000 mm, 11.0000 mm): Footprint D2
+[footprint_symbol_mismatch]: Fuse_1206_3216Metric 与符号 (Fuse:Fuse_1206_3216Metric) 指定的封装不匹配
+    Local override; warning
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[footprint_symbol_mismatch]: Fuse_1206_3216Metric 与符号 (Fuse:Fuse_1206_3216Metric) 指定的封装不匹配
+    Local override; warning
+    @(16.0000 mm, 11.0000 mm): Footprint F2
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(16.0000 mm, 11.0000 mm): Footprint F2
+[footprint_symbol_mismatch]: BattPad_1x02_P3.60mm_Drill1.2mm 与符号 (imu_to_ttl:BattPad_1x02_P3.60mm_Drill1.2mm) 指定的封装不匹配
+    Local override; warning
+    @(1.9000 mm, 25.3000 mm): Footprint J1
+[footprint_symbol_mismatch]: 封装特性与符号不匹配: '从物料清单中移除' 设置不一致
+    Local override; warning
+    @(1.9000 mm, 25.3000 mm): Footprint J1
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(1.9000 mm, 25.3000 mm): Footprint J1
+[footprint_symbol_mismatch]: LED_0603_1608Metric 与符号 (LED_SMD:LED_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(23.2000 mm, 24.6000 mm): Footprint LED1
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(23.2000 mm, 24.6000 mm): Footprint LED1
+[footprint_symbol_mismatch]: SOIC-8_3.9x4.9mm_P1.27mm 与符号 (Package_SO:SOIC-8_3.9x4.9mm_P1.27mm) 指定的封装不匹配
+    Local override; warning
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(26.5000 mm, 26.0000 mm): Footprint R1
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(26.5000 mm, 26.0000 mm): Footprint R1
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(11.2750 mm, 20.7750 mm): Footprint R9
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(11.2750 mm, 20.7750 mm): Footprint R9
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(9.6200 mm, 24.4000 mm): Footprint R10
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(9.6200 mm, 24.4000 mm): Footprint R10
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(23.0250 mm, 4.2750 mm): Footprint R17
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(23.0250 mm, 4.2750 mm): Footprint R17
+[missing_footprint]: 缺失的封装 TP8 (HAT_PWR+ DNP)
+    Local override; warning
+[missing_footprint]: 缺失的封装 TP9 (HAT_PWR- DNP)
+    Local override; warning
+[footprint_symbol_mismatch]: SOT-89-3 与符号 (Package_TO_SOT_SMD:SOT-89-3) 指定的封装不匹配
+    Local override; warning
+    @(16.5000 mm, 5.5000 mm): Footprint U4
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(16.5000 mm, 5.5000 mm): Footprint U4
+[footprint_symbol_mismatch]: C_0603_1608Metric 与符号 (Capacitor_SMD:C_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(15.2750 mm, 9.0250 mm): Footprint C7
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(15.2750 mm, 9.0250 mm): Footprint C7
+[footprint_symbol_mismatch]: C_0603_1608Metric 与符号 (Capacitor_SMD:C_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(29.0000 mm, 6.0000 mm): Footprint C8
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(29.0000 mm, 6.0000 mm): Footprint C8
+[footprint_symbol_mismatch]: C_0603_1608Metric 与符号 (Capacitor_SMD:C_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(21.5000 mm, 6.0000 mm): Footprint C9
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(21.5000 mm, 6.0000 mm): Footprint C9
+[footprint_symbol_mismatch]: PinHeader_1x07_P2.54mm_Horizontal 与符号 (imu_to_ttl:PinHeader_1x07_P2.54mm_Horizontal) 指定的封装不匹配
+    Local override; warning
+    @(4.6000 mm, 19.9000 mm): Footprint J2
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(4.6000 mm, 19.9000 mm): Footprint J2
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(20.5000 mm, 3.8000 mm): Footprint R2
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(20.5000 mm, 3.8000 mm): Footprint R2
+[footprint_symbol_mismatch]: TSSOP-20_4.4x6.5mm_P0.65mm 与符号 (Package_SO:TSSOP-20_4.4x6.5mm_P0.65mm) 指定的封装不匹配
+    Local override; warning
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+[footprint_symbol_mismatch]: C_0603_1608Metric 与符号 (Capacitor_SMD:C_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(14.7750 mm, 15.7750 mm): Footprint C10
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(14.7750 mm, 15.7750 mm): Footprint C10
+[footprint_symbol_mismatch]: C_0603_1608Metric 与符号 (Capacitor_SMD:C_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(14.7750 mm, 20.2750 mm): Footprint C11
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(14.7750 mm, 20.2750 mm): Footprint C11
+[footprint_symbol_mismatch]: C_0603_1608Metric 与符号 (Capacitor_SMD:C_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(38.2750 mm, 7.5250 mm): Footprint C12
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(38.2750 mm, 7.5250 mm): Footprint C12
+[footprint_symbol_mismatch]: L_0603_1608Metric 与符号 (Inductor_SMD:L_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(14.7750 mm, 13.0250 mm): Footprint FB1
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(14.7750 mm, 13.0250 mm): Footprint FB1
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(26.7750 mm, 22.7750 mm): Footprint R3
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(26.7750 mm, 22.7750 mm): Footprint R3
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(12.5250 mm, 18.2750 mm): Footprint R4
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(12.5250 mm, 18.2750 mm): Footprint R4
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(11.2750 mm, 16.2750 mm): Footprint R5
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(11.2750 mm, 16.2750 mm): Footprint R5
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(14.7750 mm, 11.0250 mm): Footprint R6
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(14.7750 mm, 11.0250 mm): Footprint R6
+[footprint_symbol_mismatch]: ST_LGA14_3x2.5_P0.5_LSM6DSV16X_TN0018 与符号 (imu_ttl:ST_LGA14_3x2.5_P0.5_LSM6DSV16X_TN0018) 指定的封装不匹配
+    Local override; warning
+    @(20.5000 mm, 15.0000 mm): Footprint U2
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(20.5000 mm, 15.0000 mm): Footprint U2
+[footprint_symbol_mismatch]: C_0603_1608Metric 与符号 (Capacitor_SMD:C_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(25.7750 mm, 20.7750 mm): Footprint C13
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(25.7750 mm, 20.7750 mm): Footprint C13
+[footprint_symbol_mismatch]: D_SOD-323 与符号 (Diode_SMD:D_SOD-323) 指定的封装不匹配
+    Local override; warning
+    @(34.6450 mm, 6.2450 mm): Footprint D3
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(34.6450 mm, 6.2450 mm): Footprint D3
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(23.2750 mm, 22.7750 mm): Footprint R7
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(23.2750 mm, 22.7750 mm): Footprint R7
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(38.2750 mm, 5.5250 mm): Footprint R8
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(38.2750 mm, 5.5250 mm): Footprint R8
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(29.0000 mm, 11.0000 mm): Footprint R11
+[footprint_symbol_mismatch]: 封装特性与符号不匹配: '不作装配 (DNP)' 设置不一致
+    Local override; warning
+    @(29.0000 mm, 11.0000 mm): Footprint R11
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(29.0000 mm, 11.0000 mm): Footprint R11
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(32.5000 mm, 11.0000 mm): Footprint R12
+[footprint_symbol_mismatch]: 封装特性与符号不匹配: '不作装配 (DNP)' 设置不一致
+    Local override; warning
+    @(32.5000 mm, 11.0000 mm): Footprint R12
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(32.5000 mm, 11.0000 mm): Footprint R12
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(23.5000 mm, 28.2000 mm): Footprint R13
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(23.5000 mm, 28.2000 mm): Footprint R13
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(26.5250 mm, 24.7750 mm): Footprint R14
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(26.5250 mm, 24.7750 mm): Footprint R14
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(26.5250 mm, 26.7750 mm): Footprint R15
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(26.5250 mm, 26.7750 mm): Footprint R15
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(35.7750 mm, 27.5250 mm): Footprint R16
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(35.7750 mm, 27.5250 mm): Footprint R16
+[footprint_symbol_mismatch]: R_0603_1608Metric 与符号 (Resistor_SMD:R_0603_1608Metric) 指定的封装不匹配
+    Local override; warning
+    @(27.0000 mm, 28.2000 mm): Footprint TH1
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(27.0000 mm, 28.2000 mm): Footprint TH1
+[footprint_symbol_mismatch]: VSSOP-8_2.3x2mm_P0.5mm 与符号 (Package_SO:VSSOP-8_2.3x2mm_P0.5mm) 指定的封装不匹配
+    Local override; warning
+    @(31.0700 mm, 21.5500 mm): Footprint U3
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'LCSC'
+    Local override; warning
+    @(31.0700 mm, 21.5500 mm): Footprint U3
+[footprint_symbol_mismatch]: PinHeader_1x03_P2.54mm_Horizontal 与符号 (imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal) 指定的封装不匹配
+    Local override; warning
+    @(19.2000 mm, 25.5000 mm): Footprint J3
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(19.2000 mm, 25.5000 mm): Footprint J3
+[footprint_symbol_mismatch]: PinHeader_1x03_P2.54mm_Horizontal 与符号 (imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal) 指定的封装不匹配
+    Local override; warning
+    @(35.7000 mm, 19.4000 mm): Footprint J4
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(35.7000 mm, 19.4000 mm): Footprint J4
+[footprint_symbol_mismatch]: PinHeader_1x03_P2.54mm_Horizontal 与符号 (imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal) 指定的封装不匹配
+    Local override; warning
+    @(35.7000 mm, 10.5000 mm): Footprint J5
+[footprint_symbol_field_mismatch]: 封装中缺少符号字段 'MPN'
+    Local override; warning
+    @(35.7000 mm, 10.5000 mm): Footprint J5
+[footprint_symbol_mismatch]: TestPoint_Pad_D1.0mm 与符号 (TestPoint:TestPoint_Pad_D1.0mm) 指定的封装不匹配
+    Local override; warning
+    @(12.0000 mm, 11.0000 mm): Footprint TP1
+[footprint_symbol_mismatch]: 封装特性与符号不匹配: '从物料清单中移除' 设置不一致
+    Local override; warning
+    @(12.0000 mm, 11.0000 mm): Footprint TP1
+[footprint_symbol_mismatch]: TestPoint_Pad_D1.0mm 与符号 (TestPoint:TestPoint_Pad_D1.0mm) 指定的封装不匹配
+    Local override; warning
+    @(12.0000 mm, 13.6000 mm): Footprint TP2
+[footprint_symbol_mismatch]: 封装特性与符号不匹配: '从物料清单中移除' 设置不一致
+    Local override; warning
+    @(12.0000 mm, 13.6000 mm): Footprint TP2
+[footprint_symbol_mismatch]: TestPoint_Pad_D1.0mm 与符号 (TestPoint:TestPoint_Pad_D1.0mm) 指定的封装不匹配
+    Local override; warning
+    @(12.0000 mm, 16.2000 mm): Footprint TP3
+[footprint_symbol_mismatch]: 封装特性与符号不匹配: '从物料清单中移除' 设置不一致
+    Local override; warning
+    @(12.0000 mm, 16.2000 mm): Footprint TP3
+[footprint_symbol_mismatch]: TestPoint_Pad_D1.0mm 与符号 (TestPoint:TestPoint_Pad_D1.0mm) 指定的封装不匹配
+    Local override; warning
+    @(12.0000 mm, 18.8000 mm): Footprint TP4
+[footprint_symbol_mismatch]: 封装特性与符号不匹配: '从物料清单中移除' 设置不一致
+    Local override; warning
+    @(12.0000 mm, 18.8000 mm): Footprint TP4
+[footprint_symbol_field_mismatch]: 字段 'Description' 不一致: (PCB: '', 原理图: 'primary scope point')
+    Local override; warning
+    @(12.0000 mm, 18.8000 mm): Footprint TP4
+[footprint_symbol_mismatch]: TestPoint_Pad_D1.0mm 与符号 (TestPoint:TestPoint_Pad_D1.0mm) 指定的封装不匹配
+    Local override; warning
+    @(12.0000 mm, 21.4000 mm): Footprint TP5
+[footprint_symbol_mismatch]: 封装特性与符号不匹配: '从物料清单中移除' 设置不一致
+    Local override; warning
+    @(12.0000 mm, 21.4000 mm): Footprint TP5
+[missing_footprint]: 缺失的封装 TP6 (BUS_LOGIC)
+    Local override; warning
+[missing_footprint]: 缺失的封装 TP7 (NRST)
+    Local override; warning
+[extra_footprint]: Extra footprint
+    Local override; warning
+    @(31.1000 mm, 2.1500 mm): Footprint B2
+[extra_footprint]: Extra footprint
+    Local override; warning
+    @(31.1000 mm, 27.8500 mm): Footprint B3
+[extra_footprint]: Extra footprint
+    Local override; warning
+    @(9.9000 mm, 27.8500 mm): Footprint B4
+[extra_footprint]: Extra footprint
+    Local override; warning
+    @(9.9000 mm, 2.1500 mm): Footprint B1
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

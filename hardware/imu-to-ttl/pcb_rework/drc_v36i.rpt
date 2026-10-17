@@ -1,0 +1,50 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-17T16:12:52 **
+** Report includes: Errors **
+
+** Found 3 DRC violations **
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(30.2000 mm, 23.5000 mm): Track [+3V3] on F.Cu, length 3.9500 mm
+    @(26.6341 mm, 24.0591 mm): Track [TX_EN_N] on F.Cu, length 2.0243 mm
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+
+** Found 5 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(32.4700 mm, 20.8000 mm): Pad 4 [GND] of U3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(27.3500 mm, 24.7750 mm): Pad 2 [TX_EN_N] of R14 on F.Cu
+    @(32.4700 mm, 22.3000 mm): Pad 1 [TX_EN_N] of U3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(19.9500 mm, 20.7750 mm): Pad 1 [OCS_AUX] of R6 on F.Cu
+    @(21.6625 mm, 14.7500 mm): Pad 10 [OCS_AUX] of U2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(21.6625 mm, 15.2500 mm): Pad 9 [IMU_INT2] of U2 on F.Cu
+    @(31.4625 mm, 16.3250 mm): Pad 15 [IMU_INT2] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(37.5500 mm, 26.5000 mm): Pad 1 [VBAT_LOGIC] of C3 on B.Cu
+    @(23.7909 mm, 10.0659 mm): Track [VBAT_LOGIC] on B.Cu, length 1.3210 mm
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

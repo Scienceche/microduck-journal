@@ -41,13 +41,14 @@ PACKED = {
     "R17": (25.0, 9.3),       # v3.5: 0R bridge VBAT <-> VBAT_C2 (schematic netlist part)
     "D3": (33.2, 5.4), "R8": (33.5, 15.5),
     "R7":  (29.5, 18.5), "U3": (31.5, 21.5),
-    "FB1": (15.0, 13.2), "C10": (15.0, 15.8), "C11": (15.0, 18.4),
+    "FB1": (15.0, 13.2),
     "C12": (33.0, 13.0), "R3": (33.0, 17.0),
     "R5": (18.0, 20.0), "R6": (21.0, 20.0),   # moved off J3's new pad row
     # v2 bus straps (2G241 direction control) - real parts, restored 2026-10-15
     "R14": (28.0, 24.0), "R15": (30.0, 24.0), "R16": (32.0, 24.0),
-    "C7": (26.5, 22.5), "C13": (26.0, 18.5),
-    "R4": (12.5, 18.5), "R9": (13.0, 21.0),
+    "C7": (26.5, 22.5),
+    # v3.6: R9 移入 Q1 栅极区(R10 在 place_board 骨架表里同步移动)
+    "R4": (12.5, 18.5), "R9": (24.6, 11.6),
 }
 
 BOARD_W, BOARD_H = 41.0, 30.0
@@ -61,7 +62,7 @@ KEEP_OUT = [
     (0.0, 0.0, BOARD_W, 3.2),
     # IMU: a square escape frame around the part. The 0.5 mm-pitch LGA pads can
     # only be escaped perpendicular to their row, so the ring must stay clear.
-    (16.6, 10.5, 18.8, 19.5),   # west
+    (17.2, 10.5, 18.8, 19.5),   # west (v3.6: 西墙内收, 给 C10/C11 让位)
     (22.2, 10.5, 24.4, 19.5),   # east: channel to the MCU
     (18.8, 10.5, 22.2, 12.0),   # north
     (18.8, 18.0, 22.2, 19.5),   # south

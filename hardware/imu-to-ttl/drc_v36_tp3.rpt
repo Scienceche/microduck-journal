@@ -1,0 +1,42 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-16T02:03:05 **
+** Report includes: Errors, Warnings **
+
+** Found 5 DRC violations **
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_LOGIC 和 GND)
+    Local override; error
+    @(19.3386 mm, 17.7402 mm): Via [VBAT_LOGIC] on F.Cu - B.Cu
+    @(19.7000 mm, 17.7700 mm): Pad 1 [GND] of TG1 on F.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_LOGIC 和 GND)
+    Local override; error
+    @(18.7678 mm, 17.7402 mm): Track [VBAT_LOGIC] on F.Cu, length 0.5708 mm
+    @(19.7000 mm, 17.7700 mm): Pad 1 [GND] of TG1 on F.Cu
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(19.7000 mm, 17.7700 mm): Pad 1 [GND] of TG1 on F.Cu
+    @(19.3386 mm, 17.7402 mm): Via [VBAT_LOGIC] on F.Cu - B.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(18.7678 mm, 17.7402 mm): Track [VBAT_LOGIC] on F.Cu, length 0.5708 mm
+    @(19.7000 mm, 17.7700 mm): Pad 1 [GND] of TG1 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(19.3386 mm, 17.7402 mm): Via [VBAT_LOGIC] on F.Cu - B.Cu
+    @(19.7000 mm, 17.7700 mm): Pad 1 [GND] of TG1 on F.Cu
+
+** Found 1 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(40.7000 mm, 27.9000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(19.7000 mm, 17.7700 mm): Pad 1 [GND] of TG1 on F.Cu
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

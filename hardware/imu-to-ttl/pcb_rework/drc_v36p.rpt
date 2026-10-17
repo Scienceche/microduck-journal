@@ -1,0 +1,54 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-17T16:54:05 **
+** Report includes: Errors **
+
+** Found 6 DRC violations **
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0590 mm)
+    Local override; error
+    @(26.4038 mm, 1.0140 mm): Via [SWDIO] on F.Cu - B.Cu
+    @(26.9157 mm, 0.4550 mm): Track [VBAT_LOGIC] on F.Cu, length 12.5841 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1462 mm)
+    Local override; error
+    @(26.5910 mm, 1.2012 mm): Track [SWDIO] on B.Cu, length 0.6201 mm
+    @(27.0652 mm, 0.6050 mm): Via [VBAT_LOGIC] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1276 mm)
+    Local override; error
+    @(26.4038 mm, 1.0140 mm): Via [SWDIO] on F.Cu - B.Cu
+    @(27.0652 mm, 0.6050 mm): Via [VBAT_LOGIC] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1417 mm)
+    Local override; error
+    @(38.0066 mm, 6.1214 mm): Track [VBAT_LOGIC] on B.Cu, length 8.0135 mm
+    @(35.3016 mm, 4.3239 mm): Via [SPI_MOSI] on F.Cu - B.Cu
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+
+** Found 3 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(29.6700 mm, 22.3000 mm): Pad 8 [+3V3] of U3 on F.Cu
+    @(26.9420 mm, 21.7830 mm): Track [+3V3] on F.Cu, length 0.4508 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(20.5000 mm, 14.0875 mm): Pad 13 [SPI_SCK] of U2 on F.Cu
+    @(31.4625 mm, 18.2750 mm): Pad 12 [SPI_SCK] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(19.3375 mm, 14.2500 mm): Pad 1 [SPI_MISO] of U2 on F.Cu
+    @(31.4625 mm, 17.6250 mm): Pad 13 [SPI_MISO] of U1 on F.Cu
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

@@ -1,0 +1,1188 @@
+** Drc report for v35_ref_check.kicad_pcb **
+** Created on 2026-10-16T01:45:25 **
+** Report includes: Errors, Warnings **
+
+** Found 293 DRC violations **
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1716 mm)
+    Local override; error
+    @(16.3400 mm, 23.1717 mm): Track [BUS_TX] on F.Cu, length 4.0535 mm
+    @(17.9301 mm, 23.8433 mm): Via [VBAT_LOGIC] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1725 mm)
+    Local override; error
+    @(27.3500 mm, 23.5725 mm): Track [TX_EN_N] on F.Cu, length 3.8475 mm
+    @(28.7500 mm, 23.0000 mm): Via [+3V3] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1570 mm)
+    Local override; error
+    @(25.7375 mm, 18.9250 mm): Pad 10 [MCU_RX] of U1 on F.Cu
+    @(26.7320 mm, 18.0019 mm): Track [TX_EN_N] on F.Cu, length 1.3391 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1536 mm)
+    Local override; error
+    @(25.7000 mm, 26.7750 mm): Pad 1 [+3V3] of R15 on F.Cu
+    @(25.2799 mm, 27.5536 mm): Track [BUS_TX] on F.Cu, length 0.8408 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1958 mm)
+    Local override; error
+    @(25.7375 mm, 18.9250 mm): Pad 10 [MCU_RX] of U1 on F.Cu
+    @(24.3753 mm, 18.9192 mm): Track [BUS_TX] on F.Cu, length 0.9110 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1958 mm)
+    Local override; error
+    @(13.1542 mm, 9.4047 mm): Track [+3V3] on F.Cu, length 2.0996 mm
+    @(13.9500 mm, 11.0250 mm): Pad 1 [OCS_AUX] of R6 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1603 mm)
+    Local override; error
+    @(17.0003 mm, 18.2846 mm): Track [VBAT] on B.Cu, length 6.8751 mm
+    @(16.3400 mm, 23.1717 mm): Via [BUS_TX] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1906 mm)
+    Local override; error
+    @(14.6000 mm, 15.8843 mm): Track [VBAT] on B.Cu, length 3.3945 mm
+    @(15.9455 mm, 18.2772 mm): Via [VBAT_RAW] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1557 mm)
+    Local override; error
+    @(27.6000 mm, 22.7750 mm): Pad 2 [SPI_CS] of R3 on F.Cu
+    @(26.7750 mm, 23.0695 mm): Track [TX_EN_N] on F.Cu, length 0.7113 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1889 mm)
+    Local override; error
+    @(24.9749 mm, 19.3609 mm): Track [V3V3_IMU] on B.Cu, length 0.4302 mm
+    @(25.5520 mm, 19.6166 mm): Via [MCU_RX] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1748 mm)
+    Local override; error
+    @(26.3551 mm, 17.6250 mm): Track [TX_EN_N] on F.Cu, length 0.5330 mm
+    @(25.7375 mm, 18.2750 mm): Pad 9 [BUS_TX] of U1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1776 mm)
+    Local override; error
+    @(25.7000 mm, 24.7750 mm): Pad 1 [+3V3] of R14 on F.Cu
+    @(26.4276 mm, 25.0954 mm): Track [BUS_TX] on F.Cu, length 0.7889 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1732 mm)
+    Local override; error
+    @(22.4695 mm, 13.9490 mm): Via [OCS_AUX] on F.Cu - B.Cu
+    @(22.9917 mm, 14.5192 mm): Via [IMU_INT2] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1520 mm)
+    Local override; error
+    @(21.0000 mm, 15.9125 mm): Pad 7 [GND] of U2 on F.Cu
+    @(21.6625 mm, 16.0279 mm): Track [V3V3_IMU] on F.Cu, length 0.6297 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1516 mm)
+    Local override; error
+    @(20.2119 mm, 11.9216 mm): Track [Q1_GATE] on F.Cu, length 1.7841 mm
+    @(22.0029 mm, 12.4120 mm): Track [SPI_MOSI] on F.Cu, length 2.8846 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1732 mm)
+    Local override; error
+    @(22.4695 mm, 13.9490 mm): Via [OCS_AUX] on F.Cu - B.Cu
+    @(22.9917 mm, 14.5192 mm): Via [IMU_INT2] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1891 mm)
+    Local override; error
+    @(30.4359 mm, 12.7140 mm): Track [SWDIO] on F.Cu, length 1.2306 mm
+    @(31.4625 mm, 13.7250 mm): Pad 19 [SWCLK] of U1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1597 mm)
+    Local override; error
+    @(31.4625 mm, 13.7250 mm): Pad 19 [SWCLK] of U1 on F.Cu
+    @(30.4359 mm, 13.9446 mm): Track [SWDIO] on F.Cu, length 0.6087 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1569 mm)
+    Local override; error
+    @(10.4500 mm, 16.2750 mm): Pad 1 [SCx] of R5 on F.Cu
+    @(11.3022 mm, 14.3017 mm): Track [SDx] on F.Cu, length 2.1776 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1643 mm)
+    Local override; error
+    @(10.4500 mm, 16.2750 mm): Pad 1 [SCx] of R5 on F.Cu
+    @(9.7624 mm, 16.7190 mm): Track [SDx] on F.Cu, length 2.2005 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1635 mm)
+    Local override; error
+    @(25.4591 mm, 29.5450 mm): Track [VBAT_LOGIC] on F.Cu, length 8.0729 mm
+    @(19.2000 mm, 25.5000 mm): PTH pad 1 [BUS_DATA] of J3
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1812 mm)
+    Local override; error
+    @(33.5421 mm, 18.7013 mm): Via [BUS_CLAMP] on F.Cu - B.Cu
+    @(31.4530 mm, 19.8270 mm): Track [GND] on B.Cu, length 6.0062 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1687 mm)
+    Local override; error
+    @(29.7359 mm, 17.1775 mm): Via [SPI_MISO] on F.Cu - B.Cu
+    @(28.5959 mm, 16.8418 mm): Track [SPI_SCK] on F.Cu, length 2.0269 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1884 mm)
+    Local override; error
+    @(26.5452 mm, 25.2202 mm): Track [LED_A] on B.Cu, length 1.9857 mm
+    @(23.9875 mm, 24.6000 mm): Pad 2 [GND] of LED1 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1884 mm)
+    Local override; error
+    @(24.5595 mm, 25.2202 mm): Track [LED_A] on B.Cu, length 0.2645 mm
+    @(23.9875 mm, 24.6000 mm): Pad 2 [GND] of LED1 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1708 mm)
+    Local override; error
+    @(19.3386 mm, 17.7402 mm): Via [VBAT_LOGIC] on F.Cu - B.Cu
+    @(20.8396 mm, 20.2606 mm): Track [GND] on B.Cu, length 6.6402 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1753 mm)
+    Local override; error
+    @(29.7359 mm, 17.1775 mm): Via [SPI_MISO] on F.Cu - B.Cu
+    @(29.6816 mm, 18.1161 mm): Track [BUS_LOGIC] on B.Cu, length 1.3677 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1702 mm)
+    Local override; error
+    @(23.8048 mm, 10.0798 mm): Track [VBAT_LOGIC] on B.Cu, length 2.9126 mm
+    @(22.9000 mm, 11.0000 mm): Pad 2 [GND] of D2 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1966 mm)
+    Local override; error
+    @(20.8922 mm, 10.0798 mm): Track [VBAT_LOGIC] on B.Cu, length 0.5981 mm
+    @(21.1659 mm, 10.7913 mm): Via [NRST] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1601 mm)
+    Local override; error
+    @(17.2155 mm, 15.6171 mm): Track [VBAT_LOGIC] on B.Cu, length 3.0025 mm
+    @(17.8672 mm, 15.3353 mm): Via [V3V3_IMU] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1518 mm)
+    Local override; error
+    @(30.0315 mm, 15.6348 mm): Via [IMU_INT2] on F.Cu - B.Cu
+    @(28.4648 mm, 13.2878 mm): Track [UART1_TX] on F.Cu, length 3.3760 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1963 mm)
+    Local override; error
+    @(22.9917 mm, 14.5192 mm): Via [IMU_INT2] on F.Cu - B.Cu
+    @(21.9508 mm, 14.7500 mm): Track [OCS_AUX] on F.Cu, length 0.7336 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1580 mm)
+    Local override; error
+    @(18.0429 mm, 18.4651 mm): Via [VBAT_LOGIC] on F.Cu - B.Cu
+    @(20.8396 mm, 20.2606 mm): Track [GND] on B.Cu, length 6.6402 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1672 mm)
+    Local override; error
+    @(30.0315 mm, 15.6348 mm): Via [IMU_INT2] on F.Cu - B.Cu
+    @(30.6487 mm, 17.1490 mm): Track [BUS_LOGIC] on B.Cu, length 5.3253 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1527 mm)
+    Local override; error
+    @(24.0426 mm, 10.3723 mm): Track [SPI_MOSI] on F.Cu, length 3.4405 mm
+    @(26.9000 mm, 11.5000 mm): Pad 1 [VBAT_RAW] of F1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1526 mm)
+    Local override; error
+    @(27.4831 mm, 10.3723 mm): Track [SPI_MOSI] on F.Cu, length 0.7736 mm
+    @(26.9000 mm, 11.5000 mm): Pad 1 [VBAT_RAW] of F1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1579 mm)
+    Local override; error
+    @(29.4798 mm, 15.7177 mm): Track [SPI_MOSI] on F.Cu, length 0.1455 mm
+    @(30.0315 mm, 15.6348 mm): Via [IMU_INT2] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1516 mm)
+    Local override; error
+    @(29.4798 mm, 15.8632 mm): Track [SPI_MOSI] on F.Cu, length 1.5723 mm
+    @(30.0315 mm, 15.6348 mm): Via [IMU_INT2] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1593 mm)
+    Local override; error
+    @(28.0301 mm, 10.9193 mm): Track [SPI_MOSI] on F.Cu, length 3.3487 mm
+    @(26.3297 mm, 13.0750 mm): Track [RX_EN] on F.Cu, length 2.0267 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1913 mm)
+    Local override; error
+    @(19.4087 mm, 13.5922 mm): Via [SPI_MISO] on F.Cu - B.Cu
+    @(20.0000 mm, 14.0875 mm): Track [SPI_MOSI] on F.Cu, length 0.6298 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1593 mm)
+    Local override; error
+    @(28.0301 mm, 14.2680 mm): Track [SPI_MOSI] on F.Cu, length 2.0502 mm
+    @(26.3297 mm, 13.0750 mm): Track [RX_EN] on F.Cu, length 2.0267 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1569 mm)
+    Local override; error
+    @(19.9712 mm, 13.5922 mm): Track [SPI_MISO] on B.Cu, length 5.4009 mm
+    @(23.8916 mm, 17.0079 mm): Track [SPI_SCK] on B.Cu, length 4.5382 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1569 mm)
+    Local override; error
+    @(20.9581 mm, 13.3468 mm): Track [SPI_SCK] on B.Cu, length 0.7276 mm
+    @(19.9712 mm, 13.5922 mm): Track [SPI_MISO] on B.Cu, length 5.4009 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1532 mm)
+    Local override; error
+    @(21.0000 mm, 14.0875 mm): Pad 12 [SPI_CS] of U2 on F.Cu
+    @(20.9581 mm, 13.3468 mm): Via [SPI_SCK] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1553 mm)
+    Local override; error
+    @(21.0000 mm, 14.0875 mm): Pad 12 [SPI_CS] of U2 on F.Cu
+    @(20.5000 mm, 13.8049 mm): Track [SPI_SCK] on F.Cu, length 0.6479 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1876 mm)
+    Local override; error
+    @(20.9581 mm, 13.3468 mm): Via [SPI_SCK] on F.Cu - B.Cu
+    @(21.5457 mm, 13.0092 mm): Track [NRST] on B.Cu, length 0.8727 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1809 mm)
+    Local override; error
+    @(24.3814 mm, 16.9750 mm): Track [IMU_INT1] on F.Cu, length 1.3561 mm
+    @(24.1200 mm, 16.4562 mm): Via [NRST] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1530 mm)
+    Local override; error
+    @(24.0135 mm, 18.6691 mm): Track [SPI_CS] on B.Cu, length 3.6807 mm
+    @(24.3115 mm, 18.1161 mm): Via [BUS_LOGIC] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1694 mm)
+    Local override; error
+    @(28.5959 mm, 16.8418 mm): Via [SPI_SCK] on F.Cu - B.Cu
+    @(23.7902 mm, 17.4112 mm): Track [SPI_MISO] on B.Cu, length 5.7120 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1965 mm)
+    Local override; error
+    @(29.0301 mm, 18.9250 mm): Via [SPI_CS] on F.Cu - B.Cu
+    @(27.7628 mm, 18.5013 mm): Track [RX_EN] on F.Cu, length 1.7698 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1876 mm)
+    Local override; error
+    @(9.7624 mm, 15.8415 mm): Track [SDx] on F.Cu, length 0.8775 mm
+    @(10.4500 mm, 16.2750 mm): Pad 1 [SCx] of R5 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(18.6113 mm, 14.3017 mm): Track [SDx] on F.Cu, length 7.3091 mm
+    @(10.4500 mm, 16.2750 mm): Track [SCx] on F.Cu, length 2.2933 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1520 mm)
+    Local override; error
+    @(19.3375 mm, 14.2500 mm): Pad 1 [SPI_MISO] of U2 on F.Cu
+    @(19.0596 mm, 14.7500 mm): Track [SDx] on F.Cu, length 0.6340 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1718 mm)
+    Local override; error
+    @(21.5457 mm, 13.8819 mm): Track [NRST] on B.Cu, length 3.6406 mm
+    @(22.9917 mm, 14.5192 mm): Via [IMU_INT2] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1690 mm)
+    Local override; error
+    @(19.7094 mm, 9.9828 mm): Via [NRST] on F.Cu - B.Cu
+    @(16.3388 mm, 9.3138 mm): Track [GND] on F.Cu, length 3.7244 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1786 mm)
+    Local override; error
+    @(21.1659 mm, 10.7913 mm): Via [NRST] on F.Cu - B.Cu
+    @(21.7675 mm, 11.3699 mm): Track [OCS_AUX] on F.Cu, length 1.4447 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1809 mm)
+    Local override; error
+    @(24.1200 mm, 16.4562 mm): Via [NRST] on F.Cu - B.Cu
+    @(23.3871 mm, 17.9693 mm): Track [IMU_INT1] on F.Cu, length 1.4062 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1518 mm)
+    Local override; error
+    @(20.7179 mm, 15.1193 mm): Via [SPI_CS] on F.Cu - B.Cu
+    @(19.9712 mm, 13.5922 mm): Track [SPI_MISO] on B.Cu, length 5.4009 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1810 mm)
+    Local override; error
+    @(16.0500 mm, 9.0250 mm): Pad 2 [GND] of C7 on F.Cu
+    @(15.3190 mm, 9.5460 mm): Track [NRST] on F.Cu, length 0.8892 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1786 mm)
+    Local override; error
+    @(15.3190 mm, 8.6568 mm): Track [NRST] on F.Cu, length 2.1085 mm
+    @(14.5000 mm, 9.0250 mm): Pad 1 [+3V3] of C7 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1729 mm)
+    Local override; error
+    @(19.7094 mm, 9.9828 mm): Via [NRST] on F.Cu - B.Cu
+    @(20.1000 mm, 11.0000 mm): Pad 1 [VBAT_LOGIC] of D2 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1543 mm)
+    Local override; error
+    @(4.6000 mm, 12.2800 mm): PTH pad 4 [UART1_TX] of J2
+    @(5.7043 mm, 10.8443 mm): Track [UART1_RX] on F.Cu, length 1.9051 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(24.1200 mm, 16.4562 mm): Via [NRST] on F.Cu - B.Cu
+    @(23.8916 mm, 17.0079 mm): Track [SPI_SCK] on B.Cu, length 4.5382 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1628 mm)
+    Local override; error
+    @(4.6000 mm, 12.2800 mm): PTH pad 4 [UART1_TX] of J2
+    @(5.7043 mm, 12.7494 mm): Track [UART1_RX] on F.Cu, length 0.9926 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1904 mm)
+    Local override; error
+    @(4.6000 mm, 12.2800 mm): PTH pad 4 [UART1_TX] of J2
+    @(4.1585 mm, 13.4513 mm): Track [UART1_RX] on F.Cu, length 1.4483 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1527 mm)
+    Local override; error
+    @(28.8223 mm, 6.3492 mm): Track [UART1_RX] on F.Cu, length 6.6247 mm
+    @(29.7000 mm, 11.5000 mm): Pad 2 [VBAT_FUSED] of F1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1842 mm)
+    Local override; error
+    @(24.5222 mm, 2.0491 mm): Track [UART1_RX] on F.Cu, length 6.0813 mm
+    @(18.0928 mm, 2.4378 mm): Track [UART1_TX] on F.Cu, length 6.2748 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1864 mm)
+    Local override; error
+    @(4.0369 mm, 3.1285 mm): Track [UART1_RX] on F.Cu, length 2.9162 mm
+    @(2.7824 mm, 3.8366 mm): Track [SWDIO] on F.Cu, length 1.5408 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1864 mm)
+    Local override; error
+    @(3.1344 mm, 4.0310 mm): Track [UART1_RX] on F.Cu, length 1.2763 mm
+    @(2.7824 mm, 3.8366 mm): Track [SWDIO] on F.Cu, length 1.5408 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1631 mm)
+    Local override; error
+    @(3.1344 mm, 12.4272 mm): Track [UART1_RX] on F.Cu, length 8.3962 mm
+    @(4.6000 mm, 12.2800 mm): Track [UART1_TX] on F.Cu, length 1.5592 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1535 mm)
+    Local override; error
+    @(7.9315 mm, 4.1069 mm): Track [UART1_RX] on F.Cu, length 5.1524 mm
+    @(9.2383 mm, 3.7534 mm): Track [SWDIO] on F.Cu, length 2.3556 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(13.0839 mm, 4.1069 mm): Track [UART1_RX] on F.Cu, length 2.9102 mm
+    @(13.6499 mm, 1.6974 mm): Track [SWDIO] on F.Cu, length 12.7933 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1547 mm)
+    Local override; error
+    @(28.8223 mm, 12.9739 mm): Track [UART1_RX] on F.Cu, length 2.9007 mm
+    @(31.4625 mm, 14.3750 mm): Pad 18 [SWDIO] of U1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(15.1417 mm, 2.0491 mm): Track [UART1_RX] on F.Cu, length 9.3805 mm
+    @(13.6499 mm, 1.6974 mm): Track [SWDIO] on F.Cu, length 12.7933 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1814 mm)
+    Local override; error
+    @(6.9531 mm, 3.1285 mm): Track [UART1_RX] on F.Cu, length 1.3837 mm
+    @(3.8719 mm, 2.7471 mm): Track [SWDIO] on F.Cu, length 4.3601 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1525 mm)
+    Local override; error
+    @(4.6000 mm, 9.7400 mm): PTH pad 5 [UART1_RX] of J2
+    @(3.4975 mm, 11.1775 mm): Track [UART1_TX] on F.Cu, length 6.9746 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1528 mm)
+    Local override; error
+    @(4.6000 mm, 4.6600 mm): PTH pad 7 [NRST] of J2
+    @(3.4975 mm, 4.2029 mm): Track [UART1_TX] on F.Cu, length 0.9659 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1698 mm)
+    Local override; error
+    @(28.4648 mm, 13.2878 mm): Track [UART1_TX] on F.Cu, length 3.3760 mm
+    @(31.4625 mm, 15.0250 mm): Pad 17 [UART1_RX] of U1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1901 mm)
+    Local override; error
+    @(4.6000 mm, 4.6600 mm): PTH pad 7 [NRST] of J2
+    @(4.1805 mm, 3.5199 mm): Track [UART1_TX] on F.Cu, length 2.1715 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1842 mm)
+    Local override; error
+    @(28.4648 mm, 6.5350 mm): Track [UART1_TX] on F.Cu, length 6.7528 mm
+    @(24.5222 mm, 2.0491 mm): Track [UART1_RX] on F.Cu, length 6.0813 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1632 mm)
+    Local override; error
+    @(32.5595 mm, 5.6926 mm): Track [SWDIO] on F.Cu, length 4.8978 mm
+    @(32.9227 mm, 12.9083 mm): Track [SWCLK] on F.Cu, length 7.3498 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1632 mm)
+    Local override; error
+    @(32.0045 mm, 5.1376 mm): Track [SWDIO] on F.Cu, length 0.7849 mm
+    @(32.9227 mm, 12.9083 mm): Track [SWCLK] on F.Cu, length 7.3498 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1842 mm)
+    Local override; error
+    @(24.3676 mm, 2.4378 mm): Track [UART1_TX] on F.Cu, length 5.7943 mm
+    @(24.5222 mm, 2.0491 mm): Track [UART1_RX] on F.Cu, length 6.0813 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1691 mm)
+    Local override; error
+    @(29.8834 mm, 5.1376 mm): Track [SWDIO] on F.Cu, length 2.1211 mm
+    @(32.1327 mm, 4.7685 mm): Track [SWCLK] on F.Cu, length 1.4724 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1632 mm)
+    Local override; error
+    @(32.5595 mm, 10.5904 mm): Track [SWDIO] on F.Cu, length 3.0032 mm
+    @(32.9227 mm, 12.9083 mm): Track [SWCLK] on F.Cu, length 7.3498 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1591 mm)
+    Local override; error
+    @(3.8719 mm, 2.7471 mm): Track [SWDIO] on F.Cu, length 4.3601 mm
+    @(5.5636 mm, 0.5475 mm): Track [SWCLK] on F.Cu, length 4.4314 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1523 mm)
+    Local override; error
+    @(4.6000 mm, 14.8200 mm): Track [SWDIO] on F.Cu, length 2.5705 mm
+    @(2.4301 mm, 3.6810 mm): Track [SWCLK] on F.Cu, length 11.5091 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1691 mm)
+    Local override; error
+    @(32.1327 mm, 4.7685 mm): Track [SWCLK] on F.Cu, length 1.4724 mm
+    @(32.0045 mm, 5.1376 mm): Track [SWDIO] on F.Cu, length 0.7849 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1591 mm)
+    Local override; error
+    @(5.5636 mm, 0.5475 mm): Track [SWCLK] on F.Cu, length 4.4314 mm
+    @(2.7824 mm, 3.8366 mm): Track [SWDIO] on F.Cu, length 1.5408 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(13.6499 mm, 1.6974 mm): Track [SWDIO] on F.Cu, length 12.7933 mm
+    @(24.5222 mm, 2.0491 mm): Track [UART1_RX] on F.Cu, length 6.0813 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1691 mm)
+    Local override; error
+    @(30.6603 mm, 4.7685 mm): Track [SWCLK] on F.Cu, length 5.9694 mm
+    @(29.8834 mm, 5.1376 mm): Track [SWDIO] on F.Cu, length 2.1211 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1523 mm)
+    Local override; error
+    @(2.4301 mm, 3.6810 mm): Track [SWCLK] on F.Cu, length 11.5091 mm
+    @(2.7824 mm, 3.8366 mm): Track [SWDIO] on F.Cu, length 1.5408 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1516 mm)
+    Local override; error
+    @(32.9227 mm, 5.5585 mm): Track [SWCLK] on F.Cu, length 1.1172 mm
+    @(32.5595 mm, 5.6926 mm): Track [SWDIO] on F.Cu, length 4.8978 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1932 mm)
+    Local override; error
+    @(31.4625 mm, 13.0750 mm): Pad 20 [unconnected-(U1-PB3/PB4/PB5/PB6-Pad20)] of U1 on F.Cu
+    @(32.1060 mm, 13.7250 mm): Track [SWCLK] on F.Cu, length 1.1550 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1525 mm)
+    Local override; error
+    @(13.9875 mm, 13.0250 mm): Pad 1 [+3V3] of FB1 on F.Cu
+    @(10.0570 mm, 13.7525 mm): Track [Q1_GATE] on F.Cu, length 8.3240 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1961 mm)
+    Local override; error
+    @(3.6882 mm, 18.7539 mm): Track [Q1_GATE] on F.Cu, length 1.3674 mm
+    @(4.6000 mm, 19.9000 mm): PTH pad 1 [GND] of J2
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1531 mm)
+    Local override; error
+    @(3.4983 mm, 18.9438 mm): Track [Q1_GATE] on F.Cu, length 0.2686 mm
+    @(4.6000 mm, 19.9000 mm): PTH pad 1 [GND] of J2
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1516 mm)
+    Local override; error
+    @(21.9960 mm, 11.9216 mm): Track [Q1_GATE] on F.Cu, length 2.9933 mm
+    @(22.0029 mm, 12.4120 mm): Track [SPI_MOSI] on F.Cu, length 2.8846 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(3.4983 mm, 20.8543 mm): Track [Q1_GATE] on F.Cu, length 1.9105 mm
+    @(4.6000 mm, 19.9000 mm): PTH pad 1 [GND] of J2
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1961 mm)
+    Local override; error
+    @(5.0556 mm, 18.7539 mm): Track [Q1_GATE] on F.Cu, length 7.0730 mm
+    @(4.6000 mm, 19.9000 mm): PTH pad 1 [GND] of J2
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(5.6228 mm, 22.9788 mm): Track [Q1_GATE] on F.Cu, length 3.0045 mm
+    @(4.6000 mm, 19.9000 mm): PTH pad 1 [GND] of J2
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1593 mm)
+    Local override; error
+    @(12.0716 mm, 14.6534 mm): Track [SCx] on F.Cu, length 6.3914 mm
+    @(14.0000 mm, 15.7750 mm): Track [V3V3_IMU] on F.Cu, length 1.0781 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1520 mm)
+    Local override; error
+    @(19.3375 mm, 14.7500 mm): Pad 2 [SDx] of U2 on F.Cu
+    @(18.4630 mm, 14.6534 mm): Track [SCx] on F.Cu, length 0.8437 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1773 mm)
+    Local override; error
+    @(24.4233 mm, 20.1846 mm): Track [V3V3_IMU] on B.Cu, length 0.7801 mm
+    @(25.5520 mm, 19.6166 mm): Via [MCU_RX] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1599 mm)
+    Local override; error
+    @(25.2791 mm, 19.0567 mm): Track [V3V3_IMU] on B.Cu, length 0.5630 mm
+    @(25.5520 mm, 19.6166 mm): Via [MCU_RX] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1771 mm)
+    Local override; error
+    @(24.9749 mm, 19.6330 mm): Track [V3V3_IMU] on B.Cu, length 0.2721 mm
+    @(25.5520 mm, 19.6166 mm): Via [MCU_RX] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(27.3738 mm, 20.5884 mm): Track [V3V3_IMU] on B.Cu, length 2.6034 mm
+    @(29.7001 mm, 20.0367 mm): Via [BUS_LOGIC] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1876 mm)
+    Local override; error
+    @(25.8421 mm, 19.0567 mm): Track [V3V3_IMU] on B.Cu, length 2.1662 mm
+    @(24.0135 mm, 18.6691 mm): Track [SPI_CS] on B.Cu, length 3.6807 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1734 mm)
+    Local override; error
+    @(17.9717 mm, 15.1766 mm): Track [V3V3_IMU] on B.Cu, length 1.0548 mm
+    @(18.5839 mm, 15.7500 mm): Via [IMU_INT1] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1983 mm)
+    Local override; error
+    @(19.0265 mm, 15.1766 mm): Track [V3V3_IMU] on B.Cu, length 6.0050 mm
+    @(20.9731 mm, 17.9693 mm): Via [IMU_INT1] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1866 mm)
+    Local override; error
+    @(35.7000 mm, 10.5000 mm): PTH pad 1 [BUS_DATA] of J5
+    @(34.9565 mm, 11.8366 mm): Via [V3V3_IMU] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1526 mm)
+    Local override; error
+    @(15.5500 mm, 15.7750 mm): Pad 2 [GND] of C10 on F.Cu
+    @(17.6241 mm, 15.5783 mm): Track [V3V3_IMU] on F.Cu, length 1.3715 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1732 mm)
+    Local override; error
+    @(20.5000 mm, 15.9125 mm): Pad 6 [GND] of U2 on F.Cu
+    @(21.2172 mm, 16.4732 mm): Track [V3V3_IMU] on F.Cu, length 1.0588 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(17.8672 mm, 15.3353 mm): Via [V3V3_IMU] on F.Cu - B.Cu
+    @(17.2155 mm, 11.1845 mm): Track [VBAT_LOGIC] on B.Cu, length 4.4326 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1573 mm)
+    Local override; error
+    @(18.3606 mm, 16.3148 mm): Track [V3V3_IMU] on F.Cu, length 1.0415 mm
+    @(18.5839 mm, 15.7500 mm): Via [IMU_INT1] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1648 mm)
+    Local override; error
+    @(20.0000 mm, 16.3148 mm): Track [V3V3_IMU] on F.Cu, length 1.6394 mm
+    @(18.5839 mm, 15.7500 mm): Via [IMU_INT1] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1866 mm)
+    Local override; error
+    @(35.7000 mm, 10.5000 mm): PTH pad 1 [BUS_DATA] of J5
+    @(34.9565 mm, 11.8366 mm): Via [V3V3_IMU] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1526 mm)
+    Local override; error
+    @(15.5500 mm, 15.7750 mm): Pad 2 [GND] of C10 on F.Cu
+    @(16.2526 mm, 16.7101 mm): Track [V3V3_IMU] on F.Cu, length 1.1318 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1526 mm)
+    Local override; error
+    @(15.5500 mm, 15.7750 mm): Pad 2 [GND] of C10 on F.Cu
+    @(16.2526 mm, 15.2590 mm): Track [V3V3_IMU] on F.Cu, length 0.3193 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1873 mm)
+    Local override; error
+    @(15.5500 mm, 15.7750 mm): Pad 2 [GND] of C10 on F.Cu
+    @(14.7623 mm, 15.0127 mm): Track [V3V3_IMU] on F.Cu, length 1.2440 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1593 mm)
+    Local override; error
+    @(16.0063 mm, 15.0127 mm): Track [V3V3_IMU] on F.Cu, length 0.3483 mm
+    @(12.0716 mm, 14.6534 mm): Track [SCx] on F.Cu, length 6.3914 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1700 mm)
+    Local override; error
+    @(1.9000 mm, 27.1000 mm): PTH pad 2 [GND] of J1
+    @(0.4550 mm, 24.9517 mm): Track [VBAT_RAW] on B.Cu, length 2.7776 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1880 mm)
+    Local override; error
+    @(10.4954 mm, 19.0488 mm): Track [VBAT_RAW] on B.Cu, length 1.5716 mm
+    @(12.0000 mm, 18.8000 mm): Pad 1 [BUS_DATA] of TP4 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1939 mm)
+    Local override; error
+    @(3.0735 mm, 28.5517 mm): Track [VBAT_RAW] on B.Cu, length 10.4962 mm
+    @(9.2750 mm, 21.0000 mm): Pad 2 [GND] of C14 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1625 mm)
+    Local override; error
+    @(11.6067 mm, 17.9375 mm): Track [VBAT_RAW] on B.Cu, length 3.9991 mm
+    @(12.0000 mm, 18.8000 mm): Pad 1 [BUS_DATA] of TP4 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1918 mm)
+    Local override; error
+    @(0.4550 mm, 27.7293 mm): Track [VBAT_RAW] on B.Cu, length 1.1630 mm
+    @(1.9000 mm, 27.1000 mm): PTH pad 2 [GND] of J1
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(1.2774 mm, 28.5517 mm): Track [VBAT_RAW] on B.Cu, length 1.7961 mm
+    @(1.9000 mm, 27.1000 mm): PTH pad 2 [GND] of J1
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1629 mm)
+    Local override; error
+    @(25.7375 mm, 13.0750 mm): Pad 1 [RX_EN] of U1 on F.Cu
+    @(25.9203 mm, 11.5000 mm): Track [VBAT_RAW] on F.Cu, length 2.3121 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1991 mm)
+    Local override; error
+    @(22.2000 mm, 4.2750 mm): Pad 1 [VBAT] of R17 on F.Cu
+    @(22.6255 mm, 3.5197 mm): Track [VBAT_C2] on F.Cu, length 1.0682 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1803 mm)
+    Local override; error
+    @(20.3000 mm, 4.2750 mm): Pad 2 [GND] of C2 on F.Cu
+    @(19.5053 mm, 3.5197 mm): Track [VBAT_C2] on F.Cu, length 3.1202 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(21.7675 mm, 11.3699 mm): Via [OCS_AUX] on F.Cu - B.Cu
+    @(20.2119 mm, 11.9216 mm): Track [Q1_GATE] on F.Cu, length 1.7841 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1570 mm)
+    Local override; error
+    @(18.2813 mm, 10.9125 mm): Track [OCS_AUX] on F.Cu, length 0.8772 mm
+    @(19.6618 mm, 9.9352 mm): Track [NRST] on F.Cu, length 3.9536 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1963 mm)
+    Local override; error
+    @(22.4695 mm, 14.2313 mm): Track [OCS_AUX] on F.Cu, length 0.2823 mm
+    @(22.9917 mm, 14.5192 mm): Via [IMU_INT2] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1594 mm)
+    Local override; error
+    @(21.9508 mm, 14.7500 mm): Track [OCS_AUX] on F.Cu, length 0.7336 mm
+    @(21.6625 mm, 14.2500 mm): Pad 11 [unconnected-(U2-SDO_Aux-Pad11)] of U2 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1570 mm)
+    Local override; error
+    @(17.6610 mm, 10.2922 mm): Track [OCS_AUX] on F.Cu, length 2.9782 mm
+    @(15.7082 mm, 9.9352 mm): Track [NRST] on F.Cu, length 0.5504 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1952 mm)
+    Local override; error
+    @(12.8973 mm, 6.5207 mm): Via [VBAT] on F.Cu - B.Cu
+    @(13.8281 mm, 7.1659 mm): Track [NRST] on F.Cu, length 6.7222 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1931 mm)
+    Local override; error
+    @(23.0616 mm, 3.0470 mm): Via [VBAT] on F.Cu - B.Cu
+    @(22.6255 mm, 3.5197 mm): Track [VBAT_C2] on F.Cu, length 1.0682 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1824 mm)
+    Local override; error
+    @(23.8500 mm, 4.2750 mm): Pad 2 [VBAT_C2] of R17 on F.Cu
+    @(23.9140 mm, 3.0403 mm): Track [VBAT] on F.Cu, length 0.9895 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1734 mm)
+    Local override; error
+    @(18.6100 mm, 3.0403 mm): Track [VBAT] on F.Cu, length 4.4516 mm
+    @(22.6255 mm, 3.5197 mm): Track [VBAT_C2] on F.Cu, length 1.0682 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1846 mm)
+    Local override; error
+    @(35.7000 mm, 15.5800 mm): PTH pad 3 [GND] of J5
+    @(36.9346 mm, 14.2309 mm): Track [VBAT] on F.Cu, length 6.4745 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1637 mm)
+    Local override; error
+    @(24.6137 mm, 3.7400 mm): Track [VBAT] on F.Cu, length 1.3633 mm
+    @(23.8500 mm, 4.2750 mm): Pad 2 [VBAT_C2] of R17 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1986 mm)
+    Local override; error
+    @(15.4114 mm, 24.2514 mm): Track [VBAT] on F.Cu, length 4.8178 mm
+    @(14.1200 mm, 25.5000 mm): PTH pad 3 [GND] of J3
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1879 mm)
+    Local override; error
+    @(17.3439 mm, 21.1950 mm): Track [VBAT] on F.Cu, length 2.7330 mm
+    @(16.3400 mm, 23.1717 mm): Via [BUS_TX] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1533 mm)
+    Local override; error
+    @(24.6137 mm, 5.1033 mm): Track [VBAT] on F.Cu, length 1.5854 mm
+    @(23.8500 mm, 4.2750 mm): Pad 2 [VBAT_C2] of R17 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(16.6600 mm, 25.5000 mm): PTH pad 2 [VBAT] of J3
+    @(17.1846 mm, 26.6517 mm): Track [BUS_DATA] on B.Cu, length 1.0495 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1853 mm)
+    Local override; error
+    @(16.6600 mm, 25.5000 mm): PTH pad 2 [VBAT] of J3
+    @(18.0483 mm, 25.7880 mm): Track [BUS_DATA] on B.Cu, length 1.2215 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1564 mm)
+    Local override; error
+    @(14.1200 mm, 25.5000 mm): PTH pad 3 [GND] of J3
+    @(15.3900 mm, 25.1346 mm): Track [BUS_DATA] on B.Cu, length 2.0601 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(35.7000 mm, 13.0400 mm): PTH pad 2 [VBAT] of J5
+    @(36.8517 mm, 17.0966 mm): Track [BUS_DATA] on B.Cu, length 4.5812 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1855 mm)
+    Local override; error
+    @(16.6600 mm, 25.5000 mm): PTH pad 2 [VBAT] of J3
+    @(16.1351 mm, 26.6517 mm): Track [BUS_DATA] on B.Cu, length 1.0537 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1907 mm)
+    Local override; error
+    @(11.1593 mm, 21.7345 mm): Track [BUS_DATA] on B.Cu, length 2.0938 mm
+    @(12.0000 mm, 21.4000 mm): Pad 1 [BUS_TX] of TP5 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1704 mm)
+    Local override; error
+    @(26.1750 mm, 28.2000 mm): Pad 1 [BUS_CLAMP] of TH1 on B.Cu
+    @(21.5437 mm, 28.9954 mm): Track [BUS_DATA] on B.Cu, length 5.4859 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1810 mm)
+    Local override; error
+    @(13.1027 mm, 23.6779 mm): Track [BUS_DATA] on B.Cu, length 2.7484 mm
+    @(12.0000 mm, 21.4000 mm): Pad 1 [BUS_TX] of TP5 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1853 mm)
+    Local override; error
+    @(36.8517 mm, 12.5154 mm): Track [BUS_DATA] on B.Cu, length 1.2215 mm
+    @(35.7000 mm, 13.0400 mm): PTH pad 2 [VBAT] of J5
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1591 mm)
+    Local override; error
+    @(12.2750 mm, 4.0000 mm): Pad 2 [GND] of C5 on B.Cu
+    @(13.7159 mm, 3.1659 mm): Track [+3V3] on B.Cu, length 2.1568 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1752 mm)
+    Local override; error
+    @(29.7750 mm, 6.0000 mm): Pad 2 [GND] of C8 on B.Cu
+    @(30.6002 mm, 5.5166 mm): Track [+3V3] on B.Cu, length 4.6206 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1644 mm)
+    Local override; error
+    @(29.7750 mm, 6.0000 mm): Pad 2 [GND] of C8 on B.Cu
+    @(30.2419 mm, 5.1583 mm): Track [+3V3] on B.Cu, length 0.5067 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1878 mm)
+    Local override; error
+    @(30.6002 mm, 10.1372 mm): Track [+3V3] on B.Cu, length 1.5624 mm
+    @(29.8250 mm, 11.0000 mm): Pad 2 [BUS_LOGIC] of R11 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1526 mm)
+    Local override; error
+    @(27.3974 mm, 5.1724 mm): Track [+3V3] on B.Cu, length 1.8448 mm
+    @(26.2750 mm, 6.0000 mm): Pad 2 [GND] of C6 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1665 mm)
+    Local override; error
+    @(24.7631 mm, 5.9619 mm): Track [+3V3] on B.Cu, length 4.2540 mm
+    @(21.3250 mm, 3.8000 mm): Pad 2 [NRST] of R2 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1641 mm)
+    Local override; error
+    @(12.8641 mm, 15.3359 mm): Track [+3V3] on B.Cu, length 2.1011 mm
+    @(12.0000 mm, 13.6000 mm): Pad 1 [GND] of TP2 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1692 mm)
+    Local override; error
+    @(12.8641 mm, 13.2348 mm): Track [+3V3] on B.Cu, length 7.5506 mm
+    @(12.0000 mm, 13.6000 mm): Pad 1 [GND] of TP2 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1711 mm)
+    Local override; error
+    @(21.7551 mm, 2.9539 mm): Track [+3V3] on B.Cu, length 1.2340 mm
+    @(21.3250 mm, 3.8000 mm): Pad 2 [NRST] of R2 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1667 mm)
+    Local override; error
+    @(29.0667 mm, 5.1583 mm): Track [+3V3] on B.Cu, length 1.1752 mm
+    @(29.7750 mm, 6.0000 mm): Pad 2 [GND] of C8 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1657 mm)
+    Local override; error
+    @(13.9500 mm, 11.0250 mm): Pad 1 [OCS_AUX] of R6 on F.Cu
+    @(13.1542 mm, 11.5043 mm): Track [+3V3] on F.Cu, length 1.3905 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1592 mm)
+    Local override; error
+    @(24.1786 mm, 19.5784 mm): Via [+3V3] on F.Cu - B.Cu
+    @(23.8556 mm, 18.9192 mm): Track [BUS_TX] on F.Cu, length 0.5197 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1562 mm)
+    Local override; error
+    @(24.1786 mm, 19.5784 mm): Via [+3V3] on F.Cu - B.Cu
+    @(23.8863 mm, 20.1846 mm): Track [V3V3_IMU] on B.Cu, length 0.5370 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1540 mm)
+    Local override; error
+    @(24.1000 mm, 22.7750 mm): Pad 2 [BUS_TX] of R7 on F.Cu
+    @(22.8415 mm, 22.7750 mm): Track [+3V3] on F.Cu, length 2.8284 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1597 mm)
+    Local override; error
+    @(26.9780 mm, 15.0250 mm): Via [+3V3] on F.Cu - B.Cu
+    @(24.1072 mm, 15.6347 mm): Track [IMU_INT2] on B.Cu, length 5.9243 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1540 mm)
+    Local override; error
+    @(24.1000 mm, 22.7750 mm): Pad 2 [BUS_TX] of R7 on F.Cu
+    @(23.7915 mm, 21.8250 mm): Track [+3V3] on F.Cu, length 1.3435 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1574 mm)
+    Local override; error
+    @(32.4700 mm, 20.8000 mm): Pad 4 [GND] of U3 on F.Cu
+    @(33.8282 mm, 21.0454 mm): Track [RX_EN] on F.Cu, length 2.0735 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1569 mm)
+    Local override; error
+    @(26.3297 mm, 13.0750 mm): Track [RX_EN] on F.Cu, length 2.0267 mm
+    @(25.7375 mm, 13.7250 mm): Pad 2 [unconnected-(U1-PB9/PC14-Pad2)] of U1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1856 mm)
+    Local override; error
+    @(29.0174 mm, 21.8000 mm): Track [RX_EN] on F.Cu, length 0.3247 mm
+    @(29.6700 mm, 21.3000 mm): Pad 6 [BUS_LOGIC] of U3 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1598 mm)
+    Local override; error
+    @(29.3775 mm, 19.5792 mm): Track [RX_EN] on F.Cu, length 0.1897 mm
+    @(29.7001 mm, 20.0367 mm): Via [BUS_LOGIC] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1987 mm)
+    Local override; error
+    @(31.6750 mm, 11.0000 mm): Pad 1 [+3V3] of R12 on B.Cu
+    @(30.6487 mm, 11.8237 mm): Track [BUS_LOGIC] on B.Cu, length 1.8526 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1818 mm)
+    Local override; error
+    @(34.6883 mm, 8.0437 mm): Track [BUS_LOGIC] on B.Cu, length 3.3769 mm
+    @(34.0065 mm, 5.4735 mm): Via [+3V3] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1572 mm)
+    Local override; error
+    @(28.7878 mm, 21.5704 mm): Track [RX_EN] on F.Cu, length 1.5912 mm
+    @(29.6700 mm, 21.3000 mm): Pad 6 [BUS_LOGIC] of U3 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1672 mm)
+    Local override; error
+    @(20.5700 mm, 21.1950 mm): Pad 2 [GND] of C1 on F.Cu
+    @(19.6979 mm, 20.0813 mm): Via [BUS_LOGIC] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1598 mm)
+    Local override; error
+    @(29.7001 mm, 20.0367 mm): Via [BUS_LOGIC] on F.Cu - B.Cu
+    @(29.4717 mm, 19.4850 mm): Track [RX_EN] on F.Cu, length 0.1332 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1779 mm)
+    Local override; error
+    @(24.7250 mm, 11.0000 mm): Pad 1 [VBAT_LOGIC] of C4 on B.Cu
+    @(25.4221 mm, 11.8529 mm): Track [GND] on B.Cu, length 0.9274 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1750 mm)
+    Local override; error
+    @(29.6700 mm, 21.3000 mm): Track [BUS_LOGIC] on F.Cu, length 0.5000 mm
+    @(29.6700 mm, 21.8000 mm): Pad 7 [RX_EN] of U3 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1805 mm)
+    Local override; error
+    @(20.8396 mm, 20.2606 mm): Track [GND] on B.Cu, length 6.6402 mm
+    @(19.6979 mm, 20.0813 mm): Via [BUS_LOGIC] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1779 mm)
+    Local override; error
+    @(24.7250 mm, 11.0000 mm): Pad 1 [VBAT_LOGIC] of C4 on B.Cu
+    @(24.4947 mm, 11.8529 mm): Track [GND] on B.Cu, length 0.7418 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1584 mm)
+    Local override; error
+    @(23.1084 mm, 6.8334 mm): Track [GND] on B.Cu, length 3.1666 mm
+    @(24.7250 mm, 6.0000 mm): Pad 1 [+3V3] of C6 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(30.7399 mm, 22.2399 mm): Track [GND] on B.Cu, length 1.0085 mm
+    @(30.7581 mm, 21.3000 mm): Via [MCU_RX] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1801 mm)
+    Local override; error
+    @(23.9875 mm, 22.2399 mm): Track [GND] on B.Cu, length 6.7524 mm
+    @(25.9000 mm, 22.9200 mm): Via [+3V3] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1676 mm)
+    Local override; error
+    @(12.2750 mm, 4.8448 mm): Track [GND] on B.Cu, length 3.0479 mm
+    @(14.6375 mm, 5.5000 mm): Pad 2 [VBAT_LOGIC] of U4 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1584 mm)
+    Local override; error
+    @(28.9416 mm, 6.8334 mm): Track [GND] on B.Cu, length 2.6666 mm
+    @(28.2250 mm, 6.0000 mm): Pad 1 [+3V3] of C8 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1779 mm)
+    Local override; error
+    @(24.4947 mm, 11.8529 mm): Track [GND] on B.Cu, length 3.0942 mm
+    @(24.7250 mm, 11.0000 mm): Pad 1 [VBAT_LOGIC] of C4 on B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1553 mm)
+    Local override; error
+    @(24.4947 mm, 14.9471 mm): Via [GND] on F.Cu - B.Cu
+    @(25.7375 mm, 15.0250 mm): Pad 4 [+3V3] of U1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1578 mm)
+    Local override; error
+    @(25.7375 mm, 15.0250 mm): Pad 4 [+3V3] of U1 on F.Cu
+    @(25.0026 mm, 15.6750 mm): Track [GND] on F.Cu, length 0.7183 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1718 mm)
+    Local override; error
+    @(25.7375 mm, 16.3250 mm): Pad 6 [NRST] of U1 on F.Cu
+    @(27.1900 mm, 16.3728 mm): Track [GND] on F.Cu, length 0.9868 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1772 mm)
+    Local override; error
+    @(18.7950 mm, 7.7950 mm): Pad 1 [VBAT] of D1 on F.Cu
+    @(20.0632 mm, 9.3138 mm): Track [GND] on F.Cu, length 1.7980 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1896 mm)
+    Local override; error
+    @(18.2399 mm, 19.9054 mm): Track [GND] on F.Cu, length 2.3203 mm
+    @(17.6200 mm, 21.1950 mm): Pad 1 [VBAT] of C1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1517 mm)
+    Local override; error
+    @(34.4983 mm, 16.7817 mm): Track [GND] on F.Cu, length 6.4966 mm
+    @(35.7000 mm, 19.4000 mm): PTH pad 1 [BUS_DATA] of J4
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1526 mm)
+    Local override; error
+    @(14.0000 mm, 20.2750 mm): Pad 1 [V3V3_IMU] of C11 on F.Cu
+    @(14.7224 mm, 21.1026 mm): Track [GND] on F.Cu, length 2.2948 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1673 mm)
+    Local override; error
+    @(34.2892 mm, 8.1262 mm): Track [GND] on F.Cu, length 6.0430 mm
+    @(34.9565 mm, 11.8366 mm): Via [V3V3_IMU] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1631 mm)
+    Local override; error
+    @(30.7581 mm, 21.3000 mm): Via [MCU_RX] on F.Cu - B.Cu
+    @(29.6700 mm, 21.3000 mm): Pad 6 [BUS_LOGIC] of U3 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1938 mm)
+    Local override; error
+    @(12.4276 mm, 21.1026 mm): Track [GND] on F.Cu, length 3.8853 mm
+    @(10.4450 mm, 24.4000 mm): Pad 2 [VBAT] of R10 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1580 mm)
+    Local override; error
+    @(27.1900 mm, 20.1350 mm): Track [GND] on F.Cu, length 3.7622 mm
+    @(26.3551 mm, 17.6250 mm): Track [TX_EN_N] on F.Cu, length 0.5330 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1929 mm)
+    Local override; error
+    @(27.3500 mm, 24.7750 mm): Pad 2 [TX_EN_N] of R14 on F.Cu
+    @(26.9008 mm, 25.5686 mm): Track [BUS_TX] on F.Cu, length 0.6692 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1516 mm)
+    Local override; error
+    @(23.4737 mm, 19.3011 mm): Track [BUS_TX] on F.Cu, length 0.5401 mm
+    @(23.1630 mm, 18.9731 mm): Track [BUS_LOGIC] on F.Cu, length 2.3569 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1688 mm)
+    Local override; error
+    @(16.3388 mm, 9.3138 mm): Track [GND] on F.Cu, length 3.7244 mm
+    @(18.7950 mm, 7.7950 mm): Pad 1 [VBAT] of D1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1647 mm)
+    Local override; error
+    @(9.6803 mm, 23.8499 mm): Track [GND] on F.Cu, length 1.0540 mm
+    @(10.4450 mm, 24.4000 mm): Pad 2 [VBAT] of R10 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1518 mm)
+    Local override; error
+    @(23.4737 mm, 20.0915 mm): Track [BUS_TX] on F.Cu, length 0.7904 mm
+    @(23.1630 mm, 18.9731 mm): Track [BUS_LOGIC] on F.Cu, length 2.3569 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1949 mm)
+    Local override; error
+    @(30.7581 mm, 21.3000 mm): Via [MCU_RX] on F.Cu - B.Cu
+    @(31.4530 mm, 21.5268 mm): Track [GND] on B.Cu, length 1.6998 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1612 mm)
+    Local override; error
+    @(9.6803 mm, 24.9039 mm): Track [GND] on F.Cu, length 0.8430 mm
+    @(10.4450 mm, 24.4000 mm): Pad 2 [VBAT] of R10 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1628 mm)
+    Local override; error
+    @(20.5999 mm, 22.9653 mm): Track [BUS_TX] on F.Cu, length 5.6486 mm
+    @(24.7720 mm, 26.2002 mm): Via [+3V3] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1750 mm)
+    Local override; error
+    @(33.1583 mm, 21.8000 mm): Track [BUS_TX] on F.Cu, length 0.6883 mm
+    @(32.4700 mm, 22.3000 mm): Pad 1 [TX_EN_N] of U3 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1617 mm)
+    Local override; error
+    @(24.6858 mm, 26.9595 mm): Track [BUS_TX] on F.Cu, length 0.8402 mm
+    @(25.7000 mm, 26.7750 mm): Pad 1 [+3V3] of R15 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1686 mm)
+    Local override; error
+    @(26.9008 mm, 25.5686 mm): Track [BUS_TX] on F.Cu, length 3.5179 mm
+    @(27.3500 mm, 24.7750 mm): Pad 2 [TX_EN_N] of R14 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1516 mm)
+    Local override; error
+    @(23.8556 mm, 18.9192 mm): Track [BUS_TX] on F.Cu, length 0.5197 mm
+    @(24.0200 mm, 18.1161 mm): Track [BUS_LOGIC] on F.Cu, length 1.2120 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1567 mm)
+    Local override; error
+    @(33.4215 mm, 22.0632 mm): Track [BUS_TX] on F.Cu, length 0.3722 mm
+    @(33.8282 mm, 26.0934 mm): Track [RX_EN] on F.Cu, length 5.0480 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1567 mm)
+    Local override; error
+    @(30.4187 mm, 25.5686 mm): Track [BUS_TX] on F.Cu, length 4.2466 mm
+    @(33.8282 mm, 26.0934 mm): Track [RX_EN] on F.Cu, length 5.0480 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1599 mm)
+    Local override; error
+    @(25.7000 mm, 24.7750 mm): Pad 1 [+3V3] of R14 on F.Cu
+    @(26.4276 mm, 24.3065 mm): Track [BUS_TX] on F.Cu, length 0.5138 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1860 mm)
+    Local override; error
+    @(29.7001 mm, 20.0367 mm): Via [BUS_LOGIC] on F.Cu - B.Cu
+    @(29.9772 mm, 20.5884 mm): Track [V3V3_IMU] on B.Cu, length 5.6552 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1622 mm)
+    Local override; error
+    @(26.1207 mm, 27.5536 mm): Track [BUS_TX] on F.Cu, length 0.5718 mm
+    @(25.7000 mm, 26.7750 mm): Pad 1 [+3V3] of R15 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1567 mm)
+    Local override; error
+    @(33.4215 mm, 22.5658 mm): Track [BUS_TX] on F.Cu, length 0.5026 mm
+    @(33.8282 mm, 26.0934 mm): Track [RX_EN] on F.Cu, length 5.0480 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1835 mm)
+    Local override; error
+    @(20.5999 mm, 22.9653 mm): Track [BUS_TX] on F.Cu, length 4.0642 mm
+    @(20.5700 mm, 21.1950 mm): Pad 2 [GND] of C1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1753 mm)
+    Local override; error
+    @(26.5500 mm, 20.7750 mm): Pad 2 [GND] of C13 on F.Cu
+    @(25.7890 mm, 21.1965 mm): Track [TX_EN_N] on F.Cu, length 1.3944 mm
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(19.3375 mm, 14.7500 mm): Pad 2 [SDx] of U2 on F.Cu
+    @(19.3375 mm, 14.2500 mm): Pad 1 [SPI_MISO] of U2 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(19.3375 mm, 15.2500 mm): Pad 3 [SCx] of U2 on F.Cu
+    @(19.3375 mm, 14.7500 mm): Pad 2 [SDx] of U2 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(19.3375 mm, 15.7500 mm): Pad 4 [IMU_INT1] of U2 on F.Cu
+    @(19.3375 mm, 15.2500 mm): Pad 3 [SCx] of U2 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(32.4700 mm, 21.8000 mm): Pad 2 [BUS_TX] of U3 on F.Cu
+    @(32.4700 mm, 22.3000 mm): Pad 1 [TX_EN_N] of U3 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(20.0000 mm, 15.9125 mm): Pad 5 [V3V3_IMU] of U2 on F.Cu
+    @(20.5000 mm, 15.9125 mm): Pad 6 [GND] of U2 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(32.4700 mm, 21.3000 mm): Pad 3 [MCU_RX] of U3 on F.Cu
+    @(32.4700 mm, 21.8000 mm): Pad 2 [BUS_TX] of U3 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(21.6625 mm, 15.7500 mm): Pad 8 [V3V3_IMU] of U2 on F.Cu
+    @(21.6625 mm, 15.2500 mm): Pad 9 [IMU_INT2] of U2 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(32.4700 mm, 20.8000 mm): Pad 4 [GND] of U3 on F.Cu
+    @(32.4700 mm, 21.3000 mm): Pad 3 [MCU_RX] of U3 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(21.6625 mm, 15.2500 mm): Pad 9 [IMU_INT2] of U2 on F.Cu
+    @(21.6625 mm, 14.7500 mm): Pad 10 [OCS_AUX] of U2 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(21.6625 mm, 14.7500 mm): Pad 10 [OCS_AUX] of U2 on F.Cu
+    @(21.6625 mm, 14.2500 mm): Pad 11 [unconnected-(U2-SDO_Aux-Pad11)] of U2 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(21.0000 mm, 14.0875 mm): Pad 12 [SPI_CS] of U2 on F.Cu
+    @(20.5000 mm, 14.0875 mm): Pad 13 [SPI_SCK] of U2 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(29.6700 mm, 21.3000 mm): Pad 6 [BUS_LOGIC] of U3 on F.Cu
+    @(29.6700 mm, 21.8000 mm): Pad 7 [RX_EN] of U3 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(29.6700 mm, 21.8000 mm): Pad 7 [RX_EN] of U3 on F.Cu
+    @(29.6700 mm, 22.3000 mm): Pad 8 [+3V3] of U3 on F.Cu
+[clearance]: 间距违规 ( 间距 0.2000 mm; 实际 0.1500 mm)
+    Local override; error
+    @(20.5000 mm, 14.0875 mm): Pad 13 [SPI_SCK] of U2 on F.Cu
+    @(20.0000 mm, 14.0875 mm): Pad 14 [SPI_MOSI] of U2 on F.Cu
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+    @(28.8400 mm, 7.9000 mm): Footprint Q1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(28.3000 mm, 11.5000 mm): Footprint F1
+    @(28.6000 mm, 16.0000 mm): Footprint U1
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.2550 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(1.0000 mm, 0.0000 mm): Segment on Edge.Cuts
+    @(31.8719 mm, 0.4550 mm): Track [VBAT] on B.Cu, length 6.2183 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.2550 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(1.0000 mm, 0.0000 mm): Segment on Edge.Cuts
+    @(25.6536 mm, 0.4550 mm): Track [VBAT] on B.Cu, length 3.6656 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.2550 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(1.0000 mm, 0.0000 mm): Segment on Edge.Cuts
+    @(37.5777 mm, 6.1608 mm): Track [VBAT] on B.Cu, length 8.0692 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.2550 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(1.9067 mm, 23.5000 mm): Track [VBAT_RAW] on B.Cu, length 2.0530 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.2800 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(0.4550 mm, 27.7293 mm): Track [VBAT_RAW] on B.Cu, length 1.1630 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.2800 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(0.4550 mm, 24.9517 mm): Track [VBAT_RAW] on B.Cu, length 2.7776 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.4475 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(1.0000 mm, 0.0000 mm): Segment on Edge.Cuts
+    @(26.4393 mm, 0.5475 mm): Track [SWCLK] on F.Cu, length 20.8757 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.4475 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(1.0000 mm, 0.0000 mm): Segment on Edge.Cuts
+    @(30.6603 mm, 4.7685 mm): Track [SWCLK] on F.Cu, length 5.9694 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.4475 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(1.0000 mm, 0.0000 mm): Segment on Edge.Cuts
+    @(5.5636 mm, 0.5475 mm): Track [SWCLK] on F.Cu, length 4.4314 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.2550 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(25.4591 mm, 29.5450 mm): Track [VBAT_LOGIC] on F.Cu, length 8.0729 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.2550 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(34.6953 mm, 29.3950 mm): Track [VBAT_LOGIC] on F.Cu, length 0.1695 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.2550 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(34.6164 mm, 29.5450 mm): Track [VBAT_LOGIC] on F.Cu, length 9.1573 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.2550 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(34.6953 mm, 29.3950 mm): Via [VBAT_LOGIC] on F.Cu - B.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.4050 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(37.5500 mm, 26.6181 mm): Track [VBAT_LOGIC] on B.Cu, length 3.9825 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.4000 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(1.0000 mm, 0.0000 mm): Segment on Edge.Cuts
+    @(0.4000 mm, 0.4000 mm): Zone 'VBAT_TOP' [VBAT] on F.Cu, priority 9
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.2517 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(1.0000 mm, 1.0000 mm): Arc on Edge.Cuts
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.5000 mm; 实际 0.2517 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(1.0000 mm, 1.0000 mm): Arc on Edge.Cuts
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_BOTTOM' [GND] on B.Cu, priority 0
+[track_dangling]: Track has unconnected end
+    Local override; warning
+    @(25.0000 mm, 21.8250 mm): Track [+3V3] on F.Cu, length 0.2750 mm
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[isolated_copper]: Isolated copper fill
+    Local override; warning
+    @(0.9000 mm, 0.9000 mm): Zone 'VBAT_RAW_TOP' [VBAT_RAW] on F.Cu, priority 10
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(13.6900 mm, 35.6500 mm): Segment of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(14.5500 mm, 29.6500 mm): Segment of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(16.2300 mm, 35.6500 mm): Segment of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(17.0900 mm, 29.6500 mm): Segment of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(40.0000 mm, 30.0000 mm): Segment on Edge.Cuts
+    @(19.6300 mm, 29.6500 mm): Rectangle of J3 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-5.5500 mm, 4.2300 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-5.5500 mm, 6.7700 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-5.5500 mm, 9.3100 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-5.5500 mm, 11.8500 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-5.5500 mm, 14.3900 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-5.5500 mm, 16.9300 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(0.4500 mm, 5.0900 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(0.4500 mm, 7.6300 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(0.4500 mm, 10.1700 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(0.4500 mm, 12.7100 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(0.4500 mm, 15.2500 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(0.4500 mm, 17.7900 mm): Segment of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(0.4500 mm, 20.3300 mm): Rectangle of J2 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 12.6100 mm): Segment of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 15.1500 mm): Segment of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(45.8500 mm, 13.4700 mm): Segment of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(45.8500 mm, 16.0100 mm): Segment of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 10.0700 mm): Rectangle of J5 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 21.5100 mm): Segment of J4 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 24.0500 mm): Segment of J4 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(45.8500 mm, 22.3700 mm): Segment of J4 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(45.8500 mm, 24.9100 mm): Segment of J4 on F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: <电路板配置> 中的 "丝印" 约束; warning
+    @(41.0000 mm, 1.0000 mm): Segment on Edge.Cuts
+    @(39.8500 mm, 18.9700 mm): Rectangle of J4 on F.Silkscreen
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(1.5000 mm, 23.5000 mm): Segment of J1 on F.Silkscreen
+    @(1.9000 mm, 23.5000 mm): PTH pad 1 [VBAT_RAW] of J1
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(1.9000 mm, 23.9000 mm): Segment of J1 on F.Silkscreen
+    @(1.9000 mm, 23.5000 mm): PTH pad 1 [VBAT_RAW] of J1
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(1.9000 mm, 27.4000 mm): Segment of J1 on F.Silkscreen
+    @(1.9000 mm, 27.1000 mm): PTH pad 2 [GND] of J1
+
+** Found 2 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_BOTTOM' [GND] on B.Cu, priority 0
+    @(0.3000 mm, 0.3000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

@@ -1,0 +1,38 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-16T02:02:15 **
+** Report includes: Errors, Warnings **
+
+** Found 4 DRC violations **
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0144 mm)
+    Local override; error
+    @(20.9731 mm, 17.9693 mm): Via [IMU_INT1] on F.Cu - B.Cu
+    @(20.3000 mm, 17.7300 mm): Pad 1 [GND] of TG1 on F.Cu
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1471 mm)
+    Local override; error
+    @(20.3000 mm, 17.7300 mm): Pad 1 [GND] of TG1 on F.Cu
+    @(21.4651 mm, 16.9829 mm): Track [VBAT_RAW] on F.Cu, length 4.2253 mm
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.1644 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(20.3000 mm, 17.7300 mm): Pad 1 [GND] of TG1 on F.Cu
+    @(20.9731 mm, 17.9693 mm): Via [IMU_INT1] on F.Cu - B.Cu
+[silk_over_copper]: Silkscreen clipped by solder mask
+    Local override; warning
+    @(20.5000 mm, 17.3736 mm): Reference field of U2
+    @(20.3000 mm, 17.7300 mm): Pad 1 [GND] of TG1 on F.Cu
+
+** Found 1 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(40.7000 mm, 27.9000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+    @(40.7000 mm, 27.9000 mm): Zone 'GND_TOP' [GND] on F.Cu, priority 0
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **
