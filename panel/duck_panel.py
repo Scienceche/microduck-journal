@@ -48,7 +48,9 @@ GROUPS = [("右腿", [10, 11, 12, 13, 14]), ("左腿", [20, 21, 22, 23, 24]), ("
 JOINT_NAMES = {
     10: "r_hip_yaw", 11: "r_hip_roll", 12: "r_hip_pitch", 13: "r_knee", 14: "r_ankle",
     20: "l_hip_yaw", 21: "l_hip_roll", 22: "l_hip_pitch", 23: "l_knee", 24: "l_ankle",
-    30: "head_yaw", 31: "head_pitch", 32: "head_roll", 33: "neck_yaw", 34: "neck_pitch",
+    # 官方 ID 约定(站.json + MuJoCo alpha 模型):30 脖子俯仰 31 头俯仰
+    # 32 头偏航 33 头侧倾 34 下巴(嘴)
+    30: "neck_pitch", 31: "head_pitch", 32: "head_yaw", 33: "head_roll", 34: "mouth",
 }
 
 # ---------------- 仪表台模块（复用部署版，含 md1/串口枚举补丁） ----------------
@@ -285,6 +287,32 @@ def servo_action(op, ids, value=None, speed=None):
             if st:
                 st["joint"] = JOINT_NAMES.get(sid, "")
             out[sid] = st
+        return out
+    if op == "calpos":
+        # 零位校准用:原始位置(56) + 状态字(65),重试 2 次
+        for sid in ids:
+            pos = st = None
+            for _ in range(3):
+                try:
+                    pos = bus.read_u16(sid, 56)
+                    st = bus.read_u8(sid, 65)
+                    break
+                except feetech.BusError:
+                    pos = None
+            out[sid] = {"pos": pos, "status": st,
+                        "joint": JOINT_NAMES.get(sid, "")} if pos is not None else None
+        return out
+    if op == "cal":
+        # 中位校准:扭矩关 → 0x0B(当前位置→2048) → 回读位置
+        for sid in ids:
+            try:
+                bus.write_u8(sid, 40, 0)
+                err = bus.calibrate_to(sid)
+                pos = bus.read_u16(sid, 56)
+                out[sid] = {"cal": "ok" if err is not None else "noresp",
+                            "pos": pos}
+            except feetech.BusError as e:
+                out[sid] = {"cal": str(e)}
         return out
     for sid in ids:
         try:

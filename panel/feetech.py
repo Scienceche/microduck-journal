@@ -111,7 +111,7 @@ class FeetechBus:
             raise BusTimeout(f"{who} 应答断在 ID/长度（收到 ff ff {hexs(rest)}）")
         sid, length = rest[0], rest[1]
         body = self.ser.read(length)
-        if len(body) < length:
+        if len(body) < length or len(body) < 2:
             self.stats["timeout"] += 1
             raise BusTimeout(f"{who} 应答不完整：长度 {length} 只收到 {len(body)}（ff ff {hexs(rest + body)}）")
         err, params, chk = body[0], body[1:-1], body[-1]
