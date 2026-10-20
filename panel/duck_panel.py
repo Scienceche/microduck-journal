@@ -867,8 +867,13 @@ def build_app():
         web.FileResponse(os.path.join(BASE, "sw.js"),
                          headers={"Content-Type": "application/javascript; charset=utf-8"})))
     r.add_get("/icon.svg", lambda req: _no_store(
-        web.FileResponse(os.path.join(BASE, "icon.svg"),
-                         headers={"Content-Type": "image/svg+xml"})))
+        web.FileResponse(os.path.join(BASE, "icon.svg"),                         headers={"Content-Type": "image/svg+xml"})))
+    r.add_get("/cal_ref.png", lambda req: _no_store(
+        web.FileResponse(os.path.join(BASE, "cal_ref.png"),
+                         headers={"Content-Type": "image/png"})))
+    r.add_get("/cal_ref4.png", lambda req: _no_store(
+        web.FileResponse(os.path.join(BASE, "cal_ref4.png"),
+                         headers={"Content-Type": "image/png"})))
     # 仪表台（scope 模块自带 handlers；前端 WS 写死 /ws 所以挂根路径）
     r.add_get("/scope/", scope.index_handler)
     r.add_get("/scope/{name}", scope.static_handler)
