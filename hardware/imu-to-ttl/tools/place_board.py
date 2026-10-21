@@ -1,20 +1,16 @@
 #!/usr/bin/env python3
-"""Apply the board floorplan: the anchored skeleton plus bottom-side test points.
+"""v3.7 floorplan: IMU+HUB merged board, servo-top mount in the chest.
 
-Anchored parts are the mechanical and electrical fixtures - connectors on the
-board edges, the IMU between the mounting holes, the MCU beside it, the power
-front-end in the left column, the bus buffer and clamp network in the right
-column, and the debug header along the bottom edge. The small passives are
-placed afterwards by `pack_loose.py`, which reads the FLOORPLAN table below to
-know what must not move.
+Frame (x 0..36 fore-aft, y 0..30 across; x0=rear/battery, x36=front/neck,
+y0=duck-right, y30=duck-left; worldX = x-19, worldY = 15-y).
 
-Coordinates are KiCad millimetres in the file's Y-down frame, origin at the
-board's upper-left corner; the board is 41 x 30 mm with the B-group mounting
-holes at (9.90, 2.15), (31.10, 2.15), (9.90, 27.85), (31.10, 27.85) - keep the
-floorplan clear of those four spots, they are drilled through the finished
-board.
+Height zones (neck static + sweep + battery, see gen_board_v37.py header):
+  * no-tall (>2.5 mm): front x>27, left-rear (x<19 and y>20), edge ring 2mm
+  * bottom-face parts ONLY in the center-gap strip y 7.5..22.5 (the board
+    clamps flush onto the servo top flanges everywhere else)
+  * JST-PH verticals (top face J3 / bottom face J4-J6) are the only tall parts
 
-Usage:  python3 tools/place_board.py [board.kicad_pcb]
+Usage:  KiCad-python tools/place_board.py
 """
 
 import os
@@ -26,61 +22,58 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PROJ = os.path.dirname(HERE)
 PCB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PROJ, "imu_to_ttl.kicad_pcb")
 
-# ref, x, y, rotation (deg) -- every one of these parts is locked in place
+# ref, x, y, rotation, layer -- locked skeleton (KiCad frame, mm)
 FLOORPLAN = [
-    # v3 (2026-10-12): 板子装在电池和躯干之间, 接插件全部改卧式弯排针并贴
-    # 板边(针尖探出板外, 插头从板外水平插, 线贴边引出, 在板高度约2.5mm).
-    # v3.5: J2 贴左边缘(pad 列 x4.6, 针仍向左出板), J1 裸焊盘竖排左缘下半
-    # (VBAT_RAW (1.9,23.1) / GND (1.9,26.7)), 两者 courtyard 留 0.5mm。
-    ("J1", 1.9, 25.3, 90),       # battery wires solder direct, left edge lower
-    ("J2", 4.6, 19.9, 180),      # debug 1x7: pad column x=4.6, y4.7-19.9, pins out LEFT
-    ("J3", 19.2, 25.5, 270),      # 左腿 servo 1x3 lying: pins out BOTTOM (J1左移腾位)
-    ("J5", 35.7, 10.5, 0),       # leg servo, right edge upper, pins out RIGHT
-    ("J4", 35.7, 19.4, 0),       # leg servo, right edge lower (v3.5: +0.9 clears J5's courtyard)
-    # Power front-end: the VBAT / VBAT_RAW pours are fixed polygons, so these
-    # stay where the pour reaches them.
-    ("Q1", 28.84, 7.9, 0),       # reverse-polarity FET, clear of B2's courtyard
-    ("F1", 28.3, 11.5, 0),     # 5 A fuse, inside the VBAT_RAW pour
-    # v3.6 审查修正: 栅极泄放 R10 挪到 Q1 旁(原在左下角, 距 Q1 25mm)
-    ("R10", 23.3, 10.0, 0),
-    ("U2", 20.5, 15.0, 0),       # IMU: at the mounting-hole centre
-    ("U1", 28.6, 16.0, 0),       # MCU beside it - the routing channel between
-                                 # them stays clear
-    # v3.5: U3 (VSSOP-8) rotated so pin8/+3V3 faces the +3V3 spine (R3/C13)
-    # and the U1-facing signals (BUS_TX/MCU_RX) face east toward U1. With
-    # pin8 east the pad is walled in by VBAT_LOGIC/J4 copper on both layers.
-    ("U3", 31.07, 21.55, 180),
-    # v3.6 审查修正: 去耦电容锁定在所服务 IC 身旁(courtyard 已核算)
-    ("C10", 15.9, 14.6, 0),       # U2 IMU 100nF, 逃逸框西墙外
-    ("C11", 15.9, 16.6, 0),       # U2 IMU 100nF 第二颗
-    ("C13", 23.9, 15.6, 90),      # U1 MCU 100nF, 竖放贴 U1 西侧(pad 东西向让开焊盘列)
-    ("C7", 17.3, 6.6, 0),         # U4 LDO OUT 100nF, 贴 LDO 出脚
-    # D1 no longer anchored: its old spot belongs to J2's pin field now; the
-    # packer places it (VBAT/GND are both pour-connected, spot is free).
+    # ---- branch ports (JST-PH vertical, direct-plug for HD-1910) ----
+    ("J3", 23.0, 6.0, 0, "F"),      # neck/HAT, TOP face, tall band x19-27
+    ("J4", 19.0, 9.0, 0, "B"),      # left leg BOTTOM (clear of Q1 pads + U2 frame)
+    ("J5", 14.0, 20.5, 0, "B"),     # right leg, BOTTOM over center gap
+    ("J6", 7.5, 18.5, 0, "B"),      # head/spare, BOTTOM (clear of J1 pads)
+    ("J2", 19.6, 13.8, 270, "B"),  # TH column x19.3-34.5 mid-strip (only TH-free lane)    # horizontal along the bottom strip, plug drops through gap      # debug 1x7 VERTICAL bottom, clear of U1 east pads
+    # ---- battery + power front end (rear edge, all low parts) ----
+    ("J1", 2.3, 16.0, 90, "F"),   # rear center (reliefs at y<7.5/y>22.5)     # bare pads, rear edge (pin1 VBAT_RAW y-)
+    ("Q1", 10.5, 6.5, 0, "F"),      # reverse FET, rear-north clear of F1/J4
+    ("F1", 5.0, 12.5, 90, "F"),      # 5A fuse, horizontal rear chain J1->F1->Q1
+    ("R10", 17.0, 3.5, 0, "F"),     # gate bleed by Q1 (v3.6 lesson)
+    # ---- digital core ----
+    ("U2", 17.0, 15.0, 0, "F"),     # IMU: board center over the 15mm gap
+    ("U1", 25.5, 19.0, 0, "F"),     # MCU east of U2, SPI channel x18.7-22.3
+    ("U3", 31.0, 9.8, 180, "F"),    # v3.7-B: 2G241 re-homed to front band (2mm tall, low zone OK)
+    # ---- decouplers locked at their ICs (v3.6 audit) ----
+    ("C10", 13.6, 13.4, 0, "F"),    # U2 100nF, west escape frame
+    ("C11", 13.6, 16.6, 0, "F"),    # U2 100nF
+    ("C13", 22.5, 10.8, 90, "F"),   # U1 100nF, west of U1 pad column
+    # ---- servo surge bulk caps (tall band, hug the port cluster) ----
+    ("C15", 10.0, 16.0, 0, "F"),    # 22uF bulk, mid-west (VBAT pour covers)    # 22uF 16V 1210
+    # ---- LDO island (top face now; bottom strip is reserved) ----
+    ("U4", 10.5, 25.5, 0, "F"),     # HT7533 SOT-89 (left-rear low zone)
+    ("C7", 16.5, 23.5, 0, "F"),     # LDO OUT 100nF (v3.6: 1.4mm)
+    ("D1", 24.5, 27.6, 0, "F"),   # clear of U1 east pads (x<=28.4-0.99)    # VBAT TVS (old strap strip, verified clear)
+    ("C15", 26.0, 18.5, 0, "B"),    # 22uF bulk BOTTOM (back-to-back with TH1/U1 SMD)
+    ("C16", 28.0, 8.5, 0, "B"),     # 22uF bulk BOTTOM
 ]
 
-# test points stay on the bottom side (probed during bring-up, out of the robot);
-# the two HAT power pads are DNP options
+# bottom-face parts: CENTER-GAP STRIP ONLY (y 7.5..22.5) - everything else
+# on the bottom would be crushed against the servo top flanges
 BACK_ONLY = [
-    # test points (probed during bring-up, out of the robot) plus the whole
-    # logic rail - the LDO, its caps and the DNP divider options - which does
-    # not fit on the front side next to the servo-bus copper
-    "TP1", "TP2", "TP3", "TP4", "TP5",
-    "F2", "D2", "U4", "C3", "C4", "C5", "C8", "R1", "LED1", "R11", "R12",
-    "C6", "C9", "R13", "R2", "TH1", "C14",   # v3: 边缘接插件占正面, 挪底面
+    # v3.7: bottom strip is scarce - only the probe row and four small parts
+    # stay on the back; the LDO island and indicators moved to the top face
+    "TP1", "TP2", "TP3",
+    "R13", "C14",
 ]
 BACK_POS = {
-    # Bottom side. Spacing follows the parts: the LDO is 5.2 mm wide and the
-    # 1206 fuse/clamp pair 4.7/4.5 mm, so those need ~5.5 mm pitch.
-    "TP1": (12.0, 11.0), "TP2": (12.0, 13.6), "TP3": (12.0, 16.2),
-    "TP4": (12.0, 18.8), "TP5": (12.0, 21.4),
-    "F2": (16.0, 11.0), "D2": (21.5, 11.0), "C4": (25.5, 11.0),
-    "R11": (29.0, 11.0), "R12": (32.5, 11.0),
-    "C3": (38.5, 26.5), "C6": (25.5, 6.0), "C8": (29.0, 6.0), "C5": (11.5, 4.0),
-    "U4": (16.5, 5.5), "C9": (21.5, 6.0), "R13": (23.5, 28.2),
-    "R2": (20.5, 3.8), "TH1": (27.0, 28.2), "C14": (23.9, 12.9),   # v3.6: C14 栅极电容随 R9/R10 迁至 Q1 区
-    "R1": (26.5, 26.0), "LED1": (23.2, 24.6),   # v3.5: LED1 挪开 R1 的外框和间距
+    # TP row along the front of the strip
+    # LDO island passives west of the JST cluster
+    "C5": (9.5, 21.0), "C8": (9.5, 8.5), "F2": (9.5, 19.0),
+    "D2": (9.5, 16.5), "C3": (11.5, 9.0), "C4": (11.5, 20.5),
+    # bus + misc
+    "R13": (28.5, 14.0), "TH1": (28.5, 17.5), "R2": (20.5, 20.5),
+    "C6": (20.5, 9.0), "C9": (24.5, 9.0), "C14": (6.0, 20.0),
+    "R1": (28.5, 11.0), "LED1": (28.5, 8.0),
+    "R11": (18.5, 9.0), "R12": (18.5, 21.0),
 }
+
+DROP = ["TP4", "TP5", "TP6", "TP7", "TP8", "TP9"]  # v3.7: strip scarce, 3 TPs enough
 
 
 def mm(v):
@@ -100,9 +93,6 @@ def set_locked(fp, locked):
     return False
 
 
-DROP = ["TP6", "TP7", "TP8", "TP9"]   # dropped: no room / redundant with TP1-TP5
-
-
 def main():
     board = pcbnew.LoadBoard(PCB)
     fps = {board.GetFootprints()[i].GetReference(): board.GetFootprints()[i]
@@ -114,38 +104,42 @@ def main():
             board.Remove(fp)
             del fps[ref]
 
+    # anything not in BACK_ONLY belongs on the top face (a previous run may
+    # have left it on the back - the strip is reserved for the list below)
+    for r, fp in fps.items():
+        if r not in BACK_ONLY and r not in DROP and fp.GetLayer() == pcbnew.B_Cu:
+            fp.SetLayerAndFlip(pcbnew.F_Cu)
     for ref in BACK_ONLY:
         fp = fps.get(ref)
         if fp is None:
             continue
         if fp.GetLayer() != pcbnew.B_Cu:
             fp.SetLayerAndFlip(pcbnew.B_Cu)
-        fp.SetPosition(vec(BACK_POS[ref][0], BACK_POS[ref][1]))
+        # rough start position inside the strip; pack_loose relocates legally
+        i = BACK_ONLY.index(ref)
+        fp.SetPosition(vec(9.0 + (i % 2) * 12.0, 9.5 + (i // 2) * 2.6))
         fp.SetOrientationDegrees(0)
 
     missing = []
-    for ref, x, y, rot in FLOORPLAN:
+    for ref, x, y, rot, side in FLOORPLAN:
         fp = fps.get(ref)
         if fp is None:
             missing.append(ref)
             continue
+        if side == "B" and fp.GetLayer() != pcbnew.B_Cu:
+            fp.SetLayerAndFlip(pcbnew.B_Cu)
+        if side == "F" and fp.GetLayer() != pcbnew.F_Cu:
+            fp.SetLayerAndFlip(pcbnew.F_Cu)
         fp.SetPosition(vec(x, y))
         fp.SetOrientationDegrees(rot)
         set_locked(fp, True)
 
-    # Silkscreen is handled by tools/silk_refs.py, which runs after packing:
-    # it resizes the references, hides the values and moves every label to a
-    # spot that clears pads, courtyards and the board edge. (The earlier note
-    # here - that the silk warnings were cosmetic - was wrong: silk over pads
-    # and overlapping labels are a real assembly annoyance.)
     board.Save(PCB)
-    print("anchored %d parts, parked %d on the bottom side"
-          % (len(FLOORPLAN), len(BACK_ONLY)))
-    if missing:
-        print("missing refs: %s" % " ".join(missing))
+    print("anchored %d, back %d, missing: %s" % (
+        len(FLOORPLAN), len(BACK_ONLY), " ".join(missing) or "none"))
 
 
 if __name__ == "__main__":
     main()
     sys.stdout.flush()
-    os._exit(0)   # _pcbnew segfaults during interpreter teardown; skip it
+    os._exit(0)

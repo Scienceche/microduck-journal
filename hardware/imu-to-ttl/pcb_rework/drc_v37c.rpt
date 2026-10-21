@@ -1,0 +1,182 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-21T13:09:53 **
+** Report includes: Errors **
+
+** Found 23 DRC violations **
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0658 mm)
+    Local override; error
+    @(8.0250 mm, 5.8650 mm): Pad 2 [VBAT] of Q1 on F.Cu
+    @(6.1525 mm, 6.8113 mm): PTH pad 2 [GND] of J1
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT 和 GND)
+    Local override; error
+    @(8.0250 mm, 7.1350 mm): Pad 3 [VBAT] of Q1 on F.Cu
+    @(6.1525 mm, 6.8113 mm): PTH pad 2 [GND] of J1
+[shorting_items]: 短路了两个不同网络的项目 (网络 GND 和 +3V3)
+    Local override; error
+    @(10.4750 mm, 14.0000 mm): Pad 2 [GND] of C15 on F.Cu
+    @(10.9850 mm, 12.4613 mm): Pad 2 [+3V3] of R6 on F.Cu
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; error
+    @(32.5000 mm, 24.5000 mm): NPTH pad of M4
+    @(30.2000 mm, 22.4000 mm): Footprint J2
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(10.1600 mm, 12.4613 mm): Footprint R6
+    @(9.0000 mm, 14.0000 mm): Footprint C15
+[npth_inside_courtyard]: NPTH inside courtyard
+    Local override; error
+    @(32.5000 mm, 5.5000 mm): NPTH pad of M3
+    @(30.2000 mm, 22.4000 mm): Footprint J2
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(10.5000 mm, 6.5000 mm): Footprint Q1
+    @(6.1525 mm, 5.0113 mm): Footprint J1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(25.5000 mm, 19.0000 mm): Footprint U1
+    @(21.3000 mm, 14.5000 mm): Footprint C13
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1654 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, -11.2780 mm): Arc on Edge.Cuts
+    @(31.2885 mm, 2.8654 mm): Track [+3V3] on F.Cu, length 10.7481 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.2075 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(11.0644 mm, 29.2494 mm): Track [RX_EN] on B.Cu, length 6.6066 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.2075 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(17.6710 mm, 29.2494 mm): Track [RX_EN] on B.Cu, length 4.1090 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0441 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(25.2000 mm, 28.0250 mm): Pad 1 [+3V3] of R11 on F.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(26.8500 mm, 28.0250 mm): Pad 2 [BUS_LOGIC] of R11 on F.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0127 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, -11.2780 mm): Arc on Edge.Cuts
+    @(19.7000 mm, 2.0250 mm): Pad 1 [+3V3] of R1 on F.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, -11.2780 mm): Arc on Edge.Cuts
+    @(21.3500 mm, 2.0250 mm): Pad 2 [LED_A] of R1 on F.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(21.7500 mm, 28.2750 mm): Pad 1 [V3V3_IMU] of C12 on F.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1609 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(23.3000 mm, 28.2750 mm): Pad 2 [GND] of C12 on F.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(29.3450 mm, 27.9950 mm): Pad 1 [BUS_CLAMP] of D3 on F.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, -11.2780 mm): Arc on Edge.Cuts
+    @(23.2000 mm, 2.0250 mm): Pad 1 [SDx] of R4 on F.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, -11.2780 mm): Arc on Edge.Cuts
+    @(24.8500 mm, 2.0250 mm): Pad 2 [GND] of R4 on F.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(19.8500 mm, 28.2750 mm): Pad 2 [BUS_LOGIC] of R12 on F.Cu
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(8.0250 mm, 7.1350 mm): Pad 3 [VBAT] of Q1 on F.Cu
+    @(6.1525 mm, 6.8113 mm): PTH pad 2 [GND] of J1
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(10.9850 mm, 12.4613 mm): Pad 2 [+3V3] of R6 on F.Cu
+    @(10.4750 mm, 14.0000 mm): Pad 2 [GND] of C15 on F.Cu
+
+** Found 18 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(2.7500 mm, 21.2750 mm): Pad 1 [+3V3] of C8 on F.Cu
+    @(8.5500 mm, 27.0000 mm): Track [+3V3] on F.Cu, length 5.1768 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(10.9850 mm, 12.4613 mm): Pad 2 [+3V3] of R6 on F.Cu
+    @(10.8724 mm, 9.6401 mm): Track [+3V3] on F.Cu, length 1.6050 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(18.3474 mm, 17.4113 mm): Track [+3V3] on B.Cu, length 9.4977 mm
+    @(24.6000 mm, 26.2500 mm): Pad 8 [+3V3] of U3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(25.2000 mm, 28.0250 mm): Pad 1 [+3V3] of R11 on F.Cu
+    @(24.6000 mm, 26.2500 mm): Pad 8 [+3V3] of U3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(19.8500 mm, 28.2750 mm): Pad 2 [BUS_LOGIC] of R12 on F.Cu
+    @(24.6000 mm, 25.2500 mm): Track [BUS_LOGIC] on F.Cu, length 1.2660 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(26.8500 mm, 28.0250 mm): Pad 2 [BUS_LOGIC] of R11 on F.Cu
+    @(27.2777 mm, 26.6617 mm): Track [BUS_LOGIC] on B.Cu, length 1.9964 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(14.3750 mm, 15.1022 mm): Track [GND] on F.Cu, length 1.4978 mm
+    @(17.0000 mm, 15.9125 mm): Pad 6 [GND] of U2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(17.5000 mm, 15.9125 mm): Pad 7 [GND] of U2 on F.Cu
+    @(17.0000 mm, 15.9125 mm): Pad 6 [GND] of U2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(23.3000 mm, 28.2750 mm): Pad 2 [GND] of C12 on F.Cu
+    @(20.1950 mm, 23.0450 mm): Track [GND] on F.Cu, length 2.6163 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(28.8000 mm, 4.0250 mm): Track [GND] on F.Cu, length 4.4326 mm
+    @(24.8500 mm, 2.0250 mm): Pad 2 [GND] of R4 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(30.3343 mm, 22.5343 mm): Track [GND] on F.Cu, length 4.3500 mm
+    @(27.4000 mm, 24.7500 mm): Pad 4 [GND] of U3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(6.2250 mm, 27.8054 mm): Track [VBAT_LOGIC] on F.Cu, length 3.2603 mm
+    @(1.9500 mm, 18.9750 mm): Track [VBAT_LOGIC] on F.Cu, length 1.4183 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(22.6375 mm, 16.0750 mm): Pad 1 [RX_EN] of U1 on F.Cu
+    @(23.8232 mm, 25.7500 mm): Track [RX_EN] on F.Cu, length 0.8399 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(1.7375 mm, 17.2750 mm): Pad 1 [LED_A] of LED1 on F.Cu
+    @(21.3500 mm, 2.0250 mm): Pad 2 [LED_A] of R1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(15.8375 mm, 14.7500 mm): Pad 2 [SDx] of U2 on F.Cu
+    @(23.2000 mm, 2.0250 mm): Pad 1 [SDx] of R4 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(12.8250 mm, 13.4000 mm): Pad 1 [V3V3_IMU] of C10 on F.Cu
+    @(10.8996 mm, 11.1879 mm): Track [V3V3_IMU] on F.Cu, length 0.5839 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(17.0690 mm, 24.9430 mm): Track [V3V3_IMU] on B.Cu, length 8.2824 mm
+    @(21.7500 mm, 28.2750 mm): Pad 1 [V3V3_IMU] of C12 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(29.3450 mm, 27.9950 mm): Pad 1 [BUS_CLAMP] of D3 on F.Cu
+    @(20.7500 mm, 18.9750 mm): Pad 2 [BUS_CLAMP] of R13 on B.Cu
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

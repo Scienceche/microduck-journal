@@ -1766,6 +1766,54 @@
 	)
 		(uuid "4d0950c5-8c5a-57e3-9db2-c96f539c3659")
 	)
+	(global_label "VBAT"
+		(shape bidirectional)
+		(at 175.26 71.12 0)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify left)
+	)
+		(uuid "f9748e4a-719b-526f-8bc8-9f00763347bb")
+	)
+	(global_label "GND"
+		(shape bidirectional)
+		(at 175.26 78.74 0)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify left)
+	)
+		(uuid "121fa376-a5d5-5537-aa02-158d159336b7")
+	)
+	(global_label "VBAT"
+		(shape bidirectional)
+		(at 195.58 71.12 0)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify left)
+	)
+		(uuid "3c8db83c-74af-5f38-a67c-274313ac535f")
+	)
+	(global_label "GND"
+		(shape bidirectional)
+		(at 195.58 78.74 0)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify left)
+	)
+		(uuid "332dd1a9-b96d-5d6a-ac44-7129fdcffc96")
+	)
 	(global_label "VBAT_C2"
 		(shape bidirectional)
 		(at 154.94 50.8 0)
@@ -2202,24 +2250,6 @@
 	)
 	)
 		(property "Description" "Battery input; wire side uses keyed XT30"
-		(at 39.37 110.49 0)
-		(effects
-		(font
-			(size 1.27 1.27)
-		)
-			(hide yes)
-	)
-	)
-		(property "MPN" "KF128-2.54-2P"
-		(at 39.37 110.49 0)
-		(effects
-		(font
-			(size 1.27 1.27)
-		)
-			(hide yes)
-	)
-	)
-		(property "LCSC" "C474920"
 		(at 39.37 110.49 0)
 		(effects
 		(font
@@ -2858,6 +2888,176 @@
 	)
 	(symbol
 		(lib_id "Device:C")
+		(at 175.26 74.93 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5d4efe53-e5ce-5b26-b125-f6a670b3ba8e")
+		(property "Reference" "C15"
+		(at 180.26 70.43 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "22uF 16V X5R"
+		(at 180.26 79.43 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+		(at 175.26 74.93 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 175.26 74.93 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" "v3.7 servo surge bulk (dxl_hub 1000uF 的贴片化替代)"
+		(at 175.26 74.93 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "MPN" "EMK325BJ226KMHP"
+		(at 175.26 74.93 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "LCSC" "C359910"
+		(at 175.26 74.93 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "c93369d0-4d3b-5f60-a1dc-fc00fe9b7651")
+		)
+		(pin "2"
+			(uuid "2d6c6647-a340-52bb-a290-4e0ddac2412a")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/b90fe5c0-5dba-508d-a7d0-e14a681a083e/5d4efe53-e5ce-5b26-b125-f6a670b3ba8e"
+					(reference "C15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 195.58 74.93 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fa732b00-2ebc-5e7b-81f1-ce7643eb12d2")
+		(property "Reference" "C16"
+		(at 200.58 70.43 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "22uF 16V X5R"
+		(at 200.58 79.43 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+		(at 195.58 74.93 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 195.58 74.93 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" ""
+		(at 195.58 74.93 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "MPN" "EMK325BJ226KMHP"
+		(at 195.58 74.93 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "LCSC" "C359910"
+		(at 195.58 74.93 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "102308ee-d965-5b40-8af5-878cdb7791ae")
+		)
+		(pin "2"
+			(uuid "d4e7bed3-9bfb-530b-a078-5488fe40d5ff")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/b90fe5c0-5dba-508d-a7d0-e14a681a083e/fa732b00-2ebc-5e7b-81f1-ce7643eb12d2"
+					(reference "C16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
 		(at 154.94 54.61 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -2965,25 +3165,7 @@
 			(size 1.27 1.27)
 		)
 	)
-	)		(property "MPN" "0603WAF0000T5E"
-			(at 180.26 50.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C21189"
-			(at 180.26 50.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-
+	)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 		(at 175.26 54.61 0)
 		(effects

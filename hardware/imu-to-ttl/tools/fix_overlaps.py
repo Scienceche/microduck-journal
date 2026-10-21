@@ -27,9 +27,12 @@ def fixed_refs():
     had a hardcoded {J1..J5,U1,U2} set, so Q1/F1/R10 and every BACK_POS part
     could be shoved off their anchors (U1 once landed on mounting hole B2)."""
     text = open(os.path.join(HERE, "place_board.py")).read()
-    refs = set(re.findall(r'\("([A-Z]+\d+)",\s*[\d.]+,\s*[\d.]+,\s*\d+\)', text))
+    refs = set(re.findall(r'\("([A-Z]+\d+)",\s*[\d.]+,\s*[\d.]+,\s*\d+,\s*"[FB]"\)', text))
     refs |= set(re.findall(r'"([A-Z]+\d+)":\s*\(', text))
-    return refs | {"B1", "B2", "B3", "B4"}
+    back = re.search(r'BACK_ONLY = \[([\s\S]*?)\]', text)
+    if back:
+        refs |= set(re.findall(r'"([A-Z]+\d+)"', back.group(1)))
+    return refs | {"M1", "M2", "M3", "M4"}
 
 
 SKELETON = fixed_refs()
@@ -114,8 +117,8 @@ def main():
                 move_by(fps[victim], MARGIN - bx[0], 0)
             if bx[1] < MARGIN:
                 move_by(fps[victim], 0, MARGIN - bx[1])
-            if bx[2] > 41.0 - MARGIN:
-                move_by(fps[victim], 41.0 - MARGIN - bx[2], 0)
+            if bx[2] > 36.0 - MARGIN:
+                move_by(fps[victim], 36.0 - MARGIN - bx[2], 0)
             if bx[3] > 30.0 - MARGIN:
                 move_by(fps[victim], 0, 30.0 - MARGIN - bx[3])
             progress = True

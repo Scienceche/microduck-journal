@@ -22,7 +22,7 @@ PCB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PROJ, "imu_to_ttl.kicad
 
 CLEAR = 250000          # 0.25 mm in nm
 SLACK = 5000            # nudge a hair beyond the rule
-BOARD_W = 41000000
+BOARD_W = 36000000
 BOARD_H = 30000000
 
 

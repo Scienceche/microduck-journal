@@ -1,0 +1,1322 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "10.0.6")
+	(uuid "d10532dc-e93c-5500-9b16-6fc2a6d8f858")
+	(paper "A4")
+	(title_block
+		(title "Connectors & Test")
+		(date "2026-09-16")
+		(rev "v1.0")
+		(company "IMU-to-TTL")
+		(comment 1 "Feetech TTL slave ID 200 + trunk power hub")
+	)
+	(lib_symbols
+	(symbol "imu_ttl:JST_PH_B3B_3P"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 3.81 0)
+				(effects (font (size 1.27 1.27)))
+			)
+			(property "Value" "B3B-PH-K-S"
+				(at 0 -3.81 0)
+				(effects (font (size 1.27 1.27)))
+			)
+			(property "Footprint" "imu_to_ttl:CONN-TH_B3B-PH-K-S"
+				(at 0 0 0)
+				(effects (font (size 1.27 1.27)) (hide yes))
+			)
+			(property "Datasheet" "https://www.jst-mfg.com/product/detail_e.php?series=199"
+				(at 0 0 0)
+				(effects (font (size 1.27 1.27)) (hide yes))
+			)
+			(property "Description" "Feetech HD-1910 bus connector PH 2.0mm: 1=SIG 2=VCC 3=GND"
+				(at 0 0 0)
+				(effects (font (size 1.27 1.27)) (hide yes))
+			)
+			(symbol "JST_PH_B3B_3P_0_1"
+				(rectangle
+					(start -3.81 2.54)
+					(end 3.81 -2.54)
+					(stroke (width 0.254) (type default))
+					(fill (type background))
+				)
+				(polyline
+					(pts (xy -3.81 2.54) (xy -3.81 -2.54))
+					(stroke (width 0.254) (type default))
+					(fill (type none))
+				)
+			)
+			(symbol "JST_PH_B3B_3P_1_1"
+				(pin passive line
+					(at -7.62 1.27 0) (length 3.81)
+					(name "SIG" (effects (font (size 1.27 1.27))))
+					(number "1" (effects (font (size 1.27 1.27))))
+				)
+				(pin passive line
+					(at -7.62 0 0) (length 3.81)
+					(name "VCC" (effects (font (size 1.27 1.27))))
+					(number "2" (effects (font (size 1.27 1.27))))
+				)
+				(pin passive line
+					(at -7.62 -1.27 0) (length 3.81)
+					(name "GND" (effects (font (size 1.27 1.27))))
+					(number "3" (effects (font (size 1.27 1.27))))
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "Connector:TestPoint"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.762)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 5.08 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	(symbol "power:PWR_FLAG"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#FLG"
+				(at 0 1.905 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "PWR_FLAG"
+				(at 0 3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Special symbol for telling ERC where power comes from"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "flag power"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_0_0"
+				(pin power_out line
+					(at 0 0 90)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "PWR_FLAG_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(global_label "BUS_DATA"
+		(shape bidirectional)
+		(at 46.99 109.22 180)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify right)
+	)
+		(uuid "acd79c07-f864-5942-9fd6-a9f7fc2576c3")
+	)
+	(global_label "VBAT"
+		(shape bidirectional)
+		(at 46.99 110.49 180)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify right)
+	)
+		(uuid "9a042b6b-2b3e-5248-b57d-b440e094b439")
+	)
+	(global_label "GND"
+		(shape bidirectional)
+		(at 46.99 111.76 180)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify right)
+	)
+		(uuid "88560557-b168-5e99-af55-2e88dd83a52b")
+	)
+	(global_label "BUS_DATA"
+		(shape bidirectional)
+		(at 46.99 143.51 180)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify right)
+	)
+		(uuid "cbab1d0a-b4bf-5de8-b158-5b2d02955960")
+	)
+	(global_label "VBAT"
+		(shape bidirectional)
+		(at 46.99 144.78 180)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify right)
+	)
+		(uuid "6348a71d-b086-5f7f-85ed-5e7d519ad723")
+	)
+	(global_label "GND"
+		(shape bidirectional)
+		(at 46.99 146.05 180)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify right)
+	)
+		(uuid "d51ae9d4-6b5f-586e-bd04-b4b1d371d895")
+	)
+	(global_label "BUS_DATA"
+		(shape bidirectional)
+		(at 46.99 179.07 180)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify right)
+	)
+		(uuid "d7030719-e625-5298-a619-0c4c1272e858")
+	)
+	(global_label "VBAT"
+		(shape bidirectional)
+		(at 46.99 180.34 180)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify right)
+	)
+		(uuid "ad53d652-9acb-569e-9569-658a8468be1b")
+	)
+	(global_label "GND"
+		(shape bidirectional)
+		(at 46.99 181.61 180)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify right)
+	)
+		(uuid "0b0a105d-9932-57bd-bcbf-abe10726b739")
+	)
+	(global_label "VBAT"
+		(shape bidirectional)
+		(at 160.02 59.69 0)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify left)
+	)
+		(uuid "a68162ec-b1a5-56c0-97a0-036a21b86a27")
+	)
+	(global_label "GND"
+		(shape bidirectional)
+		(at 160.02 80.01 0)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify left)
+	)
+		(uuid "68f95cb8-e048-5507-a492-4ab5798acf66")
+	)
+	(global_label "+3V3"
+		(shape bidirectional)
+		(at 160.02 100.33 0)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify left)
+	)
+		(uuid "0bc40e06-9e7b-5ed2-9cf7-e8dd477997bb")
+	)
+	(global_label "BUS_DATA"
+		(shape bidirectional)
+		(at 160.02 119.38 0)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify left)
+	)
+		(uuid "a3a4f819-7488-5352-ad34-7d357f868889")
+	)
+	(global_label "BUS_TX"
+		(shape bidirectional)
+		(at 160.02 139.7 0)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify left)
+	)
+		(uuid "9520ccf6-5d4a-5eb2-ae06-bbe700592873")
+	)
+	(global_label "BUS_LOGIC"
+		(shape bidirectional)
+		(at 160.02 160.02 0)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify left)
+	)
+		(uuid "e9d936c0-7e16-5bfd-9bd2-66b89b17d294")
+	)
+	(global_label "NRST"
+		(shape bidirectional)
+		(at 160.02 180.34 0)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify left)
+	)
+		(uuid "31a40908-5d80-59e0-9390-20fc18a545a2")
+	)
+	(text "CONNECTORS - Feetech PH 2.0, all same pinout"
+		(exclude_from_sim no) (at 25 25 0)
+		(effects (font (size 1.2 1.2) (bold yes)) (justify left bottom))
+		(uuid "e7cf93a9-c7bc-5dec-bb1f-d6314fd9efc2")
+	)
+	(text "PINOUT: 1=SIG(TTL) 2=VCC(bus) 3=GND - HD-1910 spec A/0. NOT Dynamixel order!"
+		(exclude_from_sim no) (at 25 40 0)
+		(effects (font (size 1.2 1.2) (bold yes)) (justify left bottom))
+		(uuid "cdd48de3-3ee7-54c9-af67-567a54ede05e")
+	)
+	(text "All three bus ports are one shared net; VDD/GND pass through with wide 2oz copper."
+		(exclude_from_sim no) (at 25 55 0)
+		(effects (font (size 1.2 1.2)) (justify left bottom))
+		(uuid "c4f300a3-2973-540f-9f30-4e6862fb62f3")
+	)
+	(text "Per-port current <= 2A (PH contact). J_NECK also carries the head HAT input."
+		(exclude_from_sim no) (at 25 70 0)
+		(effects (font (size 1.2 1.2)) (justify left bottom))
+		(uuid "79c998de-13d6-513c-898d-54b3696ce59b")
+	)
+	(symbol
+		(lib_id "imu_ttl:JST_PH_B3B_3P")
+		(at 54.61 110.49 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ac4b4cde-c6bf-5a5e-a1b0-adc8c76a3121")
+		(property "Reference" "J3"
+		(at 59.61 105.99 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "J_NECK"
+		(at 59.61 114.99 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "imu_to_ttl:CONN-TH_B3B-PH-K-S"
+		(at 54.61 110.49 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 54.61 110.49 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" "neck chain 30->31->32->33 -> HAT (head)"
+		(at 54.61 110.49 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "MPN" "B3B-PH-K-S(LF)(SN)"
+		(at 54.61 110.49 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "LCSC" "C131339"
+		(at 54.61 110.49 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "891bce21-2abb-52bc-86e5-c92c03c8b2ee")
+		)
+		(pin "2"
+			(uuid "562e822c-6c53-5715-9955-90769084bd36")
+		)
+		(pin "3"
+			(uuid "cd531e35-e1a5-50df-8ed1-3c3bde01d961")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/d10532dc-e93c-5500-9b16-6fc2a6d8f858/ac4b4cde-c6bf-5a5e-a1b0-adc8c76a3121"
+					(reference "J3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "imu_ttl:JST_PH_B3B_3P")
+		(at 54.61 144.78 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6db58bd5-3ba0-58ad-af9d-1f650bdd5364")
+		(property "Reference" "J4"
+		(at 59.61 140.28 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "J_L"
+		(at 59.61 149.28 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "imu_to_ttl:CONN-TH_B3B-PH-K-S"
+		(at 54.61 144.78 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 54.61 144.78 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" "left leg 20-24"
+		(at 54.61 144.78 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "MPN" "B3B-PH-K-S(LF)(SN)"
+		(at 54.61 144.78 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "LCSC" "C131339"
+		(at 54.61 144.78 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "695840fb-4024-5548-a4a6-e3dcd599a540")
+		)
+		(pin "2"
+			(uuid "b23fba36-91d3-5702-be07-0e9341311194")
+		)
+		(pin "3"
+			(uuid "9384a052-9159-5608-ba52-f8bbbdafac34")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/d10532dc-e93c-5500-9b16-6fc2a6d8f858/6db58bd5-3ba0-58ad-af9d-1f650bdd5364"
+					(reference "J4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "imu_ttl:JST_PH_B3B_3P")
+		(at 54.61 180.34 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cebe274e-56ed-5cb7-83c3-beb8dfef7b5a")
+		(property "Reference" "J5"
+		(at 59.61 175.84 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "J_R"
+		(at 59.61 184.84 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "imu_to_ttl:CONN-TH_B3B-PH-K-S"
+		(at 54.61 180.34 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 54.61 180.34 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" "right leg 10-14"
+		(at 54.61 180.34 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "MPN" "B3B-PH-K-S(LF)(SN)"
+		(at 54.61 180.34 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "LCSC" "C131339"
+		(at 54.61 180.34 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "4181be14-18d4-5a66-b97c-401c9c7eeb7d")
+		)
+		(pin "2"
+			(uuid "14de24d0-97d2-5431-b446-2363d581f6c6")
+		)
+		(pin "3"
+			(uuid "0c7c8b50-2dbd-5b90-825e-a2bf45733331")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/d10532dc-e93c-5500-9b16-6fc2a6d8f858/cebe274e-56ed-5cb7-83c3-beb8dfef7b5a"
+					(reference "J5")
+					(unit 1)
+				)
+			)
+		)
+	)	(symbol
+		(lib_id "imu_ttl:JST_PH_B3B_3P")
+		(at 54.61 215.34 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "27727fb4-d475-42f8-87eb-c2005274d5c8")
+		(property "Reference" "J6"
+		(at 59.61 210.84 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "J_HEAD"
+		(at 59.61 219.84 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "imu_to_ttl:CONN-TH_B3B-PH-K-S"
+		(at 54.61 215.34 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 54.61 215.34 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" "right leg 10-14"
+		(at 54.61 215.34 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "MPN" "B3B-PH-K-S(LF)(SN)"
+		(at 54.61 215.34 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "LCSC" "C131339"
+		(at 54.61 215.34 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "27727fb4-d475-42f8-87eb-c2005274d5c8")
+		)
+		(pin "2"
+			(uuid "27727fb4-d475-42f8-87eb-c2005274d5c8")
+		)
+		(pin "3"
+			(uuid "27727fb4-d475-42f8-87eb-c2005274d5c8")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/27727fb4-d475-42f8-87eb-c2005274d5c8/27727fb4-d475-42f8-87eb-c2005274d5c8/27727fb4-d475-42f8-87eb-c2005274d5c8"
+					(reference "J6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 160.02 59.69 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ca497cfb-1b49-5cff-babc-143d79035eea")
+		(property "Reference" "TP1"
+		(at 165.02 55.19 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "VBAT"
+		(at 165.02 64.19 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+		(at 160.02 59.69 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 160.02 59.69 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" ""
+		(at 160.02 59.69 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "67b05976-c6a0-5e1f-bdf8-d7eeff7164e4")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/d10532dc-e93c-5500-9b16-6fc2a6d8f858/ca497cfb-1b49-5cff-babc-143d79035eea"
+					(reference "TP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 160.02 80.01 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "da3b78c1-b5d1-5962-8982-dd8345e686cd")
+		(property "Reference" "TP2"
+		(at 165.02 75.51 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "GND"
+		(at 165.02 84.51 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+		(at 160.02 80.01 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 160.02 80.01 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" ""
+		(at 160.02 80.01 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "9e6f8c16-d4a1-50db-9acc-d3278f69795a")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/d10532dc-e93c-5500-9b16-6fc2a6d8f858/da3b78c1-b5d1-5962-8982-dd8345e686cd"
+					(reference "TP2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 160.02 100.33 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1020e36d-5926-5893-a190-4fdff5baca43")
+		(property "Reference" "TP3"
+		(at 165.02 95.83 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "+3V3"
+		(at 165.02 104.83 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+		(at 160.02 100.33 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 160.02 100.33 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" ""
+		(at 160.02 100.33 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "04c30e92-db4f-5796-8614-ab47d7e69fb1")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/d10532dc-e93c-5500-9b16-6fc2a6d8f858/1020e36d-5926-5893-a190-4fdff5baca43"
+					(reference "TP3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 160.02 119.38 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5c9fd652-13f5-5ea8-b7b5-1c1b886a2ed5")
+		(property "Reference" "TP4"
+		(at 165.02 114.88 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "BUS_DATA"
+		(at 165.02 123.88 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+		(at 160.02 119.38 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 160.02 119.38 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" "primary scope point"
+		(at 160.02 119.38 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "8d697272-7f71-5de3-a5d4-15788616b45a")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/d10532dc-e93c-5500-9b16-6fc2a6d8f858/5c9fd652-13f5-5ea8-b7b5-1c1b886a2ed5"
+					(reference "TP4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 160.02 139.7 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bb580ce2-4e51-5c0c-b74c-350160fc60e4")
+		(property "Reference" "TP5"
+		(at 165.02 135.2 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "BUS_TX"
+		(at 165.02 144.2 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+		(at 160.02 139.7 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 160.02 139.7 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" ""
+		(at 160.02 139.7 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "48a967c4-da00-5a0d-ab18-757c235ea705")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/d10532dc-e93c-5500-9b16-6fc2a6d8f858/bb580ce2-4e51-5c0c-b74c-350160fc60e4"
+					(reference "TP5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 160.02 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "183aee78-d420-598d-bf62-b0be4a5a9e1c")
+		(property "Reference" "TP6"
+		(at 165.02 155.52 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "BUS_LOGIC"
+		(at 165.02 164.52 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+		(at 160.02 160.02 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 160.02 160.02 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" ""
+		(at 160.02 160.02 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "6900c635-6c0c-5566-a77d-088aaade6b32")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/d10532dc-e93c-5500-9b16-6fc2a6d8f858/183aee78-d420-598d-bf62-b0be4a5a9e1c"
+					(reference "TP6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 160.02 180.34 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e260af3f-da8f-5b18-bac8-b50e0950b7e4")
+		(property "Reference" "TP7"
+		(at 165.02 175.84 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "NRST"
+		(at 165.02 184.84 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
+		(at 160.02 180.34 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 160.02 180.34 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" ""
+		(at 160.02 180.34 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "4113efdb-a027-5e51-995e-a355611949e2")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/d10532dc-e93c-5500-9b16-6fc2a6d8f858/e260af3f-da8f-5b18-bac8-b50e0950b7e4"
+					(reference "TP7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(embedded_fonts no)
+)

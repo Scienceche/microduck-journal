@@ -24,7 +24,7 @@
 				(at 0 -3.81 0)
 				(effects (font (size 1.27 1.27)))
 			)
-			(property "Footprint" "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal"
+			(property "Footprint" "Connector_JST:JST_PH_B3B-PH-K_1x03_P2.00mm_Vertical"
 				(at 0 0 0)
 				(effects (font (size 1.27 1.27)) (hide yes))
 			)
@@ -415,6 +415,42 @@
 	)
 		(uuid "0b0a105d-9932-57bd-bcbf-abe10726b739")
 	)
+	(global_label "BUS_DATA"
+		(shape bidirectional)
+		(at 46.99 213.36 180)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify right)
+	)
+		(uuid "7a31319f-82f9-582e-94e8-8c8acf5ff55f")
+	)
+	(global_label "VBAT"
+		(shape bidirectional)
+		(at 46.99 214.63 180)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify right)
+	)
+		(uuid "e1cccbff-f3d6-520b-98c1-397029db4e57")
+	)
+	(global_label "GND"
+		(shape bidirectional)
+		(at 46.99 215.9 180)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify right)
+	)
+		(uuid "b9987712-8254-50b2-b9ed-d53384850bba")
+	)
 	(global_label "VBAT"
 		(shape bidirectional)
 		(at 160.02 59.69 0)
@@ -544,7 +580,7 @@
 		)
 	)
 	)
-		(property "Footprint" "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal"
+		(property "Footprint" "imu_to_ttl:CONN-TH_B3B-PH-K-S"
 		(at 54.61 110.49 0)
 		(effects
 		(font
@@ -571,7 +607,7 @@
 			(hide yes)
 	)
 	)
-		(property "MPN" "PZ254R-11-03P"
+		(property "MPN" "B3B-PH-K-S(LF)(SN)"
 		(at 54.61 110.49 0)
 		(effects
 		(font
@@ -580,7 +616,7 @@
 			(hide yes)
 	)
 	)
-		(property "LCSC" "C492411"
+		(property "LCSC" "C131339"
 		(at 54.61 110.49 0)
 		(effects
 		(font
@@ -632,7 +668,7 @@
 		)
 	)
 	)
-		(property "Footprint" "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal"
+		(property "Footprint" "imu_to_ttl:CONN-TH_B3B-PH-K-S"
 		(at 54.61 144.78 0)
 		(effects
 		(font
@@ -659,7 +695,7 @@
 			(hide yes)
 	)
 	)
-		(property "MPN" "PZ254R-11-03P"
+		(property "MPN" "B3B-PH-K-S(LF)(SN)"
 		(at 54.61 144.78 0)
 		(effects
 		(font
@@ -668,7 +704,7 @@
 			(hide yes)
 	)
 	)
-		(property "LCSC" "C492411"
+		(property "LCSC" "C131339"
 		(at 54.61 144.78 0)
 		(effects
 		(font
@@ -720,7 +756,7 @@
 		)
 	)
 	)
-		(property "Footprint" "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal"
+		(property "Footprint" "imu_to_ttl:CONN-TH_B3B-PH-K-S"
 		(at 54.61 180.34 0)
 		(effects
 		(font
@@ -747,7 +783,7 @@
 			(hide yes)
 	)
 	)
-		(property "MPN" "PZ254R-11-03P"
+		(property "MPN" "B3B-PH-K-S(LF)(SN)"
 		(at 54.61 180.34 0)
 		(effects
 		(font
@@ -756,7 +792,7 @@
 			(hide yes)
 	)
 	)
-		(property "LCSC" "C492411"
+		(property "LCSC" "C131339"
 		(at 54.61 180.34 0)
 		(effects
 		(font
@@ -778,6 +814,94 @@
 			(project "imu_to_ttl"
 				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/d10532dc-e93c-5500-9b16-6fc2a6d8f858/cebe274e-56ed-5cb7-83c3-beb8dfef7b5a"
 					(reference "J5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "imu_ttl:JST_PH_B3B_3P")
+		(at 54.61 214.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cbcc4736-458d-5853-bb3f-0254cf353dd8")
+		(property "Reference" "J6"
+		(at 59.61 210.13 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "J_HEAD"
+		(at 59.61 219.13 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "imu_to_ttl:CONN-TH_B3B-PH-K-S"
+		(at 54.61 214.63 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 54.61 214.63 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" "v3.7 head/spare branch"
+		(at 54.61 214.63 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "MPN" "B3B-PH-K-S(LF)(SN)"
+		(at 54.61 214.63 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "LCSC" "C131339"
+		(at 54.61 214.63 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "4eb9d9cc-123f-5b17-a390-c3e310c6ee3b")
+		)
+		(pin "2"
+			(uuid "09aad657-1d45-530c-81b0-9ae1d23a4329")
+		)
+		(pin "3"
+			(uuid "74141497-22db-5c0e-bab4-a081ce16c8a8")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/d10532dc-e93c-5500-9b16-6fc2a6d8f858/cbcc4736-458d-5853-bb3f-0254cf353dd8"
+					(reference "J6")
 					(unit 1)
 				)
 			)

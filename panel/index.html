@@ -118,6 +118,12 @@ body.fullbleed #scopeFrame{height:calc(100dvh - 58px);min-height:0;border:none;b
       <span class="chip" id="chipSflp">SFLP ?</span>
       <span class="chip" id="chipMod">|q| ?</span>
     </div>
+    <div class="row">
+      <button class="primary" id="btnImuZero">🎯 标零</button>
+      <button id="btnImuZeroClr">清除参考</button>
+      <span class="chip" id="imuZeroChip">绝对姿态</span>
+      <span class="dim">静置水平→点标零。符号约定:前倾=俯仰+ · 左倾=横滚− · 左转=偏航−;yaw 漂移~20°/min 勤标</span>
+    </div>
     <div class="row" style="margin-bottom:8px">
       <span class="dim">要看 3D 姿态 / 瀑布图 / 延迟统计，切到「仪表」页 —— 进页自动连总线，切走自动释放。</span>
     </div>
@@ -127,7 +133,7 @@ body.fullbleed #scopeFrame{height:calc(100dvh - 58px);min-height:0;border:none;b
     </div></div>
     <div class="grid2">
       <div>
-        <div class="dim">横滚 / 俯仰 / 偏航 (°)</div>
+        <div class="dim">倾角: 前倾+ / 左倾− (重力参考,免疫yaw漂移;四元数欧拉角见姿态块)</div>
         <div class="big" id="euler">- - -</div>
         <div class="dim" style="margin-top:8px">四元数 x y z w</div>
         <div class="mid" id="quat">-</div>
@@ -246,6 +252,17 @@ body.fullbleed #scopeFrame{height:calc(100dvh - 58px);min-height:0;border:none;b
     </details>
     <div id="calRows"><span class="dim">先点 ①</span></div>
   </div>
+  <div class="panel">
+    <h2>示教轨迹(录/放)</h2>
+    <div class="row">
+      <button class="danger" id="btnTeachRec">● 录制(5秒后开始·15秒自动停)</button>
+      <button id="btnTeachStop">■ 停止并存</button>
+      <input type="text" id="teachName" placeholder="轨迹名(如:下蹲)" style="width:100px">
+    </div>
+    <div class="dim">录制:扭矩自动全关 → 手扶鸭子慢速演示一遍(20Hz 记全程)→ 停止。
+      回放按录的路径走(速度滑杆=倍速%,加速度沿用)。</div>
+    <div id="trajList"><span class="dim">无轨迹</span></div>
+  </div>
   <div class="panel" id="posePanel">
     <h2>姿态库</h2>
     <div class="row">
@@ -261,6 +278,8 @@ body.fullbleed #scopeFrame{height:calc(100dvh - 58px);min-height:0;border:none;b
       <button id="btnTqAllOff">全扭矩关</button>
       <span class="dim">速度</span>
       <input type="number" id="spd" value="300" style="width:76px">
+      <span class="dim">加速度</span>
+      <input type="number" id="acc" value="25" style="width:64px">
     </div>
     <div id="servoArea"><span class="dim">先扫描；无舵机时只有 IMU 也正常</span></div>
   </div>
@@ -276,6 +295,21 @@ body.fullbleed #scopeFrame{height:calc(100dvh - 58px);min-height:0;border:none;b
 </section>
 
 <section class="page" id="pg-tools">
+  <div class="panel">
+    <h2>喇叭调试 · TLV320 → PAM8406 @ HAT J1</h2>
+    <div class="row">
+      <button class="primary" id="btnSpkInit">🔊 初始化/应用音量</button>
+      <button id="btnSpkPlay">播放测试音</button>
+      <button id="btnSpkPlay3">×3</button>
+      <span class="chip" id="spkState">未初始化</span>
+    </div>
+    <div class="row"><span class="dim" style="width:2.6em">音量</span>
+      <input type="range" id="spkGain" min="-63.5" max="0" step="0.5" value="-10" style="flex:1">
+      <span class="mid" id="spkGainV" style="width:4.6em;text-align:right">-10.0 dB</span></div>
+    <div class="dim">数字音量 0 ~ -63.5 dB(0.5 步进,0 最响)。重启后 codec 复位——先点
+      「初始化」再播;功放由电池(+BATT)供电,只插 USB-C 时无声属正常。</div>
+    <pre id="spkLog" style="max-height:90px">—</pre>
+  </div>
   <div class="panel">
     <h2>连接信息</h2>
     <div class="kv" id="infoKv"></div>
@@ -318,6 +352,22 @@ async function post(u,b){const r=await fetch(u,{method:"POST",headers:{"Content-
 const fmtU=s=>{if(s==null)return"-";const d=~~(s/86400),h=~~(s%86400/3600),m=~~(s%3600/60);return(d?d+"d ":"")+h+"h"+m+"m"};
 function chip(el,ok,txt,bad){el.className="chip "+(ok?"ok":(bad?"bad":"warn"));el.textContent=txt}
 
+/* ---- IMU 标零 ---- */
+function imuZeroShow(z){
+  const c=$("imuZeroChip");
+  c.textContent=z?"已标零(相对)":"绝对姿态";
+  c.className="chip "+(z?"ok":"");
+}
+$("btnImuZero").onclick=async()=>{
+  if(!confirm("把当前姿态设为零点?(保持鸭子静止 1 秒)"))return;
+  const j=await post("/api/imu_zero",{op:"set"});
+  if(j.ok){imuZeroShow(true);toast(`已标零(${j.samples}样本)`)}
+  else toast("失败 "+(j.err||""),1);
+};
+$("btnImuZeroClr").onclick=async()=>{
+  await post("/api/imu_zero",{op:"clear"});imuZeroShow(false);toast("已清除,恢复绝对姿态");
+};
+
 /* ---- 仪表台总线让位：进「仪表」页自动连，切走/退后台自动断 ---- */
 let scopeWs=null,scopeLoaded=false;
 function scopeWsEnsure(cb){
@@ -346,6 +396,7 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
   document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x===b));
   document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",p.id==="pg-"+b.dataset.pg));
   $("fab").style.display=(b.dataset.pg==="servo"&&servoIds.length)?"block":"none";
+  if(b.dataset.pg==="servo")trajLoad();
   document.body.classList.toggle("fullbleed",!!FULLBLEED[b.dataset.pg]);
   if(b.dataset.pg==="scope"){
     if(!scopeLoaded){scopeLoaded=true;$("scopeFrame").src="/scope/"}
@@ -392,10 +443,13 @@ async function poll(){
       chip($("chipWhoami"),i.whoami_ok,i.whoami_ok?"WHO_AM_I ✓":"WHO_AM_I ✗",!i.whoami_ok);
       chip($("chipSflp"),i.sflp_live,i.sflp_live?"融合输出中":"融合待定",!i.sflp_live);
       const ok=Math.abs(i.mod-1)<.05;chip($("chipMod"),ok,"|q| "+i.mod.toFixed(3),!ok);
-      const e=i.euler;$("euler").textContent=`${e[0]}° ${e[1]}° ${e[2]}°`;
+      const e=i.euler;
+      if(i.tilt){$("euler").textContent=`倾角 ${i.tilt[0]}° ${i.tilt[1]}° (重力参考)`;}
+      else{$("euler").textContent=`${e[0]}° ${e[1]}° ${e[2]}°`;}
       $("quat").textContent=i.quat.map(v=>v.toFixed(3)).join(" ");
       $("gyro").textContent=i.gyro_dps.map(v=>v.toFixed(0)).join(" / ");
       $("sample").textContent=i.sample_count;$("imuErr").textContent="";
+      imuZeroShow(!!i.zeroed);
       rotateCube(i.quat);
       hist.push({m:i.mod,g:Math.hypot(...i.gyro_dps)});if(hist.length>150)hist.shift();draw();
     }else{
@@ -452,7 +506,7 @@ function svcCard(id){
   const btns=d.querySelectorAll("button");
   btns[0].onclick=async()=>{const pos=+d.querySelector("input").value,spd=+$("spd").value||300;
     await post("/api/servo",{op:"torque",ids:[id],value:true});
-    const j=await post("/api/servo",{op:"move",ids:[id],value:pos,speed:spd});
+    const j=await post("/api/servo",{op:"move",ids:[id],value:pos,speed:spd,acc:+$("acc").value||25});
     toast(`${nm}→${pos}: ${j.results[id]}`)};
   btns[1].onclick=async()=>{await post("/api/servo",{op:"torque",ids:[id],value:false});toast(`${nm} 扭矩关`)};
   return d;
@@ -485,8 +539,8 @@ async function loadPoses(){
       <div class="row" style="margin:0"><button class="primary" style="min-width:52px">应用</button>
       <button class="danger" style="min-width:52px">删</button></div>`;
       const[ap,del]=d.querySelectorAll("button");
-      ap.onclick=async()=>{const j2=await post("/api/pose",{op:"apply",file:p.file,speed:+$("spd").value||300});
-        toast(j2.ok?`已下发 ${j2.moved} 关节`:"失败 "+j2.err)};
+      ap.onclick=async()=>{const j2=await post("/api/pose",{op:"apply",file:p.file,speed:+$("spd").value||300,acc:+$("acc").value||25});
+        toast(j2.ok?`已下发 ${j2.moved} 关节${j2.fixed?`(补发${j2.fixed})`:""}`:"失败 "+j2.err)};
       del.onclick=async()=>{if(!confirm(`删除姿态「${p.name}」？`))return;
         await post("/api/pose",{op:"delete",file:p.file,confirm:true});loadPoses()};
       box.appendChild(d);
@@ -500,6 +554,47 @@ $("btnPoseSave").onclick=async()=>{
   const name=$("poseName").value.trim()||"pose";
   const r=await post("/api/pose",{op:"save",name,positions});
   toast(r.ok?`已存「${name}」(${Object.keys(positions).length}关节)`:"失败");loadPoses();
+};
+
+/* ---- 示教轨迹 ---- */
+async function trajLoad(){
+  try{const j=await(await fetch("/api/teach",{cache:"no-store"})).json();
+    const box=$("trajList");box.innerHTML="";
+    if(!j.trajs||!j.trajs.length){box.innerHTML='<span class="dim">无轨迹</span>';return}
+    for(const t of j.trajs){
+      const d=document.createElement("div");d.className="pose-item";
+      d.innerHTML=`<div><b>${t.name}</b> <span class="dim">${t.frames}帧·${t.dur}s</span></div>
+        <div class="row" style="margin:0"><button class="primary" style="min-width:52px">▶${''}</button>
+        <button class="primary" style="min-width:60px" id="x">0.5x</button>
+        <button class="danger" style="min-width:52px">删</button></div>`;
+      const[play,half,del]=d.querySelectorAll("button");
+      play.onclick=async()=>{play.disabled=true;
+        try{await post("/api/teach",{op:"play",file:t.file,rate:(+$("spd").value||100)/100,acc:+$("acc").value||25});
+          toast(`${t.name} 回放完成`)}catch(e){toast("回放失败 "+e,1)}
+        play.disabled=false};
+      half.onclick=async()=>{half.disabled=true;
+        try{await post("/api/teach",{op:"play",file:t.file,rate:0.5,acc:+$("acc").value||25});
+          toast(`${t.name} 慢放完成`)}catch(e){toast("回放失败 "+e,1)}
+        half.disabled=false};
+      del.onclick=async()=>{if(!confirm(`删除轨迹「${t.name}」?`))return;
+        await post("/api/teach",{op:"delete",file:t.file});trajLoad()};
+      box.appendChild(d);
+    }
+  }catch(e){}
+}
+$("btnTeachRec").onclick=async()=>{
+  if(!confirm("点确定后 5 秒开始录制(那时才关扭矩)。现在把手放到鸭子身边准备!"))return;
+  const j=await post("/api/teach",{op:"start",delay:5,dur:15,name:$("teachName").value.trim()||"轨迹"});
+  if(j.ok){toast("5秒后开始·录15秒自动停——扶好!");
+    let n=5;const cd=setInterval(()=>{toast(n>0?(n+"…"):"开录!扶稳演示");if(n<=0)clearInterval(cd);n--;},1000);
+    setTimeout(trajLoad,21500);}
+  else toast("失败 "+(j.err||""),1);
+};
+$("btnTeachStop").onclick=async()=>{
+  const j=await post("/api/teach",{op:"stop",name:$("teachName").value.trim()||"轨迹"});
+  if(j.ok)toast(`已存 ${j.frames} 帧 / ${j.dur}s`);
+  else toast("失败 "+(j.err||""),1);
+  trajLoad();
 };
 
 /* ---- 零位校准(逐个 / 一键) ---- */
@@ -721,6 +816,26 @@ $("camExp").oninput=e=>$("camExpV").textContent=e.target.value;
 $("camGain").oninput=e=>$("camGainV").textContent=e.target.value;
 $("camExp").onchange=()=>post("/api/cam",{op:"set",exposure:+$("camExp").value}).catch(()=>{});
 $("camGain").onchange=()=>post("/api/cam",{op:"set",gain:+$("camGain").value}).catch(()=>{});
+
+/* ---- 喇叭调试 ---- */
+async function spkInit(){
+  const st=$("spkState");st.textContent="初始化中…";st.className="chip warn";
+  try{const j=await post("/api/speaker",{op:"init",gain:+$("spkGain").value});
+    $("spkLog").textContent=j.log||j.err||"";
+    st.textContent=j.ok?("已初始化 "+(j.gain).toFixed(1)+"dB"):"失败";st.className="chip "+(j.ok?"ok":"bad");
+  }catch(e){st.textContent="失败";st.className="chip bad";$("spkLog").textContent=""+e}
+}
+$("btnSpkInit").onclick=spkInit;
+async function spkPlay(n){
+  const st=$("spkState");st.textContent="播放中…";st.className="chip warn";
+  try{const j=await post("/api/speaker",{op:"play",count:n});
+    st.textContent=j.ok?"播放完成":"失败";st.className="chip "+(j.ok?"ok":"bad");
+    if(j.log||j.err)$("spkLog").textContent=j.log||j.err;
+  }catch(e){st.textContent="失败";st.className="chip bad"}
+}
+$("btnSpkPlay").onclick=()=>spkPlay(1);
+$("btnSpkPlay3").onclick=()=>spkPlay(3);
+$("spkGain").oninput=e=>$("spkGainV").textContent=(+e.target.value).toFixed(1)+" dB";
 
 /* boot */
 if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js").catch(()=>{});

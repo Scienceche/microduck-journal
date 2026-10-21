@@ -6,7 +6,7 @@ KIPY="C:/Users/c1349/AppData/Local/Programs/KiCad/10.0.7/bin/python.exe"
 cd "$(dirname "$0")/.."
 NETLIST=$(mktemp /tmp/imu_ttl.XXXX.net)
 kicad-cli sch export netlist --format kicadsexpr --output "$NETLIST" imu_to_ttl.kicad_sch > /dev/null
-"$KIPY" tools/gen_board.py         2>/dev/null
+"$KIPY" tools/gen_board_v37.py    2>/dev/null
 "$KIPY" tools/assign_netlist.py "$NETLIST" 2>/dev/null
 "$KIPY" tools/place_board.py       2>/dev/null
 "$KIPY" tools/pack_loose.py        2>/dev/null

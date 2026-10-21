@@ -92,7 +92,13 @@ _orig_connect = SESSION.connect
 _orig_disconnect = SESSION.disconnect
 
 
+_scope_gate = {"last_rel": 0.0}
+
+
 def _scope_connect(*a, **k):
+    # 防抖:释放后 3 秒内拒绝重连,防仪表页自动重连抽打串口(曾把面板打到 92%CPU 卡死)
+    if time.time() - _scope_gate["last_rel"] < 3.0:
+        raise RuntimeError("scope 重连过快(防抖 3s)")
     _panel_bus_close()
     _scope_hold.set()
     try:
@@ -112,6 +118,7 @@ def _scope_disconnect():
         return _orig_disconnect()
     finally:
         _scope_hold.clear()
+        _scope_gate["last_rel"] = time.time()
         print("[arbiter] 仪表台已释放总线，面板恢复", flush=True)
 
 
@@ -169,6 +176,44 @@ def bus_status():
 
 # ---------------- IMU ----------------
 
+def _qmul(a, b):
+    x1, y1, z1, w1 = a
+    x2, y2, z2, w2 = b
+    return [w1 * x2 + x1 * w2 + y1 * z2 - z1 * y2,
+            w1 * y2 - x1 * z2 + y1 * w2 + z1 * x2,
+            w1 * z2 + x1 * y2 - y1 * x2 + z1 * w2,
+            w1 * w2 - x1 * x2 - y1 * y2 - z1 * z2]
+
+
+def _qinv(q):
+    return [-q[0], -q[1], -q[2], q[3]]
+
+
+# IMU 标零参考(q0,板端重启保留;yaw 无磁力计是相对参考,漂移 ~20°/min 需勤标)
+IMU_REF_FILE = os.path.join(BASE, "imu_ref.json")
+_imu_ref = None
+_imu_acc0 = None
+try:
+    with open(IMU_REF_FILE) as _f:
+        _d = json.load(_f)
+        _imu_ref = _d.get("q0")
+        _imu_acc0 = _d.get("acc0")
+except Exception:
+    pass
+
+# 1g 对应的原始计数(±2g 量程 16bit,实测标定 ~8174)
+G_COUNTS = 8174.0
+
+
+def _accel_tilt(ax, ay):
+    """加速度计重力倾角(度),对 yaw 漂移免疫——竖装板子的可靠倾角。
+    返回 None(未标零)或 [前倾°, 左倾°](线性近似,±20° 内误差 <6%)。"""
+    if not _imu_acc0:
+        return None
+    k = 57.2958 / G_COUNTS
+    return [round((ax - _imu_acc0[0]) * k, 1), round((ay - _imu_acc0[1]) * k, 1)]
+
+
 def read_imu():
     bus = get_bus()
     if bus is None:
@@ -184,6 +229,11 @@ def read_imu():
     ax, ay = struct.unpack_from("<2h", p, 16)
     w = math.sqrt(max(0.0, 1.0 - (qx * qx + qy * qy + qz * qz)))
     mod = math.sqrt(qx * qx + qy * qy + qz * qz + w * w)
+    quat_raw = [qx, qy, qz, w]
+    quat = quat_raw
+    if _imu_ref:
+        quat = _qmul(_qinv(_imu_ref), quat_raw)
+    qx, qy, qz, w = quat
     roll = math.degrees(math.atan2(2 * (w * qx + qy * qz), 1 - 2 * (qx * qx + qy * qy)))
     pitch = math.degrees(math.asin(max(-1.0, min(1.0, 2 * (w * qy - qz * qx)))))
     yaw = math.degrees(math.atan2(2 * (w * qz + qx * qy), 1 - 2 * (qy * qy + qz * qz)))
@@ -192,12 +242,79 @@ def read_imu():
         "ok": True, "id": IMU_ID,
         "whoami_ok": bool(status & 1), "sflp_live": bool(status & 2),
         "status_raw": status, "sample_count": sample_count,
-        "quat": [round(qx, 4), round(qy, 4), round(qz, 4), round(w, 4)],
+        "quat": [round(c, 4) for c in quat],
+        "quat_raw": [round(c, 4) for c in quat_raw],
+        "zeroed": bool(_imu_ref),
         "mod": round(mod, 4),
         "euler": [round(roll, 1), round(pitch, 1), round(yaw, 1)],
         "gyro_dps": [round(gx * k, 1), round(gy * k, 1), round(gz * k, 1)],
         "accel_raw": [ax, ay],
+        "tilt": _accel_tilt(ax, ay),
     }
+
+
+async def h_imu_zero(request):
+    return web.json_response({"zeroed": bool(_imu_ref), "q0": _imu_ref})
+
+
+async def h_imu_zero_post(request):
+    """IMU 标零:捕获当前姿态(1s 四元数均值)为参考;clear 清除。"""
+    global _imu_ref, _imu_acc0
+    try:
+        b = await request.json()
+    except Exception:
+        b = {}
+    op = b.get("op")
+    if op == "clear":
+        _imu_ref = None
+        _imu_acc0 = None
+        try:
+            os.remove(IMU_REF_FILE)
+        except OSError:
+            pass
+        return web.json_response({"ok": True, "zeroed": False})
+    if op == "set":
+        qs = []
+        t_end = time.time() + 1.0
+        while time.time() < t_end and len(qs) < 25:
+            r = read_imu()
+            if r.get("ok"):
+                qs.append(r["quat_raw"])
+            await asyncio.sleep(0.04)
+        if not qs:
+            return web.json_response({"ok": False, "err": "读不到 IMU"})
+        q0 = qs[0][:]
+        acc = [0.0, 0.0, 0.0, 0.0]
+        for q in qs:
+            if sum(a * b for a, b in zip(q, q0)) < 0:
+                q = [-c for c in q]
+            for i in range(4):
+                acc[i] += q[i]
+        n = math.sqrt(sum(c * c for c in acc)) or 1.0
+        _imu_ref = [round(c / n, 6) for c in acc]
+        ax0 = ay0 = 0
+        cn = 0
+        for r in ():
+            pass
+        # 采加速度基线
+        aa = []
+        t_end = time.time() + 0.6
+        while time.time() < t_end and len(aa) < 12:
+            r2 = read_imu()
+            if r2.get("ok"):
+                aa.append(r2["accel_raw"])
+            await asyncio.sleep(0.04)
+        if aa:
+            _imu_acc0 = [round(sum(v[0] for v in aa) / len(aa)),
+                         round(sum(v[1] for v in aa) / len(aa))]
+        try:
+            with open(IMU_REF_FILE, "w") as f:
+                json.dump({"q0": _imu_ref, "acc0": _imu_acc0,
+                           "time": time.strftime("%F %T")}, f)
+        except OSError:
+            pass
+        return web.json_response({"ok": True, "zeroed": True, "q0": _imu_ref,
+                                  "acc0": _imu_acc0, "samples": len(qs)})
 
 
 def imu_identity():
@@ -274,7 +391,51 @@ def scan_ids(lo, hi, extra=(IMU_ID,)):
     return found
 
 
-def servo_action(op, ids, value=None, speed=None):
+# ---- 速度单位标定 + 速度换算 + 回读重发(参考 servo-web) ----
+_speed_cfg = {"unit": 50, "done": False}
+
+
+def _speed_unit(bus):
+    if not _speed_cfg["done"]:
+        try:
+            ph = bus.read_u8(10, 18)
+            _speed_cfg["unit"] = 1 if (ph & 0x04) else 50
+            print("[calib] 相位=%#x → SPEED_UNIT=%d 步/格" % (ph, _speed_cfg["unit"]), flush=True)
+        except Exception:
+            _speed_cfg["unit"] = 50
+        _speed_cfg["done"] = True
+    return _speed_cfg["unit"]
+
+
+def _vreg(steps_per_s, bus):
+    u = _speed_unit(bus)
+    return max(3, min(32767, int(steps_per_s * 1.2 / u)))
+
+
+def _verify_resend(bus, want, rounds=4):
+    """读回 42 号目标,偏差>5 counts 单播重发;返回修复数。"""
+    fixed = 0
+    for _ in range(rounds):
+        bad = []
+        for sid, pos in want.items():
+            got = bus.read_goal(sid)
+            if got is None or abs(got - pos) > 5:
+                bad.append((sid, pos))
+        if not bad:
+            return fixed
+        for sid, pos in bad:
+            try:
+                bus.write_u16(sid, 42, pos)
+                fixed += 1
+            except feetech.BusError:
+                pass
+    return fixed
+
+
+MOVE_ACC = int(os.environ.get("DUCK_ACC", "25"))  # 8.7°/s²/count × 25 ≈ 218°/s²
+
+
+def servo_action(op, ids, value=None, speed=None, acc=None, **kw):
     bus = get_bus()
     if bus is None:
         raise RuntimeError(_bus_err)
@@ -320,9 +481,14 @@ def servo_action(op, ids, value=None, speed=None):
                 bus.write_u8(sid, 40, 1 if value else 0)
             elif op == "move":
                 pos = max(0, min(4095, int(value)))
-                if speed is not None:
-                    bus.write_u16(sid, 46, max(0, min(3400, int(speed))))
-                bus.write_u16(sid, 42, pos)
+                sp = max(0, min(3400, int(speed)) if speed is not None else 300)
+                acc = max(0, min(255, int(acc if acc is not None else MOVE_ACC)))
+                try:
+                    bus.move_to(sid, pos, sp, acc)
+                    out[sid] = "ok"
+                except feetech.BusError as e:
+                    out[sid] = str(e)
+                continue
             elif op == "speed":
                 bus.write_u16(sid, 46, max(0, min(3400, int(value))))
             elif op == "reboot":
@@ -369,7 +535,7 @@ def pose_save(name, positions):
     return fn
 
 
-def pose_apply(fname, speed=300):
+def pose_apply(fname, speed=300, acc=None):
     path = os.path.join(POSE_DIR, os.path.basename(fname))
     if not os.path.isfile(path):
         raise FileNotFoundError(fname)
@@ -378,9 +544,55 @@ def pose_apply(fname, speed=300):
     if rows:
         ids = [i for i, _ in rows]
         servo_action("torque", ids, True)
-        for sid, pos in rows:
-            servo_action("move", [sid], pos, speed)
-    return len(rows)
+        # ── 主机端 min-jerk 轨迹流(25Hz sync_write)──
+        # 每一瞬间全体关节严格等比 → 无"上关节先动"失配;亦即步态原语
+        bus = get_bus()
+        cur = servo_action("states", ids)
+        cp = {i: (cur.get(i) or {}).get("pos", 2048) for i in ids}
+        tgt = {sid: pos for sid, pos in rows}
+        dmax = max(abs(tgt[s] - cp[s]) for s in ids) or 1
+        dmax_deg = dmax * 0.0879
+        v = max(20.0, float(speed))          # 速度滑杆 → 峰值 °/s
+        T = max(0.4, 1.875 * dmax_deg / v)   # min-jerk 峰值速度=1.875·d/T
+        # 舵机侧限速给足余量(峰值计数率×1.5),加速度适中
+        v_reg = min(3400, int(v / 0.0879 / 50 * 1.5) + 40)
+        accv = max(0, min(255, int(acc if acc is not None else MOVE_ACC)))
+        bus.sync_write(46, 2, [(s, struct.pack("<H", v_reg)) for s in ids])
+        bus.sync_write(41, 1, [(s, bytes([accv])) for s in ids])
+        # 一次性限速(峰值×2余量)+适度加速度——逐帧改速度会"走停走"发抖,弃用
+        v_reg = min(3400, int(v / 0.0879 / _speed_unit(bus) * 2.0) + 40)
+        accv = max(0, min(255, int(acc if acc is not None else MOVE_ACC)))
+        try:
+            bus.sync_write(46, 2, [(s2, struct.pack("<H", v_reg)) for s2 in ids])
+            bus.sync_write(41, 1, [(s2, bytes([accv])) for s2 in ids])
+        except feetech.BusError:
+            pass
+        t0 = time.time()
+        dt = 0.05
+        frame_i = 0
+        while True:
+            tau = (time.time() - t0) / T
+            if tau >= 1.0:
+                break
+            s10 = tau ** 3 * (10 - 15 * tau + 6 * tau * tau)
+            frame = [(s2, int(round(cp[s2] + (tgt[s2] - cp[s2]) * s10))) for s2 in ids]
+            try:
+                if frame_i == 0:     # 首帧单播带应答,保证左右同时起步
+                    for sid, p in frame:
+                        try:
+                            bus.write_u16(sid, 42, p)
+                        except feetech.BusError:
+                            pass
+                else:
+                    bus.sync_write(42, 2,
+                                   [(s2, struct.pack("<H", p)) for s2, p in frame])
+            except feetech.BusError:
+                pass
+            frame_i += 1
+            time.sleep(dt)
+        # 终值:回读重发(广播无应答,单播补发到位)
+        fixed = _verify_resend(bus, tgt)
+    return {"moved": len(rows), "verified": len(ids), "fixed": fixed}
 
 
 def pose_delete(fname):
@@ -739,6 +951,226 @@ async def h_cam_post(request):
     return web.json_response({"ok": False, "err": "unknown op %s" % op})
 
 
+# ---------------- 喇叭 (TLV320AIC3104 用户态 init + aplay) ----------------
+# codec 由 /root/audio/tlv320_init.py 初始化(重启后复位,必须重跑);音量=DAC 数字增益
+# 0 ~ -63.5 dB(0.5 步进)。功放 PAM8406D 由 +BATT 供电,USB-C 供电时无声属正常。
+_spk = {"inited": False, "gain": -10.0, "last": ""}
+
+
+async def _spk_run(cmd, timeout=25):
+    p = await asyncio.create_subprocess_exec(
+        *cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.STDOUT)
+    try:
+        out, _ = await asyncio.wait_for(p.communicate(), timeout)
+    except asyncio.TimeoutError:
+        p.kill()
+        await p.communicate()
+        raise RuntimeError("子进程超时")
+    return p.returncode, out.decode(errors="replace").strip()
+
+
+async def h_spk(request):
+    return web.json_response(_spk)
+
+
+async def h_spk_post(request):
+    try:
+        b = await request.json()
+    except Exception:
+        b = {}
+    op = b.get("op")
+    try:
+        if op == "init":
+            g = min(0.0, max(-63.5, float(b.get("gain", _spk["gain"]))))
+            rc, out = await _spk_run(
+                ["python3", "/root/audio/tlv320_init.py", "10", str(g)], 25)
+            _spk["inited"] = rc == 0
+            _spk["gain"] = g
+            _spk["last"] = out[-200:]
+            return web.json_response({"ok": rc == 0, "gain": g, "log": out[-300:]})
+        if op == "play":
+            n = min(3, max(1, int(b.get("count", 1))))
+            for _ in range(n):
+                rc, out = await _spk_run(
+                    ["aplay", "-q", "-D", "hw:HATTLV320,0", "/root/audio/test440.wav"], 15)
+                if rc != 0:
+                    return web.json_response({"ok": False, "log": out[-200:]})
+                await asyncio.sleep(0.3)
+            _spk["last"] = "played x%d" % n
+            return web.json_response({"ok": True, "played": n, "gain": _spk["gain"]})
+    except Exception as e:
+        return web.json_response({"ok": False, "err": str(e)})
+    return web.json_response({"ok": False, "err": "unknown op %s" % op})
+
+
+
+# ---------------- 示教录制 / 轨迹回放 ----------------
+# 手扶演示(扭矩关)→ 高频记录关节角 → 按录制的路径回放(天然平衡路径)。
+# 这也是步态示教的原语:迈步序列同样录/放。
+_teach = {"rec": False, "t0": 0.0, "dt": 0.05, "frames": [], "th": None,
+          "err": ""}
+TRAJ_DIR = os.path.join(BASE, "trajectories")
+os.makedirs(TRAJ_DIR, exist_ok=True)
+
+
+def _teach_worker(delay=0.0, dur=0.0, name="轨迹"):
+    ids = list(GROUP_IDS) if "GROUP_IDS" in globals() else         list(range(10, 15)) + list(range(20, 25)) + list(range(30, 35))
+    if delay > 0:
+        time.sleep(delay)          # 倒计时:点击后给用户时间抓手(扭矩尚未关)
+    _teach["t0"] = time.time()
+    servo_action("torque", ids, False)   # 此刻才扭矩关,开始录
+    while _teach["rec"]:
+        t = time.time() - _teach["t0"]
+        try:
+            st = servo_action("states", ids)
+            frame = [t]
+            for i in ids:
+                s = st.get(i)
+                frame.append(s["pos"] if s else None)
+            if all(p is not None for p in frame[1:]):
+                _teach["frames"].append(frame)
+        except Exception as e:
+            _teach["err"] = str(e)
+        if dur > 0 and t >= dur:
+            break                 # 到时自动停
+        time.sleep(_teach["dt"])
+    # 自动停:直接存档(worker 线程内完成,无需用户点停止)
+    if dur > 0 and _teach["rec"]:
+        _teach["rec"] = False
+        n = len(_teach["frames"])
+        if n >= 5:
+            fn = "%s-%s.json" % (name, time.strftime("%Y%m%d-%H%M%S"))
+            json.dump({"name": name, "dt": _teach["dt"], "frames": _teach["frames"]},
+                      open(os.path.join(TRAJ_DIR, fn), "w"), ensure_ascii=False)
+            _teach["last_auto"] = fn
+
+
+def trajs_list():
+    out = []
+    for f in sorted(os.listdir(TRAJ_DIR)):
+        if f.endswith(".json"):
+            try:
+                d = json.load(open(os.path.join(TRAJ_DIR, f), encoding="utf-8"))
+                out.append({"file": f, "name": d.get("name", f),
+                            "frames": len(d.get("frames", [])),
+                            "dur": round(d["frames"][-1][0], 1) if d.get("frames") else 0})
+            except Exception:
+                pass
+    return out
+
+
+def traj_play(fname, rate=1.0, acc=None):
+    path = os.path.join(TRAJ_DIR, os.path.basename(fname))
+    d = json.load(open(path, encoding="utf-8"))
+    frames = d["frames"]
+    if len(frames) < 2:
+        raise ValueError("轨迹太短")
+    ids = list(range(10, 15)) + list(range(20, 25)) + list(range(30, 35))
+    n = len(ids)
+    servo_action("torque", ids, True)
+    bus = get_bus()
+    dur = frames[-1][0] / max(0.1, rate)
+    dmax = max(max(f) - min(f) for f in zip(*[[fr[i + 1] for fr in frames] for i in range(n)]))
+    v_reg = min(3400, int(dmax / dur / _speed_unit(bus) * 2.0) + 40)
+    accv = max(0, min(255, int(acc if acc is not None else MOVE_ACC)))
+    try:
+        bus.sync_write(46, 2, [(s2, struct.pack("<H", v_reg)) for s2 in ids])
+        bus.sync_write(41, 1, [(s2, bytes([accv])) for s2 in ids])
+    except feetech.BusError:
+        pass
+    t0 = time.time()
+    k = 0
+    traj_i = 0
+    lastp = None
+    dt = 0.05
+    while True:
+        t = (time.time() - t0) * max(0.1, rate)
+        if k + 1 >= len(frames):
+            break
+        while k + 2 < len(frames) and frames[k + 1][0] < t:
+            k += 1
+        f0, f1 = frames[k], frames[k + 1]
+        span = max(1e-3, f1[0] - f0[0])
+        u = max(0.0, min(1.0, (t - f0[0]) / span))
+        pos = [int(round(a + (b - a) * u)) for a, b in zip(f0[1:], f1[1:])]
+        frame = list(zip(ids, pos))
+        try:
+            if traj_i == 0:
+                for sid, p in frame:
+                    try:
+                        bus.write_u16(sid, 42, p)
+                    except feetech.BusError:
+                        pass
+            else:
+                bus.sync_write(42, 2,
+                               [(sid, struct.pack("<H", p)) for sid, p in frame])
+        except feetech.BusError:
+            pass
+        traj_i += 1
+        time.sleep(dt)
+    # 终值 + ① 回读重发
+    want = {ids[si]: int(p) for si, p in enumerate(frames[-1][1:])}
+    fixed = _verify_resend(bus, want)
+    return {"moved": len(frames), "fixed": fixed}
+
+
+async def h_teach(request):
+    return web.json_response({"rec": _teach["rec"],
+                              "frames": len(_teach["frames"]),
+                              "err": _teach["err"],
+                              "trajs": trajs_list()})
+
+
+async def h_teach_post(request):
+    import threading
+    try:
+        b = await request.json()
+    except Exception:
+        b = {}
+    op = b.get("op")
+    if op == "start":
+        if _teach["rec"]:
+            return web.json_response({"ok": False, "err": "已在录制"})
+        delay = min(10.0, max(0.0, float(b.get("delay", 0))))
+        dur = min(60.0, max(0.0, float(b.get("dur", 0))))
+        name = b.get("name", "").strip() or "轨迹"
+        _teach.update(rec=True, t0=time.time(), frames=[], err="", last_auto=None)
+        _teach["th"] = threading.Thread(
+            target=_teach_worker, args=(delay, dur, name), daemon=True)
+        _teach["th"].start()
+        return web.json_response({"ok": True, "rec": True,
+                                  "delay": delay, "dur": dur,
+                                  "msg": "%.0f秒后开始,录%.0f秒自动停" % (delay, dur) if dur else "已开始"})
+    if op == "stop":
+        name = b.get("name", "").strip() or "轨迹"
+        _teach["rec"] = False
+        if _teach["th"]:
+            _teach["th"].join(timeout=2)
+        n = len(_teach["frames"])
+        if n < 5:
+            return web.json_response({"ok": False, "err": "样本太少(%d)" % n})
+        fn = "%s-%s.json" % (name, time.strftime("%Y%m%d-%H%M%S"))
+        json.dump({"name": name, "dt": _teach["dt"], "frames": _teach["frames"]},
+                  open(os.path.join(TRAJ_DIR, fn), "w"), ensure_ascii=False)
+        return web.json_response({"ok": True, "file": fn, "frames": n,
+                                  "dur": round(_teach["frames"][-1][0], 1)})
+    if op == "play":
+        try:
+            r = traj_play(b.get("file"), float(b.get("rate", 1.0)), b.get("acc"))
+            if isinstance(r, dict):
+                return web.json_response({"ok": True, "frames": r["moved"],
+                                          "fixed": r.get("fixed", 0)})
+            return web.json_response({"ok": True, "frames": r})
+        except Exception as e:
+            return web.json_response({"ok": False, "err": str(e)})
+    if op == "delete":
+        f = os.path.join(TRAJ_DIR, os.path.basename(b.get("file", "")))
+        if os.path.isfile(f):
+            os.remove(f)
+        return web.json_response({"ok": True})
+    return web.json_response({"ok": False, "err": "unknown op"})
+
+
 # ---------------- HTTP（aiohttp） ----------------
 
 def _no_store(resp):
@@ -805,8 +1237,69 @@ async def h_post(request):
                     fn = pose_save(b.get("name", "pose"), b.get("positions", {}))
                     return {"ok": True, "file": fn, "poses": poses_list()}
                 if op == "apply":
-                    n = pose_apply(b.get("file"), b.get("speed", 300))
-                    return {"ok": True, "moved": n}
+                    r = pose_apply(b.get("file"), b.get("speed", 300), b.get("acc"))
+                    if isinstance(r, dict):
+                        return {"ok": True, **r}
+                    return {"ok": True, "moved": r}
+                if op == "shift":
+                    # 重校零后批量平移已存姿态(参考 shift_saved_poses)
+                    # deltas: {"14": 12, "24": -12, ...};备份到 poses/.trash-pre-shift/
+                    deltas = {int(k): int(v) for k, v in (b.get("deltas") or {}).items()}
+                    if not deltas or not b.get("confirm"):
+                        return {"ok": False, "err": "需要 deltas 和 confirm:true"}
+                    import shutil
+                    bk = os.path.join(POSE_DIR, ".trash-pre-shift")
+                    os.makedirs(bk, exist_ok=True)
+                    n = 0
+                    for f in os.listdir(POSE_DIR):
+                        if not f.endswith(".json"):
+                            continue
+                        p = os.path.join(POSE_DIR, f)
+                        try:
+                            doc = json.load(open(p, encoding="utf-8"))
+                        except Exception:
+                            continue
+                        shutil.copy(p, os.path.join(bk, f))
+                        ch = False
+                        for r in doc.get("rows", []):
+                            if r["id"] in deltas:
+                                r["pos"] = max(0, min(4095, r["pos"] + deltas[r["id"]]))
+                                r["deg"] = round((r["pos"] - 2048) * 0.0879, 1)
+                                ch = True
+                        if ch:
+                            json.dump(doc, open(p, "w", encoding="utf-8"),
+                                      ensure_ascii=False)
+                            n += 1
+                    json.dump(deltas, open(os.path.join(bk, ".last_shift.json"), "w"))
+                    return {"ok": True, "shifted": n, "backup": bk}
+                if op == "unshift":
+                    import shutil
+                    bk = os.path.join(POSE_DIR, ".trash-pre-shift")
+                    lf = os.path.join(bk, ".last_shift.json")
+                    if not os.path.isfile(lf):
+                        return {"ok": False, "err": "无可撤销的平移"}
+                    deltas = {int(k): -int(v) for k, v in json.load(open(lf)).items()}
+                    n = 0
+                    for f in os.listdir(POSE_DIR):
+                        p = os.path.join(POSE_DIR, f)
+                        if not f.endswith(".json"):
+                            continue
+                        try:
+                            doc = json.load(open(p, encoding="utf-8"))
+                        except Exception:
+                            continue
+                        ch = False
+                        for r in doc.get("rows", []):
+                            if r["id"] in deltas:
+                                r["pos"] = max(0, min(4095, r["pos"] + deltas[r["id"]]))
+                                r["deg"] = round((r["pos"] - 2048) * 0.0879, 1)
+                                ch = True
+                        if ch:
+                            json.dump(doc, open(p, "w", encoding="utf-8"),
+                                      ensure_ascii=False)
+                            n += 1
+                    os.remove(lf)
+                    return {"ok": True, "restored": n}
                 if op == "delete":
                     if not b.get("confirm"):
                         return {"ok": False, "err": "需要 confirm:true"}
@@ -886,6 +1379,12 @@ def build_app():
     r.add_get("/api/scope_defaults", h_scope_defaults)
     r.add_get("/api/tof", h_tof)
     r.add_post("/api/tof", h_tof_post)
+    r.add_get("/api/speaker", h_spk)
+    r.add_post("/api/speaker", h_spk_post)
+    r.add_get("/api/imu_zero", h_imu_zero)
+    r.add_post("/api/imu_zero", h_imu_zero_post)
+    r.add_get("/api/teach", h_teach)
+    r.add_post("/api/teach", h_teach_post)
     r.add_get("/api/cam", h_cam)
     r.add_post("/api/cam", h_cam_post)
     r.add_get("/cam/last.jpg", h_cam_img)

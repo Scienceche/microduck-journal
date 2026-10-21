@@ -1,0 +1,130 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-21T16:23:43 **
+** Report includes: Errors **
+
+** Found 11 DRC violations **
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(2.3000 mm, 16.0000 mm): Footprint J1
+    @(5.0000 mm, 12.5000 mm): Footprint F1
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1927 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(0.0000 mm, 7.5000 mm): Segment on Edge.Cuts
+    @(3.5645 mm, 7.8495 mm): Track [SPI_CS] on B.Cu, length 0.3415 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.2060 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(0.0000 mm, 7.5000 mm): Segment on Edge.Cuts
+    @(3.8060 mm, 7.6080 mm): Track [SPI_CS] on B.Cu, length 0.3715 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.2060 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(3.5000 mm, 7.5000 mm): Segment on Edge.Cuts
+    @(3.8060 mm, 7.2365 mm): Track [SPI_CS] on B.Cu, length 5.2685 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1714 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(3.5000 mm, 22.5000 mm): Segment on Edge.Cuts
+    @(1.7950 mm, 21.0250 mm): Track [VBAT_LOGIC] on F.Cu, length 1.5607 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1714 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(3.5000 mm, 22.5000 mm): Segment on Edge.Cuts
+    @(2.8986 mm, 22.1286 mm): Track [VBAT_LOGIC] on F.Cu, length 1.3050 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1966 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(18.8909 mm, 28.3214 mm): Via [VBAT_LOGIC] on F.Cu - B.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(3.4250 mm, 28.1750 mm): Pad 1 [VBAT] of F2 on F.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(22.3500 mm, 27.6000 mm): Pad 1 [VBAT] of D1 on F.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(26.6500 mm, 27.6000 mm): Pad 2 [GND] of D1 on F.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.0000 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(3.5000 mm, 7.5000 mm): Segment on Edge.Cuts
+    @(3.6000 mm, 2.2750 mm): Pad 2 [GND] of R9 on F.Cu
+
+** Found 17 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(7.4133 mm, 19.6517 mm): Track [VBAT] on F.Cu, length 2.1826 mm
+    @(3.4250 mm, 28.1750 mm): Pad 1 [VBAT] of F2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(22.3500 mm, 27.6000 mm): Pad 1 [VBAT] of D1 on F.Cu
+    @(21.3718 mm, 19.8971 mm): Track [VBAT] on B.Cu, length 3.1298 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(32.3000 mm, 13.8000 mm): Track [+3V3] on F.Cu, length 2.4907 mm
+    @(29.6000 mm, 10.5500 mm): Pad 8 [+3V3] of U3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(1.9500 mm, 2.2750 mm): Pad 1 [Q1_GATE] of R9 on F.Cu
+    @(7.7500 mm, 7.1643 mm): Track [Q1_GATE] on B.Cu, length 2.4855 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(3.6000 mm, 2.2750 mm): Pad 2 [GND] of R9 on F.Cu
+    @(5.6000 mm, 9.0250 mm): Track [GND] on F.Cu, length 1.3994 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(17.5000 mm, 15.9125 mm): Pad 7 [GND] of U2 on F.Cu
+    @(17.0000 mm, 15.9125 mm): Pad 6 [GND] of U2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(19.6000 mm, 15.0017 mm): Track [GND] on B.Cu, length 1.2277 mm
+    @(17.5000 mm, 15.9125 mm): Pad 7 [GND] of U2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(26.6500 mm, 27.6000 mm): Pad 2 [GND] of D1 on F.Cu
+    @(24.3011 mm, 24.6739 mm): Track [GND] on F.Cu, length 1.6355 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(29.4750 mm, 8.6930 mm): Track [GND] on B.Cu, length 1.2799 mm
+    @(32.4000 mm, 9.0500 mm): Pad 4 [GND] of U3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(30.7500 mm, 19.7750 mm): Pad 1 [V3V3_IMU] of C12 on F.Cu
+    @(17.7927 mm, 16.4530 mm): Track [V3V3_IMU] on F.Cu, length 0.5230 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(22.4254 mm, 15.8629 mm): Track [RX_EN] on F.Cu, length 0.3000 mm
+    @(29.6000 mm, 10.0500 mm): Pad 7 [RX_EN] of U3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(15.8375 mm, 14.2500 mm): Pad 1 [SPI_MISO] of U2 on F.Cu
+    @(28.3625 mm, 20.6250 mm): Pad 13 [SPI_MISO] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(15.8375 mm, 15.7500 mm): Pad 4 [IMU_INT1] of U2 on F.Cu
+    @(22.6375 mm, 19.9750 mm): Pad 7 [IMU_INT1] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(17.0000 mm, 14.0875 mm): Pad 13 [SPI_SCK] of U2 on F.Cu
+    @(28.3625 mm, 21.2750 mm): Pad 12 [SPI_SCK] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(16.5000 mm, 14.0875 mm): Pad 14 [SPI_MOSI] of U2 on F.Cu
+    @(28.3625 mm, 19.9750 mm): Pad 14 [SPI_MOSI] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(22.6375 mm, 21.9250 mm): Pad 10 [MCU_RX] of U1 on F.Cu
+    @(32.4000 mm, 9.5500 mm): Pad 3 [MCU_RX] of U3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(15.7595 mm, 8.2655 mm): Track [NRST] on F.Cu, length 1.3087 mm
+    @(10.3500 mm, 12.2750 mm): Pad 2 [NRST] of R2 on F.Cu
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

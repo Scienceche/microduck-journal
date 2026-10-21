@@ -157,6 +157,26 @@ class FeetechBus:
     def write_u8(self, sid, addr, v):
         return self.write(sid, addr, [v & 0xFF])
 
+    def move_to(self, sid, pos, speed, acc):
+        """平滑运动:ACC(41, 8.7°/s²/count) + 速度(46) + 目标位置(42)。
+        acc=0 表示舵机最大加速度(猛);参考 hls-debugger write_pos_ex。"""
+        with self._io:
+            self._send(sid, WRITE, bytes([41, 1, acc & 0xFF]))
+            try:
+                self._read_status(sid)
+            except BusError:
+                pass
+            self._send(sid, WRITE, bytes([46]) + struct.pack("<H", speed & 0xFFFF))
+            try:
+                self._read_status(sid)
+            except BusError:
+                pass
+            self._send(sid, WRITE, bytes([42]) + struct.pack("<H", pos & 0xFFFF))
+            try:
+                return self._read_status(sid)
+            except BusError:
+                return None
+
     def write_u16(self, sid, addr, v):
         return self.write(sid, addr, struct.pack("<H", v & 0xFFFF))
 
@@ -165,6 +185,29 @@ class FeetechBus:
 
     def read_u16(self, sid, addr):
         return struct.unpack("<H", self.read(sid, addr, 2)[1])[0]
+
+    def write_pos_ex(self, sid, pos, speed, acc=0, torque=0):
+        """41 起 7 字节:acc(1)+pos(2)+torque/time(2)+speed(2)。
+        与官方 replica servo-web 的 goals_profile 同构(梯形曲线舵机端执行)。"""
+        data = bytes([max(0, min(254, acc))]) + struct.pack("<H", max(0, min(65535, pos))) +             struct.pack("<H", max(0, min(65535, torque))) + struct.pack("<H", max(0, min(65535, speed)))
+        return self.write(sid, 41, data)
+
+    def sync_write_pos_ex(self, id_values):
+        """SYNC_WRITE 41 起 7 字节/舵机。id_values: [(id, (pos, speed, acc)), ...]"""
+        params = bytes([41, 7])
+        for sid, (pos, speed, acc) in id_values:
+            params += bytes([sid, max(0, min(254, acc))]) + \
+                struct.pack("<HHH", max(0, min(65535, pos)), 0,
+                            max(0, min(65535, speed)))
+        with self._io:
+            self._send(BROADCAST, SYNC_WRITE, params)
+
+    def read_goal(self, sid):
+        """读回 42 号目标位置(用于 verify)。失败返回 None。"""
+        try:
+            return self.read_u16(sid, 42)
+        except BusError:
+            return None
 
     def sync_write(self, addr, length, id_values):
         """id_values: [(id, bytes), ...]，每个 bytes 长度 = length。"""

@@ -1,0 +1,94 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-21T13:56:28 **
+** Report includes: Errors **
+
+** Found 10 DRC violations **
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1476 mm)
+    Local override; error
+    @(0.5550 mm, 0.9046 mm): Track [RX_EN] on B.Cu, length 13.5598 mm
+    @(1.1003 mm, 2.8980 mm): Via [SPI_CS] on F.Cu - B.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 BUS_LOGIC 和 GND)
+    Local override; error
+    @(29.2500 mm, 23.3750 mm): Pad 2 [BUS_LOGIC] of R8 on F.Cu
+    @(29.0000 mm, 24.0000 mm): Via [GND] on F.Cu - B.Cu
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0773 mm)
+    Local override; error
+    @(17.2000 mm, 18.4000 mm): Via [GND] on F.Cu - B.Cu
+    @(19.0000 mm, 19.5250 mm): Track [V3V3_IMU] on F.Cu, length 3.5122 mm
+[tracks_crossing]: Tracks crossing
+    Local override; error
+    @(17.5000 mm, 15.9500 mm): Track [GND] on F.Cu, length 2.4683 mm
+    @(19.0000 mm, 19.5250 mm): Track [V3V3_IMU] on F.Cu, length 3.5122 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.0536 mm)
+    Local override; error
+    @(29.2500 mm, 23.3750 mm): Pad 2 [BUS_LOGIC] of R8 on F.Cu
+    @(27.9000 mm, 24.7500 mm): Track [GND] on F.Cu, length 1.3314 mm
+[hole_clearance]: 孔间距违规 (<电路板配置> 中的 "孔" 约束 间距 0.2500 mm; 实际 0.0036 mm)
+    Rule: <电路板配置> 中的 "孔" 约束; error
+    @(29.2500 mm, 23.3750 mm): Pad 2 [BUS_LOGIC] of R8 on F.Cu
+    @(29.0000 mm, 24.0000 mm): Via [GND] on F.Cu - B.Cu
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(5.0000 mm, 12.5000 mm): Footprint F1
+    @(2.3000 mm, 12.5000 mm): Footprint J1
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.2449 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(1.0000 mm, 1.0000 mm): Arc on Edge.Cuts
+    @(0.5550 mm, 0.9046 mm): Via [RX_EN] on F.Cu - B.Cu
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1890 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(27.7225 mm, 27.1610 mm): Track [BUS_CLAMP] on F.Cu, length 9.4759 mm
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(29.0000 mm, 24.0000 mm): Via [GND] on F.Cu - B.Cu
+    @(29.2500 mm, 23.3750 mm): Pad 2 [BUS_LOGIC] of R8 on F.Cu
+
+** Found 9 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(29.0000 mm, 24.0000 mm): Via [GND] on F.Cu - B.Cu
+    @(33.6450 mm, 20.0450 mm): Track [GND] on F.Cu, length 1.3435 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(25.3994 mm, 24.2418 mm): Track [+3V3] on F.Cu, length 0.9414 mm
+    @(24.6000 mm, 26.2500 mm): Pad 8 [+3V3] of U3 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(19.8500 mm, 21.5250 mm): Pad 2 [BUS_LOGIC] of R11 on F.Cu
+    @(17.3000 mm, 11.1750 mm): Pad 1 [BUS_LOGIC] of R13 on B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(24.6000 mm, 25.2500 mm): Track [BUS_LOGIC] on F.Cu, length 4.4750 mm
+    @(19.8500 mm, 21.5250 mm): Pad 2 [BUS_LOGIC] of R11 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(24.6000 mm, 25.2500 mm): Track [BUS_LOGIC] on F.Cu, length 0.5000 mm
+    @(29.2500 mm, 23.3750 mm): Pad 2 [BUS_LOGIC] of R8 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(27.4000 mm, 25.7500 mm): Pad 2 [BUS_TX] of U3 on F.Cu
+    @(28.7795 mm, 25.8596 mm): Track [BUS_TX] on B.Cu, length 0.7429 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(17.5000 mm, 14.0875 mm): Pad 12 [SPI_CS] of U2 on F.Cu
+    @(16.2877 mm, 17.5932 mm): Via [SPI_CS] on F.Cu - B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(17.0000 mm, 14.0875 mm): Pad 13 [SPI_SCK] of U2 on F.Cu
+    @(28.3625 mm, 21.2750 mm): Pad 12 [SPI_SCK] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(16.5000 mm, 17.0415 mm): Track [V3V3_IMU] on F.Cu, length 1.1290 mm
+    @(18.1625 mm, 15.7500 mm): Pad 8 [V3V3_IMU] of U2 on F.Cu
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

@@ -1,0 +1,154 @@
+** Drc report for imu_to_ttl.kicad_pcb **
+** Created on 2026-10-21T13:26:48 **
+** Report includes: Errors **
+
+** Found 24 DRC violations **
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1429 mm)
+    Local override; error
+    @(0.3550 mm, 2.6863 mm): Track [Q1_GATE] on F.Cu, length 11.7751 mm
+    @(0.7979 mm, 6.2202 mm): Track [GND] on F.Cu, length 1.3551 mm
+[clearance]: 间距违规 ( 间距 0.1500 mm; 实际 0.1429 mm)
+    Local override; error
+    @(3.7619 mm, 9.1842 mm): Track [GND] on F.Cu, length 4.1917 mm
+    @(0.3550 mm, 2.6863 mm): Track [Q1_GATE] on F.Cu, length 11.7751 mm
+[shorting_items]: 短路了两个不同网络的项目 (网络 GND 和 VBAT_FUSED)
+    Local override; error
+    @(4.0000 mm, 12.0000 mm): PTH pad 1 [GND] of J2
+    @(5.0000 mm, 11.1000 mm): Pad 2 [VBAT_FUSED] of F1 on F.Cu
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_RAW 和 SWCLK)
+    Local override; error
+    @(2.3000 mm, 10.7000 mm): PTH pad 1 [VBAT_RAW] of J1
+    @(1.4600 mm, 12.0000 mm): PTH pad 2 [SWCLK] of J2
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_RAW 和 GND)
+    Local override; error
+    @(2.3000 mm, 10.7000 mm): PTH pad 1 [VBAT_RAW] of J1
+    @(4.0000 mm, 12.0000 mm): PTH pad 1 [GND] of J2
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_RAW 和 GND)
+    Local override; error
+    @(2.3000 mm, 10.7000 mm): PTH pad 1 [VBAT_RAW] of J1
+    @(4.0000 mm, 12.0000 mm): PTH pad 1 [GND] of J2
+[shorting_items]: 短路了两个不同网络的项目 (网络 VBAT_RAW 和 SWCLK)
+    Local override; error
+    @(2.3000 mm, 10.7000 mm): PTH pad 1 [VBAT_RAW] of J1
+    @(1.4600 mm, 12.0000 mm): PTH pad 2 [SWCLK] of J2
+[pth_inside_courtyard]: PTH inside courtyard
+    Local override; error
+    @(4.0000 mm, 12.0000 mm): PTH pad 1 [GND] of J2
+    @(5.0000 mm, 12.5000 mm): Footprint F1
+[pth_inside_courtyard]: PTH inside courtyard
+    Local override; error
+    @(2.3000 mm, 10.7000 mm): PTH pad 1 [VBAT_RAW] of J1
+    @(4.0000 mm, 12.0000 mm): Footprint J2
+[pth_inside_courtyard]: PTH inside courtyard
+    Local override; error
+    @(2.3000 mm, 14.3000 mm): PTH pad 2 [GND] of J1
+    @(4.0000 mm, 12.0000 mm): Footprint J2
+[pth_inside_courtyard]: PTH inside courtyard
+    Local override; error
+    @(4.0000 mm, 12.0000 mm): PTH pad 1 [GND] of J2
+    @(2.3000 mm, 12.5000 mm): Footprint J1
+[pth_inside_courtyard]: PTH inside courtyard
+    Local override; error
+    @(1.4600 mm, 12.0000 mm): PTH pad 2 [SWCLK] of J2
+    @(2.3000 mm, 12.5000 mm): Footprint J1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(5.0000 mm, 12.5000 mm): Footprint F1
+    @(2.3000 mm, 12.5000 mm): Footprint J1
+[courtyards_overlap]: Courtyards overlap
+    Rule: <电路板配置> 中的 "元件外框" 约束; error
+    @(21.0000 mm, 14.5000 mm): Footprint C13
+    @(25.5000 mm, 19.0000 mm): Footprint U1
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1796 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, -11.2780 mm): Arc on Edge.Cuts
+    @(25.4475 mm, 2.7725 mm): Track [Q1_GATE] on F.Cu, length 2.4784 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.1796 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, -11.2780 mm): Arc on Edge.Cuts
+    @(16.1750 mm, 2.7725 mm): Track [Q1_GATE] on F.Cu, length 9.2725 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.2304 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(19.2938 mm, 28.3750 mm): Track [NRST] on F.Cu, length 1.7832 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.2304 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(25.0000 mm, 41.2780 mm): Arc on Edge.Cuts
+    @(15.9500 mm, 28.3750 mm): Track [NRST] on F.Cu, length 3.3438 mm
+[copper_edge_clearance]: 电路板边缘间距违规 (<电路板配置> 中的 "板边" 约束 间距 0.2500 mm; 实际 0.2300 mm)
+    Rule: <电路板配置> 中的 "板边" 约束; error
+    @(0.0000 mm, 29.0000 mm): Segment on Edge.Cuts
+    @(-1.0800 mm, 12.0000 mm): PTH pad 3 [SWDIO] of J2
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(5.0000 mm, 11.1000 mm): Pad 2 [VBAT_FUSED] of F1 on F.Cu
+    @(4.0000 mm, 12.0000 mm): PTH pad 1 [GND] of J2
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(2.3000 mm, 10.7000 mm): PTH pad 1 [VBAT_RAW] of J1
+    @(4.0000 mm, 12.0000 mm): PTH pad 1 [GND] of J2
+[solder_mask_bridge]: 顶层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(2.3000 mm, 10.7000 mm): PTH pad 1 [VBAT_RAW] of J1
+    @(1.4600 mm, 12.0000 mm): PTH pad 2 [SWCLK] of J2
+[solder_mask_bridge]: 底层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(2.3000 mm, 10.7000 mm): PTH pad 1 [VBAT_RAW] of J1
+    @(1.4600 mm, 12.0000 mm): PTH pad 2 [SWCLK] of J2
+[solder_mask_bridge]: 底层阻焊开窗区域与不同网络的项目相连
+    Rule: <电路板配置> 中的 "阻焊层最小宽度"; error
+    @(2.3000 mm, 10.7000 mm): PTH pad 1 [VBAT_RAW] of J1
+    @(4.0000 mm, 12.0000 mm): PTH pad 1 [GND] of J2
+
+** Found 10 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(-8.7000 mm, 12.0000 mm): PTH pad 6 [+3V3] of J2
+    @(0.7949 mm, 20.0801 mm): Track [+3V3] on F.Cu, length 5.0654 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(24.6000 mm, 26.2500 mm): Pad 8 [+3V3] of U3 on F.Cu
+    @(22.7000 mm, 23.9211 mm): Track [+3V3] on F.Cu, length 0.6232 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(17.5000 mm, 15.9125 mm): Track [GND] on F.Cu, length 0.5423 mm
+    @(17.0000 mm, 15.9125 mm): Pad 6 [GND] of U2 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(27.4000 mm, 24.7500 mm): Pad 4 [GND] of U3 on F.Cu
+    @(21.4660 mm, 25.7985 mm): Via [GND] on F.Cu - B.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(5.0000 mm, 11.1000 mm): Pad 2 [VBAT_FUSED] of F1 on F.Cu
+    @(12.9750 mm, 7.1350 mm): Track [VBAT_FUSED] on F.Cu, length 1.2700 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(2.7500 mm, 21.2750 mm): Pad 1 [VBAT_C2] of C2 on F.Cu
+    @(10.6000 mm, 2.5250 mm): Pad 2 [VBAT_C2] of R17 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(-11.2400 mm, 12.0000 mm): PTH pad 7 [NRST] of J2
+    @(15.9500 mm, 28.3750 mm): Track [NRST] on F.Cu, length 3.3438 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(-3.6200 mm, 12.0000 mm): PTH pad 4 [UART1_TX] of J2
+    @(28.3625 mm, 18.6750 mm): Pad 16 [UART1_TX] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(-6.1600 mm, 12.0000 mm): PTH pad 5 [UART1_RX] of J2
+    @(28.3625 mm, 18.0250 mm): Pad 17 [UART1_RX] of U1 on F.Cu
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(-1.0800 mm, 12.0000 mm): PTH pad 3 [SWDIO] of J2
+    @(28.3625 mm, 17.3750 mm): Pad 18 [SWDIO] of U1 on F.Cu
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

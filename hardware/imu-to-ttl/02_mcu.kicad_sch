@@ -965,7 +965,7 @@
 				(at 0 -3.81 0)
 				(effects (font (size 1.27 1.27)))
 			)
-			(property "Footprint" "imu_to_ttl:PinHeader_1x07_P2.54mm_Horizontal"
+			(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x07_P2.54mm_Vertical"
 				(at 0 0 0)
 				(effects (font (size 1.27 1.27)) (hide yes))
 			)
@@ -1194,7 +1194,7 @@
 			)
 			(justify left)
 		)
-		(uuid "4cf14fba-7097-4b13-afa2-044ea81d9641")
+		(uuid "8e4b7a42-71d4-439b-8bfe-c6307a6a261c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 125.73 97.79 0)
 			(effects
@@ -1216,7 +1216,7 @@
 			)
 			(justify right)
 		)
-		(uuid "732a3551-c3ea-4368-9ae8-a2f36171592c")
+		(uuid "1bea9560-ea36-4165-8d42-75cfc31ff36a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 74.93 107.95 0)
 			(effects
@@ -2069,7 +2069,7 @@
 		)
 	)
 	)
-		(property "Footprint" "imu_to_ttl:PinHeader_1x07_P2.54mm_Horizontal"
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x07_P2.54mm_Vertical"
 		(at 219.71 110.49 0)
 		(effects
 		(font

@@ -451,9 +451,10 @@ PARTS_BY_REF = {
     "LED1": ("KT-0603R", "C2286"),                # red LED 0603
     "J1": ("", ""),                              # v3.1+: bare solder pads on the PCB, nothing to buy
     "J2": ("PZ254R-11-07P", "C492415"),           # v3.5: 1x7 RIGHT-ANGLE 2.54 (board has the lying footprint)
-    "J3": ("PZ254R-11-03P", "C492411"),           # v3.5: 1x3 RIGHT-ANGLE 2.54 (servo leads need adapter/solder)
-    "J4": ("PZ254R-11-03P", "C492411"),
-    "J5": ("PZ254R-11-03P", "C492411"),
+    "J3": ("B3B-PH-K-S(LF)(SN)", "C131339"),      # v3.7: JST-PH 立式, HD-1910 原装线直插
+    "J4": ("B3B-PH-K-S(LF)(SN)", "C131339"),
+    "J5": ("B3B-PH-K-S(LF)(SN)", "C131339"),
+    "J6": ("B3B-PH-K-S(LF)(SN)", "C131339"),      # v3.7: 头部/备用分支口
 }
 
 PARTS_BY_VALUE = {
@@ -468,6 +469,7 @@ PARTS_BY_VALUE = {
     "0R": ("0603WAF0000T5E", "C21189"),
     "100nF 50V": ("CC0603KRX7R9BB104", "C14663"),
     "4.7uF 10V X7R": ("CL10A475KO8NNNC", "C19666"),
+    "22uF 16V X5R": ("EMK325BJ226KMHP", "C359910"),   # v3.7 舵机浪涌储能(太诱 1210)
     "10uF 10V": ("CL10A106KP8NNNC", "C19702"),
     "10uF 25V X7R": ("GRM31CR71E106KA12L", "C77093"),   # 1206
     "1uF 25V X7R": ("CL10B105KA8NNNC", "C29936"),
@@ -621,6 +623,9 @@ def sheet_power(root: str) -> str:
         Component("Device:D_TVS", "D1", "SMBJ12A", "Diode_SMD:D_SMB", 120, 75, {"1": "VBAT", "2": "GND"},
                   "bus TVS 12V standoff"),
         Component("Device:C", "C1", "10uF 25V X7R", "Capacitor_SMD:C_1206_3216Metric", 155, 75, {"1": "VBAT", "2": "GND"}),
+        Component("Device:C", "C15", "22uF 16V X5R", "Capacitor_SMD:C_1210_3225Metric", 175, 75, {"1": "VBAT", "2": "GND"},
+                 "v3.7 servo surge bulk (dxl_hub 1000uF 的贴片化替代)"),
+        Component("Device:C", "C16", "22uF 16V X5R", "Capacitor_SMD:C_1210_3225Metric", 195, 75, {"1": "VBAT", "2": "GND"}),
         Component("Device:C", "C2", "100nF 50V", C, 155, 55, {"1": "VBAT_C2", "2": "GND"}),
         Component("Device:R", "R17", "0R (jumper)", R, 175, 55, {"1": "VBAT", "2": "VBAT_C2"},
                  "0R jumper: merges the two VBAT copper islands across the NRST/C6 fence (2-layer density limit)"),
@@ -678,7 +683,7 @@ def sheet_mcu(root: str) -> str:
         Component("Device:C", "C8", "4.7uF 10V X7R", C, 80, 150, {"1": "+3V3", "2": "GND"}, "U1 VDD bulk (ST Fig.13)"),
         Component("Device:R", "R2", "10k", R, 55, 60, {"1": "+3V3", "2": "NRST"}),
         Component("Device:C", "C9", "100nF 50V", C, 80, 60, {"1": "NRST", "2": "GND"}),
-        Component("imu_ttl:SWD_Header_7P", "J2", "SWD+UART+NRST", "imu_to_ttl:PinHeader_1x07_P2.54mm_Horizontal",
+        Component("imu_ttl:SWD_Header_7P", "J2", "SWD+UART+NRST", "Connector_PinHeader_2.54mm:PinHeader_1x07_P2.54mm_Vertical",
                   220, 110,
                   {"1": "GND", "2": "SWCLK", "3": "SWDIO", "4": "UART1_TX", "5": "UART1_RX", "6": "+3V3", "7": "NRST"},
                   "debugger must NOT power the board; 3V3 is sense-only"),
@@ -792,12 +797,14 @@ def sheet_bus(root: str) -> str:
 def sheet_conn(root: str) -> str:
     uuid_ = stable_uuid("imu_to_ttl:sheet:conn")
     comps = [
-        Component("imu_ttl:JST_PH_B3B_3P", "J3", "J_NECK", "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal",
+        Component("imu_ttl:JST_PH_B3B_3P", "J3", "J_NECK", "imu_to_ttl:CONN-TH_B3B-PH-K-S",
                   55, 110, {"1": "BUS_DATA", "2": "VBAT", "3": "GND"}, "neck chain 30->31->32->33 -> HAT (head)"),
-        Component("imu_ttl:JST_PH_B3B_3P", "J4", "J_L", "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal",
+        Component("imu_ttl:JST_PH_B3B_3P", "J4", "J_L", "imu_to_ttl:CONN-TH_B3B-PH-K-S",
                   55, 145, {"1": "BUS_DATA", "2": "VBAT", "3": "GND"}, "left leg 20-24"),
-        Component("imu_ttl:JST_PH_B3B_3P", "J5", "J_R", "imu_to_ttl:PinHeader_1x03_P2.54mm_Horizontal",
+        Component("imu_ttl:JST_PH_B3B_3P", "J5", "J_R", "imu_to_ttl:CONN-TH_B3B-PH-K-S",
                   55, 180, {"1": "BUS_DATA", "2": "VBAT", "3": "GND"}, "right leg 10-14"),
+        Component("imu_ttl:JST_PH_B3B_3P", "J6", "J_HEAD", "imu_to_ttl:CONN-TH_B3B-PH-K-S",
+                  55, 215, {"1": "BUS_DATA", "2": "VBAT", "3": "GND"}, "v3.7 head/spare branch"),
         Component("Connector:TestPoint", "TP1", "VBAT", "TestPoint:TestPoint_Pad_D1.0mm", 160, 60, {"1": "VBAT"}),
         Component("Connector:TestPoint", "TP2", "GND", "TestPoint:TestPoint_Pad_D1.0mm", 160, 80, {"1": "GND"}),
         Component("Connector:TestPoint", "TP3", "+3V3", "TestPoint:TestPoint_Pad_D1.0mm", 160, 100, {"1": "+3V3"}),

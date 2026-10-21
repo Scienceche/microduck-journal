@@ -1,5 +1,5 @@
 /* Duck 中控 service worker：应用外壳缓存，API/仪表台永远走网络 */
-const CACHE = "duck-panel-v3.7";
+const CACHE = "duck-panel-v3.15";
 const SHELL = ["/", "/index.html", "/manifest.webmanifest", "/icon.svg"];
 
 self.addEventListener("install", e => {

@@ -29,12 +29,7 @@ F, B = pcbnew.F_Cu, pcbnew.B_Cu
 # Escapes must run OUTSIDE those columns: MISO west lane x18.35, SCK drops
 # south then jogs east to x21.2 (between the pad columns' clearance).
 ROUTES = {
-    "SPI_MISO": [
-        (F, 19.3375, 14.25, 18.35, 14.25), (F, 18.35, 14.25, 18.35, 17.625),
-        ("VIA", 18.35, 17.625),
-        (B, 18.35, 17.625, 30.8, 17.625), ("VIA", 30.8, 17.625),
-        (F, 30.8, 17.625, 31.4625, 17.625),
-    ],
+    # v3.7: U2@(17,15)/U1@(25.5,19) — 坐标待重排后回填（本文件暂空转）
 }
 
 

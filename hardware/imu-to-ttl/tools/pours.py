@@ -23,7 +23,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PROJ = os.path.dirname(HERE)
 PCB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PROJ, "imu_to_ttl.kicad_pcb")
 
-BOARD_W, BOARD_H = 41.0, 30.0
+BOARD_L, BOARD_W = 36.0, 30.0   # v3.7: x=fore-aft, y=across
 EDGE_CLEARANCE = 0.3
 MIN_THICKNESS = 0.25
 
@@ -31,11 +31,8 @@ MIN_THICKNESS = 0.25
 # connectors sit in (J1 -> J3/J4 on top, then down the right edge to J5)
 # one L-shaped polygon: battery column -> top band -> right column down to J5
 VBAT_POLY = [
-    # v3.2: 顶带 + 右柱(盖住J4/J5焊盘 x35.7) + 底带(盖住J3焊盘 y25.5)
-    # 底带西墙 x13.0 -> 11.4, 地板 24.5 -> 24.3: 盖住 C1/R10 的 VBAT
-    # 馈电线端点(11.56,24.4), B3 孔(NPTH Ø2.1@9.9,27.85)净距 0.25 恰好满足
-    (0.4, 0.4), (44.6, 0.4), (44.6, 29.1), (11.4, 29.1),
-    (11.4, 24.3), (34.2, 24.3), (34.2, 7.0), (0.4, 7.0),
+    # v3.7 center band: Q1 drains + C1/C2/D1 + C15/C16 + J3.2 (neck port)
+    (5.0, 3.0), (27.0, 3.0), (27.0, 27.0), (5.0, 27.0),
 ]
 
 # The battery-input path (J1 -> F1) carries *everything* the board distributes,
@@ -48,17 +45,8 @@ VBAT_POLY = [
 # above the VBAT zone. It must never reach Q1's drain pads (VBAT_FUSED): a bridge
 # there would bypass the fuse.
 VBAT_RAW_POLYS = [
-    # P1: the 3 mm strip along the top edge - free of parts (mechanical
-    # keep-out), so it is the one place with room for real battery copper
-    [(0.9, 0.9), (33.4, 0.9), (33.4, 3.4), (0.9, 3.4)],
-    # P2: the left-edge column down to J1's VBAT_RAW pad - v3.5: J1 sits at
-    # (1.9,23.1), so the column ends at 25.2 (pad edge 24.2 + 0.25 clearance to
-    # the GND pad below); a pour that only meets tracks is isolated copper
-    [(0.9, 3.0), (2.6, 3.0), (2.6, 25.2), (0.9, 25.2)],
-    # P3: the block around the run's right end, Q1 and F1 - the fill keeps its
-    # 0.25 mm distance from Q1's drain pads, which is where a bridge would
-    # bypass the fuse
-    [(29.0, 3.0), (33.4, 3.0), (33.4, 12.4), (32.4, 12.4), (32.4, 10.0), (29.0, 10.0)],
+    # v3.7 rear column: J1 pad1 (VBAT_RAW @2.3,19.3) + F1 (3.5,21.5)
+    [(0.7, 12.0), (5.2, 12.0), (5.2, 18.5), (0.7, 18.5)],
 ]
 
 
@@ -139,8 +127,8 @@ def drop_gnd_tracks(path):
 # hand-picked in the gaps between parts; a candidate is skipped when any
 # footprint body or routed copper is within 1 mm / 0.6 mm of it.
 STITCH_CANDIDATES = [
-    (1.5, 4.0), (39.5, 4.0), (39.5, 28.5), (1.5, 28.5),
-    (1.5, 15.0), (39.5, 15.0), (12.0, 28.5), (30.0, 28.5),
+    (2.0, 2.5), (34.0, 2.5), (2.0, 27.5), (34.0, 27.5),
+    (17.0, 2.5), (17.0, 27.5), (2.0, 15.0), (34.0, 15.0),
 ]
 
 
@@ -193,8 +181,8 @@ def main():
         print("keeping %d existing zones, adding any missing" % len(have_zones))
 
     board_box = [(EDGE_CLEARANCE, EDGE_CLEARANCE),
-                 (BOARD_W - EDGE_CLEARANCE, EDGE_CLEARANCE),
-                 (BOARD_W - EDGE_CLEARANCE, BOARD_H - EDGE_CLEARANCE),
+                 (BOARD_L - EDGE_CLEARANCE, EDGE_CLEARANCE),
+                 (BOARD_L - EDGE_CLEARANCE, BOARD_H - EDGE_CLEARANCE),
                  (EDGE_CLEARANCE, BOARD_H - EDGE_CLEARANCE)]
 
     def need(name):
@@ -212,16 +200,8 @@ def main():
     # 优先级 5 压过 GND, 填充器自动绕开 B 面信号线把锚点连成一片。
     if need("VBAT_Bottom"):
         add_zone(board, pcbnew.B_Cu, vbat, 5,
-                 [(34.2, 13.2), (36.8, 13.2), (36.8, 21.5), (34.2, 21.5)],
-                 "VBAT_Bottom")  # 走廊A: 右缘 J5.2 -> J4.2
-        zb = None
-        for z in board.Zones():
-            if z.GetZoneName() == "VBAT_Bottom":
-                zb = z
-        ol = zb.Outline()
-        ol.NewOutline()  # 走廊B: 顶带 C2.1 -> Q1.1
-        for x, y in [(16.2, 3.6), (34.4, 3.6), (34.4, 7.2), (16.2, 7.2)]:
-            ol.Append(mm(x), mm(y))
+                 [(3.5, 7.6), (29.5, 7.6), (29.5, 21.8), (3.5, 21.8)],
+                 "VBAT_Bottom")  # v3.7: J4/J5/J6 pad2 cluster over the gap
 
     # battery-input copper: priority above VBAT so the strip along the top edge
     # (free of parts, see the mechanical keep-out) becomes battery-side copper
@@ -302,7 +282,7 @@ def main():
     # fab files (CPL) are exported relative to the aux origin: put it at the
     # board's lower-left so the coordinates come out positive for JLCPCB
     board.GetDesignSettings().SetAuxOrigin(
-        pcbnew.VECTOR2I(pcbnew.FromMM(0.0), pcbnew.FromMM(BOARD_H)))
+        pcbnew.VECTOR2I(pcbnew.FromMM(0.0), pcbnew.FromMM(BOARD_W)))
     board.Save(PCB)
     print("filled and saved %s" % PCB)
 
