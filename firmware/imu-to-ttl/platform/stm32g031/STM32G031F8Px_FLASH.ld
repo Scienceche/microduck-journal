@@ -42,6 +42,15 @@ SECTIONS
     _ebss = .;
   } >RAM
 
+  /* 看门狗复位不清 SRAM：复位计数放在 noinit 段跨复位存活（POR 仍清零） */
+  .noinit (NOLOAD) :
+  {
+    . = ALIGN(4);
+    __noinit_start__ = .;
+    *(.noinit*)
+    __noinit_end__ = .;
+  } >RAM
+
   ._user_heap (NOLOAD) :
   {
     . = ALIGN(8);

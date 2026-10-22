@@ -66,7 +66,17 @@ void SysTick_Handler(void)
 /* USART2 IRQ: enqueue received bytes, drop the local echo while transmitting. */
 void USART2_IRQHandler(void)
 {
-    if (USART_ISR & (1u << 5)) { /* RXNE */
+    uint32_t isr = USART_ISR;
+    /* 错误标志清刷:ORE/FE/NE 滞留会堵死接收路径(上电总线毛刺的典型后遗症)。
+     * G0 USART_ISR: FE=bit1 NE=bit2 ORE=bit3;ICR 写 1 清除(已对 CMSIS 头核对)。 */
+    if (isr & ((1u << 3) | (1u << 2) | (1u << 1))) {
+        (*(volatile uint32_t *)(USART2_BASE + 0x20u)) = (1u << 3) | (1u << 2) | (1u << 1); /* ICR */
+        if (isr & (1u << 5)) {
+            (void)USART_RDR; /* 清残留数据 */
+        }
+        return;
+    }
+    if (isr & (1u << 5)) { /* RXNE */
         uint8_t b = (uint8_t)USART_RDR;
         if (g_tx_active) {
             g_echo_dropped++;

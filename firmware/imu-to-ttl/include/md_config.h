@@ -14,7 +14,8 @@ extern "C" {
 #define MD_IMU_BLOCK_LEN        12u
 #define MD_IMU_DIAG_LEN         8u
 #define MD_IMU_MODEL_NUMBER     10200u
-#define MD_IMU_FW_VERSION       1u
+#define MD_IMU_FW_VERSION       2u      /* v2.x: 看门狗+复位诊断+版本可观测(每次发版必改) */
+#define MD_IMU_FW_MINOR         2u      /* v2.2: +5s心跳信标(TX卡死→IWDG自愈) + ISR错误标志清刷 */
 
 /* Control table covering addr 0 .. 143 */
 #define MD_CTRL_TABLE_SIZE      152u
@@ -60,6 +61,12 @@ extern "C" {
 
 /* Gyro full-scale for packing - match duck-control +/-500 dps */
 #define MD_GYRO_FS_DPS          500
+
+/* 诊断寄存器（控制表 144..151 空闲区，152 为表尾） */
+#define MD_REG_RESET_FLAGS      144u  /* bit0=IWDG bit1=WWDG bit2=SFT bit3=PWR(POR/BOR) bit4=PIN bit5=OBL */
+#define MD_REG_RESET_COUNT      145u  /* IWDG 复位计数（noinit RAM，断电清零） */
+#define MD_REG_WDT_TEST         146u  /* 写 0xA5 → 停喂看门狗 → ~1.5s 后 IWDG 复位（在线自证） */
+#define MD_REG_BUILD_DATE       147u  /* 3 字节 yy mm dd 构建日期——"板上到底跑的哪版"一读便知 */
 
 #ifdef __cplusplus
 }

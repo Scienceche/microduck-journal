@@ -121,9 +121,12 @@ body.fullbleed #scopeFrame{height:calc(100dvh - 58px);min-height:0;border:none;b
     <div class="row">
       <button class="primary" id="btnImuZero">🎯 标零</button>
       <button id="btnImuZeroClr">清除参考</button>
+      <button id="btnWdtTest">🐕 看门狗测试</button>
       <span class="chip" id="imuZeroChip">绝对姿态</span>
-      <span class="dim">静置水平→点标零。符号约定:前倾=俯仰+ · 左倾=横滚− · 左转=偏航−;yaw 漂移~20°/min 勤标</span>
+      <span class="dim">符号约定:前倾=俯仰+ · 左倾=横滚− · 左转=偏航−;yaw 漂移~20°/min 勤标</span>
     </div>
+    <div class="row"><span class="mid" id="imuDiag">复位诊断: -</span>
+      <span class="dim">看门狗测试: 写停喂指令→板应 ~1.5s 自复位→计数+1</span></div>
     <div class="row" style="margin-bottom:8px">
       <span class="dim">要看 3D 姿态 / 瀑布图 / 延迟统计，切到「仪表」页 —— 进页自动连总线，切走自动释放。</span>
     </div>
@@ -326,11 +329,47 @@ body.fullbleed #scopeFrame{height:calc(100dvh - 58px);min-height:0;border:none;b
   </div>
 </section>
 
+<section class="page" id="pg-walk">
+  <div class="panel">
+    <h2>行走策略 · ONNX @50Hz</h2>
+    <div class="row">
+      <button class="primary" id="btnWalkStart">▶ 启动策略</button>
+      <button class="danger" id="btnWalkStop">■ 停止</button>
+      <button id="btnWalkHome">回站姿 HOME</button>
+      <span class="chip" id="walkState">未启动</span>
+    </div>
+    <div class="row" style="align-items:center;flex-wrap:wrap">
+      <div id="joy" style="width:150px;height:150px;border:2px solid var(--accent);border-radius:50%;position:relative;touch-action:none;margin:8px;flex:none">
+        <div id="joyKnob" style="width:44px;height:44px;background:var(--accent);opacity:.75;border-radius:50%;position:absolute;left:51px;top:51px;pointer-events:none"></div>
+      </div>
+      <div style="flex:1;min-width:200px">
+        <div class="dim">拖动摇杆 = 速度指令（松手回零）· 上下=前进后退 · 左右=转向</div>
+        <div class="mid" id="walkCmd">vx 0.00 · vw 0.00</div>
+        <div class="dim" style="margin-top:6px">节拍 / 倾角 / 动作幅值</div>
+        <div class="mid" id="walkStats">- · - · -</div>
+        <div class="dim" style="margin-top:6px" id="walkErr"></div>
+      </div>
+    </div>
+    <div class="dim">安全: 倾角&gt;40° 自动停。启动前确认: 舵机已标零 · IMU 在线 · 机器人悬空或有人扶持。策略文件: /root/duck-panel/policy.onnx</div>
+  </div>
+  <div class="panel">
+    <h2>方向标定（首次使用）</h2>
+    <div class="row">
+      <select id="probeJoint" style="flex:2"></select>
+      <button id="btnProbe">下探 0.2 rad</button>
+      <button id="btnImuRaw">读 IMU 原始值</button>
+    </div>
+    <div class="mid" id="imuRaw" style="margin-top:6px">重力投影(映射后) 会显示在这里——竖直应≈[0,0,-1]，机头下压 x 变负</div>
+    <div class="dim">悬空逐关节下探比对 MuJoCo 正方向；IMU 摆姿势对照《明早验证清单》的真值表，不符则改 duck_policy.py 的 SIGN / IMU_AXIS 后重启面板。</div>
+  </div>
+</section>
+
 </main>
 <nav>
   <button class="on" data-pg="imu"><span class="ico">🧭</span>姿态</button>
   <button data-pg="scope"><span class="ico">📊</span>仪表</button>
   <button data-pg="servo"><span class="ico">🦿</span>舵机</button>
+  <button data-pg="walk"><span class="ico">🐤</span>行走</button>
   <button data-pg="dbg"><span class="ico">🛠</span>调试</button>
   <button data-pg="tof"><span class="ico">📏</span>TOF</button>
   <button data-pg="cam"><span class="ico">📷</span>相机</button>
@@ -366,6 +405,16 @@ $("btnImuZero").onclick=async()=>{
 };
 $("btnImuZeroClr").onclick=async()=>{
   await post("/api/imu_zero",{op:"clear"});imuZeroShow(false);toast("已清除,恢复绝对姿态");
+};
+$("btnWdtTest").onclick=async()=>{
+  if(!confirm("看门狗测试会让 IMU 板复位一次(约3秒),继续?"))return;
+  $("imuDiag").textContent="测试中…(停喂→等复位)";
+  try{
+    const r=await post("/api/imu_wdt",{confirm:true});
+    if(r.iwdg_reset)toast(`✓ 看门狗生效:复位计数 ${r.before.wdt_resets}→${r.after.wdt_resets}`);
+    else if(r.err)toast("测试失败: "+r.err,true);
+    else toast("✗ 板子没被看门狗复位!"+(r.note||""),true);
+  }catch(e){toast("请求失败",true);}
 };
 
 /* ---- 仪表台总线让位：进「仪表」页自动连，切走/退后台自动断 ---- */
@@ -449,6 +498,10 @@ async function poll(){
       $("quat").textContent=i.quat.map(v=>v.toFixed(3)).join(" ");
       $("gyro").textContent=i.gyro_dps.map(v=>v.toFixed(0)).join(" / ");
       $("sample").textContent=i.sample_count;$("imuErr").textContent="";
+      if(i.diag){
+        const f=i.diag.flags,cs=[];f&1&&cs.push("IWDG");f&2&&cs.push("WWDG");f&4&&cs.push("SFT");f&8&&cs.push("POR");f&16&&cs.push("PIN");f&32&&cs.push("OBL");
+        $("imuDiag").textContent=`固件 v${i.diag.fw_ver||'?'} · 构建 ${i.diag.build||'?'} · 上次复位: ${cs.join("+")||"-"} · 看门狗复位 ${i.diag.wdt_resets} 次`;
+      }else{$("imuDiag").textContent="复位诊断: 旧固件(建议重烧)";}
       imuZeroShow(!!i.zeroed);
       rotateCube(i.quat);
       hist.push({m:i.mod,g:Math.hypot(...i.gyro_dps)});if(hist.length>150)hist.shift();draw();
@@ -838,6 +891,35 @@ $("btnSpkPlay3").onclick=()=>spkPlay(3);
 $("spkGain").oninput=e=>$("spkGainV").textContent=(+e.target.value).toFixed(1)+" dB";
 
 /* boot */
+/* ---- 行走策略 ---- */
+const JOINT_NAMES_CN=["左髋偏航","左髋侧摆","左髋俯仰","左膝","左踝","脖子俯仰","头俯仰","头偏航","头侧倾","右髋偏航","右髋侧摆","右髋俯仰","右膝","右踝"];
+{const sel=$("probeJoint");JOINT_NAMES_CN.forEach((n,i)=>{const o=document.createElement("option");o.value=i;o.textContent=`${i} ${n}`;sel.appendChild(o)})}
+$("btnWalkStart").onclick=async()=>{const r=await post("/api/walk",{op:"start"});toast(r.ok?"策略已启动":("启动失败: "+(r.err||"?")),!r.ok)};
+$("btnWalkStop").onclick=async()=>{const r=await post("/api/walk",{op:"stop"});toast("已停止")};
+$("btnWalkHome").onclick=async()=>{const r=await post("/api/walk",{op:"home"});toast(r.ok?"回 HOME":("失败: "+(r.err||"?")),!r.ok)};
+$("btnProbe").onclick=async()=>{const r=await post("/api/walk",{op:"probe",idx:+$("probeJoint").value,delta:0.2});toast(r.ok?`${r.joint} → ${r.counts}`:("失败: "+(r.err||"?")),!r.ok)};
+$("btnImuRaw").onclick=async()=>{const r=await post("/api/walk",{op:"imu"});
+  if(r.ok)$("imuRaw").textContent=`重力(映射) [${r.gravity_mapped}] · 竖直倾角 ${r.tilt_deg}° · 陀螺 ${r.gyro_dps}dps · q=${r.quat}`;
+  else toast("读取失败: "+(r.err||"?"),true)};
+/* 摇杆 */
+{const joy=$("joy"),knob=$("joyKnob");let cmdT=0;
+function joyCmd(dx,dy){const R=53;const cx=Math.max(-1,Math.min(1,dx/R)),cy=Math.max(-1,Math.min(1,dy/R));
+  knob.style.left=(51+cx*R)+"px";knob.style.top=(51+cy*R)+"px";
+  const vx=(-cy*0.4).toFixed(2),wz=(-cx*1.0).toFixed(2);
+  $("walkCmd").textContent=`vx ${vx} · vw ${wz}`;
+  clearTimeout(cmdT);cmdT=setTimeout(()=>post("/api/walk",{op:"cmd",vx:+vx,vy:0,wz:+wz}),30)}
+joy.addEventListener("pointerdown",e=>{joy.setPointerCapture(e.pointerId);const r=joy.getBoundingClientRect();joyCmd(e.clientX-r.left-75,e.clientY-r.top-75)});
+joy.addEventListener("pointermove",e=>{if(e.buttons){const r=joy.getBoundingClientRect();joyCmd(e.clientX-r.left-75,e.clientY-r.top-75)}});
+joy.addEventListener("pointerup",()=>joyCmd(0,0));joy.addEventListener("pointercancel",()=>joyCmd(0,0))}
+setInterval(async()=>{if(document.hidden||!$("pg-walk").classList.contains("on"))return;
+  try{const s=await(await fetch("/api/walk",{method:"POST",headers:{"Content-Type":"application/json"},body:'{"op":"status"}'})).json();
+    const st=$("walkState");
+    if(!s.loaded){chip(st,false,"模型未就绪",true);$("walkErr").textContent=s.policy||"";return}
+    chip(st,s.running,s.running?"运行中":"待命");
+    $("walkStats").textContent=`${(s.hz||0).toFixed(1)}Hz · ${(s.tilt_deg||0).toFixed(0)}° · |a|${s.action_absmax??"-"}`;
+    $("walkErr").textContent=s.err?`⚠ ${s.err}`:"";
+  }catch(e){}},600);
+
 if("serviceWorker"in navigator)navigator.serviceWorker.register("/sw.js").catch(()=>{});
 poll();setInterval(poll,1000);infoKv();setInterval(infoKv,5000);loadPoses();
 </script>

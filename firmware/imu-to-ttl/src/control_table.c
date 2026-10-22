@@ -6,7 +6,7 @@ void md_control_table_init(md_control_table_t *t)
 {
     memset(t->bytes, 0, sizeof(t->bytes));
     t->bytes[MD_FT_ADDR_FW_MAJOR] = MD_IMU_FW_VERSION;
-    t->bytes[MD_FT_ADDR_FW_MINOR] = 0;
+    t->bytes[MD_FT_ADDR_FW_MINOR] = MD_IMU_FW_MINOR;
     t->bytes[MD_FT_ADDR_END] = 0;
     t->bytes[MD_FT_ADDR_ID] = MD_IMU_ID;
     t->bytes[MD_FT_ADDR_BAUD] = MD_FT_BAUD_CODE_1M;

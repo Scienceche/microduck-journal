@@ -126,6 +126,73 @@ SESSION.connect = _scope_connect
 SESSION.disconnect = _scope_disconnect
 
 
+# ---------------- 行走策略运行时（duck_policy 懒加载） ----------------
+POLICY_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "policy.onnx")
+_runner = None
+
+
+def _get_runner():
+    """懒加载策略运行时；onnxruntime 未装或模型缺失时返回 (None, 错误说明)。"""
+    global _runner
+    if _runner is not None:
+        return _runner, None
+    try:
+        import duck_policy
+    except ImportError as e:
+        return None, f"duck_policy 导入失败: {e}"
+    if not os.path.exists(POLICY_PATH):
+        return None, f"模型不存在: {POLICY_PATH}"
+    _runner = duck_policy.PolicyRunner(get_bus, POLICY_PATH)
+    return _runner, None
+
+
+def _walk(op, b):
+    if op == "status":
+        if _runner is None:
+            return {"ok": True, "running": False, "loaded": False,
+                    "policy": POLICY_PATH}
+        st = dict(_runner.status)
+        st["loaded"] = True
+        st["policy"] = POLICY_PATH
+        return {"ok": True, **st}
+    if op == "start":
+        r, err = _get_runner()
+        if r is None:
+            return {"ok": False, "err": err}
+        return r.start()
+    if op == "stop":
+        r, _ = _get_runner()
+        if r is not None:
+            return r.stop()
+        return {"ok": True, "note": "not running"}
+    if op == "cmd":
+        r, err = _get_runner()
+        if r is None:
+            return {"ok": False, "err": err}
+        r.set_cmd(vx=b.get("vx"), vy=b.get("vy"), wz=b.get("wz"))
+        return {"ok": True}
+    if op == "home":
+        bus = get_bus()
+        if bus is None:
+            return {"ok": False, "err": _bus_err}
+        import duck_policy
+        return duck_policy.go_home(bus, speed=int(b.get("speed", 100)))
+    if op == "imu":
+        bus = get_bus()
+        if bus is None:
+            return {"ok": False, "err": _bus_err}
+        import duck_policy
+        return {"ok": True, **duck_policy.imu_raw(bus)}
+    if op == "probe":
+        bus = get_bus()
+        if bus is None:
+            return {"ok": False, "err": _bus_err}
+        import duck_policy
+        return duck_policy.probe_joint(bus, int(b.get("idx", 0)),
+                                       float(b.get("delta", 0.2)))
+    return {"ok": False, "err": f"unknown op {op}"}
+
+
 def get_bus():
     global _bus, _bus_err, _bus_last_used
     with _bus_lock:
@@ -238,6 +305,16 @@ def read_imu():
     pitch = math.degrees(math.asin(max(-1.0, min(1.0, 2 * (w * qy - qz * qx)))))
     yaw = math.degrees(math.atan2(2 * (w * qz + qx * qy), 1 - 2 * (qy * qy + qz * qz)))
     k = GYRO_FS_DPS / 32768.0
+    # 复位诊断（固件 reg144=原因 bit0 IWDG,145=看门狗复位计数,146=测试,147-149=构建日期）
+    diag = None
+    try:
+        _, iv = bus.read(IMU_ID, 0, 2)
+        _, dp = bus.read(IMU_ID, 144, 6)
+        diag = {"flags": dp[0], "wdt_resets": dp[1], "test": dp[2],
+                "build": f"20{dp[3]:02d}-{dp[4]:02d}-{dp[5]:02d}",
+                "fw_ver": f"{iv[0]}.{iv[1]}"}
+    except Exception:
+        pass  # 旧固件无此寄存器
     return {
         "ok": True, "id": IMU_ID,
         "whoami_ok": bool(status & 1), "sflp_live": bool(status & 2),
@@ -250,7 +327,36 @@ def read_imu():
         "gyro_dps": [round(gx * k, 1), round(gy * k, 1), round(gz * k, 1)],
         "accel_raw": [ax, ay],
         "tilt": _accel_tilt(ax, ay),
+        "diag": diag,
     }
+
+
+def imu_wdt_test():
+    """看门狗在线自证：写 0xA5 → 固件停喂 → IWDG 应在 ~1.5s 复位 → 读回诊断。"""
+    bus = get_bus()
+    if bus is None:
+        return {"ok": False, "err": _bus_err}
+    try:
+        _, p0 = bus.read(IMU_ID, 144, 3)
+        before = {"flags": p0[0], "wdt_resets": p0[1]}
+    except feetech.BusError as e:
+        return {"ok": False, "err": f"读取失败: {e}"}
+    try:
+        bus.write(IMU_ID, 146, b"\xA5")
+    except feetech.BusError as e:
+        return {"ok": False, "err": f"写入测试寄存器失败: {e}", "before": before}
+    time.sleep(3.0)
+    for attempt in range(3):
+        try:
+            _, p1 = bus.read(IMU_ID, 144, 3)
+            after = {"flags": p1[0], "wdt_resets": p1[1]}
+            iwdg = bool(p1[0] & 1)
+            return {"ok": iwdg and p1[1] > before["wdt_resets"], "before": before,
+                    "after": after, "iwdg_reset": iwdg,
+                    "note": "IWDG 复位发生" if iwdg else "板子没复位——看门狗未生效"}
+        except feetech.BusError:
+            time.sleep(1.0)
+    return {"ok": False, "err": "复位后读回失败", "before": before}
 
 
 async def h_imu_zero(request):
@@ -1219,6 +1325,8 @@ async def h_post(request):
     def work():
         try:
             path = request.path
+            if path == "/api/walk":
+                return _walk(b.get("op", "status"), b)
             if path == "/api/scan":
                 found = scan_ids(int(b.get("from", 1)), int(b.get("to", 40)))
                 servos = [i for i in found if i != IMU_ID]
@@ -1311,6 +1419,10 @@ async def h_post(request):
                 return flash_imu()
             if path == "/api/selftest":
                 return {"ok": True, "identity": imu_identity(), "imu": read_imu()}
+            if path == "/api/imu_wdt":
+                if not b.get("confirm"):
+                    return {"ok": False, "err": "需要 confirm:true（测试会让 IMU 板复位一次）"}
+                return imu_wdt_test()
             if path == "/api/system":
                 op = b.get("op")
                 if not b.get("confirm"):
@@ -1389,7 +1501,8 @@ def build_app():
     r.add_post("/api/cam", h_cam_post)
     r.add_get("/cam/last.jpg", h_cam_img)
     for p in ("/api/scan", "/api/servo", "/api/estop", "/api/pose",
-              "/api/flash", "/api/selftest", "/api/system"):
+              "/api/flash", "/api/selftest", "/api/system", "/api/walk",
+              "/api/imu_wdt"):
         r.add_post(p, h_post)
     app.on_startup.append(on_startup)
     app.on_cleanup.append(on_cleanup)

@@ -73,6 +73,9 @@ static void handle_write(md_ft_slave_t *s, const uint8_t *p, uint8_t n)
     /* Only safe fields are writable; anything else is accepted and ignored. */
     if (addr == MD_FT_ADDR_RETURN_DELAY && len >= 1u) {
         s->table[addr] = p[1];
+    } else if (addr == MD_REG_WDT_TEST && len >= 1u) {
+        /* 0xA5 = 停喂看门狗(在线自证 IWDG 真的会咬);其他值=恢复喂狗 */
+        s->table[addr] = p[1];
     }
 }
 
