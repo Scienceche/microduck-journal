@@ -148,11 +148,16 @@ def _get_runner():
 
 def _walk(op, b):
     if op == "status":
+        loaded = _runner is not None
+        if _runner is None and os.path.exists(POLICY_PATH):
+            return {"ok": True, "running": False, "loaded": True, "armed": True,
+                    "policy": POLICY_PATH,
+                    "note": "模型就绪未加载（点启动时加载）"}
         if _runner is None:
             return {"ok": True, "running": False, "loaded": False,
                     "policy": POLICY_PATH}
         st = dict(_runner.status)
-        st["loaded"] = True
+        st["loaded"] = loaded
         st["policy"] = POLICY_PATH
         return {"ok": True, **st}
     if op == "start":

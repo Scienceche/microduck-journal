@@ -110,9 +110,11 @@ int main(void)
     g_imu.delay_ms = board_delay_ms;
     (void)md_lsm6_init(&g_imu);
 
-    /* boot beacon: one frame right after init so the TX physical path can be
-     * verified without any host query. 0xFF 0x07 'D' 'U' 'C' 'K' + chk. */
-    {
+    /* boot beacon: DISABLED at boot (gated by reg150, same as heartbeat).
+     * A boot-time TX lands inside the host's fragile boot window — the
+     * historical intermittent "power-cycle to recover" bug (2026-10-23 定案:
+     * v2.2 心跳在窗口内主动发包把 Radxa 卡死; 单帧开机信标是历史偶发同因). */
+    if (g_table.bytes[MD_REG_HEARTBEAT_EN] != 0u) {
         static const uint8_t beacon[] = {0xFF, 0x07, 'D', 'U', 'C', 'K'};
         bus_tx(0, beacon, sizeof(beacon));
     }
@@ -142,10 +144,11 @@ int main(void)
             }
         }
 
-        /* 心跳信标:每 5s 发一帧。若 TX 路径卡死(board_bus_write 死等 TC),
-         * 主循环停在这里 → 停喂 → IWDG 1.5s 复位 → 通信自愈。
-         * 这是"内核活着但通信死"故障(2026-10-22 早晨复现)的对症防护。 */
-        if ((now - last_heartbeat) >= 5000u) {
+        /* 心跳信标:默认关闭(reg150 写 1 开启)。v2.2 的无条件心跳是 Radxa
+         * 上电卡死的头号嫌疑(用户反向验证: 电池+信号线=卡死,不接信号线=正常,
+         * 电压正常)——上电窗口内主动发字节可能干扰主机早期启动。 */
+        if (g_table.bytes[MD_REG_HEARTBEAT_EN] != 0u &&
+            (now - last_heartbeat) >= 5000u) {
             last_heartbeat = now;
             static const uint8_t hb[] = {0xFF, 0x07, 'D', 'U', 'C', 'K'};
             bus_tx(0, hb, sizeof(hb));
