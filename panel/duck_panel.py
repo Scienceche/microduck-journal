@@ -287,6 +287,8 @@ def _accel_tilt(ax, ay):
 
 
 def read_imu():
+    if _runner is not None and _runner.status.get("running"):
+        return {"ok": False, "err": "策略运行中（总线独占），停止策略后恢复"}
     bus = get_bus()
     if bus is None:
         return {"ok": False, "err": _bus_err}
@@ -547,6 +549,8 @@ MOVE_ACC = int(os.environ.get("DUCK_ACC", "25"))  # 8.7°/s²/count × 25 ≈ 21
 
 
 def servo_action(op, ids, value=None, speed=None, acc=None, **kw):
+    if _runner is not None and _runner.status.get("running"):
+        return [{"ok": False, "err": "策略运行中（总线独占）"} for _ in (ids or [0])]
     bus = get_bus()
     if bus is None:
         raise RuntimeError(_bus_err)

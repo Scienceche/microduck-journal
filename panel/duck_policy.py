@@ -47,15 +47,31 @@ HOME_RAD = {
 }
 HOME_VEC = [HOME_RAD[n] for n, _ in POLICY_JOINTS]
 
-# 模型关节角 → 舵机计数方向（+1/-1）。默认全 -1，probe 校准后修正。
+# 模型关节角 → 舵机计数方向（+1/-1）。2026-10-29 悬空逐关节实测标定:
+# 14 关节中仅右髋侧摆(idx10, sid11)需 +1(其余 -1; ⑨右膝"脚向后上"即正确)。
 SIGN = [-1] * 14
-# 关节限幅（rad，相对零位的绝对限）——策略输出 clamp 用，防打坏齿轮
-JOINT_RANGE = {  # (min, max) 相对机械零位，保守值
-    "hip_yaw": (-1.0, 1.0), "hip_roll": (-0.6, 0.6), "hip_pitch": (-1.57, 1.0),
-    "knee": (-2.2, 0.3), "ankle": (-1.0, 1.0),
-    "neck_pitch": (-1.57, 1.57), "head_pitch": (-1.57, 1.57),
-    "head_yaw": (-1.57, 1.57), "head_roll": (-0.35, 0.35),
+SIGN[10] = +1  # right_hip_roll: 下探实测向内→翻转
+# 关节限幅（rad，相对机械零位）——来自官方模型 XML 的关节 range（训练包络），
+# 左右镜像不对称的（hip_yaw/hip_roll）按各关节取值；软件层再内收 0.05 rad。
+# 2026-10-29 修正: 旧值是随手拍的"保守值",髋偏航±1.0/膝−2.2 超出训练包络,
+# 有顶死堵转风险(用户指出)。
+JOINT_LIMITS = {
+    "left_hip_yaw":   (-0.4363, 0.5236),
+    "left_hip_roll":  (-0.3840, 0.3840),
+    "left_hip_pitch": (-1.5708, 1.5708),
+    "left_knee":      (-1.5708, 1.5708),
+    "left_ankle":     (-1.5708, 1.5708),
+    "neck_pitch":     (-1.5708, 1.0472),
+    "head_pitch":     (-1.5708, 1.5708),
+    "head_yaw":       (-2.9671, 2.9671),
+    "head_roll":      (-0.4363, 0.4363),
+    "right_hip_yaw":  (-0.5236, 0.4363),
+    "right_hip_roll": (-0.3840, 0.3840),
+    "right_hip_pitch": (-1.5708, 1.5708),
+    "right_knee":     (-1.5708, 1.5708),
+    "right_ankle":    (-1.5708, 1.5708),
 }
+JOINT_MARGIN = 0.05  # 软件层内收量(rad)
 
 COUNTS_PER_RAD = 4096.0 / (300.0 * math.pi / 180.0)  # Feetech 4096 / 300°
 # 当前速度寄存器单位 0.732 RPM（BIT15 方向）→ rad/s
@@ -66,23 +82,38 @@ IMU_BLOCK_ADDR = 124  # 0x7C，20 字节块（与面板/固件一致）
 GYRO_FS_DPS = 500.0
 TILT_LIMIT_DEG = 40.0
 
-# IMU 体轴映射: 模型(x前,y左,z上) ← 舵机板陀螺仪原始 (gx,gy,gz) 的线性组合。
-# 待 /walk/probe 真机核对（ nose-down 时 g_model_x 应 < 0 等）。
+# IMU 体轴映射: model(x前,y左,z上) ← 传感器轴的(序号,符号)。
+# 2026-10-29 早间标定(当时融合健康=加速度计一致): 站立[0,0,-1]/机头下压[-0.5,0,-0.87]实测。
+# 重力源已切换为加速度计(融合在该die上会运行中翻滚,弃用)。
 IMU_AXIS = {  # model_axis: (raw_axis_idx, sign)
-    "x": (0, +1.0), "y": (1, +1.0), "z": (2, +1.0),
+    "x": (2, -1.0), "y": (1, -1.0), "z": (0, -1.0),
 }
 
 
-def _quat_to_gravity(qx, qy, qz, qw):
-    """projected_gravity = R^T @ [0,0,-1]（重力方向在体坐标系）.
+# === 重力投影来源: 原始加速度计 + 一阶低通 ===
+# 2026-10-29 定案: SFLP 融合引擎在这块嫌疑 die 上会运行中翻滚且不自愈
+# (桌面静置实测: 融合说重力(-0.80,+0.60), 同一颗加速度计说(-1.00,+0.01))。
+# 加速度计是纯物理量不会翻; 行走振动用低通滤(截止 ~3Hz @50Hz, alpha=0.15)。
+# 固件数据块只带 accel x/y(±4g, 8192 counts/g), z 由单位向量约束导出:
+# 倾角<90° 时 z 分量恒为负(策略 >40° 即停机, 该假设在有效域内恒成立)。
+ACCEL_PER_G = 8192.0
+GRAVITY_ALPHA = 0.15
 
-    竖直站立时 ≈ [0,0,-1]（重力朝下 = 体 -z 方向）——与 mjlab 训练一致。
-    先算世界 +Z（上）在体坐标系的向量，再取负。
+def accel_to_gravity(ax, ay):
+    """归一化重力方向(重力朝下, 体坐标系)。
+
+    加速度计静止读数 = 支撑反力(向上) → 取负 = 重力方向。
+    芯片数据块只带 x/y, 第三分量取 +sqrt(1-x²-y²)（机头下压实测复核其符号）。
     """
-    up_x = 2 * (qx * qz + qw * qy)
-    up_y = 2 * (qy * qz - qw * qx)
-    up_z = 1 - 2 * (qx * qx + qy * qy)
-    return -up_x, -up_y, -up_z
+    gx = -ax / ACCEL_PER_G
+    gy = -ay / ACCEL_PER_G
+    r2 = gx * gx + gy * gy
+    if r2 > 0.99:
+        scale = (0.99 / r2) ** 0.5
+        gx, gy = gx * scale, gy * scale
+        r2 = 0.99
+    gz = (1.0 - r2) ** 0.5
+    return gx, gy, gz
 
 
 class PolicyRunner:
@@ -99,6 +130,8 @@ class PolicyRunner:
                        "action_absmax": 0.0, "err": None, "iters": 0}
         self._obs = None
         self._last_action = [0.0] * 14
+        self._imu_miss = 0
+        self._g_filt = None
         self._last_qvel = [0.0] * 14
 
     # ---------- 指令 ----------
@@ -121,6 +154,15 @@ class PolicyRunner:
         if list(shape)[-1] != 61:
             return {"ok": False, "err": f"obs dim {shape} != 61"}
         self.stop_flag.clear()
+        self._g_filt = None
+        self._loop_count = 0
+        # 清掉串口接收缓冲里的历史残留帧(此前碰撞产生的字节会持续污染组帧)
+        try:
+            bus0 = self._bus_factory()
+            if bus0 is not None:
+                bus0.ser.reset_input_buffer()
+        except Exception:
+            pass
         self.status.update(running=True, err=None, iters=0)
         self.thread = threading.Thread(target=self._loop, daemon=True)
         self.thread.start()
@@ -167,6 +209,7 @@ class PolicyRunner:
             dt = period - (time.time() - t0)
             if dt > 0:
                 time.sleep(dt)
+        self.status["running"] = False  # 循环因停机/倾角保护退出时同步状态
 
     def _build_obs(self):
         bus = self._bus_factory()
@@ -184,14 +227,29 @@ class PolicyRunner:
         av = [IMU_AXIS["x"][1] * gyro[IMU_AXIS["x"][0]],
               IMU_AXIS["y"][1] * gyro[IMU_AXIS["y"][0]],
               IMU_AXIS["z"][1] * gyro[IMU_AXIS["z"][0]]]
-        gr = _quat_to_gravity(qx, qy, qz, qw)
+        ax, ay = struct.unpack_from("<2h", p, 16)
+        grav = accel_to_gravity(ax, ay)
+        if self._g_filt is None:
+            # 冷启动: 5 帧均值做种子(手提晃动下单帧比力会瞬时失真)
+            seed = [list(grav)]
+            for _ in range(4):
+                _, p2 = bus.read(IMU_ID, IMU_BLOCK_ADDR, 20)
+                a2x, a2y = struct.unpack_from("<2h", p2, 16)
+                seed.append(list(accel_to_gravity(a2x, a2y)))
+            self._g_filt = [sum(col) / len(seed) for col in zip(*seed)]
+        else:
+            self._g_filt = [GRAVITY_ALPHA * g + (1 - GRAVITY_ALPHA) * f
+                            for g, f in zip(grav, self._g_filt)]
+        self._loop_count = getattr(self, "_loop_count", 0) + 1
+        gr = self._g_filt
         gv = [IMU_AXIS["x"][1] * gr[IMU_AXIS["x"][0]],
               IMU_AXIS["y"][1] * gr[IMU_AXIS["y"][0]],
               IMU_AXIS["z"][1] * gr[IMU_AXIS["z"][0]]]
         # 倾角 = 体z轴与世界向上的夹角; 站立时 gv≈[0,0,-1] → 0°
         tilt = math.degrees(math.acos(max(-1.0, min(1.0, -gv[2]))))
         self.status["tilt_deg"] = round(tilt, 1)
-        if tilt > TILT_LIMIT_DEG:
+        if tilt > TILT_LIMIT_DEG and getattr(self, "_loop_count", 0) > 25:
+            # 安全阀延迟0.5s武装: 避开启动瞬间的滤波暂态
             self.status["err"] = f"tilt {tilt:.0f}° > {TILT_LIMIT_DEG}°, stopped"
             self.stop_flag.set()
             return None
@@ -229,15 +287,14 @@ class PolicyRunner:
         bus = self._bus_factory()
         targets = []
         for i, (name, sid) in enumerate(POLICY_JOINTS):
-            key = name.split("_", 1)[1] if name.startswith(("left", "right")) else name
-            lo, hi = JOINT_RANGE[key]
+            lo, hi = JOINT_LIMITS[name]
             target_rad = HOME_VEC[i] + float(act[i])
-            target_rad = max(lo, min(hi, target_rad))
+            target_rad = max(lo + JOINT_MARGIN, min(hi - JOINT_MARGIN, target_rad))
             counts = 2048 + SIGN[i] * target_rad * COUNTS_PER_RAD
-            targets.append((sid, int(counts)))
+            counts = max(0, min(4095, int(counts)))  # 舵机计数域双保险
+            targets.append((sid, (counts, WRITE_SPEED, 0)))
         self.status["action_absmax"] = round(
             max(abs(float(v)) for v in act), 3)
-        bus.sync_write_pos_ex(targets, speed=WRITE_SPEED, acc=0)
 
 
 # ---------------- 单关节探针（方向标定用） ----------------
@@ -251,12 +308,14 @@ def imu_raw(bus):
     gx, gy, gz = struct.unpack_from("<3h", p, 0)
     qx, qy, qz = struct.unpack_from("<3e", p, 6)
     qw = math.sqrt(max(0.0, 1.0 - (qx * qx + qy * qy + qz * qz)))
-    gr = _quat_to_gravity(qx, qy, qz, qw)
+    ax, ay = struct.unpack_from("<2h", p, 16)
+    gr = accel_to_gravity(ax, ay)
     k = GYRO_FS_DPS / 32768.0
     return {
         "gyro_raw": [gx, gy, gz],
         "gyro_dps": [round(gx * k, 1), round(gy * k, 1), round(gz * k, 1)],
         "quat": [round(v, 3) for v in (qx, qy, qz, qw)],
+        "accel_raw": [ax, ay],
         "gravity_raw": [round(v, 3) for v in gr],
         "gravity_mapped": [round(IMU_AXIS[a][1] * gr[IMU_AXIS[a][0]], 3) for a in "xyz"],
         "tilt_deg": round(math.degrees(math.acos(max(-1, min(1, -IMU_AXIS["z"][1] * gr[IMU_AXIS["z"][0]])))), 1),
@@ -266,9 +325,11 @@ def imu_raw(bus):
 def probe_joint(bus, policy_idx, delta_rad=0.2, speed=80):
     """单关节下探: HOME + delta，供人工比对 MuJoCo 中该关节正向旋转方向."""
     name, sid = POLICY_JOINTS[policy_idx]
+    lo, hi = JOINT_LIMITS[name]
     target = HOME_VEC[policy_idx] + delta_rad
+    target = max(lo, min(hi, target))
     counts = 2048 + SIGN[policy_idx] * target * COUNTS_PER_RAD
-    bus.sync_write_pos_ex([(sid, int(counts))], speed=speed, acc=20)
+    bus.write_pos_ex(sid, int(counts), speed, 20)
     return {"joint": name, "sid": sid, "policy_idx": policy_idx,
             "delta_rad": delta_rad, "counts": int(counts)}
 
@@ -278,6 +339,6 @@ def go_home(bus, speed=100):
     targets = []
     for i, (name, sid) in enumerate(POLICY_JOINTS):
         counts = 2048 + SIGN[i] * HOME_VEC[i] * COUNTS_PER_RAD
-        targets.append((sid, int(counts)))
-    bus.sync_write_pos_ex(targets, speed=speed, acc=20)
+        targets.append((sid, (int(counts), speed, 20)))
+    bus.sync_write_pos_ex(targets)
     return {"ok": True, "pose": "STAND2"}
