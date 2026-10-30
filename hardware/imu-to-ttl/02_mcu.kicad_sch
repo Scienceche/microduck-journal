@@ -1194,7 +1194,7 @@
 			)
 			(justify left)
 		)
-		(uuid "8e4b7a42-71d4-439b-8bfe-c6307a6a261c")
+		(uuid "f4c858d3-f4cb-4a7c-a4ed-8349e166979f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 125.73 97.79 0)
 			(effects
@@ -1216,7 +1216,7 @@
 			)
 			(justify right)
 		)
-		(uuid "1bea9560-ea36-4165-8d42-75cfc31ff36a")
+		(uuid "2b354844-4a81-41ca-a326-91dad9960e27")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 74.93 107.95 0)
 			(effects

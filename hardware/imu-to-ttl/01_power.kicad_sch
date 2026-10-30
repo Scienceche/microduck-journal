@@ -1386,6 +1386,156 @@
 			)
 			(embedded_fonts no)
 		)
+	(symbol "Switch:SW_SPST"
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "SW"
+				(at 0 3.175 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SW_SPST"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Single Pole Single Throw (SPST) switch"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "switch lever"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "SW_SPST_0_0"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 0.254) (xy 1.524 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_SPST_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	(symbol "power:PWR_FLAG"
 			(power global)
 			(pin_numbers
@@ -1658,7 +1808,7 @@
 	)
 		(uuid "34d075b5-feca-5f32-acac-44f4580edbbe")
 	)
-	(global_label "GND"
+	(global_label "PWR_ON_LO"
 		(shape bidirectional)
 		(at 149.86 148.59 0)
 		(fields_autoplaced yes)
@@ -1693,6 +1843,30 @@
 			(justify left)
 	)
 		(uuid "c2b7babe-a35b-54df-8d00-60ced2d1b3d7")
+	)
+	(global_label "GND"
+		(shape bidirectional)
+		(at 144.78 190.5 180)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify right)
+	)
+		(uuid "0a09d451-2830-5d8c-a126-b2f3cbcadfbf")
+	)
+	(global_label "PWR_ON_LO"
+		(shape bidirectional)
+		(at 154.94 190.5 0)
+		(fields_autoplaced yes)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(justify left)
+	)
+		(uuid "f127f20c-d346-5427-a50a-8ce9d0003eb3")
 	)
 	(global_label "Q1_GATE"
 		(shape bidirectional)
@@ -2206,6 +2380,11 @@
 		(effects (font (size 1.2 1.2)) (justify left bottom))
 		(uuid "eb583dfb-7c4a-5e55-bd6c-267e5c1455ab")
 	)
+	(text "SW1 master power slide (v3.8): switches Q1 gate pull only - main current stays on Q1/F1."
+		(exclude_from_sim no) (at 25 85 0)
+		(effects (font (size 1.2 1.2)) (justify left bottom))
+		(uuid "68e22701-e890-5847-be35-ceb939ec4814")
+	)
 	(symbol
 		(lib_id "imu_ttl:ScrewTerminal_2P")
 		(at 39.37 110.49 0)
@@ -2504,7 +2683,7 @@
 			(hide yes)
 	)
 	)
-		(property "Description" "Q1 gate pull-down"
+		(property "Description" "Q1 gate pull-down via SW1"
 		(at 149.86 144.78 0)
 		(effects
 		(font
@@ -2626,6 +2805,91 @@
 			(project "imu_to_ttl"
 				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/b90fe5c0-5dba-508d-a7d0-e14a681a083e/e614b9cb-1d62-5a8d-bffa-368fcf89be51"
 					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPST")
+		(at 149.86 190.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "567c01e7-b44d-5a3a-9a59-6115cf4bb055")
+		(property "Reference" "SW1"
+		(at 154.86 186 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Value" "SW SPDT MSK12C02"
+		(at 154.86 195 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+	)
+	)
+		(property "Footprint" "Button_Switch_SMD:SW_SPDT_Shouhan_MSK12C02"
+		(at 149.86 190.5 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Datasheet" "~"
+		(at 149.86 190.5 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "Description" "v3.8 power slide: ON=R9 pulls Q1 gate low (bus on); OFF=R10 1M G-S turns Q1 off. uA path only"
+		(at 149.86 190.5 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "MPN" "MSK12C02-LG"
+		(at 149.86 190.5 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(property "LCSC" "C431537"
+		(at 149.86 190.5 0)
+		(effects
+		(font
+			(size 1.27 1.27)
+		)
+			(hide yes)
+	)
+	)
+		(pin "1"
+			(uuid "d029f0af-8a55-58b7-b516-4a9a9bfcf64c")
+		)
+		(pin "2"
+			(uuid "5358bb50-af71-5c51-8127-5d6cd0d8f08a")
+		)
+		(instances
+			(project "imu_to_ttl"
+				(path "/3d3ee743-797d-5481-a518-f87a3584d0e2/b90fe5c0-5dba-508d-a7d0-e14a681a083e/567c01e7-b44d-5a3a-9a59-6115cf4bb055"
+					(reference "SW1")
 					(unit 1)
 				)
 			)

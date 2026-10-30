@@ -27,10 +27,13 @@ if not os.path.isfile(JAVA):
 PASSES = "20"
 
 argv = sys.argv[1:]
-if "--passes" in argv:
-    i = argv.index("--passes")
-    PASSES = argv[i + 1]          # consume the value so it is not read as a path
-    argv = argv[:i] + argv[i + 2:]
+for flag in ("--passes", "--inset"):
+    if flag in argv:
+        i = argv.index(flag)
+        val = argv[i + 1]
+        if flag == "--passes":
+            globals()["PASSES"] = val    # route.py reads PASSES at call time below
+        argv = argv[:i] + argv[i + 2:]   # consume flag + value so neither is read as a path
 args = [a for a in argv if not a.startswith("--")]
 if args:
     PCB = args[0]
@@ -61,10 +64,44 @@ if not pcbnew.ExportSpecctraDSN(board, DSN):
     sys.exit("DSN export failed")
 print("  %s (%.1f kB)" % (DSN, os.path.getsize(DSN) / 1024.0))
 
-print("running Freerouting (max %s passes) ..." % PASSES)
-proc = subprocess.run(
-    [JAVA, "-jar", JAR, "-de", DSN, "-do", SES, "-mp", str(PASSES), "-dr", "0"],
-    capture_output=True, text=True, timeout=1800)
+# v3.8 strategy preprocessing (see tools/dsn_tool.py):
+#   --nognd        GND never enters the router - the pours carry it
+#   --inset 0.25   board-edge clearance the DSN export omits
+sys.path.insert(0, HERE)
+import dsn_tool
+if "--nognd" in sys.argv:
+    t = open(DSN, encoding="utf-8").read()
+    t, ok = dsn_tool.strip_net(t, "GND")
+    open(DSN, "w", encoding="utf-8").write(t)
+    print("  GND stripped from DSN: %s" % ok)
+if "--inset" in sys.argv and False:  # DISABLED: miter self-intersections hang FR1.9; nudge_edges.py handles edge copper instead
+    i = sys.argv.index("--inset")
+    mm = float(sys.argv[i + 1])
+    bb = board.GetBoardEdgesBoundingBox()
+    w = pcbnew.ToMM(bb.GetWidth())
+    h = pcbnew.ToMM(bb.GetHeight())
+    t = open(DSN, encoding="utf-8").read()
+    t, ok = dsn_tool.inset_boundary(t, w, h)
+    open(DSN, "w", encoding="utf-8").write(t)
+    print("  boundary inset %.2fmm: %s" % (mm, ok))
+
+CLI = ""   # v2.5.0 CLI native image crashes on KiCad DSN (upstream serialization bug) - keep 1.9 jar
+STAGE = os.path.expandvars(r"%TEMP%r_stage")
+if os.path.isfile(CLI):
+    print("running Freerouting CLI v2.5 (max %s passes) ..." % PASSES)
+    # Java 25 mangles non-ASCII paths/cwd (中文目录) - stage via an ASCII temp dir
+    import shutil
+    os.makedirs(STAGE, exist_ok=True)
+    shutil.copyfile(DSN, os.path.join(STAGE, "job.dsn"))
+    cmd = [CLI, "-de", "job.dsn", "-do", "job.ses",
+           "--router.autorouter.max_passes", str(PASSES), "-mt", "11", "-l", "en"]
+    proc = subprocess.run(cmd, capture_output=True, text=True, timeout=1800, cwd=STAGE)
+    if os.path.exists(os.path.join(STAGE, "job.ses")):
+        shutil.copyfile(os.path.join(STAGE, "job.ses"), SES)
+else:
+    print("running Freerouting 1.9 jar (max %s passes) ..." % PASSES)
+    cmd = [JAVA, "-jar", JAR, "-de", DSN, "-do", SES, "-mp", str(PASSES), "-dr", "0"]
+    proc = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
 tail = [l for l in proc.stdout.splitlines() if l.strip()][-6:]
 for line in tail:
     print("  " + line)

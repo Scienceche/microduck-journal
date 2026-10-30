@@ -668,7 +668,7 @@
 		)
 	)
 	)
-		(property "Footprint" "imu_to_ttl:CONN-TH_B3B-PH-K-S"
+		(property "Footprint" "imu_to_ttl:CONN-TH_S3B-PH-K-S"
 		(at 54.61 144.78 0)
 		(effects
 		(font
@@ -686,7 +686,7 @@
 			(hide yes)
 	)
 	)
-		(property "Description" "left leg 20-24"
+		(property "Description" "left leg 20-24 (v3.8 side entry)"
 		(at 54.61 144.78 0)
 		(effects
 		(font
@@ -695,7 +695,7 @@
 			(hide yes)
 	)
 	)
-		(property "MPN" "B3B-PH-K-S(LF)(SN)"
+		(property "MPN" "S3B-PH-K-S(LF)(SN)"
 		(at 54.61 144.78 0)
 		(effects
 		(font
@@ -704,7 +704,7 @@
 			(hide yes)
 	)
 	)
-		(property "LCSC" "C131339"
+		(property "LCSC" "C169277"
 		(at 54.61 144.78 0)
 		(effects
 		(font
@@ -756,7 +756,7 @@
 		)
 	)
 	)
-		(property "Footprint" "imu_to_ttl:CONN-TH_B3B-PH-K-S"
+		(property "Footprint" "imu_to_ttl:CONN-TH_S3B-PH-K-S"
 		(at 54.61 180.34 0)
 		(effects
 		(font
@@ -774,7 +774,7 @@
 			(hide yes)
 	)
 	)
-		(property "Description" "right leg 10-14"
+		(property "Description" "right leg 10-14 (v3.8 side entry)"
 		(at 54.61 180.34 0)
 		(effects
 		(font
@@ -783,7 +783,7 @@
 			(hide yes)
 	)
 	)
-		(property "MPN" "B3B-PH-K-S(LF)(SN)"
+		(property "MPN" "S3B-PH-K-S(LF)(SN)"
 		(at 54.61 180.34 0)
 		(effects
 		(font
@@ -792,7 +792,7 @@
 			(hide yes)
 	)
 	)
-		(property "LCSC" "C131339"
+		(property "LCSC" "C169277"
 		(at 54.61 180.34 0)
 		(effects
 		(font

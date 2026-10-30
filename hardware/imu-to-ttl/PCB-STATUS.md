@@ -728,3 +728,48 @@ v3.6 完整交付态在 fab/imu_to_ttl-gerber-v3.6.zip + git（journal 仓库 42
   `hardware/imu_to_servo-orig/`（含 md5 + README 溯源说明，记录真板 BOM 差异
   与网表实证结论）。此板为 v3.x 母本、无 hub；官方 imu_to_dxl（GD32 版）在
   community-kit，是另一条线。
+
+# v3.8 WIP r1（2026-10-30 · 异形裁形 + 布线策略重构）
+
+## 形状（已定稿并验证）
+- **36×30 + 真 R8.3 咬弧 + 直后缘 + R2 角**；孔阵 (2.5/32.5, 5.5/24.5)=30×19
+- **重大实测修正**：HD1910 连接器 = 顶面轴心 5×5 窗（vendor STEP 实体13，旧简化模型同侧印证），
+  **不在舵机后端** → v3.7 后缘两个 3.5×6.5 缺口让的是不存在的东西，已删；r8.3 咬弧本身即可让开连接器+插头
+- **修正 v3.7 咬弧几何 bug**：三点拟合出 R≈13.8 浅弧（咬入 2.5），而 Ø16 台实际伸入板内 5.5——
+  v3.7 咬弧根本没让开台子（D1 骑弧的根因）。v3.8 三点全落在 r8.3 圆上，咬入 5.8
+- 34.5×27 缩身方案实测**装不下 62 器件**（J4/J5 卧贴大库院 +118mm² 顶面占用）→ 回退 36×30（计划预案）
+- 孔位/咬弧自检全过（hole-boss 最小间隙 10.97≥9.6，DSN 导出无死循环）
+
+## 原理图（62 器件，网表验证 ✓）
+- J4/J5 → **S3B-PH-K-S 卧贴侧出线**（C169277，本地库 CONN-TH_S3B-PH-K-S）
+- 新增 **SW1 MSK12C02 拨动开关**：串在 Q1 栅极下拉支路（R9.2→PWR_ON_LO→SW1→GND），
+  开=Q1 导通/关=R10 关断，开关仅过 µA 级电流——避开大电流开关选型难题
+- U3 2G241/VSSOP + rework_bus_v2 链路复验 ✓
+
+## 布局（0 焊盘碰撞，最终）
+- **装箱器升级为分面遮挡**：底面 SMD 库院不再挡顶面（v3.7 假设所有骨架挡双面），
+  TH 件仅按焊盘柱遮挡；实测顶面 0603 可放槽数从 0 → 底面条带 284 槽，11 个小件移底面
+- J3(23,7.6)F 立式 / J4(24.7,12.1)F 卧贴 / J5(12.9,6.3)F 卧贴 / J6(20.3,15.5,90)B 立式
+  / J2 后缘横列(2..17.2,18.2)B / D1→(33.2,18)F 离咬弧 / SW1(8.2,24.8)F / Q1(6.8,3,90)F
+- 余 9 处库院级贴边（锁定件间 0.05-0.3mm，铜层清，含 J1/F1 老豁免）→ DRC exclusions 处理
+
+## 布线策略（五连改执行结果）
+1. ✅ **pours.py BOARD_H bug 修复**（13 轮静默死亡的根因）——铺铜首次真正执行，5 区
+2. ✅ **GND 出网**（dsn_tool.strip_net）：布线时 GND 不进路由器，铜由铺铜承担——GND 焊盘已 100% 连通
+3. ❌ **DSN 边界内缩**：miter 凹角自交使 FR1.9 挂死（含 RDP 抽稀仍挂）→ 弃用，改 nudge_edges 路线
+4. ❌ **Freerouting 2.5.0 CLI**：上游 native-image 序列化 bug（ComponentOutline）纯 KiCad DSN 即崩
+   → 留在 1.9 jar；2.4.1 无 Windows CLI 包
+5. ✅ 分面装箱 + 卧贴/开关布局（见上）
+- 结果：fresh 120 pass + continue → 418 段/49 孔；**剩 ~11 处信号开口**（U2↔U1 SPI/INT 族 +
+  V3V3_IMU/RX_EN 等，v3.6 预定线机制的领地）+ 40 条 GND 平面碎片记账项（缝合孔仅 3/20 落位，
+  stitch_grid 网格扫描被 KiCad10 via GetWidth 断言卡住——待修）
+- copper_edge 9 处 → nudge_edges.py；丝印 ~100 条 → silk_refs.py（收尾工具均已在链上）
+
+## 下一步（收口清单）
+1. 修 stitch_grid 的 via GetWidth 断言（GetDiameter/常量）→ 缝合 ≥10 孔 → GND 平面记账清零
+2. pre_route_spi 回填 v3.8 坐标（U2 17,15 / U1 25.5,19）收 SPI 族 11 开口
+3. nudge_edges + silk_refs + DRC exclusions（9 库院 + J1/F1）→ DRC 清零
+4. fab 导出 v3.8 zip + BOM（+SW1/S3B-PH 两项）+ 装配文档（SW1 拆背板够到；板面高度首装实测）
+
+工具新增：dsn_tool.py / overlay_v38.py / gnd_stitch_pads.py / stitch_grid.py；
+叠加图 viz：v38-servo-overlay.html（孔位逐点重合验证 ✓）

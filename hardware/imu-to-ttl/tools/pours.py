@@ -23,7 +23,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 PROJ = os.path.dirname(HERE)
 PCB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PROJ, "imu_to_ttl.kicad_pcb")
 
-BOARD_L, BOARD_W = 36.0, 30.0   # v3.7: x=fore-aft, y=across
+BOARD_L, BOARD_W = 36.0, 30.0   # v3.8: x=fore-aft, y=across
 EDGE_CLEARANCE = 0.3
 MIN_THICKNESS = 0.25
 
@@ -31,8 +31,10 @@ MIN_THICKNESS = 0.25
 # connectors sit in (J1 -> J3/J4 on top, then down the right edge to J5)
 # one L-shaped polygon: battery column -> top band -> right column down to J5
 VBAT_POLY = [
-    # v3.7 center band: Q1 drains + C1/C2/D1 + C15/C16 + J3.2 (neck port)
-    (5.0, 3.0), (27.0, 3.0), (27.0, 27.0), (5.0, 27.0),
+    # v3.8 center band: Q1 source + C1/C2/D1 + C15/C16 + J3/J4/J5 pad2 cluster.
+    # The bites (x17.2..31.8, y<4.3 / y>22.7) are voids - the filler clips the
+    # zone to the board outline there, so the band can simply span them.
+    (5.0, 3.2), (27.0, 3.2), (27.0, 26.8), (5.0, 26.8),
 ]
 
 # The battery-input path (J1 -> F1) carries *everything* the board distributes,
@@ -45,7 +47,8 @@ VBAT_POLY = [
 # above the VBAT zone. It must never reach Q1's drain pads (VBAT_FUSED): a bridge
 # there would bypass the fuse.
 VBAT_RAW_POLYS = [
-    # v3.7 rear column: J1 pad1 (VBAT_RAW @2.3,19.3) + F1 (3.5,21.5)
+    # v3.8 rear column: J1 pads (y12.7/16.3) + F1 (y9.2..12.8).
+    # v3.8: SW1 sits in the Q1-gate leg (PWR_ON_LO), NOT in this rail.
     [(0.7, 12.0), (5.2, 12.0), (5.2, 18.5), (0.7, 18.5)],
 ]
 
@@ -128,7 +131,10 @@ def drop_gnd_tracks(path):
 # footprint body or routed copper is within 1 mm / 0.6 mm of it.
 STITCH_CANDIDATES = [
     (2.0, 2.5), (34.0, 2.5), (2.0, 27.5), (34.0, 27.5),
-    (17.0, 2.5), (17.0, 27.5), (2.0, 15.0), (34.0, 15.0),
+    (16.8, 2.5), (16.8, 27.5), (2.0, 15.0), (34.0, 15.0),
+    (5.0, 9.5), (12.0, 13.0), (30.5, 15.5), (19.5, 20.5),
+    (8.0, 20.5), (26.0, 21.0), (14.0, 10.5), (29.0, 5.0),
+    (5.5, 24.0), (11.0, 28.0), (21.0, 28.5), (31.5, 20.5),
 ]
 
 
@@ -182,8 +188,8 @@ def main():
 
     board_box = [(EDGE_CLEARANCE, EDGE_CLEARANCE),
                  (BOARD_L - EDGE_CLEARANCE, EDGE_CLEARANCE),
-                 (BOARD_L - EDGE_CLEARANCE, BOARD_H - EDGE_CLEARANCE),
-                 (EDGE_CLEARANCE, BOARD_H - EDGE_CLEARANCE)]
+                 (BOARD_L - EDGE_CLEARANCE, BOARD_W - EDGE_CLEARANCE),
+                 (EDGE_CLEARANCE, BOARD_W - EDGE_CLEARANCE)]
 
     def need(name):
         return name not in existing
@@ -201,7 +207,7 @@ def main():
     if need("VBAT_Bottom"):
         add_zone(board, pcbnew.B_Cu, vbat, 5,
                  [(3.5, 7.6), (29.5, 7.6), (29.5, 21.8), (3.5, 21.8)],
-                 "VBAT_Bottom")  # v3.7: J4/J5/J6 pad2 cluster over the gap
+                 "VBAT_Bottom")  # v3.8: J4.2/C15B/C16B corridor over the gap
 
     # battery-input copper: priority above VBAT so the strip along the top edge
     # (free of parts, see the mechanical keep-out) becomes battery-side copper
@@ -226,7 +232,7 @@ def main():
     for m in re.finditer(r"\n\t\(via\n\t\t\(at ([\d.-]+) ([\d.-]+)\)", open(PCB, encoding="utf-8").read()):
         track_pts.append(tuple(float(v) for v in m.groups()))
     # a stitch needs room plus clearance from any existing copper
-    SAFE = 0.6
+    SAFE = 0.5
 
     # the mounting holes are drilled through the finished board: a stitch on top
     # of one is a manufacturing defect

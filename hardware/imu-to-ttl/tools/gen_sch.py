@@ -452,8 +452,9 @@ PARTS_BY_REF = {
     "J1": ("", ""),                              # v3.1+: bare solder pads on the PCB, nothing to buy
     "J2": ("PZ254R-11-07P", "C492415"),           # v3.5: 1x7 RIGHT-ANGLE 2.54 (board has the lying footprint)
     "J3": ("B3B-PH-K-S(LF)(SN)", "C131339"),      # v3.7: JST-PH 立式, HD-1910 原装线直插
-    "J4": ("B3B-PH-K-S(LF)(SN)", "C131339"),
-    "J5": ("B3B-PH-K-S(LF)(SN)", "C131339"),
+    "J4": ("S3B-PH-K-S(LF)(SN)", "C169277"),      # v3.8: JST-PH 卧贴侧出线(腿口, 板侧缘)
+    "J5": ("S3B-PH-K-S(LF)(SN)", "C169277"),
+    "SW1": ("MSK12C02-LG", "C431537"),            # v3.8: 电源拨动开关(串 Q1 栅极下拉支路, uA 级)
     "J6": ("B3B-PH-K-S(LF)(SN)", "C131339"),      # v3.7: 头部/备用分支口
 }
 
@@ -479,6 +480,9 @@ PARTS_BY_VALUE = {
 PARTS_BY_REF_FOOTPRINT = {
     "J1": "imu_to_ttl:BattPad_1x02_P3.60mm_Drill1.2mm",  # must match the PCB pads (2.54mm pitch)
     "F1": "Fuse:Fuse_1206_3216Metric",
+    "J4": "imu_to_ttl:CONN-TH_S3B-PH-K-S",   # v3.8: side entry
+    "J5": "imu_to_ttl:CONN-TH_S3B-PH-K-S",
+    "SW1": "Button_Switch_SMD:SW_SPDT_Shouhan_MSK12C02",
 }
 
 
@@ -617,8 +621,11 @@ def sheet_power(root: str) -> str:
                   120, 110, {"1": "VBAT", "2": "VBAT", "3": "VBAT", "4": "Q1_GATE",
                              "5": "VBAT_FUSED", "6": "VBAT_FUSED", "7": "VBAT_FUSED", "8": "VBAT_FUSED"},
                   "Main bus reverse protection + soft start"),
-        Component("Device:R", "R9", "100k", R, 150, 145, {"1": "Q1_GATE", "2": "GND"}, "Q1 gate pull-down"),
+        Component("Device:R", "R9", "100k", R, 150, 145, {"1": "Q1_GATE", "2": "PWR_ON_LO"}, "Q1 gate pull-down via SW1"),
         Component("Device:R", "R10", "1M", R, 150, 165, {"1": "Q1_GATE", "2": "VBAT"}, "Q1 gate-source pull-up"),
+        Component("Switch:SW_SPST", "SW1", "SW SPDT MSK12C02", "Button_Switch_SMD:SW_SPDT_Shouhan_MSK12C02",
+                  150, 190, {"1": "GND", "2": "PWR_ON_LO"},
+                  "v3.8 power slide: ON=R9 pulls Q1 gate low (bus on); OFF=R10 1M G-S turns Q1 off. uA path only"),
         Component("Device:C", "C14", "100nF 50V", C, 150, 125, {"1": "Q1_GATE", "2": "GND"}, "soft-start timing"),
         Component("Device:D_TVS", "D1", "SMBJ12A", "Diode_SMD:D_SMB", 120, 75, {"1": "VBAT", "2": "GND"},
                   "bus TVS 12V standoff"),
@@ -655,12 +662,13 @@ def sheet_power(root: str) -> str:
         ("J1 wire side: keyed XT30 on battery cable. Measure polarity before first plug.", 25, 40, "xt30"),
         ("Q1: D=VBAT_FUSED S=VBAT G via 100k/1M + 100nF -> reverse protection with ~10ms soft start.", 25, 55, "q1"),
         ("Per-branch current budget: PH 2.0 contact = 2A. J_NECK also feeds the head HAT.", 25, 70, "budget"),
+        ("SW1 master power slide (v3.8): switches Q1 gate pull only - main current stays on Q1/F1.", 25, 85, "sw1"),
     ]
     return emit_sheet("Power & Protection", uuid_, root,
                       [("Device", "Fuse"), ("imu_ttl", "AO4407C"), ("Device", "R"), ("Device", "C"),
                        ("Device", "D_TVS"), ("Device", "Polyfuse"), ("Regulator_Linear", "HT75xx-1-SOT89"),
                        ("Device", "LED"), ("Connector", "TestPoint"), ("imu_ttl", "ScrewTerminal_2P"),
-                       ("power", "PWR_FLAG")],
+                       ("Switch", "SW_SPST"), ("power", "PWR_FLAG")],
                       comps, labels, notes,
                       flags=["VBAT_RAW", "VBAT_FUSED", "VBAT", "VBAT_C2", "VBAT_LOGIC", "GND"],
                       page="2")
@@ -799,10 +807,10 @@ def sheet_conn(root: str) -> str:
     comps = [
         Component("imu_ttl:JST_PH_B3B_3P", "J3", "J_NECK", "imu_to_ttl:CONN-TH_B3B-PH-K-S",
                   55, 110, {"1": "BUS_DATA", "2": "VBAT", "3": "GND"}, "neck chain 30->31->32->33 -> HAT (head)"),
-        Component("imu_ttl:JST_PH_B3B_3P", "J4", "J_L", "imu_to_ttl:CONN-TH_B3B-PH-K-S",
-                  55, 145, {"1": "BUS_DATA", "2": "VBAT", "3": "GND"}, "left leg 20-24"),
-        Component("imu_ttl:JST_PH_B3B_3P", "J5", "J_R", "imu_to_ttl:CONN-TH_B3B-PH-K-S",
-                  55, 180, {"1": "BUS_DATA", "2": "VBAT", "3": "GND"}, "right leg 10-14"),
+        Component("imu_ttl:JST_PH_B3B_3P", "J4", "J_L", "imu_to_ttl:CONN-TH_S3B-PH-K-S",
+                  55, 145, {"1": "BUS_DATA", "2": "VBAT", "3": "GND"}, "left leg 20-24 (v3.8 side entry)"),
+        Component("imu_ttl:JST_PH_B3B_3P", "J5", "J_R", "imu_to_ttl:CONN-TH_S3B-PH-K-S",
+                  55, 180, {"1": "BUS_DATA", "2": "VBAT", "3": "GND"}, "right leg 10-14 (v3.8 side entry)"),
         Component("imu_ttl:JST_PH_B3B_3P", "J6", "J_HEAD", "imu_to_ttl:CONN-TH_B3B-PH-K-S",
                   55, 215, {"1": "BUS_DATA", "2": "VBAT", "3": "GND"}, "v3.7 head/spare branch"),
         Component("Connector:TestPoint", "TP1", "VBAT", "TestPoint:TestPoint_Pad_D1.0mm", 160, 60, {"1": "VBAT"}),

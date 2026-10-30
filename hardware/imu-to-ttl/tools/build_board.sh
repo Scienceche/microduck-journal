@@ -6,18 +6,18 @@ KIPY="C:/Users/c1349/AppData/Local/Programs/KiCad/10.0.7/bin/python.exe"
 cd "$(dirname "$0")/.."
 NETLIST=$(mktemp /tmp/imu_ttl.XXXX.net)
 kicad-cli sch export netlist --format kicadsexpr --output "$NETLIST" imu_to_ttl.kicad_sch > /dev/null
-"$KIPY" tools/gen_board_v37.py    2>/dev/null
-"$KIPY" tools/assign_netlist.py "$NETLIST" 2>/dev/null
-"$KIPY" tools/place_board.py       2>/dev/null
-"$KIPY" tools/pack_loose.py        2>/dev/null
-"$KIPY" tools/fix_overlaps.py     2>/dev/null
-"$KIPY" tools/rules.py             2>/dev/null
+"$KIPY" tools/gen_board_v38.py
+"$KIPY" tools/assign_netlist.py "$NETLIST"
+"$KIPY" tools/place_board.py
+"$KIPY" tools/pack_loose.py
+"$KIPY" tools/fix_overlaps.py
+"$KIPY" tools/rules.py
 # v3.6: the U2->U1 SPI escape pair strands on many router rolls (aux nets
 # fence the south row first) - pre-route it deterministically, then let
 # Freerouting finish the remaining ratsnest on top (--continue)
-"$KIPY" pcb_rework/pre_route_spi.py 2>/dev/null
-"$KIPY" tools/route.py --continue --passes 120 2>/dev/null
-"$KIPY" tools/pours.py             2>/dev/null
+"$KIPY" pcb_rework/pre_route_spi.py
+"$KIPY" tools/route.py --passes 120
+"$KIPY" tools/pours.py
 rm -f "$NETLIST"
 # v3 硬校验: 防止链条中途崩掉产出空板(2026-10-12 空板事故)
 N=$(grep -c '(property "Reference"' imu_to_ttl.kicad_pcb)
