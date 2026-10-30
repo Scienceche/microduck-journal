@@ -15,7 +15,7 @@ kicad-cli sch export netlist --format kicadsexpr --output "$NETLIST" imu_to_ttl.
 # v3.6: the U2->U1 SPI escape pair strands on many router rolls (aux nets
 # fence the south row first) - pre-route it deterministically, then let
 # Freerouting finish the remaining ratsnest on top (--continue)
-"$KIPY" pcb_rework/pre_route_spi.py
+"$KIPY" tools/pre_route_v38.py
 "$KIPY" tools/route.py --passes 120
 "$KIPY" tools/pours.py
 rm -f "$NETLIST"

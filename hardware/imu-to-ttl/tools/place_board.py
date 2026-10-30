@@ -39,7 +39,7 @@ FLOORPLAN = [
     ("J3", 23.0, 7.6, 0, "F"),      # neck/HAT vertical (up from y6: true bite dips to 5.8)
     ("J4", 24.7, 12.1, 0, "F"),     # left leg SIDE-ENTRY mid band, wires exit +y over the board
     ("J5", 12.9, 6.3, 180, "F"),    # right leg SIDE-ENTRY bottom edge, wires exit -y
-    ("J6", 20.3, 15.5, 90, "B"),     # vertical, threading the U2-U1 pad gap      # head/spare vertical BOTTOM over the center gap
+    ("J6", 17.0, 11.0, 0, "B"),      # v9: clear of the U2-U1 SPI fan corridor      # head/spare vertical BOTTOM over the center gap
     ("J2", 2.0, 18.2, 270, "B"),      # debug 1x7 lying along rear-mid (old x19.6 row is J4 courtyard now)
     # ---- battery + power front end ----
     ("J1", 2.3, 14.2, 90, "F"),     # bare battery pads, straight rear edge
@@ -47,20 +47,22 @@ FLOORPLAN = [
     ("Q1", 6.8, 3.0, 90, "F"),      # reverse FET, rear-south corner (clear of J5 + hole M1)
     ("F1", 5.0, 12.5, 90, "F"),     # 5A fuse, rear chain
     ("R10", 18.0, 7.5, 90, "F"),    # gate bleed between J5/J3 (was y3.5 - inside the true bite)
-    ("D2", 3.2, 9.0, 0, "F"),      # VBAT_LOGIC TVS locked rear-west (packer whiffed here twice)
+    ("D2", 3.2, 9.0, 0, "F"),
+    ("D3", 33.4, 16.8, 0, "B"),      # bus zener locked bottom-east (packer kept dumping it on lanes)
+    ("R6", 14.5, 16.2, 0, "B"),      # OCS strap LOCKED bottom (OCS_AUX drops to B at U2.10)      # VBAT_LOGIC TVS locked rear-west (packer whiffed here twice)
     # ---- digital core ----
     ("U2", 17.0, 15.0, 0, "F"),     # IMU: board center over the 15mm gap
-    ("U1", 25.5, 19.0, 0, "F"),     # MCU east of U2, SPI channel
-    ("U3", 31.0, 9.8, 180, "F"),    # 2G241 front band (2mm tall, low zone OK)
+    ("U1", 25.5, 19.0, 180, "F"),   # v9: SPI pins face U2 (west) - pure-F fan pre-routes
+    ("U3", 31.0, 9.3, 180, "F"),    # 2G241 front band (2mm tall, low zone OK)
     # ---- decouplers locked at their ICs ----
     ("C10", 13.6, 13.4, 0, "F"),    # U2 100nF, west escape frame
     ("C11", 13.6, 16.6, 0, "F"),    # U2 100nF
-    ("C13", 21.5, 20.6, 90, "B"),   # U1 100nF BOTTOM (top spots all eaten by J4 courtyard)
+    ("C13", 33.5, 19.9, 90, "B"),   # U1 100nF BOTTOM (top spots all eaten by J4 courtyard)
     # ---- servo surge bulk ----
     ("C15", 10.0, 16.0, 0, "F"),    # 22uF bulk top, mid-west
-    ("D1", 33.2, 18.0, 90, "F"),    # VBAT TVS vertical on the east rim (clear of U1 east pads)
+    ("D1", 33.8, 18.0, 90, "F"),    # VBAT TVS vertical on the east rim (clear of U1 east pads)
     ("C15", 26.0, 18.5, 0, "B"),    # 22uF bulk BOTTOM, back-to-back with U1
-    ("C16", 28.8, 7.0, 0, "B"),     # 22uF bulk BOTTOM
+    ("C16", 29.2, 6.5, 0, "B"),     # 22uF bulk BOTTOM
     # ---- LDO island ----
     ("U4", 15.6, 25.3, 0, "F"),     # HT7533 SOT-89 north of SW1 (its v3.7 spot is SW1 now)
     ("C7", 17.0, 22.8, 0, "F"),     # LDO OUT 100nF
@@ -72,7 +74,7 @@ BACK_ONLY = [
     "R13", "C14",
     # v3.8: top face saturated at courtyard level - these SMD parts live on
     # the bottom strip (plenty of room there, see the free-space map)
-    "FB1", "R4", "R15", "R6", "C4", "C5", "C6", "C12", "R7", "R2", "R14",
+    "FB1", "R4", "R15", "C4", "C5", "C6", "C12", "R7", "R2", "R14",
 ]
 BACK_POS = {
     "C5": (9.0, 19.5), "C8": (9.0, 7.0), "F2": (9.0, 17.5),

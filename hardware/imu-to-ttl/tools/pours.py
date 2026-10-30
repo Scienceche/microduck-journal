@@ -166,9 +166,13 @@ def main():
     if dropped:
         print("dropped %d stitching vias from a previous run" % dropped)
 
-    # NOTE: dropping the autorouter's GND/VBAT *tracks* was tried and reverted:
-    # without them the DRC reports the power pads as unconnected - the pours and
-    # the pads' fill rules do not substitute for the copper the router laid.
+    # v3.8: GND tracks ARE dropped now - with the pocket zones + stitching
+    # vias in place the fills carry GND, and routed GND traces were slicing
+    # both planes into fragments (DRC zone-zone bookkeeping).
+    dropped_tr = drop_gnd_tracks(PCB)
+    if dropped_tr:
+        print("dropped %d routed GND segments" % dropped_tr)
+
     board = pcbnew.LoadBoard(PCB)
     nets = board.GetNetInfo()
     gnd = nets.GetNetItem("GND")
@@ -221,6 +225,18 @@ def main():
             outline.NewOutline()
             for x, y in poly:
                 outline.Append(mm(x), mm(y))
+
+    # v3.8 GND pockets: J3.3/J4.3/J5.3 sit inside the VBAT_TOP band by design;
+    # these priority-11 fingers reach past the band edge so GND_TOP fills them
+    GND_POCKETS = [
+        ("GND_POCKET_J3", (19.9, 2.6), (22.1, 8.2)),
+        ("GND_POCKET_J5", (13.8, 2.6), (16.0, 8.4)),
+        ("GND_POCKET_J4", (21.6, 12.8), (23.8, 27.2)),
+    ]
+    for name, (x0, y0), (x1, y1) in GND_POCKETS:
+        if need(name):
+            add_zone(board, pcbnew.F_Cu, gnd, 11,
+                     [(x0, y0), (x1, y0), (x1, y1), (x0, y1)], name)
 
     print("zones now: %d" % len(board.Zones()))
 

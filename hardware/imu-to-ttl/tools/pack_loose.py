@@ -22,18 +22,17 @@ PCB = sys.argv[1] if len(sys.argv) > 1 else os.path.join(PROJ, "imu_to_ttl.kicad
 PACKED = {
     # power front-end (west pocket column x10.9, clear of J5/J6/C10/C11)
     "C1": (14.7, 28.0),  "C2": (15.5, 20.5),
-    "R9": (10.9, 14.0),
+    "R9": (10.9, 13.0),
     # MCU decoupling / bus straps, NE rim clear of the y>24.1 bite void
     "C12": (2.5, 9.0), "R3": (25.8, 23.3),
     "FB1": (12.0, 11.0),
     "R7": (11.0, 11.5), "R8": (7.0, 11.4), "D3": (33.3, 27.6),
-    "R14": (18.0, 14.5), "R15": (9.2, 11.0), "R16": (31.0, 12.4),
-    "R5": (13.5, 21.5), "R6": (9.3, 15.0),
-    "R4": (16.8, 11.2),
-    "R2": (15.5, 11.5), "TH1": (31.9, 7.1), "R13": (13.0, 15.2),   # clear of the J2 body shadow
+    "R14": (33.2, 12.2), "R15": (9.2, 11.0), "R16": (31.0, 12.4),
+    "R5": (13.5, 21.5), "R4": (16.8, 11.2),
+    "R2": (13.0, 11.5), "TH1": (31.9, 7.1), "R13": (11.0, 15.2),   # clear of the J2 body shadow
     # LDO island + indicators (north-west pocket around U4/C7)
     "F2": (14.7, 28.0), "C3": (12.2, 29.0), "C4": (3.5, 5.5),
-    "C8": (14.1, 22.3), "C5": (13.0, 8.5), "LED1": (11.0, 21.0), "R1": (10.0, 21.0),
+    "C8": (14.1, 22.3), "C5": (13.0, 8.5), "LED1": (11.0, 21.0), "R1": (19.5, 20.8),
     "C6": (17.6, 21.6), "C9": (16.8, 19.9), "R11": (13.6, 20.8), "R12": (22.0, 23.0),
     "TP1": (9.5, 12.5), "TP2": (33.5, 12.5), "TP3": (10.0, 14.0),
 }
@@ -56,6 +55,15 @@ KEEP_OUT = [
     # horn-boss bites: r8.3 lens approx (center x25; corners stay usable)
     (17.09, 0.0, 20.0, 2.6), (20.0, 0.0, 30.0, 5.8), (30.0, 0.0, 32.91, 2.6),
     (17.09, 27.4, 20.0, 30.0), (20.0, 24.2, 30.0, 30.0), (30.0, 27.4, 32.91, 30.0),
+    # v3.8 pre-route fan corridor (top): U2 escapes + U1-west stubs
+    (15.4, 12.1, 21.5, 14.5), (15.4, 12.1, 20.5, 13.9),
+    (19.2, 13.9, 20.3, 18.4), (19.7, 13.3, 20.8, 17.0),
+    (18.6, 15.0, 19.3, 18.9), (19.2, 15.9, 22.9, 19.0),
+]
+
+# bottom-face lane keepouts (checked only for bottom-face packing)
+BACK_KEEP_OUT = [
+    (13.2, 15.1, 19.1, 15.7),   # OCS lane to R6
 ]
 GAP = 0.3            # routing channel between courtyards
 GRID = 0.5
@@ -153,6 +161,8 @@ def main():
             back_boxes[ref] = box_of(fp)
     for i, (x0, y0, x1, y1) in enumerate(KEEP_OUT):
         boxes["_keepout%d" % i] = [x0, y0, x1, y1]
+    for i, (x0, y0, x1, y1) in enumerate(BACK_KEEP_OUT):
+        back_boxes["_bko%d" % i] = [x0, y0, x1, y1]
 
     def free2(ref, box, gap=GAP, bface=False):
         if box[0] < MARGIN or box[1] < MARGIN or box[2] > BOARD_L - MARGIN or box[3] > BOARD_W - MARGIN:

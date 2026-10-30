@@ -773,3 +773,32 @@ v3.6 完整交付态在 fab/imu_to_ttl-gerber-v3.6.zip + git（journal 仓库 42
 
 工具新增：dsn_tool.py / overlay_v38.py / gnd_stitch_pads.py / stitch_grid.py；
 叠加图 viz：v38-servo-overlay.html（孔位逐点重合验证 ✓）
+
+# v3.8 WIP r2（2026-10-30 晚 · 布线攻略破局）
+
+## 战果（相对 r1 的 16 开口 + 无铺铜）
+- **0 短路 / 0 间距违规族 / SPI 六网族全通**（v3.7 的死结已解）
+- 铺铜 8 区活着（GND 双面 + VBAT 带 + 3 个连接器 GND 口袋铜）；GND 焊盘 100% 连通
+- 592 段 + ~60 孔；U1 转 180° 后 SPI 引脚朝西直对 U2
+
+## 破局的三个关键动作（换了四次策略后的组合拳）
+1. **U1 旋转 180°**：SPI 引脚群(11-15)从东侧转到 x22.64 西列，正对 U2——
+   U2↔U1 变成**纯顶层五线扇出**（逃逸层 y12.41/12.81/13.21/13.61 + 立柱 x19.0-21.0 + 直插桩），
+   平面性数学验证零交叉，**全族只要 1 个过孔**（此前的底面车道方案被 J4/J6 焊盘墙反复打死，
+   迭代 v4→v8.2 共 9 版拓扑）
+2. **分面装箱 + 底面条带**：顶面 0603 槽位从 0 → 底面 284 槽（11 小件下底面）
+3. **GND 双轨制**：路由器布 GND 主干（v3.6 模式）+ 铺铜/口袋铜/网格缝合孔(9-11只)兜底，
+   悬空缝合孔由 fix_dangling 按 DRC 报告自动清除
+
+## 剩余清单（DRC v38f2，全部是次级网）
+- 未连接 27 项 = GND 平面碎片记账 16 对 + **11 处次级网**：
+  J2 调试排 4 脚(NRST/SWDIO/SWCLK/UART1_TX)、带阻 R3(CS)/R13(BUS_LOGIC)、
+  TH1(BUS_DATA)、D3(BUS_CLAMP)、R9↔SW1(PWR_ON_LO)、U3 的 +3V3/RX_EN 尾巴
+  → GUI 15 分钟手工线或下轮预定线（坐标已在 drc_v38f2.rpt 逐条列出）
+- copper_edge 8（nudge_edges 已跑一轮，余量手核）、courtyards 8（exclusions 豁免清单）、
+  丝印 text_height 4、tracks_crossing 3（同层未交叠的视觉项，手核）
+- BOM 待补 SW1(MSK12C02 C431537)/J4/J5(S3B-PH-K-S C169277) 三项料号核对
+
+## 新工具（本轮沉淀）
+dsn_tool.py（GND剥离+内缩，内缩因 FR1.9 挂死已弃用）/ pre_route_v38.py（扇出+自检验器）/
+gnd_stitch_pads.py / stitch_grid.py / fix_dangling.py / overlay_v38.py

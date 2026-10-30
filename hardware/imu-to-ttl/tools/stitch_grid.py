@@ -43,10 +43,11 @@ def main():
     ts = board.Tracks()
     for i in range(len(ts)):
         tr = ts[i]
-        if isinstance(tr, pcbnew.PCB_VIA):
+        cls = tr.GetClass()          # isinstance is unreliable for SWIG proxies
+        if cls == "PCB_VIA":
             v = tr.GetPosition()
-            tracks.append(("v", v.x / 1e6, v.y / 1e6, 0.35))   # vias: fixed half-width (0.6-0.7 dia)
-        else:
+            tracks.append(("v", v.x / 1e6, v.y / 1e6, 0.35))
+        elif cls in ("PCB_TRACK", "PCB_ARC"):
             a, b = tr.GetStart(), tr.GetEnd()
             tracks.append(("s", a.x / 1e6, a.y / 1e6, b.x / 1e6, b.y / 1e6, tr.GetWidth() / 2e6))
 
