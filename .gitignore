@@ -5,6 +5,7 @@ __pycache__/
 *.elf
 *.bin
 *.zip
+!hardware/imu-to-ttl/fab/*.zip
 analysis/
 .claude/
 *.log

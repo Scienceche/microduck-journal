@@ -720,3 +720,11 @@ fab:`imu_to_ttl-gerber-v3.6.zip`(32 文件)。BOM 已剔除幻影件 TP6~TP9
 ## 回滚
 
 v3.6 完整交付态在 fab/imu_to_ttl-gerber-v3.6.zip + git（journal 仓库 424ea8f）
+
+# 归档记录（2026-10-30）
+
+- **真板工程原件归档**：Downloads 里的 imu_to_servo（OSHWhub microduck imu模块）
+  三件套（.epro2 工程 + BOM xlsx + .epro 单文档）已拷入
+  `hardware/imu_to_servo-orig/`（含 md5 + README 溯源说明，记录真板 BOM 差异
+  与网表实证结论）。此板为 v3.x 母本、无 hub；官方 imu_to_dxl（GD32 版）在
+  community-kit，是另一条线。

@@ -16,10 +16,10 @@ import struct
 JOINTS = [
     ("left_hip_yaw", 20, -1), ("left_hip_roll", 21, -1), ("left_hip_pitch", 22, -1),
     ("left_knee", 23, -1), ("left_ankle", 24, -1),
-    ("neck_pitch", 30, -1), ("head_pitch", 31, -1), ("head_yaw", 32, -1), ("head_roll", 33, -1),
-    ("right_hip_yaw", 10, -1), ("right_hip_roll", 11, +1), ("right_hip_pitch", 12, -1),
+    ("neck_pitch", 30, +1), ("head_pitch", 31, +1), ("head_yaw", 32, -1), ("head_roll", 33, -1),
+    ("right_hip_yaw", 10, -1), ("right_hip_roll", 11, -1), ("right_hip_pitch", 12, -1),
     ("right_knee", 13, -1), ("right_ankle", 14, -1),
-]
+]  # 2026-10-29 用户实测: 11/30/31/34 方向翻转
 LIMITS = {
     "left_hip_yaw": (-0.4363, 0.5236), "left_hip_roll": (-0.3840, 0.3840),
     "left_hip_pitch": (-1.5708, 1.5708), "left_knee": (-1.5708, 1.5708),
