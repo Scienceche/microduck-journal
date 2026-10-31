@@ -345,6 +345,7 @@ body.fullbleed #scopeFrame{height:calc(100dvh - 58px);min-height:0;border:none;b
       <div style="flex:1;min-width:200px">
         <div class="dim">拖动摇杆 = 速度指令（松手回零）· 上下=前进后退 · 左右=转向</div>
         <div class="mid" id="walkCmd">vx 0.00 · vw 0.00</div>
+        <div class="dim" style="margin-top:6px">🎮 实体手柄 <span id="padState">未连接（插上/配对后按任意键激活，保持本页前台）</span> · 左摇杆=走 · A=启动 B=停 Y=回HOME · 建议有线/2.4G</div>
         <div class="dim" style="margin-top:6px">节拍 / 倾角 / 动作幅值</div>
         <div class="mid" id="walkStats">- · - · -</div>
         <div class="dim" style="margin-top:6px" id="walkErr"></div>
@@ -911,6 +912,32 @@ function joyCmd(dx,dy){const R=53;const cx=Math.max(-1,Math.min(1,dx/R)),cy=Math
 joy.addEventListener("pointerdown",e=>{joy.setPointerCapture(e.pointerId);const r=joy.getBoundingClientRect();joyCmd(e.clientX-r.left-75,e.clientY-r.top-75)});
 joy.addEventListener("pointermove",e=>{if(e.buttons){const r=joy.getBoundingClientRect();joyCmd(e.clientX-r.left-75,e.clientY-r.top-75)}});
 joy.addEventListener("pointerup",()=>joyCmd(0,0));joy.addEventListener("pointercancel",()=>joyCmd(0,0))}
+/* 实体手柄（Gamepad API）：左摇杆=速度指令（死区0.12，仅变化时发送，不与虚拟摇杆互抢）；A=启动 B=停 Y=回HOME；断连自动回零；
+   非标准映射（蓝牙DInput常见，轴序/AB可能互换）一律忽略并提示，宁可不用也不能前后变转向 */
+{let lastVx=0,lastWz=0,lastBtns=[],padOn=false,padMsg="";
+function padSend(vx,wz,force){vx=+vx.toFixed(2);wz=+wz.toFixed(2);
+  if(!force&&Math.abs(vx-lastVx)<0.01&&Math.abs(wz-lastWz)<0.01)return;
+  lastVx=vx;lastWz=wz;
+  $("joyKnob").style.left=(51-(wz/1.0)*53)+"px";$("joyKnob").style.top=(51-(vx/0.4)*53)+"px";
+  $("walkCmd").textContent=`vx ${vx.toFixed(2)} · vw ${wz.toFixed(2)}`;
+  post("/api/walk",{op:"cmd",vx,vy:0,wz});}
+function dz(v){return Math.abs(v)<0.12?0:(v-Math.sign(v)*0.12)/0.88}
+function padShow(m){if(m!==padMsg){padMsg=m;$("padState").textContent=m}}
+function padTick(){const pads=navigator.getGamepads?navigator.getGamepads():[];let g=null;
+  for(const p of pads)if(p&&p.connected){g=p;break}
+  if(!g){if(padOn){padOn=false;lastBtns=[];if(lastVx||lastWz)padSend(0,0,true)}padShow("未连接（插上/配对后按任意键激活，保持本页前台）");return}
+  if(g.mapping!=="standard"){if(padOn){padOn=false;lastBtns=[];if(lastVx||lastWz)padSend(0,0,true)}padShow("已连接但非标准映射（蓝牙DInput常见）——已忽略输入，请换有线/2.4G");return}
+  if(!padOn){padOn=true;toast("🎮 手柄已接入: "+(g.id||"").slice(0,40))}
+  padShow(`已连接: ${(g.id||"").slice(0,40)} · 标准映射`);
+  const ax=g.axes||[];
+  padSend(-dz(ax[1]??0)*0.4,-dz(ax[0]??0)*1.0);
+  (g.buttons||[]).forEach((b,i)=>{const down=!!b&&(b.pressed||b.value>0.5);
+    if(down&&!lastBtns[i]){
+      if(i===0)post("/api/walk",{op:"start"}).then(r=>toast(r.ok?"策略已启动(手柄A)":"启动失败: "+(r.err||"?"),!r.ok));
+      if(i===1)post("/api/walk",{op:"stop"}).then(()=>toast("已停止(手柄B)"));
+      if(i===3)post("/api/walk",{op:"home"}).then(r=>toast(r.ok?"回 HOME(手柄Y)":"失败",!r.ok));}
+    lastBtns[i]=down;});}
+setInterval(padTick,33);}
 setInterval(async()=>{if(document.hidden||!$("pg-walk").classList.contains("on"))return;
   try{const s=await(await fetch("/api/walk",{method:"POST",headers:{"Content-Type":"application/json"},body:'{"op":"status"}'})).json();
     const st=$("walkState");
