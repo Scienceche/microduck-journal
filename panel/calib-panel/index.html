@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>鸭子标定台</title>
+<style>
+:root{--bg:#101418;--panel:#171d24;--line:#2a333d;--txt:#dbe4ee;--dim:#7f8ea0;
+--acc:#4da3ff;--ok:#3ecf8e;--warn:#f0b429;--err:#ff5d5d;--chip:#1d2630}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font:14px/1.5 system-ui,"Microsoft YaHei",sans-serif;
+padding:10px;max-width:1080px;margin:0 auto}
+h2{font-size:15px;margin-bottom:8px;color:var(--acc)}
+h2 small{color:var(--dim);font-weight:400;font-size:12px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button{background:#222b35;color:var(--txt);border:1px solid var(--line);border-radius:8px;
+padding:7px 12px;font-size:13px;cursor:pointer}
+button:hover{border-color:var(--acc)}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.primary{background:#1c4a78;border-color:#2b6db1}
+button.danger{background:#5c1f1f;border-color:#a13333;font-weight:600}
+button.small{padding:3px 8px;font-size:12px;border-radius:6px}
+.dim{color:var(--dim);font-size:12px}
+input[type=number],input[type=text]{background:#0d1116;color:var(--txt);border:1px solid var(--line);
+border-radius:6px;padding:5px 7px;font-size:13px;width:76px}
+input[type=text]{width:130px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{color:var(--dim);font-weight:500;text-align:left;padding:5px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:5px 6px;border-bottom:1px solid #202832;white-space:nowrap}
+tr.warn td{background:#33220e}
+.bad{display:inline-block;padding:1px 8px;border-radius:10px;font-size:12px;background:var(--chip);border:1px solid var(--line)}
+.bad.ok{color:var(--ok);border-color:#245c42}
+.bad.err{color:var(--err);border-color:#6e2b2b}
+.bad.warn{color:var(--warn);border-color:#6e5518}
+.bad.acc{color:var(--acc);border-color:#2b5680}
+.chips{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.mono{font-family:ui-monospace,Consolas,monospace}
+#hdr{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+#hdr h1{font-size:17px;flex:1}
+#topErr{margin-top:8px;padding:8px 10px;border-radius:8px;background:#33201f;border:1px solid #6e2b2b;color:#ffb0b0;display:none}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#222b35;
+border:1px solid var(--acc);border-radius:8px;padding:8px 16px;display:none;z-index:9;max-width:90vw}
+#toast.err{border-color:var(--err);color:#ffb0b0}
+.scroll{overflow-x:auto}
+details summary{cursor:pointer;color:var(--acc);font-size:13px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:13px}
+.kv b{color:var(--dim);font-weight:500}
+td .cellbtns{display:flex;gap:4px}
+.progress{font-size:12px;color:var(--warn)}
+@media(max-width:760px){td,th{padding:4px 4px}}
+</style>
+</head>
+<body>
+<div id="hdr">
+  <h1>🦆 鸭子标定台 <span class="dim">:8085 · robotd 桥接</span></h1>
+  <button class="danger" id="btnRelax">■ 松开 / 停止</button>
+</div>
+<div class="chips" id="chips"></div>
+<div id="topErr"></div>
+
+<div class="panel">
+  <h2>模式 <small>标定操作必须在「标定模式」下进行；切换会重启 robotd（扭矩全关）</small></h2>
+  <div class="row">
+    <button id="btnToCal">🔧 进标定模式</button>
+    <button id="btnToMotion">▶ 回运动模式</button>
+    <span class="dim" id="modeNote"></span>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>零位校准 <small>与老面板同款三步：① 实时读数(自动) ② 一键全校 ③ 验证零位</small></h2>
+  <div class="row">
+    <button class="primary" id="btnCalAll">② 一键全校（先摆好标准姿态）</button>
+    <button id="btnVerify">③ 验证零位（逐关节回零）</button>
+    <span class="progress" id="calProg"></span>
+  </div>
+  <div class="dim" style="margin-top:6px">
+    「校零」= 把<b>当前物理位置</b>记为该关节 0°（手摆好 → 点该行）；偏差 &gt;600 会标 ⚠（建议重装舵盘）。
+    改方向/限位用行内控件，都走 robotd 的 capture，保存进 /etc/robot/feetech-ft5/hd1910-calibration.toml。
+    标定后 motion_enabled 会被置 false，回运动模式时自动恢复。
+  </div>
+  <details style="margin-top:8px">
+    <summary>📐 零位参考图（官方模型姿态：左正视 / 右侧视）</summary>
+    <img src="/cal_ref4.png" style="width:100%;max-width:640px;border:1px solid var(--line);border-radius:8px;margin-top:6px">
+    <div class="dim">侧视图(右)判腿：大腿-小腿-脚一条竖直线；正视图(左)判对称和头；脖子竖直、视线水平、下巴合上。鸭子脸朝侧视图里的左方向。</div>
+  </details>
+</div>
+
+<div class="panel">
+  <h2>关节 <span class="dim" id="jointMeta"></span></h2>
+  <div class="scroll">
+  <table id="jtbl">
+    <thead><tr>
+      <th>关节</th><th>ID</th><th>raw</th><th>角度°</th><th>偏差</th><th>方向</th>
+      <th>min° / max°</th><th>V/°C</th><th>操作</th>
+    </tr></thead>
+    <tbody><tr><td colspan="9" class="dim">等待数据…</td></tr></tbody>
+  </table>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>IMU <small>ID 200</small></h2>
+  <div class="kv" id="imuKv"></div>
+  <div class="row" style="margin-top:8px">
+    <button id="btnImuOfficial">设为官方装向并确认 (0.7071,0,0.7071,0)</button>
+    <button id="btnImuConfirm">仅确认当前装向</button>
+  </div>
+  <div class="dim" style="margin-top:4px">官方装向四元数 wxyz = [0.7071, 0, 0.7071, 0]，即绕 y 轴 90°。装向确认是回运动模式的硬条件。</div>
+</div>
+
+<div class="panel">
+  <h2>姿态库 <small>存当前 15 关节原始位置 / 逐关节回放（需标定模式）</small></h2>
+  <div class="row">
+    <input type="text" id="poseName" placeholder="姿态名（如：站）">
+    <button class="primary" id="btnPoseSave">存当前</button>
+  </div>
+  <div id="poseList" style="margin-top:8px"><span class="dim">无姿态</span></div>
+</div>
+
+<div class="panel">
+  <h2>总线健康 <small>丢包率同时用于验证 ID12/13 时隙热修复</small></h2>
+  <div class="kv" id="busKv"></div>
+  <div class="dim mono" id="errById" style="margin-top:6px"></div>
+</div>
+
+<div id="toast"></div>
+<script>
+"use strict";
+const $=s=>document.querySelector(s);
+const J=(j,s=1)=>Number(j).toFixed(s);
+function toast(msg,err){const t=$("#toast");t.textContent=msg;t.className=err?"err":"";
+  t.style.display="block";clearTimeout(t._t);t._t=setTimeout(()=>t.style.display="none",3200);}
+async function api(path,body){
+  const r=await fetch(path,body?{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(body)}:undefined);
+  return r.json();
+}
+function errText(e){return String(e&&e.message||e);}
+const REQUIRED=["10","11","12","13","14","20","21","22","23","24","30","31","32","33","34"];
+
+let CAL=null;        // {joints:[{id,name,zero_raw,direction,min_rad,max_rad}], imu_*}
+let lastServos=[];   // 最新 servos 数组
+let busy=false;      // 串行化本页发起的总线动作
+
+async function loadCal(){
+  try{const c=await api("/api/cal");CAL=c.calibration||c;renderRows();}catch(e){}
+}
+
+function calOf(id){return (CAL&&CAL.joints||[]).find(j=>j.id===Number(id));}
+function angleDeg(raw,cal){if(!cal)return null;return (raw-cal.zero_raw)/4096*360*cal.direction;}
+function deg(rad){return Number(rad)*180/Math.PI;}
+
+function chip(txt,cls){return `<span class="bad ${cls||""}">${txt}</span>`;}
+
+function renderStatus(d){
+  const c=[];
+  const mode=d.mode==="commissioning"?"标定模式":"运动模式";
+  c.push(chip(d.mode==="commissioning"?"🔧 "+mode:"▶ "+mode,d.mode==="commissioning"?"acc":"ok"));
+  if(d.phase)c.push(chip("相位 "+d.phase,d.phase==="ready"||d.phase==="running"?"ok":d.phase.includes("error")||d.phase.includes("waiting")?"warn":""));
+  if(d.torque_state)c.push(chip("扭矩 "+d.torque_state,d.torque_state==="off"?"ok":"warn"));
+  if(d.achieved_hz!=null)c.push(chip(J(d.achieved_hz)+" / "+J(d.target_hz||50,0)+" Hz"));
+  if(d.total_cycles){
+    const loss=d.total_communication_failures/d.total_cycles*100;
+    c.push(chip("丢包 "+J(loss,2)+"%",loss<0.5?"ok":loss<3?"warn":"err"));
+  }
+  if(d.battery_v!=null||d.last_sample){
+    // 运动模式字段可能不同，尽力显示
+  }
+  $("#chips").innerHTML=c.join(" ");
+  const terr=$("#topErr");
+  if(d.error||d.phase==="waiting_for_bus"||d.mode==null&&d.error){
+    terr.style.display="block";
+    terr.textContent="⚠ "+(d.error||"robotd 等待总线：舵机/IMU 未连接或未上电");
+  }else terr.style.display="none";
+  // 模式提示
+  const note=$("#modeNote");
+  if(d.mode==="commissioning")note.textContent="当前标定模式：可校零/移动/回放。完成后记得回运动模式。";
+  else note.textContent="当前运动模式：只读。逐关节操作需先进标定模式。";
+  const s=(d.last_sample||{}).servos;
+  if(s){lastServos=s;renderRows();}
+  // IMU
+  const imu=(d.last_sample||{}).imu;
+  const kv=$("#imuKv");
+  if(imu){
+    kv.innerHTML=`<b>重力</b><span class="mono">${[0,1,2].map(i=>J(imu.gravity[i],3)).join(" / ")}</span>
+    <b>陀螺 rad/s</b><span class="mono">${[0,1,2].map(i=>J(imu.gyro_rad_s[i],3)).join(" / ")}</span>
+    <b>四元数 wxyz</b><span class="mono">${imu.quaternion_wxyz.map(v=>J(v,4)).join(", ")}</span>
+    <b>状态</b><span>${imu.ready?"就绪":"未就绪"} · ${imu.valid?"融合有效":"融合无效"} · 序列 ${imu.sequence}</span>
+    <b>装向确认</b><span>${(CAL&&CAL.imu_mount_verified)?"✅ 已确认":"❌ 未确认"} ${CAL?"· quat ["+CAL.imu_mount_quat.map(v=>J(v,4)).join(", ")+"]":""}</span>`;
+  }else kv.innerHTML=`<span class="dim">等待 IMU 数据…</span>`;
+  // 总线健康
+  const bk=$("#busKv");
+  if(d.total_cycles!=null){
+    bk.innerHTML=`<b>周期</b><span>${d.total_cycles} 成功 ${d.total_success} 失败 ${d.total_communication_failures}</span>
+    <b>达成率</b><span>${J(d.achieved_hz,1)} Hz（目标 ${J(d.target_hz||50,0)}）</span>
+    <b>最近错误</b><span class="mono" style="font-size:12px">${d.last_cycle_error||"—"}</span>`;
+    const eb=d.errors_by_id||{};
+    $("#errById").textContent=Object.keys(eb).length?
+      "按 ID 计数： "+Object.entries(eb).map(([k,v])=>k+":"+v).join("  "):"";
+  }
+  $("#jointMeta").textContent=lastServos.length?`${lastServos.length} 个在线`:"无反馈";
+}
+
+function renderRows(){
+  const tb=$("#jtbl tbody");
+  if(!CAL||!CAL.joints){tb.innerHTML=`<tr><td colspan="9" class="dim">标定数据不可用</td></tr>`;return;}
+  const byId={};(lastServos||[]).forEach(s=>byId[s.id]=s);
+  const order=REQUIRED.map(Number).sort((a,b)=>a-b);
+  let html="";
+  for(const id of order){
+    const j=CAL.joints.find(x=>x.id===id);if(!j)continue;
+    const s=byId[id];
+    const raw=s?s.position_raw:null;
+    const a=raw!=null?angleDeg(raw,j):null;
+    const dev=raw!=null?Math.abs(raw-j.zero_raw):null;
+    const warn=dev!=null&&dev>600;
+    html+=`<tr class="${warn?"warn":""}" data-id="${id}">
+      <td>${s&&!s.live!==false?j.name:j.name}</td>
+      <td class="mono">${id}</td>
+      <td class="mono">${raw??"—"}</td>
+      <td class="mono">${a!=null?J(a,1):"—"}</td>
+      <td class="mono">${dev!=null?(warn?"⚠ ":"")+dev:"—"}</td>
+      <td><button class="small" data-act="dir">${j.direction>0?"+1":"−1"}</button></td>
+      <td><input type="number" step="1" value="${J(deg(j.min_rad),0)}" data-f="min" style="width:58px">
+          <input type="number" step="1" value="${J(deg(j.max_rad),0)}" data-f="max" style="width:58px">
+          <button class="small" data-act="lim">存</button></td>
+      <td class="dim mono">${s?J(s.voltage_v,1)+"V "+s.temperature_c+"°C"+(s.moving?" ●":""):"—"}</td>
+      <td><div class="cellbtns">
+        <button class="small primary" data-act="zero">校零</button>
+        <button class="small" data-act="gozero">→零</button>
+        <button class="small" data-act="p5">+5°</button>
+        <button class="small" data-act="m5">−5°</button>
+      </div></td></tr>`;
+  }
+  tb.innerHTML=html;
+}
+
+// ---- capture 数学：保持零位不变时，angle = 当前角(按新方向) ----
+async function capture(id,{zeroHere=false,dir=null,minDeg=null,maxDeg=null}={}){
+  const cal=calOf(id);if(!cal)throw Error("无标定数据");
+  const s=lastServos.find(x=>x.id===Number(id));
+  if(!s)throw Error("ID "+id+" 无实时反馈");
+  const d2=dir==null?cal.direction:dir;
+  let angle;
+  if(zeroHere)angle=0;
+  else angle=(s.position_raw-cal.zero_raw)/4096*360*d2;
+  let mn=minDeg==null?deg(cal.min_rad):minDeg;
+  let mx=maxDeg==null?deg(cal.max_rad):maxDeg;
+  if(dir!=null&&dir!==cal.direction){const t=mn;mn=-mx;mx=-t;} // 换向时限位镜像
+  return api("/api/bus",{action:"capture",id:Number(id),angle_deg:J(angle,3),
+    direction:d2,min_deg:J(mn,1),max_deg:J(mx,1)});
+}
+
+async function moveRaw(id,position,duration=1200){
+  return api("/api/bus",{action:"move",id:Number(id),position:Math.round(position),duration_ms:duration});
+}
+function rawForDeg(cal,dg){return cal.zero_raw+cal.direction*dg/360*4096;}
+
+async function serialize(fn){
+  if(busy){toast("上一个动作还没完成",true);return}
+  busy=true;
+  try{await fn()}catch(e){toast("失败："+errText(e),true)}
+  finally{busy=false;await Promise.all([loadCal(),pollOnce()]);}
+}
+
+$("#jtbl").addEventListener("click",ev=>{
+  const btn=ev.target.closest("button");if(!btn||busy)return;
+  const tr=btn.closest("tr");const id=Number(tr.dataset.id);
+  const cal=calOf(id);if(!cal)return;
+  const act=btn.dataset.act;
+  if(act==="zero")serialize(async()=>{
+    toast("ID "+id+" 校零…");
+    const r=await capture(id,{zeroHere:true});
+    toast("ID "+id+" 已校零 ✓");
+  });
+  else if(act==="dir")serialize(async()=>{
+    toast("ID "+id+" 翻转方向…");
+    await capture(id,{dir:-cal.direction});
+    toast("ID "+id+" 方向 → "+(-cal.direction>0?"+1":"−1"));
+  });
+  else if(act==="lim"){
+    const mn=parseFloat(tr.querySelector('[data-f=min]').value);
+    const mx=parseFloat(tr.querySelector('[data-f=max]').value);
+    if(!(mn<mx)){toast("min 必须小于 max",true);return}
+    serialize(async()=>{await capture(id,{minDeg:mn,maxDeg:mx});toast("ID "+id+" 限位已存");});
+  }
+  else if(act==="gozero")serialize(async()=>{toast("ID "+id+" → 零位");await moveRaw(id,cal.zero_raw);});
+  else if(act==="p5")serialize(async()=>{await moveRaw(id,rawForDeg(cal,5));});
+  else if(act==="m5")serialize(async()=>{await moveRaw(id,rawForDeg(cal,-5));});
+});
+
+$("#btnRelax").onclick=async()=>{
+  try{await api("/api/bus",{action:"relax"});toast("已请求全扭矩关（以扭矩状态为准）");}
+  catch(e){toast("失败："+errText(e),true)}
+};
+
+$("#btnToCal").onclick=async()=>{
+  if(!confirm("切换到标定模式？robotd 将重启：策略卸载、扭矩全关。鸭子应支撑好。"))return;
+  toast("切换中（约 20-40s）…");
+  const r=await api("/api/mode",{target:"commissioning"});
+  r.ok?toast("已切标定模式 ✓"):toast("切换失败："+(r.output||""),true);
+  refreshAll();
+};
+$("#btnToMotion").onclick=async()=>{
+  if(!confirm("回到运动模式？将校验 15 关节标定 + IMU 装向确认，然后重启 robotd 加载策略。"))return;
+  toast("切换中（约 20-40s）…");
+  const r=await api("/api/mode",{target:"motion"});
+  r.ok?toast("已回运动模式 ✓"):toast("切换失败："+(r.output||""),true);
+  refreshAll();
+};
+
+$("#btnCalAll").onclick=()=>{
+  if(!confirm("② 一键全校：先把 15 个关节摆到标准零位姿态（看参考图），确认后逐关节把当前位置记为 0°。继续？"))return;
+  serialize(async()=>{
+    const ids=REQUIRED.map(Number).sort((a,b)=>a-b);
+    let ok=0;
+    for(const id of ids){
+      $("#calProg").textContent=`校零中 ${ok+1}/${ids.length} …`;
+      try{await capture(id,{zeroHere:true});ok++;}
+      catch(e){toast(`ID ${id} 校零失败：`+errText(e),true);break;}
+      await new Promise(r=>setTimeout(r,150));
+    }
+    $("#calProg").textContent=`完成 ${ok}/${ids.length}`;
+    toast(`一键全校完成 ${ok}/${ids.length}`);
+  });
+};
+
+$("#btnVerify").onclick=()=>{
+  if(!confirm("③ 验证零位：逐个关节开扭矩回到 0°（每个约 2-6s，共约 1 分钟）。鸭子会逐渐摆到标准站姿。继续？"))return;
+  serialize(async()=>{
+    const ids=REQUIRED.map(Number).sort((a,b)=>a-b);
+    let ok=0;
+    for(const id of ids){
+      const cal=calOf(id);if(!cal)continue;
+      $("#calProg").textContent=`回零中 ${ok+1}/${ids.length} …`;
+      try{await moveRaw(id,cal.zero_raw,1500);ok++;}
+      catch(e){toast(`ID ${id} 回零失败：`+errText(e),true);break;}
+    }
+    $("#calProg").textContent=`完成 ${ok}/${ids.length}`;
+    toast(`验证零位完成 ${ok}/${ids.length}`);
+  });
+};
+
+$("#btnImuOfficial").onclick=()=>serialize(async()=>{
+  await api("/api/bus",{action:"verify-imu",confirmed:true,
+    mount_wxyz:[0.70710678,0,0.70710678,0]});
+  toast("IMU 装向已设为官方值并确认 ✓");
+});
+$("#btnImuConfirm").onclick=()=>serialize(async()=>{
+  await api("/api/bus",{action:"verify-imu",confirmed:true});
+  toast("IMU 装向已确认 ✓");
+});
+
+// ---- 姿态库 ----
+async function loadPoses(){
+  const r=await api("/api/poses");
+  const box=$("#poseList");
+  if(!r.poses||!r.poses.length){box.innerHTML=`<span class="dim">无姿态</span>`;return}
+  box.innerHTML=r.poses.map(p=>{
+    const n=p.name.replace(/"/g,"&quot;");
+    return `<div class="row" style="margin-bottom:6px">
+      <span style="min-width:80px">${p.name}</span><span class="dim">${p.created}</span>
+      <button class="small" data-pose="apply" data-name="${n}">回放</button>
+      <button class="small danger" data-pose="del" data-name="${n}">删</button></div>`;
+  }).join("");
+}
+$("#poseList").addEventListener("click",ev=>{
+  const b=ev.target.closest("button");if(!b)return;
+  const name=b.dataset.name;
+  if(b.dataset.pose==="del"){
+    if(!confirm("删除姿态「"+name+"」？"))return;
+    api("/api/pose/delete",{name}).then(()=>{toast("已删除");loadPoses()});
+  }else{
+    if(!confirm("回放「"+name+"」？逐关节移动（需标定模式），期间鸭子会动！"))return;
+    serialize(async()=>{
+      toast("回放中…");
+      const r=await api("/api/pose/apply",{name});
+      if(r.errors&&r.errors.length)toast("回放中断："+JSON.stringify(r.errors[0].error),true);
+      else toast("回放完成 ✓");
+    });
+  }
+});
+$("#btnPoseSave").onclick=async()=>{
+  const name=$("#poseName").value.trim();
+  if(!name){toast("先输入姿态名",true);return}
+  const r=await api("/api/poses",{name});
+  if(r.error)toast(r.error,true);
+  else{toast("已保存「"+name+"」");$("#poseName").value="";loadPoses();}
+};
+
+// ---- 轮询 ----
+let polling=null;
+async function pollOnce(){
+  try{const d=await api("/api/status");renderStatus(d);}
+  catch(e){$("#topErr").style.display="block";$("#topErr").textContent="⚠ 标定台无法连接 robotd："+errText(e);}
+}
+async function refreshAll(){await Promise.all([loadCal(),loadPoses()]);pollOnce();}
+refreshAll();
+polling=setInterval(pollOnce,1000);
+document.addEventListener("visibilitychange",()=>{
+  clearInterval(polling);
+  polling=setInterval(pollOnce,document.hidden?3000:1000);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+[Unit]
+Description=Microduck calibration panel (:8085)
+After=robotd.service network.target
+Wants=robotd.service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/duck-calib
+ExecStart=/usr/bin/python3 /opt/duck-calib/server.py
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target
