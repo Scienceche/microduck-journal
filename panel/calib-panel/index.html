@@ -89,6 +89,15 @@ td .cellbtns{display:flex;gap:4px}
 
 <div class="panel">
   <h2>关节 <span class="dim" id="jointMeta"></span></h2>
+  <div class="row" style="margin-bottom:8px">
+    <button id="btnLimitRec">⏺ 限位采样：关</button>
+    <button id="btnPoseSnap">📷 抓当前姿态</button>
+    <span class="dim" id="recHint">组合限位用法：手摆到「碰撞位形」(如脚顶住电池)→📷抓全部关节角→只收紧触犯方向的限位。单关节极限采样仅供粗参考。</span>
+  </div>
+  <details id="snapBox" style="display:none;margin-bottom:8px">
+    <summary style="cursor:pointer;color:var(--acc)">📸 位形快照（最近在前，可复制）</summary>
+    <pre id="snapOut" class="mono" style="font-size:12px;max-height:220px;overflow:auto"></pre>
+  </details>
   <div class="scroll">
   <table id="jtbl">
     <thead><tr>
@@ -143,6 +152,24 @@ const REQUIRED=["10","11","12","13","14","20","21","22","23","24","30","31","32"
 let CAL=null;        // {joints:[{id,name,zero_raw,direction,min_rad,max_rad}], imu_*}
 let lastServos=[];   // 最新 servos 数组
 let busy=false;      // 串行化本页发起的总线动作
+let curMode="";      // commissioning / motion
+let limitRec=false;  // 限位采样开关
+const limitSamples={};  // id -> {min,max} 采样期间观测到的角度极值(度)
+
+function updateSamples(){
+  if(!limitRec||!CAL||!CAL.joints)return;
+  for(const sv of lastServos){
+    const c=calOf(sv.id);if(!c)continue;
+    const a=angleDeg(sv.position_raw,c);if(a==null)continue;
+    const r=limitSamples[sv.id]||(limitSamples[sv.id]={min:1e9,max:-1e9});
+    if(a<r.min)r.min=a;
+    if(a>r.max)r.max=a;
+  }
+}
+function setPollRate(){
+  clearInterval(polling);
+  polling=setInterval(pollOnce,limitRec?400:(document.hidden?3000:1000));
+}
 
 async function loadCal(){
   try{const c=await api("/api/cal");CAL=c.calibration||c;renderRows();}catch(e){}
@@ -178,8 +205,9 @@ function renderStatus(d){
   const note=$("#modeNote");
   if(d.mode==="commissioning")note.textContent="当前标定模式：可校零/移动/回放。完成后记得回运动模式。";
   else note.textContent="当前运动模式：只读。逐关节操作需先进标定模式。";
+  curMode=d.mode||"";
   const s=(d.last_sample||{}).servos;
-  if(s){lastServos=s;renderRows();}
+  if(s){lastServos=s;updateSamples();renderRows();}
   // IMU
   const imu=(d.last_sample||{}).imu;
   const kv=$("#imuKv");
@@ -225,7 +253,8 @@ function renderRows(){
       <td><button class="small" data-act="dir">${j.direction>0?"+1":"−1"}</button></td>
       <td><input type="number" step="1" value="${J(deg(j.min_rad),0)}" data-f="min" style="width:58px">
           <input type="number" step="1" value="${J(deg(j.max_rad),0)}" data-f="max" style="width:58px">
-          <button class="small" data-act="lim">存</button></td>
+          <button class="small" data-act="lim">存</button>
+          ${limitSamples[id]&&limitSamples[id].max>-1e8?`<div class="dim mono" style="font-size:11px">采 ${J(limitSamples[id].min,0)}~${J(limitSamples[id].max,0)}° <button class="small" data-act="fillsmp">采→框</button> <button class="small" data-act="clsmp">✕</button></div>`:""}</td>
       <td class="dim mono">${s?J(s.voltage_v,1)+"V "+s.temperature_c+"°C"+(s.moving?" ●":""):"—"}</td>
       <td><div class="cellbtns">
         <button class="small primary" data-act="zero">校零</button>
@@ -286,6 +315,13 @@ $("#jtbl").addEventListener("click",ev=>{
     if(!(mn<mx)){toast("min 必须小于 max",true);return}
     serialize(async()=>{await capture(id,{minDeg:mn,maxDeg:mx});toast("ID "+id+" 限位已存");});
   }
+  else if(act==="fillsmp"){
+    const r=limitSamples[id];if(!r||r.max<=-1e8)return;
+    tr.querySelector('[data-f=min]').value=Math.round(r.min);
+    tr.querySelector('[data-f=max]').value=Math.round(r.max);
+    toast("ID "+id+" 已填采样值（建议留 2-3° 余量手改后「存」）");
+  }
+  else if(act==="clsmp"){delete limitSamples[id];renderRows();}
   else if(act==="gozero")serialize(async()=>{toast("ID "+id+" → 零位");await moveRaw(id,cal.zero_raw);});
   else if(act==="p5")serialize(async()=>{await moveRaw(id,rawForDeg(cal,5));});
   else if(act==="m5")serialize(async()=>{await moveRaw(id,rawForDeg(cal,-5));});
@@ -390,6 +426,50 @@ $("#btnPoseSave").onclick=async()=>{
   else{toast("已保存「"+name+"」");$("#poseName").value="";loadPoses();}
 };
 
+const poseSnaps=[];
+$("#btnPoseSnap").onclick=()=>{
+  if(!lastServos.length){toast("无实时数据",true);return}
+  if(!CAL||!CAL.joints){toast("标定数据未加载",true);return}
+  const t=new Date();
+  const lines=[`# ${t.toLocaleTimeString()}${curMode==="commissioning"?"":"  (警告:非标定模式,数据为策略/保持姿态)"}`];
+  for(const j of CAL.joints){
+    const sv=lastServos.find(x=>x.id===j.id);
+    if(!sv)continue;
+    const a=angleDeg(sv.position_raw,j);
+    lines.push(`ID${j.id} ${j.name}: ${a!=null?J(a,1):"?"}° (raw ${sv.position_raw})`);
+  }
+  poseSnaps.unshift(lines.join("\n"));
+  if(poseSnaps.length>8)poseSnaps.pop();
+  $("#snapOut").textContent=poseSnaps.join("\n\n");
+  $("#snapBox").style.display="block";
+  $("#snapBox").open=true;
+  toast("已抓取 "+lastServos.length+" 关节位形");
+};
+
+$("#btnLimitRec").onclick=()=>{
+  if(!limitRec){
+    if(curMode!=="commissioning"){
+      toast("限位采样需先「进标定模式」（扭矩全关才能手掰）",true);
+      if(!confirm("当前不是标定模式。先切到标定模式？（鸭子会卸力）"))return;
+      api("/api/mode",{target:"commissioning"}).then(()=>{toast("已切标定模式，稍等总线就绪");refreshAll();});
+      return;
+    }
+    if(!confirm("开始限位采样？扭矩已关的状态下，缓慢手掰各关节到物理极限（碰到电池即停，留 2-3° 余量），极值会自动记录。"))return;
+    for(const k in limitSamples)delete limitSamples[k];
+    limitRec=true;
+    $("#btnLimitRec").textContent="⏹ 限位采样：记录中";
+    $("#btnLimitRec").classList.add("danger");
+    setPollRate();
+    toast("采样中：掰完一个关节回中位，点该行「采→框」");
+  }else{
+    limitRec=false;
+    $("#btnLimitRec").textContent="⏺ 限位采样：关";
+    $("#btnLimitRec").classList.remove("danger");
+    setPollRate();
+    toast("采样暂停（已记录的极值保留）");
+  }
+};
+
 // ---- 轮询 ----
 let polling=null;
 async function pollOnce(){
@@ -399,10 +479,7 @@ async function pollOnce(){
 async function refreshAll(){await Promise.all([loadCal(),loadPoses()]);pollOnce();}
 refreshAll();
 polling=setInterval(pollOnce,1000);
-document.addEventListener("visibilitychange",()=>{
-  clearInterval(polling);
-  polling=setInterval(pollOnce,document.hidden?3000:1000);
-});
+document.addEventListener("visibilitychange",setPollRate);
 </script>
 </body>
 </html>
