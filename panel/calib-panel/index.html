@@ -138,7 +138,7 @@ td .cellbtns{display:flex;gap:4px}
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const J=(j,s=1)=>Number(j).toFixed(s);
+const J=(j,s=1)=>Number(Number(j).toFixed(s));
 function toast(msg,err){const t=$("#toast");t.textContent=msg;t.className=err?"err":"";
   t.style.display="block";clearTimeout(t._t);t._t=setTimeout(()=>t.style.display="none",3200);}
 async function api(path,body){
@@ -278,8 +278,8 @@ async function capture(id,{zeroHere=false,dir=null,minDeg=null,maxDeg=null}={}){
   let mn=minDeg==null?deg(cal.min_rad):minDeg;
   let mx=maxDeg==null?deg(cal.max_rad):maxDeg;
   if(dir!=null&&dir!==cal.direction){const t=mn;mn=-mx;mx=-t;} // 换向时限位镜像
-  return api("/api/bus",{action:"capture",id:Number(id),angle_deg:J(angle,3),
-    direction:d2,min_deg:J(mn,1),max_deg:J(mx,1)});
+  return api("/api/bus",{action:"capture",id:Number(id),angle_deg:Number(angle.toFixed(3)),
+    direction:d2,min_deg:Number(mn.toFixed(1)),max_deg:Number(mx.toFixed(1))});
 }
 
 async function moveRaw(id,position,duration=1200){
