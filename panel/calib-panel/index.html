@@ -141,10 +141,13 @@ const $=s=>document.querySelector(s);
 const J=(j,s=1)=>Number(Number(j).toFixed(s));
 function toast(msg,err){const t=$("#toast");t.textContent=msg;t.className=err?"err":"";
   t.style.display="block";clearTimeout(t._t);t._t=setTimeout(()=>t.style.display="none",3200);}
+const PANEL_VER="v20261113a";   // 版本标记：状态栏可见；若与 /opt/duck-calib 部署版本不符 = 标签页是旧 JS
 async function api(path,body){
   const r=await fetch(path,body?{method:"POST",headers:{"Content-Type":"application/json"},
     body:JSON.stringify(body)}:undefined);
-  return r.json();
+  const d=await r.json();
+  if(d&&d.error)throw Error(d.error);   // 后端把失败包成 200+{"error":...}——必须显式抛出，否则失败也 toast 成功（2026-11-13 修）
+  return d;
 }
 function errText(e){return String(e&&e.message||e);}
 const REQUIRED=["10","11","12","13","14","20","21","22","23","24","30","31","32","33","34"];
@@ -183,6 +186,7 @@ function chip(txt,cls){return `<span class="bad ${cls||""}">${txt}</span>`;}
 
 function renderStatus(d){
   const c=[];
+  c.push(chip("面板 "+PANEL_VER,""));
   const mode=d.mode==="commissioning"?"标定模式":"运动模式";
   c.push(chip(d.mode==="commissioning"?"🔧 "+mode:"▶ "+mode,d.mode==="commissioning"?"acc":"ok"));
   if(d.phase)c.push(chip("相位 "+d.phase,d.phase==="ready"||d.phase==="running"?"ok":d.phase.includes("error")||d.phase.includes("waiting")?"warn":""));
