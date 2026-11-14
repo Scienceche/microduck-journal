@@ -73,6 +73,7 @@ td .cellbtns{display:flex;gap:4px}
   <div class="row">
     <button class="primary" id="btnCalAll">② 一键全校（先摆好标准姿态）</button>
     <button id="btnVerify">③ 验证零位（逐关节回零）</button>
+    <button class="primary" id="btnZeroLock">④ 一键归零锁定（回零并保持扭矩）</button>
     <span class="progress" id="calProg"></span>
   </div>
   <div class="dim" style="margin-top:6px">
@@ -157,6 +158,8 @@ let lastServos=[];   // 最新 servos 数组
 let busy=false;      // 串行化本页发起的总线动作
 let curMode="";      // commissioning / motion
 let limitRec=false;  // 限位采样开关
+const heldSet=new Set();
+let calAbort=false;  // relax 打断标志(P0-2)  // torque-hold 锁定中的关节 id
 const limitSamples={};  // id -> {min,max} 采样期间观测到的角度极值(度)
 
 function updateSamples(){
@@ -261,6 +264,7 @@ function renderRows(){
           ${limitSamples[id]&&limitSamples[id].max>-1e8?`<div class="dim mono" style="font-size:11px">采 ${J(limitSamples[id].min,0)}~${J(limitSamples[id].max,0)}° <button class="small" data-act="fillsmp">采→框</button> <button class="small" data-act="clsmp">✕</button></div>`:""}</td>
       <td class="dim mono">${s?J(s.voltage_v,1)+"V "+s.temperature_c+"°C"+(s.moving?" ●":""):"—"}</td>
       <td><div class="cellbtns">
+        <button class="small ${heldSet.has(id)?"danger":""}" data-act="lock" title="开/关该关节扭矩保持(锁定当前位置)">${heldSet.has(id)?"🔓 解锁":"🔒 锁定"}</button>
         <button class="small primary" data-act="zero">校零</button>
         <button class="small" data-act="gozero">→零</button>
         <button class="small" data-act="p5">+5°</button>
@@ -329,10 +333,23 @@ $("#jtbl").addEventListener("click",ev=>{
   else if(act==="gozero")serialize(async()=>{toast("ID "+id+" → 零位");await moveRaw(id,cal.zero_raw);});
   else if(act==="p5")serialize(async()=>{await moveRaw(id,rawForDeg(cal,5));});
   else if(act==="m5")serialize(async()=>{await moveRaw(id,rawForDeg(cal,-5));});
+  else if(act==="lock")serialize(async()=>{
+    const on=!heldSet.has(id);
+    try{
+      await api("/api/bus",{action:"torque-hold",id:Number(id),on});
+      if(on)heldSet.add(id);else heldSet.delete(id);
+      toast("ID "+id+(on?" 扭矩锁定 ✓ (摆别的关节时它保持当前位置)":" 已解锁"));
+      renderRows();
+    }catch(e){
+      // 失败时以固件真实状态为准刷新
+      heldSet.delete(id);renderRows();
+      toast("ID "+id+" 切换失败: "+(e&&e.message||e),true);
+    }
+  });
 });
 
 $("#btnRelax").onclick=async()=>{
-  try{await api("/api/bus",{action:"relax"});toast("已请求全扭矩关（以扭矩状态为准）");}
+  try{calAbort=true;await api("/api/bus",{action:"relax"});heldSet.clear();renderRows();toast("已请求全扭矩关（以扭矩状态为准）");}
   catch(e){toast("失败："+errText(e),true)}
 };
 
@@ -370,16 +387,49 @@ $("#btnCalAll").onclick=()=>{
 $("#btnVerify").onclick=()=>{
   if(!confirm("③ 验证零位：逐个关节开扭矩回到 0°（每个约 2-6s，共约 1 分钟）。鸭子会逐渐摆到标准站姿。继续？"))return;
   serialize(async()=>{
+    calAbort=false;
     const ids=REQUIRED.map(Number).sort((a,b)=>a-b);
     let ok=0;
     for(const id of ids){
+      if(calAbort){toast("🛑 已被「松开」打断");break;}
       const cal=calOf(id);if(!cal)continue;
       $("#calProg").textContent=`回零中 ${ok+1}/${ids.length} …`;
       try{await moveRaw(id,cal.zero_raw,1500);ok++;}
-      catch(e){toast(`ID ${id} 回零失败：`+errText(e),true);break;}
+      catch(e){
+        const msg=String(e&&e.message||e);
+        if(msg.includes("relax")||msg.includes("cancel")||calAbort){toast("🛑 已被松开打断");break;}
+        toast(`ID ${id} 回零失败：`+errText(e),true);break;
+      }
     }
     $("#calProg").textContent=`完成 ${ok}/${ids.length}`;
     toast(`验证零位完成 ${ok}/${ids.length}`);
+  });
+};
+
+$("#btnZeroLock").onclick=()=>{
+  if(!confirm("④ 一键归零锁定：逐关节回 0° 并【保持扭矩锁死】（约 1-1.5 分钟，完成后鸭子呈刚性标准站姿）。期间可随时点「■ 松开」全断。继续？"))return;
+  serialize(async()=>{
+    calAbort=false;
+    const ids=REQUIRED.map(Number).sort((a,b)=>a-b);
+    let ok=0,locked=0;const fails=[];
+    for(const id of ids){
+      if(calAbort){toast("🛑 已被「松开」打断");break;}
+      const cal=calOf(id);if(!cal)continue;
+      $("#calProg").textContent=`归零锁定 ${ok+1}/${ids.length} …`;
+      try{
+        await moveRaw(id,cal.zero_raw,1500);ok++;
+        await api("/api/bus",{action:"torque-hold",id,on:true});
+        heldSet.add(id);locked++;renderRows();
+      }catch(e){
+        const msg=String(e&&e.message||e);
+        if(msg.includes("relax")||msg.includes("cancel")||calAbort){
+          toast(`🛑 ID ${id} 被「松开」打断, 已处理 ${ok}/${ids.length}`);break;
+        }
+        fails.push(id);heldSet.delete(id);toast(`ID ${id} 失败: ${msg}`,true);
+      }
+    }
+    $("#calProg").textContent=`归零 ${ok}/${ids.length} · 锁定 ${locked}`;
+    toast(`一键归零锁定完成：回零 ${ok}/${ids.length}，锁定 ${locked}`+(fails.length?`，失败 ${fails.join(",")}`:""),fails.length>0);
   });
 };
 
