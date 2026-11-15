@@ -21,6 +21,15 @@ sync_tree() {  # $1=源目录 $2=仓库内相对路径 $3...=排除项
 sync_tree "$SRC/硬件资料/imu-to-ttl/firmware" "firmware/imu-to-ttl" build __pycache__
 sync_tree "$SRC/硬件资料/imu-to-ttl/hardware" "hardware/imu-to-ttl" analysis
 sync_tree "$SRC/中控页面"                     "panel"                __pycache__
+# 源码备份（2026-11-15 加：固件热修 + 训练代码 + OTA/黑匣子工具）
+sync_tree "C:/duck_work/kissqy-firmware/robotd/src"       "firmware/kissqy/robotd-src"       __pycache__
+sync_tree "C:/duck_work/kissqy-firmware/duck-control/src" "firmware/kissqy/duck-control-src" __pycache__
+mkdir -p training/mjlab_microduck tools/ota tools/blackbox
+cp -f "C:/duck_work/microduck_rl/src/mjlab_microduck/tasks/"dual_expert_mlp.py microduck_velstand_env_cfg.py mdp.py training/mjlab_microduck/ 2>/dev/null
+cp -f C:/duck_work/ota/*.py C:/duck/ota/*.sh tools/ota/ 2>/dev/null
+cp -f C:/duck_work/ota/duck_blackbox.py C:/duck_work/ota/duck-blackbox.service tools/blackbox/ 2>/dev/null
+cp -f C:/duck_work/ota/duck-blackbox.service tools/blackbox/ 2>/dev/null
+cp -f C:/duck_work/ota/session_recorder.py tools/ota/ 2>/dev/null
 mkdir -p docs && cp -f "$SRC/硬件资料/imu-to-ttl/docs/"*.md docs/ 2>/dev/null
 find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null
 find . -name "*.pyc" -delete 2>/dev/null
