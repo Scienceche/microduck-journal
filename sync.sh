@@ -24,12 +24,45 @@ sync_tree "$SRC/中控页面"                     "panel"                __pycac
 # 源码备份（2026-11-15 加：固件热修 + 训练代码 + OTA/黑匣子工具）
 sync_tree "C:/duck_work/kissqy-firmware/robotd/src"       "firmware/scienceche/robotd-src"       __pycache__
 sync_tree "C:/duck_work/kissqy-firmware/duck-control/src" "firmware/scienceche/duck-control-src" __pycache__
-mkdir -p training/mjlab_microduck tools/ota tools/blackbox
-cp -f "C:/duck_work/microduck_rl/src/mjlab_microduck/tasks/"dual_expert_mlp.py microduck_velstand_env_cfg.py mdp.py training/mjlab_microduck/ 2>/dev/null
-cp -f C:/duck_work/ota/*.py C:/duck/ota/*.sh tools/ota/ 2>/dev/null
-cp -f C:/duck_work/ota/duck_blackbox.py C:/duck_work/ota/duck-blackbox.service tools/blackbox/ 2>/dev/null
+
+# 训练代码：全部修改过的配置 + XML 限位 + checkpoint 脚本
+mkdir -p training/mjlab_microduck
+for f in dual_expert_mlp.py microduck_velstand_env_cfg.py microduck_velocity_env_cfg.py \
+         microduck_standup_env_cfg.py mdp.py; do
+    cp -f "C:/duck_work/microduck_rl/src/mjlab_microduck/tasks/$f" training/mjlab_microduck/ 2>/dev/null
+done
+cp -f "C:/duck_work/microduck_rl/src/mjlab_microduck/robot/microduck_constants.py" training/mjlab_microduck/ 2>/dev/null
+for f in robot_allcollisions.xml robot_groundcontact_backlash.xml; do
+    cp -f "C:/duck_work/microduck_rl/src/mjlab_microduck/robot/microduck/$f" training/mjlab_microduck/ 2>/dev/null
+done
+for f in make_p2_checkpoint.py make_p25_checkpoint.py make_p26_checkpoint.py \
+         make_p27_checkpoint.py make_p28_checkpoint.py export_run11.py; do
+    [ -f "C:/duck_work/microduck_rl/$f" ] && cp -f "C:/duck_work/microduck_rl/$f" training/mjlab_microduck/
+done
+
+# OTA + 黑匣子 + 蓝牙 + 中控台
+mkdir -p tools/ota tools/blackbox tools/eval tools/patches tools/tests
+cp -f C:/duck_work/ota/*.py C:/duck_work/ota/*.sh C:/duck_work/ota/*.service tools/ota/ 2>/dev/null
 cp -f C:/duck_work/ota/duck-blackbox.service tools/blackbox/ 2>/dev/null
-cp -f C:/duck_work/ota/session_recorder.py tools/ota/ 2>/dev/null
+# 评测/诊断/监控
+for f in eval_walk.py eval_getup.py eval_battery_run10.py eval_walk_ckpt.py \
+         diagnose_run10.py diagnose_compose.py diagnose_obs_drift.py \
+         bt_watchdog.py stand_monitor.py getup_watch.py watch_status.py \
+         expand_limits.py fix_p2_test.py export_run11.py package_run11.py package_p28.py; do
+    [ -f "C:/duck_work/$f" ] && cp -f "C:/duck_work/$f" tools/eval/
+done
+# 固件补丁
+for f in patch_mod4096.py patch_torque_hold.py patch_held_ids.py \
+         patch_stuck_recovery.py patch_stuck_fix.py patch_run12_init.py patch_p2_cfg.py \
+         patch_hf8_fix.py patch_hf8_fix2.py patch_hf8_fix3.py; do
+    [ -f "C:/duck_work/$f" ] && cp -f "C:/duck_work/$f" tools/patches/
+done
+# 测试
+for f in test_collision.py test_bridge_init.py test_p25_model.py test_p26_model.py \
+         test_p27_model.py test_dual_expert.py; do
+    [ -f "C:/duck_work/$f" ] && cp -f "C:/duck_work/$f" tools/tests/
+done
+
 mkdir -p docs && cp -f "$SRC/硬件资料/imu-to-ttl/docs/"*.md docs/ 2>/dev/null
 find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null
 find . -name "*.pyc" -delete 2>/dev/null

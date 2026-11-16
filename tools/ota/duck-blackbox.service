@@ -1,5 +1,5 @@
 [Unit]
-Description=duck blackbox flight recorder (20Hz robot.state stream, tilt/brownout trigger)
+Description=duck blackbox flight recorder (10Hz ring buffer, tilt/brownout trigger)
 After=robotd.service
 Wants=robotd.service
 
