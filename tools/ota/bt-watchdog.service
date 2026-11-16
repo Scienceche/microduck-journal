@@ -1,0 +1,12 @@
+[Unit]
+Description=AIC8800 Bluetooth watchdog (detect stuck + auto recover)
+After=bluetooth.service
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/bt-watchdog.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

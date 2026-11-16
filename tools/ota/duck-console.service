@@ -1,0 +1,11 @@
+[Unit]
+Description=Duck unified console (:8090)
+After=robotd.service
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/duck-calib/duck_console.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

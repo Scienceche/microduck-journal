@@ -1,0 +1,18 @@
+[Unit]
+Description=duck blackbox flight recorder (20Hz robot.state stream, tilt/brownout trigger)
+After=robotd.service
+Wants=robotd.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/duck/blackbox/duck_blackbox.py record
+Restart=always
+RestartSec=3
+# 不抢控制循环资源
+Nice=5
+CPUWeight=50
+MemoryHigh=64M
+MemoryMax=80M
+
+[Install]
+WantedBy=multi-user.target

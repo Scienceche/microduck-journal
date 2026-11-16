@@ -1,0 +1,11 @@
+[Unit]
+Description=Bluetooth pair web page
+After=bluetooth.service
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/duck-calib/bt_pair_server.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
