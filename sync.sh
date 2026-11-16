@@ -22,8 +22,8 @@ sync_tree "$SRC/硬件资料/imu-to-ttl/firmware" "firmware/imu-to-ttl" build __
 sync_tree "$SRC/硬件资料/imu-to-ttl/hardware" "hardware/imu-to-ttl" analysis
 sync_tree "$SRC/中控页面"                     "panel"                __pycache__
 # 源码备份（2026-11-15 加：固件热修 + 训练代码 + OTA/黑匣子工具）
-sync_tree "C:/duck_work/kissqy-firmware/robotd/src"       "firmware/kissqy/robotd-src"       __pycache__
-sync_tree "C:/duck_work/kissqy-firmware/duck-control/src" "firmware/kissqy/duck-control-src" __pycache__
+sync_tree "C:/duck_work/kissqy-firmware/robotd/src"       "firmware/scienceche/robotd-src"       __pycache__
+sync_tree "C:/duck_work/kissqy-firmware/duck-control/src" "firmware/scienceche/duck-control-src" __pycache__
 mkdir -p training/mjlab_microduck tools/ota tools/blackbox
 cp -f "C:/duck_work/microduck_rl/src/mjlab_microduck/tasks/"dual_expert_mlp.py microduck_velstand_env_cfg.py mdp.py training/mjlab_microduck/ 2>/dev/null
 cp -f C:/duck_work/ota/*.py C:/duck/ota/*.sh tools/ota/ 2>/dev/null
