@@ -4564,6 +4564,12 @@ _CROUCH_ANCHOR_BY_NAME = {
     "right_hip_pitch": 1.15,
     "right_knee": -1.25,
     "right_ankle": -1.05,
+    # 2026-11-16 修复下蹲头后仰+右歪: 颈/头四关节钉在 HOME,
+    # 不让策略用头平衡(策略曾学会蹲下时头后仰, 用户实测发现)
+    "neck_pitch": 0.3491,
+    "head_pitch": 0.3491,
+    "head_yaw": 0.0,
+    "head_roll": 0.0,
 }
 
 
