@@ -36,7 +36,8 @@ for f in robot_allcollisions.xml robot_groundcontact_backlash.xml; do
     cp -f "C:/duck_work/microduck_rl/src/mjlab_microduck/robot/microduck/$f" training/mjlab_microduck/ 2>/dev/null
 done
 for f in make_p2_checkpoint.py make_p25_checkpoint.py make_p26_checkpoint.py \
-         make_p27_checkpoint.py make_p28_checkpoint.py export_run11.py; do
+         make_p27_checkpoint.py make_p28_checkpoint.py make_p292_checkpoint.py \
+         export_run11.py export_p291.py export_p292.py fix_c0.py; do
     [ -f "C:/duck_work/microduck_rl/$f" ] && cp -f "C:/duck_work/microduck_rl/$f" training/mjlab_microduck/
 done
 
@@ -44,6 +45,8 @@ done
 mkdir -p tools/ota tools/blackbox tools/eval tools/patches tools/tests
 cp -f C:/duck_work/ota/*.py C:/duck_work/ota/*.sh C:/duck_work/ota/*.service tools/ota/ 2>/dev/null
 cp -f C:/duck_work/ota/duck-blackbox.service tools/blackbox/ 2>/dev/null
+# 经验沉淀 skills（2026-11-20 纳入：imu-board-doctor / duck-gamepad-doctor）
+sync_tree "$SRC/.agents/skills" "tools/skills" __pycache__
 # 评测/诊断/监控
 for f in eval_walk.py eval_getup.py eval_battery_run10.py eval_walk_ckpt.py \
          diagnose_run10.py diagnose_compose.py diagnose_obs_drift.py \
