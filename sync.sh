@@ -18,7 +18,8 @@ sync_tree() {  # $1=源目录 $2=仓库内相对路径 $3...=排除项
     cp -r "$src" "$REPO/$rel" || { echo "复制失败: $src"; return 1; }
     local x; for x in "$@"; do rm -rf "$REPO/$rel/$x"; done
 }
-sync_tree "$SRC/硬件资料/imu-to-ttl/firmware" "firmware/imu-to-ttl" build __pycache__
+# 2026-11-21: imu-to-ttl 固件线已按用户要求删除(做得不好), 不再同步;
+# 历史版本在 git (如 6a2c713^) 可随时找回
 sync_tree "$SRC/硬件资料/imu-to-ttl/hardware" "hardware/imu-to-ttl" analysis
 sync_tree "$SRC/中控页面"                     "panel"                __pycache__
 # 源码备份（2026-11-15 加：固件热修 + 训练代码 + OTA/黑匣子工具）
