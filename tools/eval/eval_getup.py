@@ -26,6 +26,10 @@ N_ENVS = 64
 STEPS = 1000          # 20s @50Hz
 HOLD = 100            # 2s 保持
 DEVICE = "cuda:0"
+# 2026-11-24: 加随机种子。原先不设种子, "同一评测跑两遍看方差"无法复现。
+# EVAL_SEED 未设时保持旧行为(随机); 设了则 torch/随机/环境同种子。
+SEED = os.environ.get("EVAL_SEED")
+SEED = int(SEED) if SEED not in (None, "") else None
 
 from mjlab.envs import ManagerBasedRlEnv
 from mjlab.rl import RslRlVecEnvWrapper, MjlabOnPolicyRunner
@@ -64,6 +68,13 @@ def run_batch(name, probs, back_vel):
     gs.params["standing_back_vel_prob"] = back_vel
 
     agent_cfg = copy.deepcopy(load_rl_cfg(TASK))
+    if SEED is not None:
+        import random
+        import numpy as np
+        random.seed(SEED)
+        np.random.seed(SEED)
+        torch.manual_seed(SEED)
+        env_cfg.seed = SEED
     if os.environ.get("EVAL_DUAL"):
         agent_cfg.actor.class_name = (
             "mjlab_microduck.tasks.dual_expert_mlp.DualExpertMLPModel")
@@ -118,7 +129,15 @@ if __name__ == "__main__":
         print("[result] %-12s 成功 %.0f%% · 终局站立 %.0f%% · 中位 %ss (%.0fs)" % (
             r["batch"], r["success_pct"], r["end_standing_pct"],
             ("%.1f" % r["median_rise_s"]) if r["median_rise_s"] else "—", r["secs"]), flush=True)
-    out = Path("eval_getup_results.json")
-    out.write_text(json.dumps({"ckpt": CKPT, "results": results},
-                              ensure_ascii=False, indent=1), encoding="utf-8")
+    # 2026-11-24: 文件名带检查点名+种子, 不再固定覆盖上一次
+    stem = Path(CKPT).parent.name.split("_")[0] + "_" + Path(CKPT).stem
+    out = Path("eval_getup_%s_seed%s.json" % (stem, SEED if SEED is not None else "rand"))
+    out.write_text(json.dumps({
+        "ckpt": CKPT,
+        "ckpt_sha256": __import__("hashlib").sha256(Path(CKPT).read_bytes()).hexdigest(),
+        "task": TASK, "seed": SEED, "n_envs": N_ENVS,
+        "criteria": {"height_m": 0.105, "tilt_deg": 30.0, "hold_s": 2.0},
+        "time": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "results": results,
+    }, ensure_ascii=False, indent=1), encoding="utf-8")
     print("saved:", out, flush=True)
