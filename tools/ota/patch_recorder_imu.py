@@ -19,6 +19,7 @@
 每条锚点都带断言; 任一对不上立即中止, 不写文件。
 """
 import ast
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -26,9 +27,25 @@ from pathlib import Path
 SRV = Path("/opt/duck-calib/server.py")
 BAK = Path("/opt/duck-calib/server.py.bak-imu")
 
-src = SRV.read_text(encoding="utf-8")
+src = SRV.read_text(encoding="utf-8", newline="")
 if "def _state_subscriber()" in src:
-    print("已打过, 跳过")
+    # 采集段已换过。可能是上次补丁成功, 也可能是上次补丁后缺顶层 import(第一版补丁
+    # 没处理 import time, 2026-11-25 上机后订阅线程 NameError)。这里只补 import, 不重做。
+    fixed = False
+    if not re.search(r"^import time\s*$", src, re.M):
+        assert src.count("import threading\n") >= 1
+        src = src.replace("import threading\n", "import threading\nimport time\n", 1)
+        fixed = True
+    if not re.search(r"^import re\s*$", src, re.M):
+        src = "import re\n" + src
+        fixed = True
+    if not fixed:
+        print("已打过且 import 齐全, 跳过")
+        sys.exit(0)
+    ast.parse(src)
+    assert "\r" not in src
+    SRV.write_text(src, encoding="utf-8", newline="\n")
+    print("已打过; 本次只补了缺失的顶层 import")
     sys.exit(0)
 for must in ("def _sample_now():", "def _ring_loop():", "def _grab_thread(name, pre, post):"):
     assert must in src, "缺少锚点 %s —— 鸭子上的 server.py 与已知版本不符, 中止" % must
@@ -195,10 +212,31 @@ assert src.count(a5) == 1, "线程启动锚点不符, 中止"
 src = src.replace(a5, b5, 1)
 
 ast.parse(src)
-SRV.write_text(src, encoding="utf-8")
+
+# ---------------------------------------------------------------- 4) 顶层 import
+# 新代码在模块级用 time(订阅线程的时间戳与重连退避)。原文件没有顶层 import time
+# —— 原采集代码都是在函数内局部 `import time as _t`。缺了它订阅线程一启动就
+# NameError(2026-11-25 上机时发生: 我的测试夹具自己多加了 import time, 没抓到)。
+if not re.search(r"^import time\s*$", src, re.M):
+    a_imp = "import threading\n"
+    assert src.count(a_imp) >= 1, "找不到 import threading 锚点"
+    src = src.replace(a_imp, "import threading\nimport time\n", 1)
+    print("已补: 顶层 import time")
+if not re.search(r"^import re\s*$", src, re.M):
+    src = "import re\n" + src
+    print("已补: 顶层 import re")
+
+ast.parse(src)
+# 换行符: 显式按 LF 写。不指定 newline 的话 Windows 上会把 \n 写成 \r\n,
+# 整个文件每一行都会变成"有改动"(2026-11-25 干跑时发现, 342 行全部被改了换行符)。
+# 鸭子上的文件是 LF, 补丁必须只改它该改的行。
+assert "\r" not in src, "补丁结果里出现了 CR, 中止"
+SRV.write_text(src, encoding="utf-8", newline="\n")
 
 # ---------------------------------------------------------------- 落盘复核
-chk = SRV.read_text(encoding="utf-8")
+chk = SRV.read_bytes()
+assert b"\r" not in chk, "落盘后出现了 CR, 换行符被改了"
+chk = chk.decode("utf-8")
 ast.parse(chk)
 for probe in ("def _state_subscriber():", '"gravity": [round(float(x), 4)', '"fallen": bool(',
               '"policy": frame.get("policy")', "target=_state_subscriber, daemon=True"):

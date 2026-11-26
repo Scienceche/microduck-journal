@@ -522,6 +522,71 @@ pub fn validate_and_warm(path: &Path) -> Result<(), PolicyError> {
     })
 }
 
+/// Open a network, run it once, and hand back the warmed session.
+///
+/// The first inference on a fresh session is always an outlier — lazy initialisation, cold
+/// pages — so it is paid here rather than on whoever's first real tick.
+///
+/// [`Policy::load`] does the same three steps inline and is deliberately left alone: it is
+/// the startup path every real slot goes through, and sharing four lines with it is not
+/// worth touching. A shadow policy is warmed through [`ShadowPolicy::load`], so both still
+/// go through the one `open` and its shape checks.
+fn open_warmed(path: &Path) -> Result<Network, PolicyError> {
+    ensure_runtime()?;
+    catching_ort_panics(|| {
+        let mut network = open(path)?;
+        network.run(&Observation::zeroed())?;
+        network.reset();
+        Ok(network)
+    })
+}
+
+/// A second network that is run alongside the real one and whose output goes nowhere.
+///
+/// Shadow mode for a candidate policy: it sees the same observation the driving policy
+/// sees on a tick, and what it *would* have commanded is recorded for comparison. It is
+/// not a [`Policy`] slot, the scheduler never selects it, and nothing in here can reach an
+/// actuator — the only thing an instance will ever do is turn an [`Observation`] into
+/// `[f32; ACTION_LEN]`. That is the whole of the "read-only" guarantee: not a rule the
+/// shadow thread is trusted to follow, but the absence of any path to the bus.
+///
+/// The shadow's observation is whatever the *driving* policy produced, so a shadow action
+/// is "what I would do from here", never "what happens if I take over". Its outputs
+/// answer whether the candidate is sane on this robot's states; they do not measure
+/// whether it would succeed at anything.
+pub struct ShadowPolicy {
+    network: Network,
+}
+
+impl ShadowPolicy {
+    /// Load and warm a candidate, through the same `open` and shape checks as a real slot.
+    pub fn load(path: &Path) -> Result<Self, PolicyError> {
+        Ok(Self {
+            network: open_warmed(path)?,
+        })
+    }
+
+    /// Identity of the loaded file, for the report that gates deployment.
+    pub fn loaded_model(&self) -> &LoadedModel {
+        &self.network.loaded_model
+    }
+
+    /// The candidate's action for this observation. An error leaves the network reset,
+    /// exactly as [`Policy::infer`] does for a failed real inference.
+    pub fn infer(&mut self, observation: &Observation) -> Result<[f32; ACTION_LEN], PolicyError> {
+        let result = self.network.run(observation);
+        if result.is_err() {
+            self.network.reset();
+        }
+        result
+    }
+
+    /// Start a new episode; a feed-forward network has no state to clear, an LSTM one does.
+    pub fn reset(&mut self) {
+        self.network.reset();
+    }
+}
+
 /// The mjlab/rsl_rl LSTM export passes state explicitly. Buffers belong to one
 /// session, are allocated at load, and are never shared between policy slots.
 struct Network {
@@ -653,6 +718,26 @@ fn check_matrix(path: &Path, outlet: &ort::value::Outlet, width: usize) -> Resul
         ));
     }
     Ok(())
+}
+
+/// The SHA-256 of a policy file's bytes, as lowercase hex — the same digest
+/// [`LoadedModel::sha256`] carries for a loaded network.
+///
+/// Public so that a caller can identify a policy file *without loading it*. `robotd`'s shadow
+/// mode uses it to refuse a candidate that is the live standing policy by another path: the
+/// two must be compared by content, and this is the one place that content is hashed, so
+/// the digest taken here and the digest on a loaded model cannot disagree.
+pub fn file_sha256(path: &Path) -> Result<String, PolicyError> {
+    let bytes = std::fs::read(path).map_err(|source| PolicyError::Read {
+        path: path.to_owned(),
+        source,
+    })?;
+    Ok(hex_digest(&bytes))
+}
+
+fn hex_digest(bytes: &[u8]) -> String {
+    let digest: [u8; 32] = Sha256::digest(bytes).into();
+    digest.iter().map(|b| format!("{b:02x}")).collect()
 }
 
 fn open(path: &Path) -> Result<Network, PolicyError> {
@@ -896,5 +981,49 @@ mod tests {
             detail.contains("journal"),
             "point somewhere useful: {detail:?}"
         );
+    }
+
+    /// `file_sha256` must give the digest of the file's bytes, in the form
+    /// [`LoadedModel::sha256`] uses. A shadow candidate is refused when its digest equals the
+    /// live policy's, so a digest computed differently from the loaded network's would make
+    /// that comparison quietly never match.
+    ///
+    /// Against published SHA-2 test vectors rather than a second implementation of the same
+    /// thing, so the expected values can be checked by anyone.
+    #[test]
+    fn file_sha256_is_the_standard_digest_as_lowercase_hex() {
+        let dir = std::env::temp_dir().join(format!("duck_file_sha_{}", std::process::id()));
+        std::fs::create_dir_all(&dir).unwrap();
+
+        let empty = dir.join("empty.onnx");
+        std::fs::write(&empty, b"").unwrap();
+        assert_eq!(
+            file_sha256(&empty).unwrap(),
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        );
+
+        let abc = dir.join("abc.onnx");
+        std::fs::write(&abc, b"abc").unwrap();
+        assert_eq!(
+            file_sha256(&abc).unwrap(),
+            "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad",
+        );
+
+        // Not text processing in disguise: bytes that look like line endings are left alone.
+        let crlf = dir.join("crlf.onnx");
+        std::fs::write(&crlf, b"a\r\nb").unwrap();
+        let expected = {
+            let d: [u8; 32] = Sha256::digest(b"a\r\nb").into();
+            d.iter().map(|b| format!("{b:02x}")).collect::<String>()
+        };
+        assert_eq!(file_sha256(&crlf).unwrap(), expected);
+        assert_eq!(expected.len(), 64);
+
+        // A file that is not there is an error naming it, not a digest of nothing.
+        let missing = dir.join("missing.onnx");
+        let err = file_sha256(&missing).unwrap_err();
+        assert_eq!(err.path(), Some(missing.as_path()));
+
+        let _ = std::fs::remove_dir_all(&dir);
     }
 }

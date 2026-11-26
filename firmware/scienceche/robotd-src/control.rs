@@ -128,6 +128,30 @@ pub struct Step {
     /// A scripted move is mid-flight — the robot is moving regardless of the twist, so
     /// restarting the daemon now would put it on the floor.
     pub busy: bool,
+    /// What the policy was shown on this tick and what it answered, both raw: the
+    /// observation exactly as it went into the network, and the action exactly as it came
+    /// out, before any scaling or limit.
+    ///
+    /// The controller hands these back rather than acting on them itself, so that whatever
+    /// wants the pair — a shadow policy comparing its own answer — gets *this* tick's
+    /// observation and not a second assembly of it that could drift from the first.
+    pub saw: Saw,
+}
+
+/// One tick's policy input and output, unscaled.
+#[derive(Debug, Clone, Copy)]
+pub struct Saw {
+    pub observation: Observation,
+    pub action: [f32; ACTION_LEN],
+}
+
+/// By value. `Observation` itself does not implement `PartialEq`, and it is a type the
+/// driving policy is built on, so it is left alone and compared through its slice — which
+/// keeps `Step` comparable, as it was before this field existed.
+impl PartialEq for Saw {
+    fn eq(&self, other: &Self) -> bool {
+        self.observation.as_slice() == other.observation.as_slice() && self.action == other.action
+    }
 }
 
 /// Where the robot is in the sit↔stand cycle.
@@ -807,6 +831,7 @@ impl Controller {
             label,
             gain,
             busy: self.busy(),
+            saw: Saw { observation, action },
         })
     }
 }

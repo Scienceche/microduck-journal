@@ -1292,6 +1292,7 @@ mod tests {
             total_communication_failures: 2,
             errors_by_id: [(22, 2)].into_iter().collect(),
             device_communication: crate::communication_stats::CommunicationStats::new([22, 200]),
+            held_ids: Vec::new(),
             last_cycle_error: Some("回包缺失".into()),
             last_failure: Some(Failure {
                 cycle: 42,
@@ -1412,6 +1413,7 @@ mod tests {
             reply,
             completed: vec![],
             center: false,
+            hold: false,
             stage: MotionStage::Preload,
             last_target: None,
             torque_confirmed: Some(false),
@@ -1419,8 +1421,9 @@ mod tests {
         });
         let mut bus = Bus::open(&path).unwrap();
         let mut off_pending = None;
+        let mut held_ids: Vec<u8> = Vec::new();
         for _ in 0..4 {
-            step_motion(&mut bus, &samples, &[22], &mut motion, &mut off_pending);
+            step_motion(&mut bus, &samples, &[22], &mut motion, &mut off_pending, &mut held_ids);
         }
         assert!(matches!(
             motion.as_ref().unwrap().stage,
@@ -1437,7 +1440,7 @@ mod tests {
         motion.as_mut().unwrap().started = Instant::now() - Duration::from_secs(1);
         // Arrival uses the requested raw value, never its modulo-equivalent.
         samples.insert(22, sample(-1820));
-        step_motion(&mut bus, &samples, &[22], &mut motion, &mut off_pending);
+        step_motion(&mut bus, &samples, &[22], &mut motion, &mut off_pending, &mut held_ids);
         assert!(matches!(
             motion.as_ref().unwrap().stage,
             MotionStage::Moving
@@ -1448,7 +1451,7 @@ mod tests {
         );
         samples.insert(22, sample(2276));
         for _ in 0..3 {
-            step_motion(&mut bus, &samples, &[22], &mut motion, &mut off_pending);
+            step_motion(&mut bus, &samples, &[22], &mut motion, &mut off_pending, &mut held_ids);
         }
         assert!(motion.is_none() && off_pending.is_none());
         assert_eq!(

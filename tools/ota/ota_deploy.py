@@ -162,11 +162,39 @@ def main():
     ap.add_argument("--expect-task", default=None,
                     help="校验 manifest.task 应包含此子串(如 Vel / StandUp), 防拿错包")
     ap.add_argument("--yes", action="store_true", help="跳过确认")
+    ap.add_argument("--gate-verdict", default=None,
+                    help="stand 槽必须: ota_gate.py 的 verdict 文件(10 分钟内有效)")
     ap.add_argument("--force-voltage-unknown", action="store_true",
                     help="电压无读数时仍继续(默认拒绝)")
     ap.add_argument("--force-standing", action="store_true",
                     help="策略正在驱动(鸭子站立)时仍重启(默认拒绝 — restart 会瘫倒摔机)")
     a = ap.parse_args()
+
+    # ---- stand 槽接管门禁(2026-11-26 用户定的规矩, 不可绕过) ----
+    if a.slot == "stand":
+        if a.yes:
+            print("拒绝: --yes 对 stand 槽位被禁用。"
+                  "接手 stand 槽必须走 ota_gate.py 的完整门禁 + 现场 Token, "
+                  "并携带其产出的 --gate-verdict。")
+            sys.exit(2)
+        if not a.gate_verdict:
+            print("拒绝: 部署到 stand 槽必须提供 --gate-verdict "
+                  "(由 ota_gate.py 全项通过 + 用户现场输入 Token 后产出)。")
+            sys.exit(2)
+        vp = Path(a.gate_verdict)
+        try:
+            verdict = json.loads(vp.read_text(encoding="utf-8"))
+        except Exception as e:
+            print("拒绝: verdict 读不了: %r" % e); sys.exit(2)
+        age = time.time() - vp.stat().st_mtime
+        if age > verdict.get("fresh_for_s", 600):
+            print("拒绝: verdict 已过期(%.0f 分钟前), 重新跑 ota_gate.py" % (age / 60))
+            sys.exit(2)
+        if verdict.get("token") != "entered-live-not-stored" or \
+           any(not c["ok"] for c in verdict.get("checks", [])):
+            print("拒绝: verdict 不是全项通过"); sys.exit(2)
+        print("门禁 verdict 有效(%.0f 分钟前, %d 项全过, falls=%s, 已含现场 Token)"
+              % (age / 60, len(verdict.get("checks", [])), verdict.get("falls")))
 
     pkg = Path(a.pkg).resolve()
     _CTX["slot"] = a.slot
@@ -179,6 +207,10 @@ def main():
             print("本地包缺 %s" % n); sys.exit(2)
     sha = sha256_local(pkg / "policy.onnx")
     _CTX["sha"] = sha
+    if a.slot == "stand":
+        step("本地包 sha == 门禁 verdict 的候选 sha",
+             sha == verdict.get("candidate_sha256"),
+             "%s vs %s" % (sha[:12], str(verdict.get("candidate_sha256"))[:12]))
     m = json.loads((pkg / "manifest.json").read_text(encoding="utf-8"))
     r = json.loads((pkg / "deployment-runtime.json").read_text(encoding="utf-8"))
     c = json.loads((pkg / "deployment-contract.json").read_text(encoding="utf-8"))

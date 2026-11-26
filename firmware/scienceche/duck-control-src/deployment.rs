@@ -215,6 +215,12 @@ impl Contract {
         Ok(())
     }
     pub fn parse(v: &Value) -> Result<Self, String> {
+        // `Mjlab-StandUp-Flat-Backlash-MicroDuck` is listed beside its Rough twin (2026-11-26).
+        // The training source registers both from one factory, one RL config and one robot,
+        // differing only in `rough`, and nothing below reads the terrain: they take this same
+        // branch. Unlisted, a checkpoint trained on the Flat one could not be deployed under
+        // its own name.
+        //
         // Target-filter format and encoder-side backlash observations are independent.
         // Roulade has both an older EMA export and a newer target-filter export under
         // the same task name, but neither one declares backlash observations.
@@ -223,6 +229,7 @@ impl Contract {
             Some(
                 "Mjlab-Velocity-Rough-Backlash-MicroDuck"
                     | "Mjlab-StandUp-Rough-Backlash-MicroDuck"
+                    | "Mjlab-StandUp-Flat-Backlash-MicroDuck"
                     | "Mjlab-VelStand-Rough-Backlash-MicroDuck"
                     | "Mjlab-GroundPick-Flat-Backlash-MicroDuck"
                     | "Mjlab-Velocity-Swizzle-Backlash-MicroDuck"
@@ -256,6 +263,7 @@ impl Contract {
                         | "Mjlab-StandUp-Flat-MicroDuck"
                         | "Mjlab-Velocity-Rough-Backlash-MicroDuck"
                         | "Mjlab-StandUp-Rough-Backlash-MicroDuck"
+                        | "Mjlab-StandUp-Flat-Backlash-MicroDuck"
                         | "Mjlab-VelStand-Rough-Backlash-MicroDuck"
                         | "Mjlab-BallKick-Flat-MicroDuck"
                         | "Mjlab-BallKickLeft-Flat-Backlash-MicroDuck"
@@ -868,6 +876,41 @@ mod tests {
         bad_filter["action_filter"]["head_alpha"] = serde_json::json!(0.5);
         bad_filter["required_policy_settings"]["head_lowpass"] = serde_json::json!(0.5);
         assert!(Contract::parse(&bad_filter).is_err());
+    }
+    /// The Flat-Backlash recovery task is the Rough-Backlash one on other ground. The training
+    /// source registers both from one factory, one RL config and one robot, differing only in
+    /// `rough`, and nothing in this parser looks at terrain — so a contract for the Flat one
+    /// parses to the same `Contract` as the Rough one. It did not until its name was listed:
+    /// an honest package for a Flat-Backlash checkpoint was refused as "requires an adapted
+    /// HD1910 contract", and such a checkpoint could only go on a robot under another task's
+    /// name.
+    #[test]
+    fn flat_backlash_recovery_task_parses_like_the_rough_one_and_only_by_its_exact_name() {
+        let v: Value = serde_json::from_str(include_str!(
+            "../../policies/stand/deployment-contract.json"
+        ))
+        .unwrap();
+        let rough = Contract::parse(&v).unwrap();
+        let mut flat = v.clone();
+        flat["task"] = serde_json::json!("Mjlab-StandUp-Flat-Backlash-MicroDuck");
+        let parsed = Contract::parse(&flat)
+            .expect("the Flat-Backlash recovery task is an adapted HD1910 contract");
+        assert_eq!(parsed.task, "Mjlab-StandUp-Flat-Backlash-MicroDuck");
+        assert_eq!(parsed.slot, "stand");
+        assert_eq!(parsed.home, rough.home);
+        assert_eq!(parsed.training_action_scale, rough.training_action_scale);
+        assert_eq!(parsed.ema_old_weight, rough.ema_old_weight);
+        assert_eq!(parsed.firmware_p, rough.firmware_p);
+        assert!(parsed.target_filter_passthrough);
+        // Still a list of known tasks, not a prefix match.
+        for unknown in [
+            "Mjlab-StandUp-Flat-Backlash-MicroDuckX",
+            "Mjlab-StandUp-Gravel-Backlash-MicroDuck",
+        ] {
+            let mut other = v.clone();
+            other["task"] = serde_json::json!(unknown);
+            assert!(Contract::parse(&other).is_err(), "{unknown} was accepted");
+        }
     }
     #[test]
     fn runtime_curriculum_restores_full_trained_head_commands_without_changing_home() {

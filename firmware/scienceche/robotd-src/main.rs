@@ -32,6 +32,7 @@ mod raw_stream;
 mod roller;
 mod selftrained_profile;
 mod service_client;
+mod shadow;
 mod soc;
 mod sound;
 mod telemetry_geometry;
@@ -55,6 +56,7 @@ use duck_control::policy::{DEFAULT_STANDING_THRESHOLD, Policy, PolicyError, Poli
 use duck_control::safety::{Safety, SafetyConfig};
 use duck_control::{FakeIo, NUM_JOINTS};
 use duck_ipc_proto as proto;
+use shadow::{Shadow, ShadowHandle};
 use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
 use tokio::net::{UnixListener, UnixStream};
 
@@ -665,6 +667,21 @@ struct RobotState {
     ///
     /// A change to one slot is reported on that slot instead, which says more.
     policy_change_error: ArcSwapOption<String>,
+    /// Shadow mode, when a candidate is configured: its handle, through which the control
+    /// thread offers frames and the IPC disables it. `None` when no shadow is running.
+    ///
+    /// Shared rather than owned here because three threads want it — the control thread to
+    /// submit, the IPC thread to report and to stop it, and whoever loads the health verdict.
+    /// The handle is a channel sender plus atomics; nothing on it blocks.
+    shadow: ArcSwapOption<shadow::ShadowHandle>,
+    /// The shadow's report, republished by the control thread once a second from inside its
+    /// rate window. `None` when no shadow has run.
+    ///
+    /// A published snapshot rather than counters read on demand: the fourteen figures in a
+    /// report have to describe one moment. Read one at a time by the IPC thread they could
+    /// straddle an inference, and the running time lives with the worker, which only the
+    /// control thread can ask.
+    shadow_report: ArcSwapOption<proto::ShadowReportResult>,
     /// Which policy files this process is running, as file names. `None` when the policy is
     /// disabled.
     ///
@@ -801,6 +818,8 @@ impl RobotState {
             chorale_tx: tokio::sync::broadcast::Sender::new(8),
             policy_error: ArcSwapOption::empty(),
             policy_change_error: ArcSwapOption::empty(),
+            shadow: ArcSwapOption::empty(),
+            shadow_report: ArcSwapOption::empty(),
             policies: ArcSwap::from_pointee(PolicyNames::of(&params.policy.resolved())),
             policy_slots: ArcSwap::from_pointee(slot_report(
                 &params.policy,
@@ -2148,6 +2167,41 @@ async fn control_loop<T: RobotIo>(
     // Loaded once here and again on a mode switch — see `build_controller`.
     let mut controller = if profile_error.is_some() { None } else {
         build_controller(&policy_cfg, params.safety.limp_fall, &state)
+    };
+    // The shadow candidate, once, and on its own: not inside `build_controller`, which runs
+    // again on a mode switch, and not on the path whose failure is the health verdict. A
+    // candidate that will not load is reported and that is all — the controller above is
+    // already built and stays as it is.
+    let mut shadow: Option<Shadow> = None;
+    match shadow::load_configured(policy_cfg.shadow_stand.as_deref(), policy_cfg.stand.as_deref()) {
+        Ok(started) => {
+            let (path, sha) = started
+                .handle()
+                .loaded()
+                .map(|(p, s)| (p.display().to_string(), s.to_owned()))
+                .unwrap_or_default();
+            tracing::warn!(path = %path, sha256 = %sha, rate_hz = shadow::RATE_HZ,
+                "shadow policy loaded: inferred alongside, never commanded");
+            shadow = Some(started);
+        }
+        Err(shadow::NotStarted::NotConfigured) => {}
+        Err(reason) => {
+            tracing::error!(%reason, "shadow policy not started; the driving policy is unaffected");
+        }
+    }
+    // The handle the control thread offers frames to. With no shadow it is the inert one,
+    // whose `submit` is a single load that returns false.
+    //
+    // The IPC side sees `None` when there is no shadow, not an inert handle: a client asking
+    // for a report must be able to tell "nothing is shadowing" from "a shadow is running and
+    // has measured nothing yet".
+    let shadow_handle = match shadow.as_ref() {
+        Some(running) => {
+            let handle = running.handle();
+            state.shadow.store(Some(Arc::new(handle.clone())));
+            handle
+        }
+        None => ShadowHandle::off(),
     };
     if let Some(reason) = state.policy_error.load_full() {
         state.startup_step(3, "failed", reason.as_str());
@@ -3682,35 +3736,51 @@ impl StuckRecovery {
                 // Hot-fix: fallen routes the stand network's get-up gene (see control.rs).
                 controller.set_fallen(safety.fallen());
                 match controller.step(sensors, &adapted, snapshot.pose.active, dt, scale_mult) {
-                    Ok(step) => if in_stuck_ramp {
-                        // 卡住恢复 v2: 脚本 HOMING — 从当前位置匀速拉回 HOME
-                        let from = stuck_recover.ramp_from.unwrap_or([0.0; NUM_JOINTS]);
-                        let ramp_total = std::time::Duration::from_millis(2500).as_secs_f64();
-                        let elapsed = stuck_recover
-                            .ramp_until
-                            .map(|end| (std::time::Duration::from_millis(2500)
-                                - (end.duration_since(std::time::Instant::now())))
-                                .as_secs_f64())
-                            .unwrap_or(ramp_total);
-                        let t = (elapsed / ramp_total).clamp(0.0, 1.0);
-                        let home = duck_control::deployment::home();
-                        let ramp_targets: [f64; NUM_JOINTS] = core::array::from_fn(|i| {
-                            from[i] + (home[i] - from[i]) * t
+                    Ok(step) => {
+                        // Shadow mode: hand the candidate the observation the driving policy
+                        // just acted on, and what it answered. Only on a tick where the
+                        // driving policy did answer — a failed inference gives the candidate
+                        // nothing to be compared against.
+                        //
+                        // `submit` copies one `Frame` into a bounded queue and returns; it never
+                        // waits and allocates nothing. The observation is handed over as the
+                        // fixed-width type it already is, so nothing here can fail, and with no
+                        // shadow it is one relaxed load.
+                        shadow_handle.submit(shadow::Frame {
+                            obs: step.saw.observation,
+                            main_action: Some(step.saw.action),
+                            fallen: safety.fallen(),
                         });
-                        (
-                            ramp_targets,
-                            policy_cfg.gain,
-                            false,
-                            "stuck_homing".into(),
-                        )
-                    } else {
-                        (
-                            step.targets,
-                            step.gain,
-                            step.busy || command.twist_magnitude() > 0.0,
-                            step.label,
-                        )
-                    },
+                        if in_stuck_ramp {
+                            // 卡住恢复 v2: 脚本 HOMING — 从当前位置匀速拉回 HOME
+                            let from = stuck_recover.ramp_from.unwrap_or([0.0; NUM_JOINTS]);
+                            let ramp_total = std::time::Duration::from_millis(2500).as_secs_f64();
+                            let elapsed = stuck_recover
+                                .ramp_until
+                                .map(|end| (std::time::Duration::from_millis(2500)
+                                    - (end.duration_since(std::time::Instant::now())))
+                                    .as_secs_f64())
+                                .unwrap_or(ramp_total);
+                            let t = (elapsed / ramp_total).clamp(0.0, 1.0);
+                            let home = duck_control::deployment::home();
+                            let ramp_targets: [f64; NUM_JOINTS] = core::array::from_fn(|i| {
+                                from[i] + (home[i] - from[i]) * t
+                            });
+                            (
+                                ramp_targets,
+                                policy_cfg.gain,
+                                false,
+                                "stuck_homing".into(),
+                            )
+                        } else {
+                            (
+                                step.targets,
+                                step.gain,
+                                step.busy || command.twist_magnitude() > 0.0,
+                                step.label,
+                            )
+                        }
+                    }
                     Err(e) => {
                         tracing::warn!(error = %e, "inference failed; holding");
                         (hold, policy_cfg.gain, false, "held".into())
@@ -4157,6 +4227,15 @@ impl StuckRecovery {
             window_ticks = 0;
 
             publish_slow_sensors(&mut safety, &state);
+            // The shadow's report, once a second, as one snapshot. Published while the shadow
+            // runs and also after it has been stopped: the control thread is the only one that
+            // can read the running time, which lives with the worker, and a deployment gate asks
+            // for the report once the run is over.
+            if let Some(running) = shadow.as_ref() {
+                state.shadow_report.store(Some(Arc::new(
+                    proto::ShadowReportResult::from(&running.report()),
+                )));
+            }
 
             if last_summary.elapsed() >= LOOP_SUMMARY_INTERVAL {
                 tracing::info!(
@@ -5624,6 +5703,27 @@ fn dispatch(
                     .map(|e| e.as_ref().clone()),
             },
         ),
+
+        // The shadow's report as last published, or `None` when no shadow has run. `None` is
+        // kept distinct from a report of all zeros: a client must be able to tell "nothing is
+        // shadowing" from "a shadow is running and has measured nothing yet".
+        proto::Call::RobotShadowReport => {
+            proto::Response::ok(Some(id), &state.shadow_report.load_full().map(|r| r.as_ref().clone()))
+        }
+
+        // Stop the shadow. One flag: the control thread stops offering on its next tick and the
+        // worker leaves on its next wake. Nothing is waited for here — the control thread must
+        // never be blocked on by the IPC thread, and there is nothing to wait for. With no
+        // shadow there is nothing to stop, which is not an error.
+        //
+        // The report is left as it is, so a gate can still read what the run counted.
+        proto::Call::RobotShadowDisable => {
+            if let Some(handle) = state.shadow.load_full() {
+                handle.disable();
+                tracing::warn!("shadow policy disabled by request; the driving policy is unaffected");
+            }
+            proto::Response::ok(Some(id), &Option::<proto::ShadowReportResult>::None)
+        }
 
         // What each pad button runs. `robotd` answers rather than `configd`, which owns the rest
         // of `pad.*`, because this is the daemon that knows which skills exist — see the routing
@@ -10981,6 +11081,9 @@ mod feetech_r9_tests;
 
 #[cfg(test)]
 mod feetech_recovery_tests;
+
+#[cfg(test)]
+mod shadow_loop_tests;
 
 #[cfg(test)]
 mod stability_tests;
