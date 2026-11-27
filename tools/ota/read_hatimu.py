@@ -1,118 +1,95 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""读取头部 HAT 板上的姿态传感器(LSM6DSV16XTR @ 0x6A)——一次性探测, 2026-11-26。
+"""读取头部 HAT 板上的姿态传感器 —— 实物是 BMI088, 不是本地更新版图纸的 LSM6DSV16X(2026-11-26 澄清)。
 
-背景: HAT(elec_RPI_Robot_HAT, KiCad: U12=LSM6DSV16XTR, I2C 0x6A, 挂 RPi I2C1/GPIO2-3,
-与音频编解码器 TLV320AIC3104(0x18)、HAT 身份 EEPROM(0x50) 同总线)。robotd 没有它的
-驱动、无人读它——本脚本是一次性只读验证 + 短暂使能采样, 结束时恢复上电默认(power-down)。
-
-寄存器常数(全部出自本机数据手册 docs/part - lsm6dsv16x.pdf, 非记忆):
-  WHO_AM_I (0Fh) 固定 70h — "This is a read-only register. Its value is fixed at 70h."
-  CTRL1 (10h): [7:4]=ODR_XL, [2:0]=OP_MODE_XL(000=高性能, 默认); 表52: 0110=120Hz
-  CTRL2 (11h): 同构, 陀螺
-  OUT_TEMP_L (20h), OUTX_L_G (22h), OUTX_L_A (28h); 高字节紧随, 小端 int16
-  上电默认量程: 加速度 ±2g → 0.061 mg/LSB(静止时 |a| 应≈1.000g, 这本身校验读数正确性)
-
-安全性: 只对 0x6A 这颗"无人使用"的传感器写 CTRL1/CTRL2 两个字节(使能采样), 读完立刻写回
-0x00(power-down=上电默认)并读回确认。不碰总线上其它器件(0x18/0x50 只做无副作用读应答探测),
-不碰机器人任何其它部分。
+身份依据: fanhaoo375/microduck-replica 的官方 HAT BOM 逆向 —— U11 = BMI088("贴了但软件不用"),
+          accel@0x19(或0x18, SA0接法而定) / gyro@0x68(或0x69); EEPROM CAT24C32 DNP 不贴。
+          实测 i2c-10(hat_i2c_main): 0x18=codec(被占) 0x19=accel 0x68=gyro 0x29=ToF。
+寄存器(BMI088 数据手册):
+  accel CHIP_ID (0x00) = 0x1E; 上电 suspend, 读寄存器前要一次 dummy read; 唤醒: PWR_CTRL(0x7D)=0x04
+  gyro  CHIP_ID (0x00) = 0x0E; 上电 suspend, 唤醒: RANGE(0x0F)=0x00(±2000dps) LPM1(0x11)=0x00(正常)
+  accel 输出 (0x12 起小端 int16, ±3g 默认量程 → 3.0517578125e-5 g/LSB); 静止 |a|≈1.000g 自校验
+  gyro  输出 (0x02 起小端 int16, ±2000dps → 1/16.384 dps/LSB)
+安全性: 只对 0x19/0x68 两颗"官方软件不用"的传感器做唤醒-读-恢复 suspend; 不碰 0x18(codec
+        正被音频用)/0x29(ToF 属 robotd)。读完恢复上电默认态并读回确认。
 用法(在鸭子上): python3 read_hatimu.py
 """
+import ctypes
 import fcntl
-import glob
 import math
 import os
 import struct
 import time
 
-I2C_SLAVE = 0x0703
-MARKERS = [0x6A, 0x6B, 0x18, 0x50]   # IMU(SA0 两档) / 音频编解码器 / HAT EEPROM
+I2C_RDWR = 0x0707
+I2C_M_RD = 0x0001
+BUS = "/dev/i2c-10"
+ACC = 0x19
+GYR = 0x68
 
+fd = os.open(BUS, os.O_RDWR)
 
-def probe(bus_path, addr):
-    """只读探测: 有应答即在线。不做任何写操作。"""
-    try:
-        fd = os.open(bus_path, os.O_RDWR)
-    except OSError:
-        return None
-    try:
-        fcntl.ioctl(fd, I2C_SLAVE, addr)
-        os.read(fd, 1)
-        return fd
-    except OSError:
-        os.close(fd)
-        return None
+class Msg(ctypes.Structure):
+    _fields_ = [("addr", ctypes.c_uint16), ("flags", ctypes.c_uint16),
+                ("len", ctypes.c_uint16), ("buf", ctypes.POINTER(ctypes.c_ubyte))]
 
+class RdwrData(ctypes.Structure):
+    _fields_ = [("msgs", ctypes.POINTER(Msg)), ("nmsgs", ctypes.c_uint32)]
 
-# ---- 1. 扫描: HAT 特征地址在哪个总线 ----
-buses = sorted(glob.glob("/dev/i2c-*"), key=lambda p: int(p.rsplit("-", 1)[1]))
-imu_fd = imu_bus = imu_addr = None
-print("=== 扫描 HAT 特征地址(IMU 0x6A/0x6B, 编解码器 0x18, EEPROM 0x50) ===")
-for path in buses:
-    hits = []
-    for a in MARKERS:
-        if probe(path, a) is not None:
-            hits.append("0x%02X" % a)
-    if hits:
-        print("  %-14s: %s" % (path, "  ".join(hits)))
-    for a in (0x6A, 0x6B):
-        fd = probe(path, a)
-        if fd is not None:
-            imu_fd, imu_bus, imu_addr = fd, path, a
-            break
-    if imu_fd is not None:
-        break
+def rd(addr, reg, n=1):
+    wa = (ctypes.c_ubyte * 1)(reg)
+    ra = (ctypes.c_ubyte * n)()
+    m1 = Msg(addr, 0, 1, ctypes.cast(wa, ctypes.POINTER(ctypes.c_ubyte)))
+    m2 = Msg(addr, I2C_M_RD, n, ctypes.cast(ra, ctypes.POINTER(ctypes.c_ubyte)))
+    arr = (Msg * 2)(m1, m2)
+    fcntl.ioctl(fd, I2C_RDWR, RdwrData(ctypes.cast(arr, ctypes.POINTER(Msg)), 2))
+    return bytes(ra)
 
-if imu_fd is None:
-    print("RESULT: not_found — 没有任何总线应答 0x6A/0x6B")
-    raise SystemExit(0)
+def wr(addr, reg, val):
+    wa = (ctypes.c_ubyte * 2)(reg, val)
+    m = Msg(addr, 0, 2, ctypes.cast(wa, ctypes.POINTER(ctypes.c_ubyte)))
+    arr = (Msg * 1)(m)
+    fcntl.ioctl(fd, I2C_RDWR, RdwrData(ctypes.cast(arr, ctypes.POINTER(Msg)), 1))
 
-print("=== IMU 在 %s @ 0x%02X ===" % (imu_bus, imu_addr))
-fd = imu_fd
-
-
-def rr(reg, n=1):
-    os.write(fd, bytes([reg]))
-    return os.read(fd, n)
-
-
-def wr(reg, val):
-    os.write(fd, bytes([reg, val]))
-
-
-# ---- 2. WHO_AM_I ----
-who = rr(0x0F)[0]
-print("WHO_AM_I (0Fh) = 0x%02X   [手册: LSM6DSV16X 固定 0x70]" % who)
-if who != 0x70:
-    print("RESULT: unexpected_chip (应答但身份不是 0x70)")
-    wr(0x10, 0); wr(0x11, 0)
+print("=== 头部 HAT 板载 BMI088(实物) ===")
+# ---- accel @0x19: suspend 下第一次读可能无效, dummy read 后读 CHIP_ID ----
+rd(ACC, 0x00)
+acc_id = rd(ACC, 0x00)[0]
+print("accel CHIP_ID = 0x%02X  (BMI088 = 0x1E)" % acc_id)
+gyr_id = rd(GYR, 0x00)[0]
+print("gyro  CHIP_ID = 0x%02X  (BMI088 = 0x0E)" % gyr_id)
+if acc_id != 0x1E or gyr_id != 0x0E:
+    print("RESULT: unexpected_chip — 身份不符, 不继续")
     os.close(fd)
     raise SystemExit(0)
 
-# ---- 3. 短暂使能采样: 加速度+陀螺 120Hz 高性能(CTRL=0110_0000=0x60) ----
-wr(0x10, 0x60)
-wr(0x11, 0x60)
+# ---- 唤醒并采样 ----
+wr(ACC, 0x7D, 0x04)            # PWR_CTRL = active
 time.sleep(0.05)
-print("CTRL1 读回=0x%02X CTRL2 读回=0x%02X  (0x60 = ODR 0110=120Hz, OP_MODE 000 高性能)" % (
-    rr(0x10)[0], rr(0x11)[0]))
+wr(GYR, 0x0F, 0x00)            # RANGE = ±2000 dps
+wr(GYR, 0x11, 0x00)            # LPM1 = normal mode
+time.sleep(0.05)
+print("唤醒: ACC_PWR_CTRL=0x%02X GYR_RANGE=0x%02X GYR_LPM1=0x%02X" % (
+    rd(ACC, 0x7D)[0], rd(GYR, 0x0F)[0], rd(GYR, 0x11)[0]))
 
 mags = []
-print("=== 连续 12 帧原始数据(加速度 0x28 起 / 陀螺 0x22 起, int16 小端) ===")
+print("=== 12 帧采样 ===")
 for i in range(12):
-    acc = struct.unpack("<3h", rr(0x28, 6))
-    gyr = struct.unpack("<3h", rr(0x22, 6))
-    traw = struct.unpack("<h", rr(0x20, 2))[0]
-    g = math.sqrt(sum(x * x for x in acc)) * 0.061 / 1000.0
-    mags.append(g)
-    print("  %2d  acc=[%+6d %+6d %+6d] |a|=%.3fg   gyro=[%+6d %+6d %+6d]   temp_raw=%d" % (
-        i, acc[0], acc[1], acc[2], g, gyr[0], gyr[1], gyr[2], traw))
-    time.sleep(0.02)
-print("|a| 12 帧均值 = %.3f g  (±2g 量程, 0.061mg/LSB; 静止应≈1.000 — 这校验读数正确)" % (
-    sum(mags) / len(mags)))
+    ax, ay, az = struct.unpack("<3h", rd(ACC, 0x12, 6))
+    gx, gy, gz = struct.unpack("<3h", rd(GYR, 0x02, 6))
+    a_mg = (ax, ay, az)
+    g_dps = (gx / 16.384, gy / 16.384, gz / 16.384)
+    mag = math.sqrt(sum(v * v for v in a_mg)) * 3.0517578125e-5
+    mags.append(mag)
+    print("  %2d acc=[%+6d %+6d %+6d] |a|=%.3fg   gyro=[%+7.2f %+7.2f %+7.2f] dps" % (
+        i, ax, ay, az, mag, g_dps[0], g_dps[1], g_dps[2]))
+    time.sleep(0.03)
+print("|a| 均值 = %.3f g  (静止应≈1.000 — 读数正确性的自校验)" % (sum(mags) / len(mags)))
 
-# ---- 4. 恢复上电默认态 ----
-wr(0x10, 0x00)
-wr(0x11, 0x00)
-print("恢复: CTRL1=0x%02X CTRL2=0x%02X (0x00 = power-down, 上电默认态)" % (rr(0x10)[0], rr(0x11)[0]))
+# ---- 恢复上电默认态(suspend) ----
+wr(ACC, 0x7D, 0x00)
+wr(GYR, 0x11, 0x03)            # LPM1 = suspend
+print("恢复: ACC_PWR_CTRL=0x%02X GYR_LPM1=0x%02X (suspend=上电默认)" % (
+    rd(ACC, 0x7D)[0], rd(GYR, 0x11)[0]))
 os.close(fd)
 print("RESULT: ok")
